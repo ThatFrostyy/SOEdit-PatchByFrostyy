@@ -1,0 +1,33 @@
+﻿cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  CAnimData.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CAnimData.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(435,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CAnimData.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(740,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CAnimData.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(937,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(945,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(953,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(961,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(977,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
+  
+  SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Debug\SOEdit.exe

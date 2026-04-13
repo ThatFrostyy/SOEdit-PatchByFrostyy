@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{19A8B796-AB7A-4419-A8CB-39EDC724920E}</ProjectGuid>
+    <RootNamespace>SOEdit</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.26228.4</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/SOEdit.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Release/SOEdit.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OpenMPSupport>
+      </OpenMPSupport>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;mpr.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Release/SOEdit.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/SOEdit.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/SOEdit.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/SOEdit.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Debug/SOEdit.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;mpr.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Debug/SOEdit.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/SOEdit.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/SOEdit.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="all_trash.cpp" />
+    <ClCompile Include="CAnimation.cpp" />
+    <ClCompile Include="CAnimData.cpp" />
+    <ClCompile Include="CAnimFrame.cpp" />
+    <ClCompile Include="CAnimProps.cpp" />
+    <ClCompile Include="CBone.cpp" />
+    <ClCompile Include="CBoneData.cpp" />
+    <ClCompile Include="CBonePropDlg.cpp" />
+    <ClCompile Include="CColors.cpp" />
+    <ClCompile Include="CCylinder.cpp" />
+    <ClCompile Include="CDlgGetPath.cpp" />
+    <ClCompile Include="CMainTab.cpp" />
+    <ClCompile Include="CMaterial.cpp" />
+    <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CModel.cpp" />
+    <ClCompile Include="CModelTree.cpp" />
+    <ClCompile Include="CObb2.cpp" />
+    <ClCompile Include="COpenGL.cpp" />
+    <ClCompile Include="CPly.cpp" />
+    <ClCompile Include="CPrefDlg.cpp" />
+    <ClCompile Include="CSdl.cpp" />
+    <ClCompile Include="CSequence.cpp" />
+    <ClCompile Include="CSkeleton.cpp" />
+    <ClCompile Include="CSkin.cpp" />
+    <ClCompile Include="CSObject.cpp" />
+    <ClCompile Include="CSOEdit2dView.cpp" />
+    <ClCompile Include="CTexFile.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CToolTab.cpp" />
+    <ClCompile Include="CVol.cpp" />
+    <ClCompile Include="CVolBoxDlg.cpp" />
+    <ClCompile Include="CVolCylDlg.cpp" />
+    <ClCompile Include="CVolPolyDlg.cpp" />
+    <ClCompile Include="CVolProp.cpp" />
+    <ClCompile Include="CVolTab.cpp" />
+    <ClCompile Include="CVolume.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="parse_mtl.cpp" />
+    <ClCompile Include="PLY_Tweaker.cpp" />
+    <ClCompile Include="setup_window.cpp" />
+    <ClCompile Include="SOEdit.cpp" />
+    <ClCompile Include="SOEditDoc.cpp" />
+    <ClCompile Include="SOEditView.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="VolPropDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SOEdit.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="all_trash.h" />
+    <ClInclude Include="CAnimation.h" />
+    <ClInclude Include="CAnimData.h" />
+    <ClInclude Include="CAnimFrame.h" />
+    <ClInclude Include="CAnimProps.h" />
+    <ClInclude Include="CBone.h" />
+    <ClInclude Include="CBoneData.h" />
+    <ClInclude Include="CBonePropDlg.h" />
+    <ClInclude Include="CColors.h" />
+    <ClInclude Include="CCylinder.h" />
+    <ClInclude Include="CDlgGetPath.h" />
+    <ClInclude Include="CMainTab.h" />
+    <ClInclude Include="CMaterial.h" />
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CModel.h" />
+    <ClInclude Include="CModelTree.h" />
+    <ClInclude Include="CObb2.h" />
+    <ClInclude Include="COpenGL.h" />
+    <ClInclude Include="CPly.h" />
+    <ClInclude Include="CPrefDlg.h" />
+    <ClInclude Include="CSdl.h" />
+    <ClInclude Include="CSequence.h" />
+    <ClInclude Include="CSkeleton.h" />
+    <ClInclude Include="CSkin.h" />
+    <ClInclude Include="CSObject.h" />
+    <ClInclude Include="CSOEdit2dView.h" />
+    <ClInclude Include="CTexFile.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CToolTab.h" />
+    <ClInclude Include="CVol.h" />
+    <ClInclude Include="CVolBoxDlg.h" />
+    <ClInclude Include="CVolCylDlg.h" />
+    <ClInclude Include="CVolPolyDlg.h" />
+    <ClInclude Include="CVolProp.h" />
+    <ClInclude Include="CVolTab.h" />
+    <ClInclude Include="CVolume.h" />
+    <ClInclude Include="general.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="parse_mtl.h" />
+    <CustomBuild Include="Resource.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Making help include file...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo. &gt;"hlp\$(TargetName).hm"
+echo // Commands (ID_* and IDM_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm ID_,HID_,0x10000 IDM_,HIDM_,0x10000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Prompts (IDP_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDP_,HIDP_,0x30000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Resources (IDR_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDR_,HIDR_,0x20000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Dialogs (IDD_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDD_,HIDD_,0x20000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Frame Controls (IDW_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDW_,HIDW_,0x50000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">hlp\$(TargetName).hm;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Making help include file...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">echo. &gt;"hlp\$(TargetName).hm"
+echo // Commands (ID_* and IDM_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm ID_,HID_,0x10000 IDM_,HIDM_,0x10000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Prompts (IDP_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDP_,HIDP_,0x30000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Resources (IDR_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDR_,HIDR_,0x20000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Dialogs (IDD_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDD_,HIDD_,0x20000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+echo. &gt;&gt;"hlp\$(TargetName).hm"
+echo // Frame Controls (IDW_*) &gt;&gt;"hlp\$(TargetName).hm"
+makehm IDW_,HIDW_,0x50000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">hlp\$(TargetName).hm;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="PLY_Tweaker.h" />
+    <ClInclude Include="setup_window.h" />
+    <ClInclude Include="SOEdit.h" />
+    <ClInclude Include="SOEditDoc.h" />
+    <ClInclude Include="SOEditView.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="VolPropDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="hlp\AppExit.bmp" />
+    <Image Include="hlp\Bullet.bmp" />
+    <Image Include="hlp\CurArw2.bmp" />
+    <Image Include="hlp\CurArw4.bmp" />
+    <Image Include="hlp\CurHelp.bmp" />
+    <Image Include="hlp\EditCopy.bmp" />
+    <Image Include="hlp\EditCut.bmp" />
+    <Image Include="hlp\EditPast.bmp" />
+    <Image Include="hlp\EditUndo.bmp" />
+    <Image Include="hlp\FileNew.bmp" />
+    <Image Include="hlp\FileOpen.bmp" />
+    <Image Include="hlp\FilePrnt.bmp" />
+    <Image Include="hlp\FileSave.bmp" />
+    <Image Include="hlp\HlpSBar.bmp" />
+    <Image Include="hlp\HlpTBar.bmp" />
+    <Image Include="hlp\RecFirst.bmp" />
+    <Image Include="hlp\RecLast.bmp" />
+    <Image Include="hlp\RecNext.bmp" />
+    <Image Include="hlp\RecPrev.bmp" />
+    <Image Include="hlp\Scmax.bmp" />
+    <Image Include="hlp\ScMenu.bmp" />
+    <Image Include="hlp\Scmin.bmp" />
+    <Image Include="res\A_ICO_SOEdit.ico" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\bmp00001.bmp" />
+    <Image Include="res\bmp00002.bmp" />
+    <Image Include="res\bmp00003.bmp" />
+    <Image Include="res\bmp00004.bmp" />
+    <Image Include="res\bmp00005.bmp" />
+    <Image Include="res\bmp00006.bmp" />
+    <Image Include="res\bmp00007.bmp" />
+    <Image Include="res\bmp00008.bmp" />
+    <Image Include="res\dock.bmp" />
+    <Image Include="res\ico00001.ico" />
+    <Image Include="res\ico00002.ico" />
+    <Image Include="res\ico00003.ico" />
+    <Image Include="res\ico00004.ico" />
+    <Image Include="res\ico00006.ico" />
+    <Image Include="res\icon1.ico" />
+    <Image Include="res\SOEdit.ico" />
+    <Image Include="res\SOEditDoc.ico" />
+    <Image Include="res\stepf.ico" />
+    <Image Include="res\Toolbar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hlp\AfxCore.rtf" />
+    <None Include="hlp\AfxPrint.rtf" />
+    <CustomBuild Include="hlp\SOEdit.cnt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Copying contents file...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy "hlp\%(Filename).cnt" $(OutDir)
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)%(Filename).cnt;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Copying contents file...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy "hlp\%(Filename).cnt" $(OutDir)
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)%(Filename).cnt;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="res\SOEdit.rc2" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="SOEdit.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

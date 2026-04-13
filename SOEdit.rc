@@ -1,0 +1,1934 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral (Default) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUD)
+LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&????"
+    BEGIN
+        MENUITEM "&?????\tCtrl+N",              ID_FILE_NEW
+        MENUITEM "&???????...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "&?????????\tCtrl+S",          ID_FILE_SAVE
+        MENUITEM "????????? &???...",           ID_FILE_SAVE_AS
+        MENUITEM "&????????????? ? GEMI",       OLD_GEMI_COMPATIBILITY
+        MENUITEM SEPARATOR
+        MENUITEM "&???????????",                ID_EDIT_PREFERENCES
+        MENUITEM "&????????",                   ID_EDIT_PROPERTIES
+        MENUITEM SEPARATOR
+        MENUITEM "&???????",                    ID_FILE_EXPORT, INACTIVE
+        MENUITEM "&??????",                     ID_FILE_IMPORT, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&??????...",                  ID_FILE_PRINT, INACTIVE
+        MENUITEM "&?????? ??????",              ID_FILE_PRINT_PREVIEW, INACTIVE
+        MENUITEM "&????????? ??????...",        ID_FILE_PRINT_SETUP, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&????????? ????",             ID_FILE_MRU_FILE1, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&?????",                      ID_APP_EXIT
+    END
+    POPUP "&??????????????"
+    BEGIN
+        MENUITEM "&????????",                   ID_EDIT_UNDO, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&????????",                   ID_EDIT_CUT
+        MENUITEM "&??????????",                 ID_EDIT_COPY
+        MENUITEM "&????????",                   ID_EDIT_PASTE
+    END
+    POPUP "&????"
+    BEGIN
+        MENUITEM "&?????????",                  ID_PLY_ADD, INACTIVE
+        MENUITEM "&???????",                    ID_PLY_DELETE, INACTIVE
+        MENUITEM "&????????",                   ID_PLY_TEXTURE, INACTIVE
+    END
+    POPUP "&????????"
+    BEGIN
+        MENUITEM "&???????",                    ID_ANM_NEW
+        MENUITEM "&?????????",                  ID_ANM_LOAD
+        MENUITEM "&?????????",                  ID_ANM_SAVE, INACTIVE
+        MENUITEM "&?????????????",              ID_ANM_EDIT
+        MENUITEM "&???????",                    ID_ANM_CLOSE, INACTIVE
+    END
+    POPUP "&????????"
+    BEGIN
+        MENUITEM "&?????",                      ID_TEX_SCHEME, INACTIVE
+        MENUITEM "&???????",                    ID_TEX_SELECT, INACTIVE
+        MENUITEM "&?????????????",              ID_TEX_EDIT, INACTIVE
+    END
+    POPUP "&??????????????"
+    BEGIN
+        MENUITEM "&Ply-????",                   ID_MODE_PLY, INACTIVE
+        MENUITEM "&??????",                     ID_MODE_VOLUME, INACTIVE
+        MENUITEM "&?????",                      ID_MODE_BONE, INACTIVE
+        MENUITEM "&????????",                   ID_MODE_ANIMATION, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&???????????",                ID_MODE_MOVE
+        MENUITEM "&????????",                   ID_MODE_ROTATE
+        MENUITEM "&???????????????",            ID_MODE_SCALE
+        MENUITEM "&?????",                      ID_MODE_SELECT
+    END
+    POPUP "&???????????"
+    BEGIN
+        MENUITEM "&??????????? ?? ?????????",   ID_VIEW_SELECTED
+        MENUITEM "&????????",                   ID_VIEW_ENTITY, CHECKED
+        MENUITEM "&??????",                     ID_VIEW_VOLUMES, CHECKED
+        MENUITEM "&???????????",                ID_VIEW_OBSTACLES, CHECKED
+        MENUITEM "&???????",                    ID_VIEW_AREAS, CHECKED
+        MENUITEM "&???????? ?????? ????????",   ID_VIEW_COLLISIONSVIEWER
+        MENUITEM "&???????? ?????",             ID_VIEW_COLORIZE
+        MENUITEM "?????????? ??? ??????? ?????", ID_DISPLAY_DISPLAYALLMESHVECTORS
+        MENUITEM SEPARATOR
+        MENUITEM "&?????",                      ID_VIEW_COLORS
+        MENUITEM SEPARATOR
+        POPUP "&??????? ?????"
+        BEGIN
+            MENUITEM "&????????",                   ID_GRID_ON, CHECKED
+            MENUITEM "&?????????",                  ID_GRID_OFF
+            MENUITEM "&??????",                     ID_GRID_LARGER
+            MENUITEM "&??????",                     ID_GRID_SMALLER
+        END
+        MENUITEM "&????? ?????",                ID_RESET_CAMERAS
+    END
+    POPUP "&???????"
+    BEGIN
+        MENUITEM "&????? ???????",              ID_HELP_FINDER
+        MENUITEM SEPARATOR
+        MENUITEM "&? SOEdit...",                ID_APP_ABOUT
+    END
+END
+
+IDR_MAINFRAME_AL MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW_AL
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN_AL
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE_AL
+        MENUITEM "&Save as...",                 ID_FILE_SAVE_AS_AL
+        MENUITEM "&Compatibility with GEMI",    OLD_GEMI_COMPATIBILITY_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Preferences",                ID_EDIT_PREFERENCES_AL
+        MENUITEM "&Properties",                 ID_EDIT_PROPERTIES_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Export",                     ID_FILE_EXPORT_AL, INACTIVE
+        MENUITEM "&Import",                     ID_FILE_IMPORT_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...",                   ID_FILE_PRINT_AL, INACTIVE
+        MENUITEM "&Print Preview",              ID_FILE_PRINT_PREVIEW_AL, INACTIVE
+        MENUITEM "&Print Settings...",          ID_FILE_PRINT_SETUP_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Last file",                  ID_FILE_MRU_FILE1_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit",                       ID_APP_EXIT_AL
+    END
+    POPUP "&Editing"
+    BEGIN
+        MENUITEM "&Undo",                       ID_EDIT_UNDO_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Cut",                        ID_EDIT_CUT_AL
+        MENUITEM "&Copy",                       ID_EDIT_COPY_AL
+        MENUITEM "&Paste",                      ID_EDIT_PASTE_AL
+    END
+    POPUP "&Meshs"
+    BEGIN
+        MENUITEM "&Upload",                     ID_PLY_ADD_AL, INACTIVE
+        MENUITEM "&Remove",                     ID_PLY_DELETE_AL, INACTIVE
+        MENUITEM "&Textures",                   ID_PLY_TEXTURE_AL, INACTIVE
+    END
+    POPUP "&Animation"
+    BEGIN
+        MENUITEM "&Create",                     ID_ANM_NEW_AL
+        MENUITEM "&Upload",                     ID_ANM_LOAD_AL
+        MENUITEM "&Save",                       ID_ANM_SAVE_AL, INACTIVE
+        MENUITEM "&Edit",                       ID_ANM_EDIT_AL
+        MENUITEM "&Close",                      ID_ANM_CLOSE_AL, INACTIVE
+    END
+    POPUP "&Textures"
+    BEGIN
+        MENUITEM "&Schemes",                    ID_TEX_SCHEME_AL, INACTIVE
+        MENUITEM "&Select",                     ID_TEX_SELECT_AL, INACTIVE
+        MENUITEM "&Edit",                       ID_TEX_EDIT_AL, INACTIVE
+    END
+    POPUP "&Interaction"
+    BEGIN
+        MENUITEM "&Ply-Meshs",                  ID_MODE_PLY_AL, INACTIVE
+        MENUITEM "&Volumes",                    ID_MODE_VOLUME_AL, INACTIVE
+        MENUITEM "&Bones",                      ID_MODE_BONE_AL, INACTIVE
+        MENUITEM "&Animation",                  ID_MODE_ANIMATION_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Moving",                     ID_MODE_MOVE_AL
+        MENUITEM "&Rotation",                   ID_MODE_ROTATE_AL
+        MENUITEM "&Scaling",                    ID_MODE_SCALE_AL
+        MENUITEM "&Selection",                  ID_MODE_SELECT_AL
+    END
+    POPUP "&Display"
+    BEGIN
+        MENUITEM "&Focusing on the selected",   ID_VIEW_SELECTED_AL
+        MENUITEM "&Entities",                   ID_VIEW_ENTITY_AL, CHECKED
+        MENUITEM "&Volumes",                    ID_VIEW_VOLUMES_AL, CHECKED
+        MENUITEM "&Obstacles",                  ID_VIEW_OBSTACLES_AL, CHECKED
+        MENUITEM "&Areas",                      ID_VIEW_AREAS_AL, CHECKED
+        MENUITEM "&Viewing the sides of a collision", ID_VIEW_COLLISIONSVIEWER_AL
+        MENUITEM "&Painting meshes",            ID_VIEW_COLORIZE_AL
+        MENUITEM "Display all mesh vectors",    ID_DISPLAY_DISPLAYALLMESHVECTORS_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Colors",                     ID_VIEW_COLORS_AL
+        MENUITEM SEPARATOR
+        POPUP "&Background grid"
+        BEGIN
+            MENUITEM "&Enabled",                    ID_GRID_ON_AL, CHECKED
+            MENUITEM "&Disabled",                   ID_GRID_OFF_AL
+            MENUITEM "&Bigger",                     ID_GRID_LARGER_AL
+            MENUITEM "&Smaller",                    ID_GRID_SMALLER_AL
+        END
+        MENUITEM "&Reset cameras",              ID_RESET_CAMERAS_AL
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Calling Help",               ID_HELP_FINDER_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&About SOEdit...",            ID_APP_ABOUT_AL
+    END
+END
+
+IDR_BONE_MENU MENU
+BEGIN
+    POPUP "BONE_MENU"
+    BEGIN
+        MENUITEM "&???????? ????????? ?????",   IDM_BONE_INSERT
+        MENUITEM "&??????? ?????",              IDM_BONE_DELETE
+        MENUITEM "&?????-????????",             IDM_BONE_PARENT
+        MENUITEM "&?????????????",              IDM_BONE_PROP
+        MENUITEM SEPARATOR
+        POPUP "&??????????"
+        BEGIN
+            MENUITEM "&?????????? ?????",           ID_BONE_COPY
+            MENUITEM "&?????????? ????? ??????",    ID_BONE_COPY_BRANCH
+            MENUITEM "&?????????? ???????",         BONE_MATRIX_COPY
+            MENUITEM "&?????????? ?????????",       BONE_PARAMETERS_COPY
+        END
+        POPUP "&????????"
+        BEGIN
+            MENUITEM "&???????? ????? ??? ?????????", ID_BONE_PASTE_AS_NEXT
+            MENUITEM "&???????? ????? ??? ?????????", ID_BONE_PASTE_AS_INTERNAL
+            MENUITEM "&???????? ???????",           BONE_MATRIX_PASTE
+            MENUITEM "&???????? ?????????",         BONE_PARAMETERS_PASTE
+        END
+        MENUITEM "&???????? ?????/?????",       ID_EDIT_CUT
+        MENUITEM SEPARATOR
+        MENUITEM "&?????????? ?????",           ID_BONE_EXPAND_BRANCH
+        MENUITEM "&???????? ?????",             ID_BONE_COLLAPSE_BRANCH
+        MENUITEM SEPARATOR
+        POPUP "&????????"
+        BEGIN
+            MENUITEM "&?????",                      ID_BONE_SHOW_BRANCH
+            MENUITEM "&????????",                   ID_BONE_SHOW_COLLISION
+            MENUITEM "&????? ? ????????",           ID_BONE_SHOW_BRANCH_AND_COLLISION
+        END
+        POPUP "&??????"
+        BEGIN
+            MENUITEM "&?????",                      ID_BONE_HIDE_BRANCH
+            MENUITEM "&????????",                   ID_BONE_HIDE_COLLISION
+            MENUITEM "&????? ? ????????",           ID_BONE_HIDE_BRANCH_AND_COLLISION
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&???????? ?????",             ID_BONE_ADD_VOLUME
+        MENUITEM SEPARATOR
+        MENUITEM "&??????? ???",                ID_BONE_DELETE_PLY
+        MENUITEM SEPARATOR
+        MENUITEM "&???????? ???",               ID_BONE_ADD_LOD
+        MENUITEM SEPARATOR
+        POPUP "????????"
+        BEGIN
+            MENUITEM "???????? ????? ? ????????",   ID_ADD_BONE_TO_ANM
+            MENUITEM "??????? ????? ?? ????????",   ID_DEL_BONE_FROM_ANM
+        END
+    END
+END
+
+IDR_BONE_MENU_AL MENU
+BEGIN
+    POPUP "BONE_MENU_AL"
+    BEGIN
+        MENUITEM "&Insert",                     IDM_BONE_INSERT_AL
+        MENUITEM "&Delete",                     IDM_BONE_DELETE_AL
+        MENUITEM "&Parent",                     IDM_BONE_PARENT_AL
+        MENUITEM "&Edit",                       IDM_BONE_PROP_AL
+        MENUITEM SEPARATOR
+        POPUP "&Copy"
+        BEGIN
+            MENUITEM "&Bone",                       ID_BONE_COPY_AL
+            MENUITEM "&Bone branch",                ID_BONE_COPY_BRANCH_AL
+            MENUITEM "&Matrix",                     BONE_MATRIX_COPY_AL
+            MENUITEM "&Parameters (str)",           BONE_PARAMETERS_COPY_AL
+        END
+        POPUP "&Paste"
+        BEGIN
+            MENUITEM "&Insert bone as the following", ID_BONE_PASTE_AS_NEXT_AL
+            MENUITEM "&Insert a bone as nested",    ID_BONE_PASTE_AS_INTERNAL_AL
+            MENUITEM "&Matrix",                     BONE_MATRIX_PASTE_AL
+            MENUITEM "&Parameters (str)",           BONE_PARAMETERS_PASTE_AL
+        END
+        MENUITEM "&Cut a branch/bone",          ID_EDIT_CUT_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Expand branch",              ID_BONE_EXPAND_BRANCH_AL
+        MENUITEM "&Collapse a branch",          ID_BONE_COLLAPSE_BRANCH_AL
+        MENUITEM SEPARATOR
+        POPUP "&Show"
+        BEGIN
+            MENUITEM "&Branch",                     ID_BONE_SHOW_BRANCH_AL
+            MENUITEM "&Collision",                  ID_BONE_SHOW_COLLISION_AL
+            MENUITEM "&Branch and Collision",       ID_BONE_SHOW_BRANCH_AND_COLLISION_AL
+        END
+        POPUP "&Hide"
+        BEGIN
+            MENUITEM "&Branch",                     ID_BONE_HIDE_BRANCH_AL
+            MENUITEM "&Collision",                  ID_BONE_HIDE_COLLISION_AL
+            MENUITEM "&Branch and Collision",       ID_BONE_HIDE_BRANCH_AND_COLLISION_AL
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Add volume",                 ID_BONE_ADD_VOLUME_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Delete a mesh",              ID_BONE_DELETE_PLY_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Add lod",                    ID_BONE_ADD_LOD_AL
+        MENUITEM SEPARATOR
+        POPUP "Animation"
+        BEGIN
+            MENUITEM "Add a bone to the animation", ID_ADD_BONE_TO_ANM_AL
+            MENUITEM "Remove a bone from the animation", ID_DEL_BONE_FROM_ANM_AL
+        END
+    END
+END
+
+IDR_VOLUME_MENU MENU
+BEGIN
+    POPUP "VOLUME MENU"
+    BEGIN
+        MENUITEM "&??????? ?????",              IDM_VOL_DELETE
+        MENUITEM "&?????????????",              IDM_VOL_PROP
+        MENUITEM SEPARATOR
+        MENUITEM "&?????????? ???????",         VOLUME_MATRIX_COPY
+        MENUITEM "&???????? ???????",           VOLUME_MATRIX_PASTE
+    END
+END
+
+IDR_VOLUME_MENU_AL MENU
+BEGIN
+    POPUP "VOLUME MENU_AL"
+    BEGIN
+        MENUITEM "&Delete",                     IDM_VOL_DELETE_AL
+        MENUITEM "&Edit",                       IDM_VOL_PROP_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Copy matrix",                VOLUME_MATRIX_COPY_AL
+        MENUITEM "&Paste matrix",               VOLUME_MATRIX_PASTE_AL
+    END
+END
+
+IDR_BONE_TOP MENU
+BEGIN
+    POPUP "BONE_TOP"
+    BEGIN
+        MENUITEM "&???????? ????????? ?????",   IDM_BONE_ADD
+        MENUITEM SEPARATOR
+        MENUITEM "&?????????? ???",             ID_BONE_EXPAND_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "&????????",                   ID_BONE_SKELETON_ANIMATIONS
+    END
+END
+
+IDR_BONE_TOP_AL MENU
+BEGIN
+    POPUP "BONE_TOP_AL"
+    BEGIN
+        MENUITEM "&Add a nested bone",          IDM_BONE_ADD_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Expand All",                 ID_BONE_EXPAND_ALL_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Animations",                 ID_BONE_SKELETON_ANIMATIONS_AL
+    END
+END
+
+IDR_VOLUME_TOP MENU
+BEGIN
+    POPUP "VOLUME_TOP"
+    BEGIN
+        MENUITEM "&???????? ?????",             IDM_VOL_ADD
+    END
+END
+
+IDR_VOLUME_TOP_AL MENU
+BEGIN
+    POPUP "VOLUME_TOP_AL"
+    BEGIN
+        MENUITEM "&Add volume",                 IDM_VOL_ADD_AL
+    END
+END
+
+IDR_VIEW_MENU MENU
+BEGIN
+    POPUP "VIEW_MENU"
+    BEGIN
+        MENUITEM "&??? ?????",                  ID_VIEW_LEFT
+        MENUITEM "&??? ??????",                 ID_VIEW_TOP
+        MENUITEM "&??? ??????",                 ID_VIEW_RIGHT
+        MENUITEM "&??? ?????",                  ID_VIEW_BOTTOM
+        MENUITEM "&??? ???????",                ID_VIEW_FRONT
+        MENUITEM "&??? ?????",                  ID_VIEW_REAR
+        MENUITEM SEPARATOR
+        MENUITEM "&?????? ?????",               ID_VIEW_BACKFACES
+        MENUITEM SEPARATOR
+        MENUITEM "&????????",                   ID_VIEW_SHADED
+        MENUITEM "&?????",                      ID_VIEW_WIREFRAME
+        MENUITEM "&???????? ?????",             ID_VIEW_COLORIZE
+        MENUITEM SEPARATOR
+        MENUITEM "&??????????? ?? ?????????",   ID_VIEW_SELECTED
+    END
+END
+
+IDR_VIEW_MENU_AL MENU
+BEGIN
+    POPUP "VIEW_MENU_AL"
+    BEGIN
+        MENUITEM "&Left view",                  ID_VIEW_LEFT_AL
+        MENUITEM "&Top view",                   ID_VIEW_TOP_AL
+        MENUITEM "&Right view",                 ID_VIEW_RIGHT_AL
+        MENUITEM "&Bottom view",                ID_VIEW_BOTTOM_AL
+        MENUITEM "&Front view",                 ID_VIEW_FRONT_AL
+        MENUITEM "&Rear view",                  ID_VIEW_REAR_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Back faces",                 ID_VIEW_BACKFACES_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Shading",                    ID_VIEW_SHADED_AL
+        MENUITEM "&Wireframe",                  ID_VIEW_WIREFRAME_AL
+        MENUITEM "&Mesh painting",              ID_VIEW_COLORIZE_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Focusing on the selected",   ID_VIEW_SELECTED_AL
+    END
+END
+
+IDR_3D_VIEW_MENU MENU
+BEGIN
+    POPUP "3D_VIEW_MENU"
+    BEGIN
+        MENUITEM "&????? ???????????:",         ID_3D_RENDER, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&??????????",                 ID_3D_SHADED
+        MENUITEM "&????????????????",           ID_3D_TEXTURED
+        MENUITEM "&?????",                      ID_3D_WIREFRAME
+        MENUITEM "&??? ???????",                ID_3D_TEXTURES_OFF
+        MENUITEM "&????? ??? ???????",          ID_3D_WIREFRAME_TEXTURES_OFF
+        MENUITEM SEPARATOR
+        MENUITEM "&???????? ?????",             ID_3D_COLORIZE
+        MENUITEM "&???????? ??? ?????",         ID_VIEW3D_ENTITY
+        MENUITEM "&??????????? ?? ?????????",   ID_VIEW_SELECTED
+        MENUITEM "&??????? ????? ?????? ????",  ID_VIEW3D_WIREFRAME_OVER_MESH
+        MENUITEM SEPARATOR
+        MENUITEM "&??????? ?????",              ID_VIEW3D_BACKGROUND_GRID, CHECKED
+        MENUITEM SEPARATOR
+        POPUP "???????? -->"
+        BEGIN
+            MENUITEM "??????? ???",                 ID_3D_VISUAL
+            MENUITEM "&???????? ????????",          ID_3D_COLLISIONSVIEWER
+            MENUITEM "?????????",                   ID_3D_HYBRID
+            MENUITEM SEPARATOR
+            MENUITEM "?????????? ???????? ??? ?????", ID_3D_COLLISION_AS_WIREFRAME
+            MENUITEM "&?????????? ???????? ??? ????? ??? ?????", ID_3D_ENTITY_AS_WIREFRAME
+            MENUITEM "?????????? ???? ??? ?????",   ID_3D_MESHS_AS_WIREFRAME
+            MENUITEM SEPARATOR
+            MENUITEM "??????????? ?????????? ????", ID_VIEWING_PAINTSELECTEDMESHES
+            MENUITEM "?????????? ?????? ??????????? ????", ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH
+        END
+    END
+END
+
+IDR_3D_VIEW_MENU_AL MENU
+BEGIN
+    POPUP "3D_VIEW_MENU_AL"
+    BEGIN
+        MENUITEM "&Display mode:",              ID_3D_RENDER_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Shaded",                     ID_3D_SHADED_AL
+        MENUITEM "&Textured",                   ID_3D_TEXTURED_AL
+        MENUITEM "&Wireframe",                  ID_3D_WIREFRAME_AL
+        MENUITEM "&Without textures",           ID_3D_TEXTURES_OFF_AL
+        MENUITEM "&Wireframe without textures", ID_3D_WIREFRAME_TEXTURES_OFF_AL
+        MENUITEM SEPARATOR
+        MENUITEM "&Painting meshes",            ID_3D_COLORIZE_AL
+        MENUITEM "&Entities without meshes",    ID_VIEW3D_ENTITY_AL
+        MENUITEM "&Focusing on the selected",   ID_VIEW_SELECTED_AL
+        MENUITEM "&Color wireframe over mesh",  33066
+        MENUITEM SEPARATOR
+        MENUITEM "&Background grid",            ID_VIEW3D_BACKGROUND_GRID_AL, CHECKED
+        MENUITEM SEPARATOR
+        POPUP "Viewing -->"
+        BEGIN
+            MENUITEM "&Appearance",                 ID_3D_VISUAL_AL
+            MENUITEM "&Viewing a collision",        ID_3D_COLLISIONSVIEWER_AL
+            MENUITEM "&Hybrid",                     ID_3D_HYBRID_AL
+            MENUITEM SEPARATOR
+            MENUITEM "Display the collision as a wireframe", ID_3D_COLLISION_AS_WIREFRAME_AL
+            MENUITEM "Display entities without meshes as a wireframe", 33060
+            MENUITEM "Display meshes as a wireframe", 33063
+            MENUITEM SEPARATOR
+            MENUITEM "Paint selected meshes",       ID_VIEWING_PAINTSELECTEDMESHES_AL
+            MENUITEM "Display the vector of the selected mesh", ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL
+        END
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PREFER DIALOGEX 0, 0, 233, 161
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "???????????"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "??",IDOK,121,140,50,14
+    PUSHBUTTON      "????????",IDCANCEL,176,140,50,14
+    PUSHBUTTON      "...",IDC_GDBROWSE,215,18,11,14
+    LTEXT           "???? ? ????",IDC_STATIC_PREF_1,7,7,40,8
+    EDITTEXT        IDC_RESPATH,7,18,205,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_GDBROWSE2,215,50,11,14
+    EDITTEXT        IDC_RESPATH2,7,50,205,14,ES_AUTOHSCROLL
+    LTEXT           "???? ? ?????",IDC_STATIC_PREF_2,8,39,48,8
+    PUSHBUTTON      "...",IDC_GDBROWSE3,215,68,11,14
+    EDITTEXT        IDC_RESPATH3,7,68,205,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_GDBROWSE4,215,86,11,14
+    EDITTEXT        IDC_RESPATH4,7,86,205,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_GDBROWSE5,215,104,11,14
+    EDITTEXT        IDC_RESPATH5,7,104,205,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_GDBROWSE6,215,122,11,14
+    EDITTEXT        IDC_RESPATH6,7,122,205,14,ES_AUTOHSCROLL
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 106
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "? SOEdit"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,7,4,21,20,SS_REALSIZEIMAGE
+    CTEXT           "SOEdit ?????? 0.50 ?? Brian (+???? vN.NbN ?? TonaTor) + PATCH BY FROSTYY",IDC_STATIC_ABO_1,31,11,144,20,SS_NOPREFIX
+    CTEXT           "Copyright (C) 2004-2022, ?????????? MoW",IDC_STATIC_ABO_3,46,69,144,8
+    DEFPUSHBUTTON   "OK",IDOK,178,4,50,14,WS_GROUP
+    CTEXT           "Men Of War Object Editor\n(Old name its: ""Soldiers Object Editor"")\n??? ????????????? ???????.\n????????? ??? ? ??????????.",IDC_STATIC_ABO_2,53,34,135,32
+    LTEXT           "??????? Man232 ? GhostNT ?? ??????????????",IDC_STATIC_ABO_4,47,85,94,15
+    ICON            "",IDC_MY_FLAG,149,83,21,20
+END
+
+IDD_TOOLBOX DIALOGEX 0, 0, 160, 412
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Tree1",IDC_BONES,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_TABSTOP,13,18,134,309,WS_EX_LEFTSCROLLBAR
+    GROUPBOX        "Model Bones",IDC_STATIC,7,7,146,328
+END
+
+IDD_ANIMBOX DIALOGEX 0, 0, 832, 51
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "????:",IDC_STATIC_AB_1,8,33,22,8
+    RTEXT           "0",IDC_FRAMENO,32,33,17,8
+    LTEXT           "??",IDC_STATIC_AB_3,51,33,14,8
+    RTEXT           "0",IDC_FRAMES,68,33,17,8
+    CONTROL         "Slider1",IDC_ANIM_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,7,7,509,22
+    PUSHBUTTON      "Play",IDC_PLAY,538,7,21,20,BS_ICON | WS_DISABLED
+    PUSHBUTTON      "Stop",IDC_STOP,604,7,21,20,BS_ICON | WS_DISABLED
+    EDITTEXT        IDC_SPEED,533,29,20,14,ES_RIGHT | ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "Spin1",IDC_SPEED_CONTROL,"msctls_updown32",UDS_WRAP | UDS_ARROWKEYS | WS_DISABLED,553,29,10,14
+    EDITTEXT        IDC_ANIM_NAME,154,31,358,12,ES_AUTOHSCROLL | WS_DISABLED
+    PUSHBUTTON      "Back",IDC_BACK,516,7,21,20,BS_ICON | WS_DISABLED
+    PUSHBUTTON      "Step",IDC_STEP,560,7,21,20,BS_ICON | WS_DISABLED
+    PUSHBUTTON      "?????????",IDC_LOOP,571,29,54,14,WS_DISABLED
+    PUSHBUTTON      "...",IDC_LOAD,516,29,11,14
+    PUSHBUTTON      "Pause",IDC_PAUSE,582,7,21,20,BS_ICON | WS_DISABLED
+    PUSHBUTTON      "???????? ????",IDC_ANMBOX_INSERT_FRAME,629,29,59,14,WS_DISABLED
+    PUSHBUTTON      "??????? ????",IDC_ANMBOX_DELETE_FRAME,690,29,59,14,WS_DISABLED
+    LTEXT           "???? ????????:",IDC_STATIC_AB_2,96,33,58,8
+    LTEXT           "?????: ?????????????? ???????",IDC_ANM_EDITING_MODE,629,8,122,8
+    CONTROL         "?????????? ??????? ? ????????? ?????",IDC_ANMBOX_INHERIT_MATRIX,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,630,18,156,10
+END
+
+IDD_BONEDATA DIALOGEX 0, 0, 415, 181
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "???????? ??????"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "??",IDOK,313,7,48,14
+    PUSHBUTTON      "??????",IDCANCEL,363,7,47,14
+    LTEXT           "?????:",IDC_STATIC_BE_1,3,9,23,8
+    EDITTEXT        IDC_BONENAME,27,7,127,14,ES_AUTOHSCROLL
+    GROUPBOX        "Matrix34",IDC_STATIC,3,44,142,76
+    EDITTEXT        IDC_MATRIX11,8,55,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX21,8,71,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX31,8,87,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX41,8,103,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX12,54,55,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX22,54,71,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX32,54,87,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX42,54,103,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX13,100,55,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX23,100,71,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX33,100,87,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MATRIX43,100,103,41,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOLUME_VIEW,27,25,204,14,ES_AUTOHSCROLL
+    LTEXT           "????:",IDC_STATIC_BE_2,3,27,21,8
+    PUSHBUTTON      "...",IDC_BROWSE,233,25,16,14
+    EDITTEXT        IDC_PARAMETERS,5,161,257,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LIMITS_LO,228,132,35,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LIMITS_HI,191,132,35,14,ES_AUTOHSCROLL
+    GROUPBOX        "??????-2",IDC_STATIC_BE_8,189,122,76,28
+    CONTROL         "Ground",IDC_GROUND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,98,39,10
+    LTEXT           "????????:",IDC_STATIC_BE_3,161,9,34,8
+    EDITTEXT        IDC_PARENT_BONE,197,7,109,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Visible",IDC_VISIBLE,"Button",BS_AUTO3STATE | WS_TABSTOP,220,59,36,10
+    CONTROL         "Terminator",IDC_TERMINATOR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,220,68,45,10
+    GROUPBOX        "?????-1",IDC_STATIC_BE_7,150,122,37,28
+    EDITTEXT        IDC_LIMITS_COMMON,151,132,34,14,ES_AUTOHSCROLL
+    CONTROL         "Revolute",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,220,78,45,10
+    CONTROL         "Prizmatic",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,220,98,39,10
+    CONTROL         "Socket",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,220,88,36,10
+    CONTROL         "None",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,220,108,33,10
+    CONTROL         "Limits",IDC_LIMITS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,108,33,10
+    GROUPBOX        "????????",IDC_STATIC_BE_6,90,122,59,28
+    EDITTEXT        IDC_BONE_SPEED,93,132,53,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "?????????",IDC_ROUND_BONE_BUTTON,100,42,42,12
+    CONTROL         "2",IDC_B_SPEED2,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | WS_TABSTOP,131,121,15,10
+    LISTBOX         IDC_BONE_SEQUENCE,270,32,69,61,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "???????? ?????",IDC_STATIC_BE_10,267,22,146,158
+    GROUPBOX        "??? ????????",IDC_STATIC_BE_5,3,122,87,28
+    CONTROL         "",IDC_BONE_SWATCH,"Static",SS_ETCHEDFRAME,6,132,45,14
+    CONTROL         "OFF",IDC_LOD_OFF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,175,45,24,10
+    CONTROL         "NoCastShadows",IDC_NO_CAST_SHADOWS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,59,69,10
+    PUSHBUTTON      "???????",IDC_BONE_COLOR_SEL,52,132,35,14
+    GROUPBOX        "?????????:",IDC_STATIC_BE_9,3,150,262,30
+    GROUPBOX        "????",IDC_STATIC_BE_15,329,119,84,26
+    EDITTEXT        IDC_BONE_SEQUENCE_FILE,331,127,70,14,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "????????",IDC_STATIC_BE_12,267,95,60,25
+    EDITTEXT        IDC_BONE_SEQUENCE_SPEED,270,104,55,13,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "??????? ????????",IDC_STATIC_BE_16,267,145,146,35
+    PUSHBUTTON      "????????",IDC_BONE_SEQUENCE_ADD,343,28,67,12
+    PUSHBUTTON      "???????",IDC_BONE_SEQUENCE_DELETE,343,42,67,12,WS_DISABLED
+    CONTROL         "Resume",IDC_BONE_SEQUENCE_RESUME,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,348,84,44,10
+    CONTROL         "Store",IDC_BONE_SEQUENCE_STORE,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,348,74,40,10
+    CONTROL         "Autostart",IDC_BONE_SEQUENCE_AUTOSTART,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,348,64,47,10
+    LISTBOX         IDC_LIST2,270,155,64,23,LBS_NOINTEGRALHEIGHT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "????????",IDC_BUTTON5,335,152,40,11,WS_DISABLED
+    PUSHBUTTON      "???????",IDC_BUTTON6,376,152,35,11,WS_DISABLED
+    GROUPBOX        "?????????:",IDC_STATIC_BE_11,343,54,70,41
+    PUSHBUTTON      "...",IDC_BONE_SEQUENCE_FILE_BROWSE,402,126,10,15,WS_DISABLED
+    EDITTEXT        IDC_EDIT4,336,165,48,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_EDIT5,385,165,25,13,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "??????? ????????",IDC_STATIC_BE_13,329,95,84,25
+    EDITTEXT        IDC_BONE_SEQUENCE_NAME,331,104,79,13,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "",IDC_COLORIZED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,79,122,8,10
+    CONTROL         "???",IDC_LOD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,45,25,10
+    GROUPBOX        "",IDC_STATIC,147,39,118,18
+    CONTROL         "DecalTarget",IDC_DECAL_TARGET,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,88,55,10
+    CONTROL         "NoGetShadows",IDC_NO_GET_SHADOWS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,68,61,10
+    CONTROL         "NoGroupMesh",IDC_NO_GROUP_MESH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,78,62,10
+    CONTROL         "",IDC_LOD_LAYERS,"msctls_updown32",UDS_ARROWKEYS,256,43,10,12
+    EDITTEXT        IDC_LOD_LAYER,221,43,35,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "????:",IDC_STATIC_BE_4,202,45,19,8
+    GROUPBOX        "???????????",IDC_STATIC_BE_14,267,119,60,26
+    EDITTEXT        IDC_BONE_SEQUENCE_SMOOTH,270,127,55,14,ES_AUTOHSCROLL | WS_DISABLED
+    PUSHBUTTON      "...",IDC_BONE_WRENCH,250,25,16,14,BS_ICON
+END
+
+IDD_ANIM_DATA DIALOGEX 0, 0, 521, 145
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_WINDOWEDGE
+CAPTION "???????? ????????"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "??",IDOK,332,2,52,12
+    LTEXT           "????:",IDC_STATIC_AD_1,8,5,22,8
+    EDITTEXT        IDC_FRAMENO,29,3,37,14,ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    EDITTEXT        IDC_FRAMECNT,95,3,38,14,ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    LTEXT           "??",IDC_STATIC_AD_2,83,6,8,8
+    EDITTEXT        IDC_ANIM_PATH,5,111,245,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_M1_1,120,28,43,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M1_2,165,28,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M1_3,209,28,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M2_1,120,45,43,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M2_2,165,45,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M2_3,209,45,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M3_1,120,62,43,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M3_2,165,62,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M3_3,209,62,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M4_1,120,79,43,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M4_2,165,79,42,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_M4_3,209,79,42,14,ES_AUTOHSCROLL
+    LISTBOX         IDC_MBONES,5,27,111,54,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "?????? ?????",IDC_STATIC_AD_3,2,18,251,92
+    GROUPBOX        "Matrix34",IDC_STATIC,118,18,135,78
+    CONTROL         "????? ???????",IDC_VISI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,98,63,10
+    CONTROL         "Spin1",IDC_FRAMER,"msctls_updown32",UDS_ARROWKEYS,69,3,11,14
+    PUSHBUTTON      "???????? ????",IDC_INSERT_FRAME,4,128,56,14
+    PUSHBUTTON      "??????? ????",IDC_DELETE_FRAME,63,128,56,14
+    GROUPBOX        "",IDC_STATIC_AD_16,2,105,251,22
+    PUSHBUTTON      "??????? ?????",IDC_DELETE_ANM_BONE_NAME,122,128,58,14
+    GROUPBOX        "?????????????",IDC_STATIC_AD_5,254,18,267,124
+    LTEXT           "? ????? ?:",IDC_STATIC_AD_7,256,33,35,8
+    LTEXT           "?????????:",IDC_STATIC_AD_9,256,49,40,8
+    EDITTEXT        IDC_START_ANM_FRAME,292,31,28,14,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    LTEXT           "??:",IDC_STATIC_AD_8,332,33,11,8
+    CONTROL         "",IDC_START_ANM_FRAMER,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,320,30,11,15
+    EDITTEXT        IDC_STOP_ANM_FRAME,343,31,28,14,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    CONTROL         "",IDC_IDC_STOP_ANM_FRAMER,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,371,30,11,15
+    LTEXT           "?? ???:",IDC_STATIC_AD_10,256,62,26,8
+    CONTROL         "",IDC_ANM_AUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,315,18,10,10
+    CONTROL         "X",IDC_ANM_AXIS_X,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,287,63,18,10
+    CONTROL         "Y",IDC_ANM_AXIS_Y,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,321,63,18,10
+    CONTROL         "Z",IDC_ANM_AXIS_Z,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,355,63,18,10
+    LTEXT           "??:",IDC_STATIC_AD_12,256,84,13,8
+    EDITTEXT        IDC_ANM_X_MIN,271,81,24,14,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "",IDC_ANM_X_MINS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,295,81,11,15
+    EDITTEXT        IDC_ANM_Y_MIN,309,81,24,14,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_ANM_Z_MIN,347,81,24,14,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "",IDC_ANM_Y_MINS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,333,81,11,15
+    CONTROL         "",IDC_ANM_Z_MINS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,371,81,11,15
+    LTEXT           "??:",IDC_STATIC_AD_13,256,100,14,8
+    EDITTEXT        IDC_ANM_X_MAX,271,98,24,14,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "",IDC_ANM_X_MAXS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,295,98,11,15
+    EDITTEXT        IDC_ANM_Y_MAX,309,98,24,14,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_ANM_Z_MAX,347,98,24,14,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "",IDC_ANM_Y_MAXS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,333,98,11,15
+    CONTROL         "",IDC_ANM_Z_MAXS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,371,98,11,15
+    LTEXT           "? ?????????:",IDC_STATIC_AD_11,256,72,46,8
+    LTEXT           "?? ??????:",IDC_STATIC_AD_14,256,115,37,8
+    LTEXT           "??:",IDC_STATIC_AD_15,350,131,12,8
+    EDITTEXT        IDC_ANM_LAW3_RATIO,362,128,20,13,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    CONTROL         " ",IDC_TEXT_LAW,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,162,6,132,8
+    EDITTEXT        IDC_ANM_VER_1,241,129,9,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_ANM_VER_2,231,129,9,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_ANM_VER_3,221,129,9,13,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_ANM_VER_4,211,129,9,13,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "??????:",IDC_STATIC_AD_4,184,131,26,8
+    LISTBOX         IDC_ANM_ACTION,296,48,75,11,LBS_NOINTEGRALHEIGHT | WS_DISABLED | WS_TABSTOP
+    LISTBOX         IDC_ANM_LAW,295,114,76,11,LBS_NOINTEGRALHEIGHT | WS_DISABLED | WS_TABSTOP
+    CONTROL         "",IDC_ANM_ACTIONS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,371,47,11,14
+    CONTROL         "",IDC_ANM_LAWS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,371,113,11,14
+    CONTROL         "?????????????? ???????",IDC_MATRIX_REWRITE,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_DISABLED | WS_TABSTOP,255,128,94,12
+    GROUPBOX        "",IDC_STATIC,158,0,140,18
+    LTEXT           "???????:",IDC_STATIC_AD_6,326,18,32,8
+    EDITTEXT        IDC_ANM_TASK,357,17,14,12,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    CONTROL         "",IDC_ANM_TASKS,"msctls_updown32",UDS_ARROWKEYS | WS_DISABLED,371,17,11,12
+    EDITTEXT        IDC_AD_ANM_BONE_NAME,5,82,111,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "???????",IDC_ANM_BONE_EXPORT,172,97,37,12
+    PUSHBUTTON      "??????",IDC_ANM_BONE_IMPORT,212,97,40,12
+    PUSHBUTTON      "???????????",IDC_ANM_BONE_CLONE,119,97,50,12
+    PUSHBUTTON      "Reverse Animation",IDC_REVERSE_ANIM,405,31,90,25
+    LTEXT           "Frostyy Patch",IDC_STATIC,387,17,44,8
+    PUSHBUTTON      "Reset sltd bone",IDC_RESET_BONE,387,121,59,14
+END
+
+IDD_GET_PATH DIALOGEX 0, 0, 228, 191
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "????? ???????? ??????? ??????"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Tree1",IDC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | TVS_INFOTIP | WS_BORDER | WS_HSCROLL | WS_TABSTOP,26,20,169,146
+    DEFPUSHBUTTON   "??",IDOK,91,170,50,14,WS_DISABLED
+    PUSHBUTTON      "????????",IDCANCEL,145,170,50,14
+    LTEXT           "??????? ?????? ???????? ?:",IDC_STATIC_NOTE,26,9,169,10
+END
+
+IDD_VOLDATA DIALOGEX 0, 0, 253, 199
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "???????? ???????"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "??",IDOK,201,183,50,14
+    PUSHBUTTON      "????????",IDCANCEL,149,183,50,14
+    LISTBOX         IDC_VOL_BONES,143,11,105,147,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "???????? ? ?????",IDC_STATIC_VL1_2,140,1,111,176
+    LTEXT           "??? ??????:",IDC_STATIC_VL1_1,5,3,47,8
+    EDITTEXT        IDC_VOLNAME,52,2,86,14,ES_AUTOHSCROLL
+    CONTROL         "Tab1",IDC_VOL_TAB,"SysTabControl32",0x0,7,17,130,100
+    GROUPBOX        "Matrix34",IDC_STATIC,2,121,136,76
+    EDITTEXT        IDC_VOL_M1_1,9,132,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M1_2,52,132,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M1_3,95,132,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M2_1,9,148,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M2_2,52,148,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M2_3,95,148,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M3_1,9,164,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M3_2,52,164,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M3_3,95,164,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M4_1,9,180,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M4_2,52,180,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_M4_3,95,180,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VOL_BONE,142,160,108,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "?????????",IDC_ROUND_VOLUME_BUTTON,94,119,41,12
+END
+
+IDD_VOL_CYL DIALOGEX 0, 0, 110, 80
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "?????:",IDC_STATIC_VL3_1,13,10,34,8
+    EDITTEXT        IDC_CYL_LENGTH,51,7,40,14,ES_AUTOHSCROLL
+    LTEXT           "???????:",IDC_STATIC_VL3_2,13,24,34,8
+    PUSHBUTTON      "Fit To Bone",IDC_CYL_FIT,27,58,55,11
+    EDITTEXT        IDC_CYL_DIAMETER,51,22,40,14,ES_AUTOHSCROLL
+    CONTROL         "X",IDC_XYZ1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,21,47,21,10
+    CONTROL         "Y",IDC_XYZ2,"Button",BS_AUTORADIOBUTTON,44,47,21,10
+    CONTROL         "Z",IDC_XYZ3,"Button",BS_AUTORADIOBUTTON,67,47,21,10
+    GROUPBOX        "???",IDC_CYLAXIS,7,37,96,36
+END
+
+IDD_VOL_BOX DIALOGEX 0, 0, 110, 78
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "?????:",IDC_STATIC_VL2_1,14,11,31,8
+    LTEXT           "??????:",IDC_STATIC_VL2_2,14,27,31,8
+    LTEXT           "??????:",IDC_STATIC_VL2_3,14,43,31,8
+    EDITTEXT        IDC_BOX_LENGTH,49,9,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_BOX_WIDTH,49,25,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_BOX_HEIGHT,49,41,40,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Fit To Bone",IDC_BOX_FIT,27,57,55,14
+END
+
+IDD_VOL_POLY DIALOGEX 0, 0, 110, 79
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "?????-???? (VOL):",IDC_STATIC_VL4_1,19,13,71,8
+    EDITTEXT        IDC_VOL_POLY_NAME,7,25,96,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "???????",IDC_VOL_CHOOSE,29,49,50,14
+END
+
+IDD_VOL_PROPS DIALOGEX 0, 0, 140, 301
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "???????? ? ?????",IDC_STATIC,7,30,126,76
+    LTEXT           "???:",IDC_STATIC,13,13,22,8
+    EDITTEXT        IDC_VOLNAME,36,11,68,14,ES_AUTOHSCROLL
+    LISTBOX         IDC_VOL_BONES,13,42,113,42,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_VOL_BONE,13,86,113,14,ES_AUTOHSCROLL
+    CONTROL         "????",IDC_VOLTYPE1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,19,121,28,10
+    CONTROL         "???????",IDC_VOLTYPE2,"Button",BS_AUTORADIOBUTTON,19,131,41,10
+    CONTROL         "????????????",IDC_VOLTYPE3,"Button",BS_AUTORADIOBUTTON,19,141,51,10
+    GROUPBOX        "??? ??????",IDC_VOLTYPE,7,111,126,45
+    CONTROL         "",IDC_VOLFRAME,"Static",SS_ETCHEDFRAME,7,159,126,80
+    PUSHBUTTON      "?????????",IDC_VP_APPLY,83,280,50,14,WS_DISABLED
+END
+
+IDD_TOOLTAB DIALOGEX 0, 0, 160, 413
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Tab1",IDC_TOOLTAB,"SysTabControl32",TCS_TOOLTIPS,0,0,159,354
+    EDITTEXT        IDC_FINDING_COMPONENT,86,0,71,12,ES_AUTOHSCROLL
+    LTEXT           "????? ?????:",IDC_STATIC_TT_1,39,2,45,8
+END
+
+IDD_MODEL_TREE DIALOGEX 0, 0, 164, 411
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Tree1",IDC_MODELTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_CHECKBOXES | TVS_TRACKSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,18,142,309
+    GROUPBOX        "??????, ??????, ??????????? ? ???????",IDC_STATIC_MT_1,0,7,154,328
+END
+
+IDD_BONE_PROPS DIALOGEX 0, 0, 140, 343
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "?????:",IDC_STATIC,11,8,20,8
+    EDITTEXT        IDC_BONENAME,32,7,68,14,ES_AUTOHSCROLL
+    LTEXT           "????????:",IDC_STATIC,7,23,24,8
+    EDITTEXT        IDC_PARENT_BONE,32,23,68,14,ES_AUTOHSCROLL
+END
+
+IDD_ANIM_PROPS DIALOGEX 0, 0, 140, 318
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "???:",IDC_STATIC,8,9,22,8
+    EDITTEXT        IDC_ANIM_NAME,34,7,58,14,ES_AUTOHSCROLL
+    LTEXT           "????:",IDC_STATIC,7,25,24,8
+    EDITTEXT        IDC_ANIM_PATH,34,23,99,14,ES_AUTOHSCROLL
+END
+
+IDD_COLORS DIALOGEX 0, 0, 235, 143
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "????? ???????????? ??????"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "??",IDOK,178,7,50,14
+    PUSHBUTTON      "??????",IDCANCEL,120,7,50,14
+    CONTROL         "",IDC_SAMPLEWIND,"Static",SS_ETCHEDFRAME,114,42,114,94
+    LISTBOX         IDC_ELEMENTS,15,19,83,94,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_ELEMENT,15,116,83,14,ES_AUTOHSCROLL | WS_DISABLED
+    GROUPBOX        "?????????:",IDC_STATIC_CS_1,7,7,99,129
+    LTEXT           "??? ?????? ??? ???? ????????????.",IDC_STATIC_CS_2,126,84,92,34
+    PUSHBUTTON      "????? ?????",IDC_COLOR_SEL,178,25,50,14
+    CONTROL         "",IDC_SWATCH,"Static",SS_ETCHEDFRAME,120,25,50,14
+END
+
+IDD_SETUP DIALOGEX 0, 0, 295, 106
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "????????????"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "??",IDOK,190,89,50,14
+    PUSHBUTTON      "??????",IDCANCEL,242,89,50,14
+    EDITTEXT        IDC_YOUR_NAME,5,47,90,14,ES_AUTOHSCROLL
+    GROUPBOX        "?????????:",IDC_STATIC_SW_8,1,3,292,62
+    LTEXT           "???????????? ?????:",IDC_STATIC_SW_1,13,12,76,8
+    EDITTEXT        IDC_OLD_AUTHOR,5,22,90,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "????:",IDC_STATIC_SW_5,135,37,21,8
+    EDITTEXT        IDC_OLD_TIME,101,47,91,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "????:",IDC_STATIC_SW_6,228,38,21,8
+    EDITTEXT        IDC_OLD_FILE,198,47,91,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "PLY-?????:",IDC_STATIC_SW_2,125,12,40,8
+    EDITTEXT        IDC_OLD_PLY_FILE,101,22,91,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "VOL-?????:",IDC_STATIC_SW_3,217,13,42,8
+    EDITTEXT        IDC_OLD_VOL_FILE,198,22,91,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "?????????? ???????? ????????",IDC_VIEW_LAMP_MODEL,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,94,127,10
+    GROUPBOX        "??????:",IDC_STATIC_SW_9,1,66,292,39
+    LTEXT           "??:",IDC_STATIC_SW_4,46,37,13,8
+    CONTROL         "?????????? RAM-?????",IDC_VIEW_RAM_VOL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,75,100,10
+    CONTROL         "?????????? ?????? ??????",IDC_VIEW_TRACK_VOL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,85,114,10
+    LTEXT           "*????? ????? ???? ???? ???????* (???)",IDC_STATIC_SW_7,132,70,80,17
+    EDITTEXT        IDC_FOV_EDIT,249,73,29,14,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    LTEXT           "Fov:",IDC_STATIC,229,75,16,8
+    CONTROL         "",IDC_FOV_EDITOR,"msctls_updown32",UDS_ARROWKEYS,279,73,10,14
+END
+
+IDD_PLY_TWEAKER DIALOGEX 0, 0, 551, 252
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "?????????? MoW PLY ??????"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "???????????? ????",IDOK,477,214,68,33,BS_MULTILINE
+    PUSHBUTTON      "??????",IDCANCEL,477,176,68,32
+    LISTBOX         IDC_PT_SKIN_LIST,5,12,85,114,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "SKIN List",IDC_STATIC,3,2,89,128
+    GROUPBOX        "MESH List",IDC_STATIC,92,2,190,142
+    GROUPBOX        "",IDC_STATIC,94,7,60,104
+    LTEXT           "Flex Vertex Fmt",IDC_STATIC,99,12,52,8
+    EDITTEXT        IDC_PT_MESH_FVF,96,22,56,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "First Face",IDC_STATIC,107,37,32,8
+    EDITTEXT        IDC_PT_MESH_FF,96,46,56,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Face Count",IDC_STATIC,105,61,38,8
+    EDITTEXT        IDC_PT_MESH_FC,96,70,56,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Flags",IDC_STATIC,114,85,18,8
+    EDITTEXT        IDC_PT_MESH_F,96,94,56,14,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "",IDC_STATIC,3,125,89,19
+    LTEXT           "Index Type:",IDC_STATIC,7,131,40,8
+    EDITTEXT        IDC_PT_MESH_F_STR,155,11,124,99,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL
+    EDITTEXT        IDC_PT_MESH_PATH1,96,112,183,14,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_PT_MESH_PATH2,96,128,183,14,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "-------------",IDC_PT_INDEX_TYPE,50,131,37,8
+    GROUPBOX        "MATERIAL List",IDC_STATIC,281,2,91,142
+    LISTBOX         IDC_PT_MATERIAL_LIST,284,11,86,131,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Bound Box",IDC_STATIC,3,144,278,25
+    LTEXT           "Min:",IDC_STATIC,10,154,14,8
+    EDITTEXT        IDC_PT_BB_MIN_X,26,152,37,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_BB_MIN_Y,66,152,37,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_BB_MIN_Z,106,152,37,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Min:",IDC_STATIC,147,154,14,8
+    EDITTEXT        IDC_PT_BB_MAX_X,162,152,37,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_BB_MAX_Y,202,152,37,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_BB_MAX_Z,242,152,37,14,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "MROR",IDC_STATIC,282,144,29,25
+    CONTROL         "",IDC_PT_CHECK_MROR,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,293,155,8,10
+    GROUPBOX        "SHDW",IDC_STATIC,312,144,29,25
+    CONTROL         "",IDC_PT_CHECK_SHDW,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,323,155,8,10
+    GROUPBOX        "ADJA",IDC_STATIC,342,144,29,25
+    CONTROL         "",IDC_PT_CHECK_ADJA,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,352,155,8,10
+    GROUPBOX        "MESH flags                       /                      Vertex flags",IDC_STATIC,372,2,176,167
+    CONTROL         "TWO SIDED (render this mesh without culling)",IDC_PT_S_MV_TWO_SIDED,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,15,167,10
+    CONTROL         "USE ALPHA (unused, compatibility mode)",IDC_PT_S_MV_USE_ALPHA,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,25,154,10
+    CONTROL         "LIGHT  (use realtime scene light) (unused)",IDC_PT_S_MV_LIGHT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,35,150,10
+    CONTROL         "PLCR (use player color light)",IDC_PT_S_MV_PLCR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,45,108,10
+    CONTROL         "SKINNED (skinned mesh)",IDC_PT_S_MV_SKINNED,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,376,55,95,10
+    CONTROL         "SHADOW (shadow volume mesh)",IDC_PT_S_MV_SHADOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,65,121,10
+    CONTROL         "MIRRORED (has negative scaling)",IDC_PT_S_MV_MIRRORED,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,75,124,10
+    CONTROL         "BLENDTEX (blend by second texture alpha)",IDC_PT_S_MV_BLENDTEX,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,85,160,10
+    CONTROL         "BUMP (bump-mapped)",IDC_PT_S_MV_BUMP,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,376,95,87,10
+    CONTROL         "SPECULAR (specular color stored)",IDC_PT_S_MV_SPECULAR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,105,124,10
+    CONTROL         "MATERIAL (format with material, not textures)",IDC_PT_S_MV_MATERIAL,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,115,165,10
+    CONTROL         "SUBSKIN (sub-skin feature)",IDC_PT_S_MV_SUBSKIN,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,376,125,103,10
+    CONTROL         "TWOTEX (two textures with one texcoord)",IDC_PT_S_MV_TWOTEX,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,135,154,10
+    CONTROL         "USINGVD (using vertex declaration instead of fvf)",IDC_IDC_PT_S_MV_USINGVD,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,145,170,10
+    CONTROL         "LIGHTMAP (has lightmap)",IDC_PT_S_MV_LIGHTMAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,376,155,97,10
+    CONTROL         "",IDC_PT_SET_M_F,"Button",BS_AUTORADIOBUTTON,440,1,8,10
+    CONTROL         "",IDC_PT_SET_V_F,"Button",BS_AUTORADIOBUTTON,474,1,9,10
+    GROUPBOX        "Vertex Data",IDC_STATIC,0,168,474,83
+    EDITTEXT        IDC_PT_VD_FVF,5,177,141,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_VF,5,194,141,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_VS,149,177,105,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_CVS,149,194,105,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_PC,257,177,105,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_VC,257,194,105,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_NW,365,177,104,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PT_VD_UV,365,194,104,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Has matrix indices",IDC_PT_VD_IND,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,6,210,73,10
+    CONTROL         "Has RHW",IDC_PT_VD_RHW,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,6,220,46,10
+    CONTROL         "Has bump",IDC_PT_VD_BUMP,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,6,230,47,10
+    CONTROL         "Has tex coords",IDC_PT_VD_TEX_COORDS,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,6,240,64,10
+    CONTROL         "XYZ",IDC_PT_VD_XYZ,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,104,210,28,10
+    CONTROL         "XYZRHW",IDC_PT_VD_XYZRHW,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,104,220,44,10
+    CONTROL         "XYZB1",IDC_PT_VD_XYZB1,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,104,230,36,10
+    CONTROL         "XYZB2",IDC_PT_VD_XYZB2,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,104,240,36,10
+    CONTROL         "XYZB3",IDC_PT_VD_XYZB3,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,152,210,36,10
+    CONTROL         "XYZB4",IDC_PT_VD_XYZB4,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,152,220,36,10
+    CONTROL         "XYZB5",IDC_PT_VD_XYZB5,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,152,230,36,10
+    CONTROL         "XYZW",IDC_PT_VD_XYZW,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,152,240,35,10
+    CONTROL         "PSIZE",IDC_PT_VD_PSIZE,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,195,210,35,10
+    CONTROL         "TEX0",IDC_PT_VD_TEX0,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,195,220,32,10
+    CONTROL         "TEX1",IDC_PT_VD_TEX1,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,195,230,32,10
+    CONTROL         "TEX2",IDC_PT_VD_TEX2,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,195,240,32,10
+    CONTROL         "TEX3",IDC_PT_VD_TEX3,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,237,210,32,10
+    CONTROL         "TEX4",IDC_PT_VD_TEX4,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,237,220,32,10
+    CONTROL         "TEX5",IDC_PT_VD_TEX5,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,237,230,32,10
+    CONTROL         "TEX6",IDC_PT_VD_TEX6,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,237,240,32,10
+    CONTROL         "TEX7",IDC_PT_VD_TEX7,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,274,210,32,10
+    CONTROL         "TEX8",IDC_PT_VD_TEX8,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,274,220,32,10
+    CONTROL         "RESERVED0",IDC_PT_VD_RESERVED0,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,274,230,51,10
+    CONTROL         "RESERVED2",IDC_PT_VD_RESERVED2,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,274,240,51,10
+    CONTROL         "NORMAL",IDC_PT_VD_NORMAL,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,418,210,44,10
+    CONTROL         "DIFFUSE",IDC_PT_VD_DIFFUSE,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,418,220,44,10
+    CONTROL         "SPECULAR",IDC_PT_VD_SPECULAR,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,418,230,50,10
+    CONTROL         "POSITION MASK",IDC_PT_VD_POSITION_MASK,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,331,230,69,10
+    CONTROL         "TEXCOUNT MASK",IDC_PT_VD_TEXCOUNT_MASK,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,331,210,71,10
+    CONTROL         "LASTBETA UBYTE4",IDC_PT_VD_LASTBETA_UBYTE4,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,331,220,75,10
+    CONTROL         "LASTBETA D3DCOLOR",IDC_PT_VD_LASTBETA_D3DCOLOR,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,331,240,83,10
+    GROUPBOX        "",IDC_STATIC,473,168,75,83
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_PREFER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 226
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 105
+    END
+
+    IDD_TOOLBOX, DIALOG
+    BEGIN
+    END
+
+    IDD_ANIMBOX, DIALOG
+    BEGIN
+    END
+
+    IDD_BONEDATA, DIALOG
+    BEGIN
+    END
+
+    IDD_ANIM_DATA, DIALOG
+    BEGIN
+    END
+
+    IDD_GET_PATH, DIALOG
+    BEGIN
+    END
+
+    IDD_VOLDATA, DIALOG
+    BEGIN
+        RIGHTMARGIN, 251
+    END
+
+    IDD_VOL_CYL, DIALOG
+    BEGIN
+    END
+
+    IDD_VOL_BOX, DIALOG
+    BEGIN
+    END
+
+    IDD_VOL_POLY, DIALOG
+    BEGIN
+    END
+
+    IDD_VOL_PROPS, DIALOG
+    BEGIN
+    END
+
+    IDD_TOOLTAB, DIALOG
+    BEGIN
+    END
+
+    IDD_MODEL_TREE, DIALOG
+    BEGIN
+    END
+
+    IDD_BONE_PROPS, DIALOG
+    BEGIN
+    END
+
+    IDD_ANIM_PROPS, DIALOG
+    BEGIN
+    END
+
+    IDD_COLORS, DIALOG
+    BEGIN
+    END
+
+    IDD_SETUP, DIALOG
+    BEGIN
+    END
+
+    IDD_PLY_TWEAKER, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 550
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 251
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_PREFER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_VOL_CYL AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_VOLDATA AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_VOL_BOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_VOL_PROPS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_BONE_PROPS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ANIM_PROPS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_TOOLTAB AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_BONEDATA AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ANIM_DATA AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ANIMBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_COLORS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MODEL_TREE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SETUP AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_VOL_POLY AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_GET_PATH AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_PLY_TWEAKER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\SOEdit.ico"
+
+IDR_MAINFRAME_AL        ICON                    "res\\SOEdit.ico"
+
+IDI_0ICON1              ICON                    "res\\A_ICO_SOEdit.ico"
+
+IDR_SOEDITTYPE          ICON                    "res\\SOEditDoc.ico"
+
+IDI_PAUSE               ICON                    "res\\icon1.ico"
+
+IDI_PLAY                ICON                    "res\\ico00001.ico"
+
+IDI_BACK                ICON                    "res\\ico00002.ico"
+
+IDI_STEP                ICON                    "res\\stepf.ico"
+
+IDI_STOP                ICON                    "res\\ico00003.ico"
+
+IDI_T34                 ICON                    "res\\ico00004.ico"
+
+IDI_WRENCH              ICON                    "res\\ico00006.ico"
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SOEdit.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+IDR_MAINFRAME_AL        BITMAP                  "res\\Toolbar.bmp"
+
+IDB_PLAY                BITMAP                  "res\\bitmap1.bmp"
+
+IDB_STOP                BITMAP                  "res\\bmp00001.bmp"
+
+IDB_PAUSE               BITMAP                  "res\\bmp00002.bmp"
+
+SKIP_BACK               BITMAP                  "res\\bmp00003.bmp"
+
+IDB_SKIPF               BITMAP                  "res\\bmp00004.bmp"
+
+IDB_STEPF               BITMAP                  "res\\bmp00005.bmp"
+
+IDB_STEPB               BITMAP                  "res\\bmp00006.bmp"
+
+IDB_FILE_TYPES          BITMAP                  "res\\bmp00007.bmp"
+
+IDB_DOCK                BITMAP                  "res\\dock.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 32, 32
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+    BUTTON      ID_CONTEXT_HELP_DISABLED
+    BUTTON      ID_FILE_MRU_FILE1_DISABLED
+    BUTTON      ID_MODE_ROTATE
+    BUTTON      ID_MODE_SCALE
+    BUTTON      ID_MODE_MOVE
+END
+
+IDR_MAINFRAME_AL TOOLBAR 32, 32
+BEGIN
+    BUTTON      ID_FILE_NEW_AL
+    BUTTON      ID_FILE_OPEN_AL
+    BUTTON      ID_FILE_SAVE_AL
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT_AL
+    BUTTON      ID_EDIT_COPY_AL
+    BUTTON      ID_EDIT_PASTE_AL
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT_AL
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT_AL
+    BUTTON      ID_CONTEXT_HELP_DISABLED_AL
+    BUTTON      ID_FILE_MRU_FILE1_DISABLED_AL
+    BUTTON      ID_MODE_ROTATE_AL
+    BUTTON      ID_MODE_SCALE_AL
+    BUTTON      ID_MODE_MOVE_AL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    VK_RETURN,      ID_ACCELERATOR32918,    VIRTKEY, NOINVERT
+    VK_F1,          ID_CONTEXT_HELP,        VIRTKEY, SHIFT, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          ID_HELP,                VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+IDR_MAINFRAME_AL ACCELERATORS
+BEGIN
+    VK_RETURN,      ID_ACCELERATOR32918,    VIRTKEY, NOINVERT
+    VK_F1,          ID_CONTEXT_HELP,        VIRTKEY, SHIFT, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          ID_HELP,                VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,7,4
+ PRODUCTVERSION 0,0,7,4
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040004b0"
+        BEGIN
+            VALUE "CompanyName", "lol"
+            VALUE "FileDescription", "SOEdit MFC Application"
+            VALUE "FileVersion", "0.0.7.4"
+            VALUE "InternalName", "SOEdit"
+            VALUE "LegalCopyright", "Copyright © 2022 MoW Community"
+            VALUE "OriginalFilename", "SOEdit.EXE"
+            VALUE "ProductName", "SOEdit Application"
+            VALUE "ProductVersion", "0.0.7.4"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x400, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "SOEdit_v0.5 by Brian (+patch v0.7m4 by TonaTor)\n\nSOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)+ 1.0 PATCH BY FROSTYY\n\n\nSOEdit.Document\nSOEdit Document"
+    IDR_MAINFRAME_AL        "SOEdit_v0.5 by Brian (+patch v0.7m4 by TonaTor)+ 1.0 PATCH BY FROSTYY\n\nSOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)\n\n\nSOEdit.Document\nSOEdit Document"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "SOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)"
+    AFX_IDS_IDLEMESSAGE     "??? ????????? ??????? ??????? F1"
+    AFX_IDS_HELPMODEMESSAGE "????? ??????? ??? ????????? ???????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "??????? ????? ????????\n?????"
+    ID_FILE_OPEN            "??????? ???????????? ????????\n???????"
+    ID_FILE_CLOSE           "??????? ???????? ????????\n???????"
+    ID_FILE_SAVE            "????????? ???????? ????????\n?????????"
+    ID_FILE_SAVE_AS         "????????? ???????? ???????? ? ????? ??????\n????????? ???"
+    ID_FILE_PAGE_SETUP      "???????? ????????? ??????\n????????? ????????"
+    ID_FILE_PRINT_SETUP     "???????? ??????? ? ????????? ??????\n????????? ??????"
+    ID_FILE_PRINT           "?????? ????????? ?????????\n??????"
+    ID_FILE_PRINT_PREVIEW   "?????????? ?????? ????????\n??????????????? ???????? ??????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "??????????? ?????????? ? ?????????, ?????? ?????? ? ????????? ????\n? ?????????"
+    ID_APP_EXIT             "??????? ??????????; ??????????? ?????????? ??????????\n?????"
+    ID_HELP_INDEX           "????????? ???????\n??????? ???????"
+    ID_HELP_FINDER          "?????? ???????? ???????\n??????? ???????"
+    ID_HELP_USING           "?????????? ?????????? ?? ????????????? ???????\n???????"
+    ID_CONTEXT_HELP         "??????????? ??????? ?? ??????? ???????, ???? ? ?????\n???????"
+    ID_HELP                 "??????????? ??????? ?? ??????? ?????? ??? ???????\n???????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "??????? ???? ????????"
+    ID_FILE_MRU_FILE2       "??????? ???? ????????"
+    ID_FILE_MRU_FILE3       "??????? ???? ????????"
+    ID_FILE_MRU_FILE4       "??????? ???? ????????"
+    ID_FILE_MRU_FILE5       "??????? ???? ????????"
+    ID_FILE_MRU_FILE6       "??????? ???? ????????"
+    ID_FILE_MRU_FILE7       "??????? ???? ????????"
+    ID_FILE_MRU_FILE8       "??????? ???? ????????"
+    ID_FILE_MRU_FILE9       "??????? ???? ????????"
+    ID_FILE_MRU_FILE10      "??????? ???? ????????"
+    ID_FILE_MRU_FILE11      "??????? ???? ????????"
+    ID_FILE_MRU_FILE12      "??????? ???? ????????"
+    ID_FILE_MRU_FILE13      "??????? ???? ????????"
+    ID_FILE_MRU_FILE14      "??????? ???? ????????"
+    ID_FILE_MRU_FILE15      "??????? ???? ????????"
+    ID_FILE_MRU_FILE16      "??????? ???? ????????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "??????????? ?? ????????? ?????? ????\n????????? ??????"
+    ID_PREV_PANE            "????????? ? ?????????? ?????? ????\n?????????? ??????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_SPLIT         "????????? ???????? ???? ?? ??????\n?????????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "???????? ??????????\n????????"
+    ID_EDIT_CLEAR_ALL       "????????? ???\n????????? ???"
+    ID_EDIT_COPY            "?????????? ?????????? ? ????????? ??? ? ????? ??????\n??????????"
+    ID_EDIT_CUT             "???????? ?????????? ? ????????? ??? ? ????? ?????? ???????\n????????"
+    ID_EDIT_FIND            "????? ????????? ?????\n?????"
+    ID_EDIT_PASTE           "???????? ?????????? ?????? ??????\n????????"
+    ID_EDIT_REPEAT          "????????? ????????? ????????\n?????????"
+    ID_EDIT_REPLACE         "???????? ???????????? ????? ?????? ???????\n????????"
+    ID_EDIT_SELECT_ALL      "??????? ???? ???????? ???????\n??????? ???"
+    ID_EDIT_UNDO            "???????? ????????? ????????\n????????"
+    ID_EDIT_REDO            "????????? ????? ?????????? ????????\n?????????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "???????? ??? ?????? ?????? ????????????\n??????????? ?????? ????????????"
+    ID_VIEW_STATUS_BAR      "???????? ??? ?????? ?????? ?????????\n??????????? ?????? ?????????"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "???????? ?????? ????"
+    AFX_IDS_SCMOVE          "???????? ????????? ????"
+    AFX_IDS_SCMINIMIZE      "???????? ????"
+    AFX_IDS_SCMAXIMIZE      "????????? ???? ?? ??????? ???????"
+    AFX_IDS_SCNEXTWINDOW    "??????? ? ?????????? ???? ?????????"
+    AFX_IDS_SCPREVWINDOW    "??????? ? ??????????? ???? ?????????"
+    AFX_IDS_SCCLOSE         "??????? ???????? ???? ? ????????? ????????? ?????????"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "???????????? ???? ?? ??????????? ???????"
+    AFX_IDS_SCTASKLIST      "???????????? ?????? ?????"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "??????? ????? ???????????????? ????????? ??????\n???????? ??????????????? ????????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_LAYOUT          "?????????? ???????????? ????"
+    ID_PLY_ADD              "????????????? ????? PLY"
+    ID_PLY_DELETE           "??????? PLY ?? ????? ????????? ? ?????? ??????"
+    ID_TEX_CHANGE           "???????? ??????? ????? ???????? ?? ??????"
+    ID_VIEW_BACKFACES       "?????????? ?????? ????? ?????????"
+    ID_VIEW_SELECTED        "???????????? ?????? ?????????? ????? ??? ??????"
+    ID_VIEW_ENTITY          "?????????? ????? ??? ????? ? 2D-?????"
+    ID_VIEW_VOLUMES         "?????????? ??????"
+    ID_VIEW_COLORS          "?????????? ????? ?????????? (??? ? ?.?.)"
+    ID_TEX_SELECT           "??????? ?????????????? ?????????? ?????"
+    ID_TEX_SCHEME           "???????? ????????? ???????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_MODE_PLY             "???-???-???"
+    ID_MODE_VOLUME          "???-???-???"
+    ID_MODE_BONE            "???-???-???"
+    ID_EDIT_PROPERTIES      "????????????"
+    ID_FILE_EXPORT          "???-???-???"
+    ID_FILE_IMPORT          "???-???-???"
+    ID_ANM_LOAD             "????????? ????????"
+    ID_ANM_SAVE             "????????? ????????."
+    ID_EDIT_PREFERENCES     "????????? ???????????"
+    ID_MODE_ANIMATION       "???-???-???"
+    IDM_TREE_INSERT         "???????? ????? ????? ??? ?????"
+    IDM_TREE_DELETE         "??????? ????????? ???????"
+    IDM_TREE_PARENT         "?????????? ?????? ???????? ??? ????????"
+    IDM_TREE_PROP           "?????????????? ??????? ?????????? ????????"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_VOL_INSERT          "???????? ????? ?????"
+    IDM_VOL_DELETE          "??????? ????????? ?????"
+    IDM_VOL_PROP            "????????????? ?????"
+    IDM_BONE_ADD            "???????? ????? ?????"
+    IDM_VOL_ADD             "???????? ????? ?????"
+    IDM_BONE_INSERT         "???????? ????? ?????"
+    IDM_BONE_DELETE         "??????? ????????? ?????"
+    IDM_BONE_PARENT         "??????? ? ???????????? ?????"
+    IDM_BONE_PROP           "????????????? ????????? ?????"
+    ID_VIEW_LEFT            "??? ?????"
+    ID_VIEW_TOP             "??? ??????"
+    ID_VIEW_RIGHT           "??? ??????"
+    ID_VIEW_BOTTOM          "??? ?????"
+    ID_VIEW_FRONT           "??? ???????"
+    ID_VIEW_REAR            "??? ?????"
+    ID_VIEW_CAMERA          "???????? ????? ??????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_MODE_MOVE            "??????????? ?????????? ???????"
+    ID_MODE_ROTATE          "???????? ?????????? ???????"
+    ID_MODE_SCALE           "??????????????? ?????????? ???????"
+    ID_MODE_SELECT          "?????? ????? ???????"
+    ID_GRID_ON              "???????? ??????? ?????"
+    ID_GRID_OFF             "????????? ??????? ?????"
+    ID_GRID_LARGER          "??????? ?????? ??????? ????? ??????"
+    ID_GRID_SMALLER         "??????? ?????? ??????? ????? ??????"
+    ID_VIEW_OPENGL          "???????????? OpenGL ??? 2D-????????????"
+    ID_VIEW_C_ORIGIN        "???????? ???????? ????"
+    ID_VIEW_C_GRID          "??????? ???? ?????"
+    ID_VIEW_C_2DBACK        "????? ????? ???? ??? 2D-???? ??????????????"
+    ID_VIEW_C_3DBACK        "?????????? ???? ???? 3D-????"
+    ID_GRID_CONTROL         "??????????? ????? ?????????? "
+    ID_TEX_EDIT             "????????????? ???? ?????????"
+    ID_PLY_TEXTURE          "????????? ???? ? ????????? ? PLY-?????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_SHADED          "???????? ??????????? 2D-??????"
+    ID_VIEW_WIREFRAME       "???????? 2D-??????? ? ???? ?????"
+    ID_ANM_EDIT             "????????????? ????????"
+    ID_VIEW_AREAS           "?????????? ???????? ??????"
+    ID_VIEW_OBSTACLES       "?????????? ??????????? ??????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_3D_WIREFRAME         "???????? 3D-?????? ? ???? ?????"
+    ID_3D_SHADED            "???????? 3D-?????? ? ?????????? ????"
+    ID_3D_TEXTURED          "???????? 3D-?????? ??? ?????????"
+    ID_3D_RENDER            "??? ????????????? ?????? 3D-????"
+    ID_MODE_VERTEXES        "???-???-???"
+    ID_VIEW_COLLISIONSVIEWER "???????? ?????? ????????"
+    OLD_GEMI_COMPATIBILITY  "????????????? ? ???????? GEMI"
+    BONE_MATRIX_COPY        "?????????? ?????? ??????? ?????"
+    BONE_PARAMETERS_COPY    "?????????? ?????? ?????? ?????????? ?????"
+    BONE_MATRIX_PASTE       "???????? ????????????? ?????? ??????? ?????"
+END
+
+STRINGTABLE
+BEGIN
+    BONE_PARAMETERS_PASTE   "???????? ?????? ?????? ?????????? ?????"
+    VOLUME_MATRIX_COPY      "?????????? ?????? ??????? ??????"
+    VOLUME_MATRIX_PASTE     "???????? ?????? ??????? ??????"
+    ID_BONE_ADD_VOLUME      "???????? ????? ? ?????????? ?????"
+    ID_BONE_DELETE_PLY      "????????? ???-???? ?? ?????????? ?????"
+    ID_BONE_EXPAND_ALL      "?????????? ??? ????? ??????"
+    ID_BONE_EXPAND_BRANCH   "?????????? ????? ?????????? ?????"
+    ID_BONE_COLLAPSE_BRANCH "???????? ????? ?????????? ?????"
+    ID_BONE_COPY            "?????????? ????? ? ????? ?????? ???????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BONE_PASTE_AS_NEXT   "???????? ????? ?? ?????? ?????? ??????? ??? ?????????"
+    ID_BONE_PASTE_AS_INTERNAL 
+                            "???????? ????? ?? ?????? ?????? ??????? ??? ?????????"
+    ID_BONE_COPY_BRANCH     "?????????? ????? ?????? ? ????? ?????? ???????"
+    ID_BONE_CUT             "???-???-???"
+    ID_BONE_COPY_MENU       "???-???-???"
+    ID_BONE_PASTE_MENU      "???-???-???"
+    ID_3D_TEXTURES_OFF      "???????? ?????? ??? ???????"
+    ID_3D_WIREFRAME_TEXTURES_OFF "???????? ?????? ? ???? ????? ??? ???????"
+    ID_3D_COLORIZE          "???????? ????? ??????? ???????"
+    ID_VIEW_COLORIZE        "???????? ????? ??????? ???????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BONE_SKELETON_ANIMATIONS "??????? ? ??????? ????????? ??????? ??????"
+    ID_3D_COLLISIONSVIEWER  "?????????? ?????? ???????? ??????"
+    ID_3D_HYBRID            "?????????? ?????? ? ?????????"
+    ID_3D_VISUAL            "?????????? ?????? ??? ????????"
+    ID_ANM_CLOSE            "??????? ????????"
+    ID_ANM_NEW              "??????? ????????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_RESET_CAMERAS        "????? ??????? ?????"
+    ID_BONE_ADD_LOD         "???????? ??? ? ?????????? ?????"
+    ID_VIEW3D_ENTITY        "???????????? ????? ? ??????? ??? ?????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW3D_BACKGROUND_GRID "?????????? ??????? ?????"
+    ID_BONE_HIDE            "???-???-???"
+    ID_BONE_HIDE_BRANCH     "????????? ??? ?????????? ????? ?????????? ????? ? ?????? ???????????"
+    ID_BONE_SHOW            "???-???-???"
+    ID_BONE_SHOW_BRANCH     "???????? ??? ?????????? ????? ?????????? ????? ? ?????? ???????????"
+    ID_BONE_HIDE_COLLISION  "????????? ???????? ???? ??????????? ????? ?????????? ????? ? ?????? ???????????"
+    ID_BONE_SHOW_COLLISION  "???????? ???????? ???? ??????????? ????? ?????????? ????? ? ?????? ???????????"
+    ID_BONE_HIDE_BRANCH_AND_COLLISION 
+                            "????????? ??? ?????????? ? ???????? ????? ?????????? ????? ? ?????? ???????????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BONE_SHOW_BRANCH_AND_COLLISION 
+                            "???????? ??? ?????????? ? ???????? ????? ?????????? ????? ? ?????? ???????????"
+    ID_3D_RENDER_AL         "Here the 3D window render is configured"
+    ID_3D_SHADED_AL         "Viewing a 3D model in a shaded view"
+    ID_3D_TEXTURED_AL       "Viewing a 3D model without shading"
+    ID_3D_WIREFRAME_AL      "Viewing a 3D model as a wireframe"
+    ID_3D_TEXTURES_OFF_AL   "Viewing a model without textures"
+    ID_3D_WIREFRAME_TEXTURES_OFF_AL 
+                            "Viewing a model as a grid without textures"
+    ID_3D_COLORIZE_AL       "Painting meshes with different colors"
+    ID_VIEW3D_ENTITY_AL     "Draw bones that don't have meshes"
+    ID_VIEW_SELECTED_AL     "Draw only selected bones or volumes"
+    ID_VIEW3D_BACKGROUND_GRID_AL "Show background grid"
+    ID_3D_VISUAL_AL         "Show the model without collision"
+    ID_3D_COLLISIONSVIEWER_AL "Show only model collision"
+    ID_3D_HYBRID_AL         "Show a model with a collision"
+    IDM_BONE_INSERT_AL      "Insert a new bone"
+    IDM_BONE_DELETE_AL      "Delete the selected bone"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_SHADED_AL       "Viewing a shaded 2D model"
+    ID_VIEW_WIREFRAME_AL    "Viewing 2D models as a wireframe"
+    ID_VIEW_COLORIZE_AL     "Painting meshes with different colors"
+    IDM_VOL_DELETE_AL       "Delete the selected volume"
+    IDM_VOL_PROP_AL         "Edit volume"
+    VOLUME_MATRIX_COPY_AL   "Copy volum matrix data"
+    VOLUME_MATRIX_PASTE_AL  "Paste the data of the volum matrix"
+    IDM_VOL_ADD_AL          "Insert a new volume"
+    ID_FILE_NEW_AL          "Create a new document\nNew"
+    ID_FILE_OPEN_AL         "Open an existing document\nOpen"
+    ID_FILE_SAVE_AL         "Save active document\nSave"
+    ID_FILE_SAVE_AS_AL      "Save the active document with a new name\nSave as"
+    OLD_GEMI_COMPATIBILITY_AL "Compatibility with the GEMI plugin"
+    ID_EDIT_PREFERENCES_AL  "Setting up preferences"
+    ID_EDIT_PROPERTIES_AL   "Trash collector"
+    ID_FILE_EXPORT_AL       "Blah-blah-blah"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BONE_HIDE_BRANCH_AL  "Disable all components of the selected bone branch in the component tree"
+    ID_BONE_HIDE_COLLISION_AL 
+                            "Disable collision of all components of the selected bone branch in the component tree"
+    ID_BONE_HIDE_BRANCH_AND_COLLISION_AL 
+                            "Disable all components and the collision of the selected bone branch in the component tree"
+    ID_BONE_ADD_VOLUME_AL   "Add volume to the selected bone"
+    ID_BONE_DELETE_PLY_AL   "Exclude the mesh-file from the selected bone"
+    ID_BONE_ADD_LOD_AL      "Add a Lod to the selected bone"
+    IDM_BONE_ADD_AL         "Insert a new bone"
+    ID_BONE_EXPAND_ALL_AL   "Expand the entire bone branch"
+    ID_BONE_SKELETON_ANIMATIONS_AL 
+                            "Go to the main animations of the model skeleton"
+    ID_VIEW_LEFT_AL         "Left view"
+    ID_VIEW_TOP_AL          "Top view"
+    ID_VIEW_RIGHT_AL        "Right view"
+    ID_VIEW_BOTTOM_AL       "Bottom view"
+    ID_VIEW_FRONT_AL        "Front view"
+    ID_VIEW_REAR_AL         "Rear view"
+    ID_VIEW_BACKFACES_AL    "Display the back faces of polygons"
+END
+
+STRINGTABLE
+BEGIN
+    IDM_BONE_PARENT_AL      "Go to the parent bone"
+    IDM_BONE_PROP_AL        "Edit bone parameters"
+    ID_BONE_COPY_AL         "Copy the bone to the windows clipboard"
+    ID_BONE_COPY_BRANCH_AL  "Copy the bone branch to the windows clipboard"
+    BONE_MATRIX_COPY_AL     "Copy bone matrix data"
+    BONE_PARAMETERS_COPY_AL "Copy the data of the bone parameter string"
+    ID_BONE_PASTE_AS_NEXT_AL 
+                            "Insert a bone from the windows clipboard as the following"
+    ID_BONE_PASTE_AS_INTERNAL_AL 
+                            "Insert a bone from the windows clipboard as a nested one"
+    BONE_MATRIX_PASTE_AL    "Paste the copied bone matrix data"
+    BONE_PARAMETERS_PASTE_AL "Paste the data of the bone parameter string"
+    ID_EDIT_CUT_AL          "Cut the selected and place it in the windows clipboard\nCut"
+    ID_BONE_EXPAND_BRANCH_AL "Expand the branch of the selected bone"
+    ID_BONE_COLLAPSE_BRANCH_AL "Collapse the branch of the selected bone"
+    ID_BONE_SHOW_BRANCH_AL  "Enable all components of the selected bone branch in the component tree"
+    ID_BONE_SHOW_COLLISION_AL 
+                            "Enable collision of all components of the selected bone branch in the component tree"
+    ID_BONE_SHOW_BRANCH_AND_COLLISION_AL 
+                            "Enable all components and the collision of the selected bone branch in the component tree"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_IMPORT_AL       "Blah-blah-blah"
+    ID_FILE_PRINT_AL        "Printing the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW_AL "Display full pages\nPrint preview"
+    ID_FILE_PRINT_SETUP_AL  "Change printer and print settings\nPrint Settings"
+    ID_FILE_MRU_FILE1_AL    "Open this document"
+    ID_APP_EXIT_AL          "Close the application; requests saving of documents\nExit"
+    ID_EDIT_UNDO_AL         "Undo the last action\nChange"
+    ID_EDIT_PASTE_AL        "Paste clipboard contents\nPaste"
+    ID_PLY_ADD_AL           "Import a new PLY"
+    ID_PLY_DELETE_AL        "Remove PLY from the currently selected bone"
+    ID_PLY_TEXTURE_AL       "Fix texture paths in the PLY file"
+    ID_ANM_NEW_AL           "Create animation"
+    ID_ANM_LOAD_AL          "Upload animation"
+    ID_ANM_SAVE_AL          "Save the animation."
+    ID_ANM_EDIT_AL          "Edit Animation"
+    ID_ANM_CLOSE_AL         "Close Animation"
+END
+
+STRINGTABLE
+BEGIN
+    ID_TEX_SCHEME_AL        "Texture scan (uv) editor"
+    ID_TEX_SELECT_AL        "Select an alternative texture scheme"
+    ID_TEX_EDIT_AL          "Edit the material file"
+    ID_MODE_PLY_AL          "Blah-blah-blah"
+    ID_MODE_VOLUME_AL       "Blah-blah-blah"
+    ID_MODE_BONE_AL         "Blah-blah-blah"
+    ID_MODE_ANIMATION_AL    "Blah-blah-blah"
+    ID_MODE_MOVE_AL         "Moving the selected object"
+    ID_MODE_ROTATE_AL       "Rotation of the selected object"
+    ID_MODE_SCALE_AL        "Scaling the selected object"
+    ID_MODE_SELECT_AL       "Object selection only"
+    ID_VIEW_ENTITY_AL       "Display dice without meshes in 2D windows"
+    ID_VIEW_VOLUMES_AL      "Display volumes"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_OBSTACLES_AL    "Display model obstacles"
+    ID_VIEW_AREAS_AL        "Display model areas"
+    ID_VIEW_COLLISIONSVIEWER_AL "Viewing the sides of a collision"
+    ID_VIEW_COLORS_AL       "Set interface colors (background, etc.)"
+    ID_GRID_ON_AL           "Enable background grid"
+    ID_GRID_OFF_AL          "Disable background grid"
+    ID_GRID_LARGER_AL       "Make the background grid cells bigger"
+    ID_GRID_SMALLER_AL      "Make the background grid cells smaller"
+    ID_RESET_CAMERAS_AL     "Reset camera positions"
+    ID_HELP_FINDER_AL       "List of Help sections\nHelp sections"
+    ID_APP_ABOUT_AL         "Displaying information about the program, version number and copyright\nAbout program"
+    ID_EDIT_COPY_AL         "Copy the selected and put it to the clipboard\nCopy"
+END
+
+STRINGTABLE
+BEGIN
+    ID_3D_COLLISION_AS_WIREFRAME 
+                            "???????? ?????????????? ?????? ???????? ??? ?????"
+    ID_3D_COLLISION_AS_WIREFRAME_AL 
+                            "Enables forced rendering of a collision as a wireframe"
+    ID_3D_ENTITY_AS_WIREFRAME 
+                            "???????? ?????????????? ?????? ????????? ??? ????? ??? ?????"
+    ID_3D_ENTITY_AS_WIREFRAME_AL 
+                            "Enables forced rendering of entities without meshes as a wireframe"
+    ID_3D_MESHS_AS_WIREFRAME "???????? ?????????????? ?????? ????? ??? ?????"
+    ID_3D_MESHS_AS_WIREFRAME_AL 
+                            "Enables forced rendering of meshes as a wireframe"
+    ID_VIEW3D_WIREFRAME_OVER_MESH 
+                            "???????? ??????? ????? ?????? ??????????? ?????"
+    ID_VIEW3D_WIREFRAME_OVER_MESH_AL 
+                            "Draw a colored wireframe over painted meshes"
+    ID_DISPLAY_DISPLAYALLMESHVECTORS "?????????? ??? ??????? ?????"
+    ID_DISPLAY_DISPLAYALLMESHVECTORS_AL "Display all mesh vectors"
+    ID_VIEWING_PAINTSELECTEDMESHES "??????????? ?????????? ????"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEWING_PAINTSELECTEDMESHES_AL "Paint selected meshes"
+    ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH 
+                            "?????????? ?????? ??????????? ????"
+    ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL 
+                            "Display the vector of the selected mesh"
+    ID_ADD_BONE_TO_ANM      "???????? ?????????? ????? ? ??????? ????????"
+    ID_DEL_BONE_FROM_ANM    "??????? ?????????? ????? ?? ??????? ????????."
+    ID_ADD_BONE_TO_ANM_AL   "Add the selected bone to the current animation"
+    ID_DEL_BONE_FROM_ANM_AL "Remove the selected bone from the current animation."
+END
+
+#endif    // Neutral (Default) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\SOEdit.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

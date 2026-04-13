@@ -1,0 +1,18 @@
+^D:\SOEDIT VERSION NEXT (V0.7M4)\RESOURCE.H
+echo. >"hlp\SOEdit.hm"
+echo // Commands (ID_* and IDM_*) >>"hlp\SOEdit.hm"
+makehm ID_,HID_,0x10000 IDM_,HIDM_,0x10000 resource.h >>"hlp\SOEdit.hm"
+echo. >>"hlp\SOEdit.hm"
+echo // Prompts (IDP_*) >>"hlp\SOEdit.hm"
+makehm IDP_,HIDP_,0x30000 resource.h >>"hlp\SOEdit.hm"
+echo. >>"hlp\SOEdit.hm"
+echo // Resources (IDR_*) >>"hlp\SOEdit.hm"
+makehm IDR_,HIDR_,0x20000 resource.h >>"hlp\SOEdit.hm"
+echo. >>"hlp\SOEdit.hm"
+echo // Dialogs (IDD_*) >>"hlp\SOEdit.hm"
+makehm IDD_,HIDD_,0x20000 resource.h >>"hlp\SOEdit.hm"
+echo. >>"hlp\SOEdit.hm"
+echo // Frame Controls (IDW_*) >>"hlp\SOEdit.hm"
+makehm IDW_,HIDW_,0x50000 resource.h >>"hlp\SOEdit.hm"
+^D:\SOEDIT VERSION NEXT (V0.7M4)\HLP\SOEDIT.CNT
+copy "hlp\SOEdit.cnt" .\Debug\

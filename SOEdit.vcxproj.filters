@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{dec4c476-77e3-49e7-85b0-945a050396c5}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{1fd12de3-03da-4a7a-8f36-846f3dd046ae}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{124bf886-4729-4398-ac69-4ae19b7508fd}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Help Files">
+      <UniqueIdentifier>{12115cc1-5cce-4dcb-af09-31c6efc7e9d7}</UniqueIdentifier>
+      <Extensions>cnt;rtf</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimProps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoneData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBonePropDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CColors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CDlgGetPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMainTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CModelTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CObb2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="COpenGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CPrefDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSdl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSOEdit2dView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CToolTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVolBoxDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVolCylDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVolPolyDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVolProp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVolTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CVolume.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parse_mtl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SOEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SOEditDoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SOEditView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VolPropDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="all_trash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="setup_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PLY_Tweaker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SOEdit.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CAnimation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimFrame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimProps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoneData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBonePropDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCylinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CDlgGetPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainTab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CObb2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="COpenGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPrefDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSdl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkeleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSOEdit2dView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CToolTab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVolBoxDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVolCylDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVolPolyDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVolProp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVolTab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CVolume.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="general.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parse_mtl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SOEdit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SOEditDoc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SOEditView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VolPropDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="all_trash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="setup_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PLY_Tweaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00001.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00002.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00003.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00004.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00005.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00006.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bmp00007.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ico00001.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ico00002.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ico00003.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ico00004.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SOEdit.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SOEditDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\stepf.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="hlp\AppExit.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\Bullet.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\CurArw2.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\CurArw4.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\CurHelp.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\EditCopy.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\EditCut.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\EditPast.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\EditUndo.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\FileNew.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\FileOpen.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\FilePrnt.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\FileSave.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\HlpSBar.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\HlpTBar.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\RecFirst.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\RecLast.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\RecNext.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\RecPrev.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\Scmax.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\ScMenu.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="hlp\Scmin.bmp">
+      <Filter>Help Files</Filter>
+    </Image>
+    <Image Include="res\bmp00008.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\A_ICO_SOEdit.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\dock.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ico00006.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\SOEdit.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="hlp\AfxCore.rtf">
+      <Filter>Help Files</Filter>
+    </None>
+    <None Include="hlp\AfxPrint.rtf">
+      <Filter>Help Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="hlp\SOEdit.cnt">
+      <Filter>Help Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

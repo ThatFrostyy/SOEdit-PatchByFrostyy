@@ -1,0 +1,4 @@
+{material simple
+	{diffuse "lamp"}
+	{blend none}
+}
