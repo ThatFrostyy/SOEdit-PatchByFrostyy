@@ -15,71 +15,67 @@ D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BON
       D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
       see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1418,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1419,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1424,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1420,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1465,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1425,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1466,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1467,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1467,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1468,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1505,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1469,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1506,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1584,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1507,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1585,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1586,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1586,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1587,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1732,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1588,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1733,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1724,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1734,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1725,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1735,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1726,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1802,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1727,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1802,31): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1811,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1803,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1811,31): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1803,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1812,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  SOEdit.cpp
-  MainFrm.cpp
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1812,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/SOEditView.cpp')
+  
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Debug\SOEdit.exe

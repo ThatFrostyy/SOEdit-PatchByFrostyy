@@ -62,10 +62,12 @@ protected: // create from serialization only
        HDC       m_hDC;
        HGLRC     m_hRC;
 
-	   bool  m_FlyMode;        // true while RMB is held for look-around
-	   CPoint m_FlyAnchor;     // screen centre for cursor lock
-	   bool  m_keys[256];      // currently held keys
-	   UINT_PTR m_WASDTimer;   // timer ID for WASD tick
+	   // Replace the existing fly mode members block:
+	   bool     m_FlyMode;
+	   CPoint   m_FlyAnchor;
+	   bool     m_keys[256];
+	   UINT_PTR m_WASDTimer;
+	   DWORD    m_RButtonDownTime;   // <-- ADD THIS
 
 	   CString OverlayStr[20];
 

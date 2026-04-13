@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CSOEditView, CView)
 	ON_WM_LBUTTONUP()
 	ON_WM_SIZE()
 	ON_WM_MOUSEWHEEL()
+	ON_WM_RBUTTONUP()
 
 	ON_WM_KEYDOWN()
 	ON_WM_KEYUP()
@@ -1633,20 +1634,11 @@ void CSOEditView::OnRButtonDown(UINT nFlags, CPoint point)
 	m_point.x = point.x;
 	m_point.y = point.y;
 	m_rButton = true;
+	m_RButtonDownTime = GetTickCount();
 
-	// Enter fly/look mode: hide cursor and lock it to centre
-	RECT rc;
-	GetClientRect(&rc);
-	CPoint centre(rc.right / 2, rc.bottom / 2);
-	ClientToScreen(&centre);
-	m_FlyAnchor = centre;
-	SetCursorPos(centre.x, centre.y);
-	ShowCursor(FALSE);
-	m_FlyMode = true;
-
-	// Start WASD tick (every 16 ms ≈ 60 fps)
-	if (!m_WASDTimer)
-		m_WASDTimer = SetTimer(1, 16, NULL);
+	// Don't enter fly mode yet — wait to see if this is a hold or a click.
+	// A WM_TIMER (ID=2) fires after 200ms; if RMB is still held, activate fly mode.
+	SetTimer(2, 200, NULL);
 }
 
 void CSOEditView::LoadTexture(char *texfile, int texnumb, CMaterial *pMaterial)
@@ -1784,6 +1776,23 @@ void CSOEditView::OnKillFocus(CWnd* pNewWnd)
 
 void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 {
+	if (nIDEvent == 2) // Hold-detection: RMB held long enough → enter fly mode
+	{
+		KillTimer(2);
+		if (m_rButton) // still held
+		{
+			RECT rc;
+			GetClientRect(&rc);
+			CPoint centre(rc.right / 2, rc.bottom / 2);
+			ClientToScreen(&centre);
+			m_FlyAnchor = centre;
+			SetCursorPos(centre.x, centre.y);
+			ShowCursor(FALSE);
+			m_FlyMode = true;
+			if (!m_WASDTimer)
+				m_WASDTimer = SetTimer(1, 16, NULL);
+		}
+	}
 	if (nIDEvent == 1 && m_FlyMode)
 	{
 		// Build the forward/right/up vectors from current yaw & pitch
@@ -1972,18 +1981,273 @@ void CSOEditView::OnMButtonUp(UINT nFlags, CPoint point)
 
 void CSOEditView::OnRButtonUp(UINT nFlags, CPoint point)
 {
+	KillTimer(2); // cancel the hold-detection timer regardless
+
 	if (m_FlyMode)
 	{
+		// Was in fly mode — exit cleanly
 		m_FlyMode = false;
 		m_rButton = false;
 		ShowCursor(TRUE);
 		ReleaseCapture();
-		if (m_WASDTimer)
-		{
-			KillTimer(m_WASDTimer);
-			m_WASDTimer = 0;
-		}
+		if (m_WASDTimer) { KillTimer(m_WASDTimer); m_WASDTimer = 0; }
 		memset(m_keys, 0, sizeof(m_keys));
+	}
+	else
+	{
+		// Short click — show context menu
+		m_rButton = false;
+		ReleaseCapture();
+		CMenu menu;
+#ifdef ALTERNATIVE_LANG
+		VERIFY(menu.LoadMenu(IDR_3D_VIEW_MENU_AL));
+#else
+		VERIFY(menu.LoadMenu(IDR_3D_VIEW_MENU));
+#endif
+		CMenu* pPopup = menu.GetSubMenu(0);
+		ASSERT(pPopup != NULL);
+		CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
+#ifdef ALTERNATIVE_LANG
+		pPopup->CheckMenuItem(ID_3D_SHADED_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_TEXTURED_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_WIREFRAME_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_TEXTURES_OFF_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_COLLISIONSVIEWER_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_VISUAL_AL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_HYBRID_AL, MF_UNCHECKED);
+		switch (m_DrawMode)
+		{
+		case rl_ambient:
+		{ pPopup->CheckMenuItem(ID_3D_SHADED_AL, MF_CHECKED); }
+		break;
+		case rl_diffuse:
+		{ pPopup->CheckMenuItem(ID_3D_TEXTURED_AL, MF_CHECKED); }
+		break;
+		case rl_wire:
+		{ pPopup->CheckMenuItem(ID_3D_WIREFRAME_AL, MF_CHECKED); }
+		break;
+		case rl_tex_off:
+		{ pPopup->CheckMenuItem(ID_3D_TEXTURES_OFF_AL, MF_CHECKED); }
+		break;
+		case rl_ambient_tex_off:
+		{ pPopup->CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF_AL, MF_CHECKED); }
+		break;
+		};
+		switch (m_ViewMod)
+		{
+		case vm3_visual:
+		{ pPopup->CheckMenuItem(ID_3D_VISUAL_AL, MF_CHECKED); }
+		break;
+		case vm3_hybrid:
+		{ pPopup->CheckMenuItem(ID_3D_HYBRID_AL, MF_CHECKED); }
+		break;
+		case vm3_collision:
+		{ pPopup->CheckMenuItem(ID_3D_COLLISIONSVIEWER_AL, MF_CHECKED); }
+		break;
+		};
+		if (m_vol_wireframe)
+		{
+			pPopup->CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME_AL, MF_UNCHECKED);
+		}
+		if (m_ViewEnts3dAsWireframe)
+		{
+			pPopup->CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME_AL, MF_UNCHECKED);
+		}
+		if (m_pDoc->Colorized_3d)
+		{
+			pPopup->CheckMenuItem(ID_3D_COLORIZE_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_COLORIZE_AL, MF_UNCHECKED);
+		}
+		if (pWnd->m_ViewEnts3d)
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_ENTITY_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_ENTITY_AL, MF_UNCHECKED);
+		}
+		if (pWnd->m_Selected)
+		{
+			pPopup->CheckMenuItem(ID_VIEW_SELECTED_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW_SELECTED_AL, MF_UNCHECKED);
+		}
+		if (m_grid)
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID_AL, MF_UNCHECKED);
+		}
+		if (m_ViewMeshAsWireframe)
+		{
+			pPopup->CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME_AL, MF_UNCHECKED);
+		}
+		if (m_WireframeOverMesh)
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH_AL, MF_UNCHECKED);
+		}
+		if (m_Paint_selected_meshes)
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES_AL, MF_UNCHECKED);
+		}
+		if (m_ViewMeshVector)
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL, MF_UNCHECKED);
+		}
+#else
+		pPopup->CheckMenuItem(ID_3D_SHADED, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_TEXTURED, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_WIREFRAME, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_TEXTURES_OFF, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_COLLISIONSVIEWER, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_VISUAL, MF_UNCHECKED);
+		pPopup->CheckMenuItem(ID_3D_HYBRID, MF_UNCHECKED);
+		switch (m_DrawMode)
+		{
+		case rl_ambient:
+		{ pPopup->CheckMenuItem(ID_3D_SHADED, MF_CHECKED); }
+		break;
+		case rl_diffuse:
+		{ pPopup->CheckMenuItem(ID_3D_TEXTURED, MF_CHECKED); }
+		break;
+		case rl_wire:
+		{ pPopup->CheckMenuItem(ID_3D_WIREFRAME, MF_CHECKED); }
+		break;
+		case rl_tex_off:
+		{ pPopup->CheckMenuItem(ID_3D_TEXTURES_OFF, MF_CHECKED); }
+		break;
+		case rl_ambient_tex_off:
+		{ pPopup->CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF, MF_CHECKED); }
+		break;
+		};
+		switch (m_ViewMod)
+		{
+		case vm3_visual:
+		{ pPopup->CheckMenuItem(ID_3D_VISUAL, MF_CHECKED); }
+		break;
+		case vm3_hybrid:
+		{ pPopup->CheckMenuItem(ID_3D_HYBRID, MF_CHECKED); }
+		break;
+		case vm3_collision:
+		{ pPopup->CheckMenuItem(ID_3D_COLLISIONSVIEWER, MF_CHECKED); }
+		break;
+		};
+		if (m_vol_wireframe)
+		{
+			pPopup->CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME, MF_UNCHECKED);
+		}
+		if (m_ViewEnts3dAsWireframe)
+		{
+			pPopup->CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME, MF_UNCHECKED);
+		}
+		if (m_pDoc->Colorized_3d)
+		{
+			pPopup->CheckMenuItem(ID_3D_COLORIZE, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_COLORIZE, MF_UNCHECKED);
+		}
+		if (pWnd->m_ViewEnts3d)
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_ENTITY, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_ENTITY, MF_UNCHECKED);
+		}
+		if (pWnd->m_Selected)
+		{
+			pPopup->CheckMenuItem(ID_VIEW_SELECTED, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW_SELECTED, MF_UNCHECKED);
+		}
+		if (m_grid)
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID, MF_UNCHECKED);
+		}
+		if (m_ViewMeshAsWireframe)
+		{
+			pPopup->CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME, MF_UNCHECKED);
+		}
+		if (m_WireframeOverMesh)
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH, MF_UNCHECKED);
+		}
+		if (m_Paint_selected_meshes)
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES, MF_UNCHECKED);
+		}
+		if (m_ViewMeshVector)
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH, MF_CHECKED);
+		}
+		else
+		{
+			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH, MF_UNCHECKED);
+		}
+#endif
+		GetCursorPos(&point);
+		pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, AfxGetMainWnd());
 	}
 	CView::OnRButtonUp(nFlags, point);
 }
