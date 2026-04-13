@@ -1114,6 +1114,26 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 	bool up_down = false, action = false;
 	if(pMsg -> message == WM_KEYDOWN || pMsg -> message == WM_MOUSEWHEEL)
 	{
+		if (pMsg->message == WM_KEYDOWN)
+		{
+			const bool hasModifier = ((GetKeyState(VK_CONTROL) & 0x8000) != 0) || ((GetKeyState(VK_MENU) & 0x8000) != 0);
+			CView* pActiveView = GetActiveView();
+			if (!hasModifier && pActiveView && pActiveView->IsKindOf(RUNTIME_CLASS(CSOEdit2dView)))
+			{
+				switch (pMsg->wParam)
+				{
+				case 'W':
+					OnModeMove();
+					return TRUE;
+				case 'E':
+					OnModeRotate();
+					return TRUE;
+				case 'R':
+					OnModeScale();
+					return TRUE;
+				}
+			}
+		}
 		CEdit *pEdit = (CEdit *)m_wndAnimBox.GetDlgItem(IDC_SPEED);
 		CEdit *pEdit2 = (CEdit *)m_wndToolTab.GetDlgItem(IDC_FINDING_COMPONENT);
 		if(pMsg -> hwnd == pEdit -> GetSafeHwnd())

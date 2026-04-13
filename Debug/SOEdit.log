@@ -1,81 +1,66 @@
 ﻿cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  SOEditView.cpp
+  MainFrm.cpp
 D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
-  (compiling source file '/SOEditView.cpp')
+  (compiling source file '/MainFrm.cpp')
       D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
       see previous definition of 'IDC_RESET_BONE'
   
 D:\SOEdit Version Next (v0.7m4)\resource.h(435,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
-  (compiling source file '/SOEditView.cpp')
+  (compiling source file '/MainFrm.cpp')
       D:\SOEdit Version Next (v0.7m4)\resource.h(740,9):
       see previous definition of 'IDC_RESET_BONE'
   
 D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
-  (compiling source file '/SOEditView.cpp')
+  (compiling source file '/MainFrm.cpp')
       D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
       see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1419,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(26,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  (compiling source file '/MainFrm.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1420,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+  CSOEdit2dView.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CSOEdit2dView.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1425,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\resource.h(435,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CSOEdit2dView.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(740,9):
+      see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1466,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CSOEdit2dView.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1467,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2074,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1468,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2075,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1469,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2076,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1506,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2077,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1507,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2078,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1585,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2079,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1586,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2080,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1587,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2081,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1588,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2082,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1724,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1725,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1726,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1727,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1811,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1811,31): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1812,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1812,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file '/SOEditView.cpp')
-  
+  Generating Code...
+all_trash.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Debug\SOEdit.exe
