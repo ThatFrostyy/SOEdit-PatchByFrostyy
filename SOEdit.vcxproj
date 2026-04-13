@@ -99,6 +99,16 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\Release/SOEdit.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>:: Create a clean Distribution folder
+if not exist "$(SolutionDir)Dist" mkdir "$(SolutionDir)Dist"
+
+:: Copy only the EXE
+xcopy /Y "$(TargetPath)" "$(SolutionDir)Dist\"
+
+:: Copy any DLLs needed
+xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
