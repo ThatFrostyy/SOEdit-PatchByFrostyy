@@ -1,0 +1,187 @@
+﻿  all_trash.cpp
+D:\SOEdit Version Next (v0.7m4)\all_trash.cpp(142,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/all_trash.cpp')
+  
+  CPrefDlg.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CPrefDlg.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(435,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CPrefDlg.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(740,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CPrefDlg.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+  CSdl.cpp
+D:\SOEdit Version Next (v0.7m4)\CSdl.cpp(23,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CSdl.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSdl.cpp(68,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CSdl.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSdl.cpp(116,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CSdl.cpp')
+  
+  CSOEdit2dView.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CSOEdit2dView.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(435,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CSOEdit2dView.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(740,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CSOEdit2dView.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(554,10): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(574,10): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(1772,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2019,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2020,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2021,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2022,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2023,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2024,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2025,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2026,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSOEdit2dView.cpp(2027,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CSOEdit2dView.cpp')
+  
+  CTexFile.cpp
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(39,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(82,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(88,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(94,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(100,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(106,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(112,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(118,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(135,11): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(403,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(405,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(410,6): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(438,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(441,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(444,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(447,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(450,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(453,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(456,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(459,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(462,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(401,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(409,8): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(434,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CTexFile.cpp(630,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CTexFile.cpp')
+  
+  setup_window.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/setup_window.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+  VolPropDlg.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/VolPropDlg.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(435,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/VolPropDlg.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(740,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(740,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/VolPropDlg.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(435,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\VolPropDlg.cpp(157,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/VolPropDlg.cpp')
+  
+  Generating Code...
+resource.h(740): warning RC4005: 'IDC_RESET_BONE' : redefinition
+  
+  SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe

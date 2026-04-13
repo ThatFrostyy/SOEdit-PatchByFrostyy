@@ -1451,61 +1451,6 @@ void CSOEdit2dView::DrawTrapGL(v3_t box)
 	}
 }
 
-void CSOEdit2dView::DrawDiamondGL(v3_t box)
-{
-	v3_t vert[6];
-
-	// top
-	vert[0][0] = 0.0f;
-	vert[0][1] = 0.0f;
-	vert[0][2] = box[2] / 2.0f;
-
-	// bottom
-	vert[1][0] = 0.0f;
-	vert[1][1] = 0.0f;
-	vert[1][2] = box[2] / -2.0f;
-
-	// left
-	vert[2][0] = box[0] / -2.0f;
-	vert[2][1] = 0.0f;
-	vert[2][2] = 0.0f;
-
-	// right
-	vert[3][0] = box[0] / 2.0f;
-	vert[3][1] = 0.0f;
-	vert[3][2] = 0.0f;
-
-	// rear
-	vert[4][0] = 0.0f;
-	vert[4][1] = box[1] / -2.0f;
-	vert[4][2] = 0.0f;
-
-	// front
-	vert[5][0] = 0.0f;
-	vert[5][1] = box[1] / 2.0f;
-	vert[5][2] = 0.0f;
-
-	indx_t indx[8];
-	indx[0].v[0] = 0; indx[0].v[1] = 3; indx[0].v[2] = 5;
-	indx[1].v[0] = 0; indx[1].v[1] = 5; indx[1].v[2] = 2;
-	indx[2].v[0] = 0; indx[2].v[1] = 2; indx[2].v[2] = 4;
-	indx[3].v[0] = 0; indx[3].v[1] = 4; indx[3].v[2] = 3;
-	indx[4].v[0] = 1; indx[4].v[1] = 5; indx[4].v[2] = 3;
-	indx[5].v[0] = 1; indx[5].v[1] = 2; indx[5].v[2] = 5;
-	indx[6].v[0] = 1; indx[6].v[1] = 4; indx[6].v[2] = 2;
-	indx[7].v[0] = 1; indx[7].v[1] = 3; indx[7].v[2] = 4;
-
-	for (int f = 0; f < 8; f++)
-	{
-		glBegin(GL_POLYGON);
-		for (int v = 2; v >= 0; v--)
-		{
-			glVertex3fv(vert[indx[f].v[v]]);
-		}
-		glEnd();
-	}
-}
-
 void CSOEdit2dView::DrawCylGL(CCylinder *cyl)
 {
 	for(int f = 0; f < cyl -> m_faces; f++)
@@ -1948,10 +1893,10 @@ void CSOEdit2dView::DrawBoneGL(CBone *basis)
 			if(((selected && (pWnd -> m_Selected && pDoc -> m_SelBone)) || (!(pWnd -> m_Selected && pDoc -> m_SelBone))) && (pWnd -> m_ViewEnts))
 			{
 				v3_t box;
-				box[0] = 6.0f;
-				box[1] = 6.0f;
-				box[2] = 6.0f;
-				DrawDiamondGL(box);
+				box[0] = 8.0f;
+				box[1] = 5.0f;
+				box[2] = 2.0f;
+				DrawTrapGL(box);
 			}
 		}
 	}
