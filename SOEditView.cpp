@@ -1,4 +1,4 @@
-// Copyright (C) 2005 by Brian A. Kay
+ï»¿// Copyright (C) 2005 by Brian A. Kay
 // Modification by TonaTor
 
 #include "stdafx.h"
@@ -33,6 +33,12 @@ BEGIN_MESSAGE_MAP(CSOEditView, CView)
 	ON_WM_LBUTTONUP()
 	ON_WM_SIZE()
 	ON_WM_MOUSEWHEEL()
+
+	ON_WM_KEYDOWN()
+	ON_WM_KEYUP()
+	ON_WM_TIMER()
+	ON_WM_KILLFOCUS()
+
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
@@ -89,13 +95,13 @@ CSOEditView::CSOEditView()
     m_gldAspect = 0.0f;
 	m_Scale = 0.05f;
 	
-	//îñëàáèë ñ 0.25
+	//Ã®Ã±Ã«Ã Ã¡Ã¨Ã« Ã± 0.25
     m_AmbientLight[0] = 0.225f;
     m_AmbientLight[1] = 0.225f;
     m_AmbientLight[2] = 0.225f;
     m_AmbientLight[3] = 1.0f;
 
-	//óñèëèë íà 0.15
+	//Ã³Ã±Ã¨Ã«Ã¨Ã« Ã­Ã  0.15
 	m_DiffuseLight[0] = 0.75f;
 	m_DiffuseLight[1] = 0.75f;
     m_DiffuseLight[2] = 0.75f;
@@ -116,7 +122,7 @@ CSOEditView::CSOEditView()
     m_ClearColor[2] = 0.5f;
     m_ClearColor[3] = 1.0f;*/
 
-	//È êàê ýòî íàñòðàèâàòü?
+	//Ãˆ ÃªÃ Ãª Ã½Ã²Ã® Ã­Ã Ã±Ã²Ã°Ã Ã¨Ã¢Ã Ã²Ã¼?
     m_SpecRef[0] = 1.0f;
     m_SpecRef[1] = 1.0f;
     m_SpecRef[2] = 1.0f;
@@ -139,9 +145,13 @@ CSOEditView::CSOEditView()
 	m_pDC = NULL;
 	m_grid = true;
 	m_ViewMeshVector = m_Paint_selected_meshes = m_WireframeOverMesh = m_ViewMeshAsWireframe = m_ViewEnts3dAsWireframe = m_vol_wireframe = false;
-	Near_View = 2.0;//äâà ïîïóãàÿ
-	Far_View = 10000.0;//10 òûñ. ïîïóãàåâ
+	Near_View = 2.0;//Ã¤Ã¢Ã  Ã¯Ã®Ã¯Ã³Ã£Ã Ã¿
+	Far_View = 10000.0;//10 Ã²Ã»Ã±. Ã¯Ã®Ã¯Ã³Ã£Ã Ã¥Ã¢
 	koef_light_diffuse = 1.25f;
+
+	m_FlyMode = false;
+	m_WASDTimer = 0;
+	memset(m_keys, 0, sizeof(m_keys));
 }
 
 CSOEditView::~CSOEditView()
@@ -294,7 +304,7 @@ BOOL CSOEditView::InitGL()
 		#ifdef ALTERNATIVE_LANG
 			::MessageBoxA(this -> m_hWnd, "Unable to set pixel format", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
 		#else
-			::MessageBoxA(this -> m_hWnd, "Íåâîçìîæíî óñòàíîâèòü ïèêñåëüíûé ôîðìàò", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
+			::MessageBoxA(this -> m_hWnd, "ÃÃ¥Ã¢Ã®Ã§Ã¬Ã®Ã¦Ã­Ã® Ã³Ã±Ã²Ã Ã­Ã®Ã¢Ã¨Ã²Ã¼ Ã¯Ã¨ÃªÃ±Ã¥Ã«Ã¼Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã²", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
 		#endif
         return(FALSE);
 	}
@@ -391,7 +401,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 			glMultMatrixf((float *)&m);
 		}
 	}
-	if(basis -> m_Skin)//Ýýýý?
+	if(basis -> m_Skin)//ÃÃ½Ã½Ã½?
 	{
 		CBone *pSkin = m_pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBone("skin");
 		if(pSkin)
@@ -471,7 +481,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 		}
 		else
 			{CR = CG = CB = 255;}
-        //glAlphaFunc(GL_GREATER, 50.0f / 255.0f); //åñëè blend - òî 0, åñëè test - òî 128
+        //glAlphaFunc(GL_GREATER, 50.0f / 255.0f); //Ã¥Ã±Ã«Ã¨ blend - Ã²Ã® 0, Ã¥Ã±Ã«Ã¨ test - Ã²Ã® 128
 		int rep = 1;
 		if(m_WireframeOverMesh && !m_ViewMeshAsWireframe && m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
 			{rep = 2;}
@@ -514,7 +524,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 						{glEnable(GL_ALPHA_TEST);}
 					else
 						{glDisable(GL_ALPHA_TEST);}
-					if(pMesh -> m_texture[0] -> m_Blend)//ïåðåäåëàòü ýòè õðåíè
+					if(pMesh -> m_texture[0] -> m_Blend)//Ã¯Ã¥Ã°Ã¥Ã¤Ã¥Ã«Ã Ã²Ã¼ Ã½Ã²Ã¨ ÃµÃ°Ã¥Ã­Ã¨
 					{
 						glEnable(GL_ALPHA_TEST);
 						glEnable(GL_BLEND);
@@ -530,7 +540,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 				}
 				if(pMesh -> m_fvf == 0x1158 || pMesh -> m_flags & MESH_FLAG_TWO_SIDED || m_ViewMeshAsWireframe || iDraw || m_DrawMode == rl_wire || m_DrawMode == rl_ambient_tex_off)
 					{glDisable(GL_CULL_FACE);}
-				//ïåðâàÿ î÷åðåäü ïîëèãîíà
+				//Ã¯Ã¥Ã°Ã¢Ã Ã¿ Ã®Ã·Ã¥Ã°Ã¥Ã¤Ã¼ Ã¯Ã®Ã«Ã¨Ã£Ã®Ã­Ã 
 				long RS = 0, GS = 0, BS = 0, AS = 0;
 				DWORD DC = 0;
 				if(m_ViewMeshAsWireframe)
@@ -540,7 +550,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 				}
 				for(f = pMesh -> m_first; f < pMesh -> m_count + pMesh -> m_first && ((!iDraw) ? anm_visi : true); f++)
 				{
-					if(transparency_mod == (alpha_blend && pMesh -> m_transparency))//êàêàÿ î÷åðåäü
+					if(transparency_mod == (alpha_blend && pMesh -> m_transparency))//ÃªÃ ÃªÃ Ã¿ Ã®Ã·Ã¥Ã°Ã¥Ã¤Ã¼
 					{
 						glBegin(GL_POLYGON);
 						
@@ -605,7 +615,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 							uv[0] = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].uv[0][0];
 							uv[1] = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].uv[0][1];
 							glTexCoord2fv(uv);
-							if(basis -> m_VolumeView -> m_bones == 0)//çà÷åì çäåñü ýòî???
+							if(basis -> m_VolumeView -> m_bones == 0)//Ã§Ã Ã·Ã¥Ã¬ Ã§Ã¤Ã¥Ã±Ã¼ Ã½Ã²Ã®???
 								{glNormal3fv(basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].vn);}
 							/*DC = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].diffuse;
 							RS = GetRValue(DC);
@@ -1167,7 +1177,7 @@ void CSOEditView::DrawScene()
 	{
 		case rl_ambient:
 			{koef_light_diffuse = 1.25f;}
-		//break íå ñòàâèòü!
+		//break Ã­Ã¥ Ã±Ã²Ã Ã¢Ã¨Ã²Ã¼!
 		case rl_tex_off:
 		{
 			glEnable(GL_LIGHTING);
@@ -1229,14 +1239,14 @@ void CSOEditView::DrawScene()
     glPushMatrix();
 	if(m_pDoc -> fix_mx_ori)
 	{
-		anm_normalizer();//Äà-äà... Âîò òàê âîò ïðîñòî èñïðàâëÿåì ìàòðèöó ïðÿìî â ïðîöåññå ðåíäåðà...
+		anm_normalizer();//Ã„Ã -Ã¤Ã ... Ã‚Ã®Ã² Ã²Ã Ãª Ã¢Ã®Ã² Ã¯Ã°Ã®Ã±Ã²Ã® Ã¨Ã±Ã¯Ã°Ã Ã¢Ã«Ã¿Ã¥Ã¬ Ã¬Ã Ã²Ã°Ã¨Ã¶Ã³ Ã¯Ã°Ã¿Ã¬Ã® Ã¢ Ã¯Ã°Ã®Ã¶Ã¥Ã±Ã±Ã¥ Ã°Ã¥Ã­Ã¤Ã¥Ã°Ã ...
 		m_pDoc -> fix_mx_ori = false;
 		//TODO:
-		//ïåðåäåëàòü ýòîò òðýø
+		//Ã¯Ã¥Ã°Ã¥Ã¤Ã¥Ã«Ã Ã²Ã¼ Ã½Ã²Ã®Ã² Ã²Ã°Ã½Ã¸
 		//...
-		//À õîòÿ... è òàê ñîéä¸ò...
+		//Ã€ ÃµÃ®Ã²Ã¿... Ã¨ Ã²Ã Ãª Ã±Ã®Ã©Ã¤Â¸Ã²...
 		//...
-		//Ïîèñêàòü ìåòîä ðåøåíèÿ ïðîáëåìû
+		//ÃÃ®Ã¨Ã±ÃªÃ Ã²Ã¼ Ã¬Ã¥Ã²Ã®Ã¤ Ã°Ã¥Ã¸Ã¥Ã­Ã¨Ã¿ Ã¯Ã°Ã®Ã¡Ã«Ã¥Ã¬Ã»
 	}
 	if(m_pDoc -> BLamp_View && pFrameWnd -> m_lamp)
 	{
@@ -1337,6 +1347,33 @@ void CSOEditView::RenderVisual(bool transparency_mod)
 void CSOEditView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	//nFlags & MK_LBUTTON nFlags & MK_RBUTTON nFlags & MK_MBUTTON
+
+	if (m_FlyMode)
+	{
+		int dx = point.x - (m_FlyAnchor.x - 0); // anchor is in screen coords
+		// convert anchor to client for comparison
+		CPoint clientAnchor = m_FlyAnchor;
+		ScreenToClient(&clientAnchor);
+		dx = point.x - clientAnchor.x;
+		int dy = point.y - clientAnchor.y;
+		if (dx != 0 || dy != 0)
+		{
+			const float sensitivity = 0.25f;
+			m_Camera.Orient[0] += dy * sensitivity;   // pitch
+			m_Camera.Orient[1] += dx * sensitivity;   // yaw
+			// Clamp pitch
+			if (m_Camera.Orient[0] > 89.0f) m_Camera.Orient[0] = 89.0f;
+			if (m_Camera.Orient[0] < -89.0f) m_Camera.Orient[0] = -89.0f;
+			// Wrap yaw
+			if (m_Camera.Orient[1] > 180.0f) m_Camera.Orient[1] -= 360.0f;
+			if (m_Camera.Orient[1] < -180.0f) m_Camera.Orient[1] += 360.0f;
+			// Re-centre cursor
+			SetCursorPos(m_FlyAnchor.x, m_FlyAnchor.y);
+			RECT rc; GetClientRect(&rc);
+			InvalidateRect(&rc, false);
+		}
+		return;  // skip old mouse-drag logic while in fly mode
+	}
 
 	OverlayStr[12] = "";
 	OverlayStr[13] = "";
@@ -1530,7 +1567,7 @@ void CSOEditView::OnMouseMove(UINT nFlags, CPoint point)
 		m_point.y = delta.y;
 		m_point.x = delta.x;
 	}
-	//îòëàäêà
+	//Ã®Ã²Ã«Ã Ã¤ÃªÃ 
 	float Angle = m_Camera.Orient[1], Angle2 = m_Camera.Orient[0];
 	if(Angle < 0)
 		{Angle += 360;}
@@ -1591,181 +1628,25 @@ void CSOEditView::OnMButtonDown(UINT nFlags, CPoint point)
 
 void CSOEditView::OnRButtonDown(UINT nFlags, CPoint point)
 {
+	SetCapture();
+	SetFocus();
 	m_point.x = point.x;
 	m_point.y = point.y;
 	m_rButton = true;
-	CMenu menu;
-	#ifdef ALTERNATIVE_LANG
-		VERIFY(menu.LoadMenu(IDR_3D_VIEW_MENU_AL));
-	#else
-		VERIFY(menu.LoadMenu(IDR_3D_VIEW_MENU));
-	#endif
-	CMenu* pPopup = menu.GetSubMenu(0);
-	ASSERT(pPopup != NULL);
-	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
-	#ifdef ALTERNATIVE_LANG
-		pPopup -> CheckMenuItem(ID_3D_SHADED_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_TEXTURED_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_WIREFRAME_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_TEXTURES_OFF_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_COLLISIONSVIEWER_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_VISUAL_AL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_HYBRID_AL, MF_UNCHECKED);
-		switch(m_DrawMode)
-		{
-			case rl_ambient:
-				{pPopup -> CheckMenuItem(ID_3D_SHADED_AL, MF_CHECKED);}
-			break;
-			case rl_diffuse:
-				{pPopup -> CheckMenuItem(ID_3D_TEXTURED_AL, MF_CHECKED);}
-			break;
-			case rl_wire:
-				{pPopup -> CheckMenuItem(ID_3D_WIREFRAME_AL, MF_CHECKED);}
-			break;
-			case rl_tex_off:
-				{pPopup -> CheckMenuItem(ID_3D_TEXTURES_OFF_AL, MF_CHECKED);}
-			break;
-			case rl_ambient_tex_off:
-				{pPopup -> CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF_AL, MF_CHECKED);}
-			break;
-		};
-		switch(m_ViewMod)
-		{
-			case vm3_visual:
-				{pPopup -> CheckMenuItem(ID_3D_VISUAL_AL, MF_CHECKED);}
-			break;
-			case vm3_hybrid:
-				{pPopup -> CheckMenuItem(ID_3D_HYBRID_AL, MF_CHECKED);}
-			break;
-			case vm3_collision:
-				{pPopup -> CheckMenuItem(ID_3D_COLLISIONSVIEWER_AL, MF_CHECKED);}
-			break;
-		};
-		if(m_vol_wireframe)
-			{pPopup -> CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME_AL, MF_UNCHECKED);}
-		if(m_ViewEnts3dAsWireframe)
-			{pPopup -> CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME_AL, MF_UNCHECKED);}
-		if(m_pDoc -> Colorized_3d)
-			{pPopup -> CheckMenuItem(ID_3D_COLORIZE_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_COLORIZE_AL, MF_UNCHECKED);}
-		if(pWnd -> m_ViewEnts3d)
-			{pPopup -> CheckMenuItem(ID_VIEW3D_ENTITY_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW3D_ENTITY_AL, MF_UNCHECKED);}
-		if(pWnd -> m_Selected)
-			{pPopup -> CheckMenuItem(ID_VIEW_SELECTED_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW_SELECTED_AL, MF_UNCHECKED);}
-		if(m_grid)
-			{pPopup -> CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID_AL, MF_UNCHECKED);}
-		if(m_ViewMeshAsWireframe)
-			{pPopup -> CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME_AL, MF_UNCHECKED);}
-		if(m_WireframeOverMesh)
-			{pPopup -> CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH_AL, MF_UNCHECKED);}
-		if(m_Paint_selected_meshes)
-			{pPopup -> CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES_AL, MF_UNCHECKED);}
-		if(m_ViewMeshVector)
-			{pPopup -> CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL, MF_UNCHECKED);}
 
-	#else
-		pPopup -> CheckMenuItem(ID_3D_SHADED, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_TEXTURED, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_WIREFRAME, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_TEXTURES_OFF, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_COLLISIONSVIEWER, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_VISUAL, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_3D_HYBRID, MF_UNCHECKED);
-		switch(m_DrawMode)
-		{
-			case rl_ambient:
-				{pPopup -> CheckMenuItem(ID_3D_SHADED, MF_CHECKED);}
-			break;
-			case rl_diffuse:
-				{pPopup -> CheckMenuItem(ID_3D_TEXTURED, MF_CHECKED);}
-			break;
-			case rl_wire:
-				{pPopup -> CheckMenuItem(ID_3D_WIREFRAME, MF_CHECKED);}
-			break;
-			case rl_tex_off:
-				{pPopup -> CheckMenuItem(ID_3D_TEXTURES_OFF, MF_CHECKED);}
-			break;
-			case rl_ambient_tex_off:
-				{pPopup -> CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF, MF_CHECKED);}
-			break;
-		};
-		switch(m_ViewMod)
-		{
-			case vm3_visual:
-				{pPopup -> CheckMenuItem(ID_3D_VISUAL, MF_CHECKED);}
-			break;
-			case vm3_hybrid:
-				{pPopup -> CheckMenuItem(ID_3D_HYBRID, MF_CHECKED);}
-			break;
-			case vm3_collision:
-				{pPopup -> CheckMenuItem(ID_3D_COLLISIONSVIEWER, MF_CHECKED);}
-			break;
-		};
-		if(m_vol_wireframe)
-			{pPopup -> CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME, MF_UNCHECKED);}
-		if(m_ViewEnts3dAsWireframe)
-			{pPopup -> CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME, MF_UNCHECKED);}
-		if(m_pDoc -> Colorized_3d)
-			{pPopup -> CheckMenuItem(ID_3D_COLORIZE, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_COLORIZE, MF_UNCHECKED);}
-		if(pWnd -> m_ViewEnts3d)
-			{pPopup -> CheckMenuItem(ID_VIEW3D_ENTITY, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW3D_ENTITY, MF_UNCHECKED);}
-		if(pWnd -> m_Selected)
-			{pPopup -> CheckMenuItem(ID_VIEW_SELECTED, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW_SELECTED, MF_UNCHECKED);}
-		if(m_grid)
-			{pPopup -> CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID, MF_UNCHECKED);}
-		if(m_ViewMeshAsWireframe)
-			{pPopup -> CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME, MF_UNCHECKED);}
-		if(m_WireframeOverMesh)
-			{pPopup -> CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH, MF_UNCHECKED);}
-		if(m_Paint_selected_meshes)
-			{pPopup -> CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES, MF_UNCHECKED);}
-		if(m_ViewMeshVector)
-			{pPopup -> CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH, MF_UNCHECKED);}
-	#endif
-	GetCursorPos(&point);
-    pPopup -> TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, AfxGetMainWnd());
-	CView::OnRButtonDown(nFlags, point);
+	// Enter fly/look mode: hide cursor and lock it to centre
+	RECT rc;
+	GetClientRect(&rc);
+	CPoint centre(rc.right / 2, rc.bottom / 2);
+	ClientToScreen(&centre);
+	m_FlyAnchor = centre;
+	SetCursorPos(centre.x, centre.y);
+	ShowCursor(FALSE);
+	m_FlyMode = true;
+
+	// Start WASD tick (every 16 ms â‰ˆ 60 fps)
+	if (!m_WASDTimer)
+		m_WASDTimer = SetTimer(1, 16, NULL);
 }
 
 void CSOEditView::LoadTexture(char *texfile, int texnumb, CMaterial *pMaterial)
@@ -1777,7 +1658,7 @@ void CSOEditView::LoadTexture(char *texfile, int texnumb, CMaterial *pMaterial)
 		#ifdef ALTERNATIVE_LANG
 			MessageBox(CString("Failed to load texture file:\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
 		#else
-			MessageBox(CString("Íå óäàëîñü çàãðóçèòü ôàéë òåêñòóðû:\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
+			MessageBox(CString("ÃÃ¥ Ã³Ã¤Ã Ã«Ã®Ã±Ã¼ Ã§Ã Ã£Ã°Ã³Ã§Ã¨Ã²Ã¼ Ã´Ã Ã©Ã« Ã²Ã¥ÃªÃ±Ã²Ã³Ã°Ã»:\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
 		#endif
 	}
 	pMaterial -> m_transparency = tex -> m_transparency;
@@ -1872,6 +1753,111 @@ BOOL CSOEditView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	InvalidateRect(NULL, false);
 	OnUpdate(NULL, 0, NULL);
 	return CView::OnMouseWheel(nFlags, zDelta, pt);
+}
+
+void CSOEditView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	if (nChar < 256) m_keys[nChar] = true;
+	CView::OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+void CSOEditView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	if (nChar < 256) m_keys[nChar] = false;
+	CView::OnKeyUp(nChar, nRepCnt, nFlags);
+}
+
+void CSOEditView::OnKillFocus(CWnd* pNewWnd)
+{
+	// If we lose focus while in fly mode, clean up so we're not stuck
+	if (m_FlyMode)
+	{
+		m_FlyMode = false;
+		m_rButton = false;
+		ShowCursor(TRUE);
+		ReleaseCapture();
+		if (m_WASDTimer) { KillTimer(m_WASDTimer); m_WASDTimer = 0; }
+	}
+	memset(m_keys, 0, sizeof(m_keys));
+	CView::OnKillFocus(pNewWnd);
+}
+
+void CSOEditView::OnTimer(UINT_PTR nIDEvent)
+{
+	if (nIDEvent == 1 && m_FlyMode)
+	{
+		// Build the forward/right/up vectors from current yaw & pitch
+		// (reuse the exact same trig pattern already used by OnMouseWheel)
+		const float speed = 3.0f;
+		float Angle = m_Camera.Orient[1];   // yaw
+		float Angle2 = m_Camera.Orient[0];   // pitch
+
+		if (Angle < 0)   Angle += 360.0f;
+		else if (Angle > 360) Angle -= 360.0f;
+		if (Angle2 < 0)  Angle2 += 360.0f;
+		else if (Angle2 > 360) Angle2 -= 360.0f;
+
+		float rad = (float)((double)(2 * 3.1416 * Angle) / 360);
+		float rad2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
+		float cosA = cos(rad), sinA = sin(rad);
+		float cosA2 = cos(rad2), sinA2 = sin(rad2);
+
+		// Forward vector (same sign convention as wheel zoom)
+		float fwdX = -sinA * cosA2 * speed;  // position[0] component
+		float fwdY = sinA2 * speed;           // position[1] (up/down lean)
+		float fwdZ = cosA * cosA2 * speed;  // position[2] component
+
+		// Right vector (perpendicular in XZ plane)
+		float rightX = cosA * speed;
+		float rightZ = sinA * speed;
+
+		bool moved = false;
+
+		if (m_keys['W'] || m_keys[VK_UP])
+		{
+			m_Camera.Position[0] += fwdX;
+			m_Camera.Position[1] += fwdY;
+			m_Camera.Position[2] -= fwdZ;
+			moved = true;
+		}
+		if (m_keys['S'] || m_keys[VK_DOWN])
+		{
+			m_Camera.Position[0] -= fwdX;
+			m_Camera.Position[1] -= fwdY;
+			m_Camera.Position[2] += fwdZ;
+			moved = true;
+		}
+		if (m_keys['A'] || m_keys[VK_LEFT])
+		{
+			m_Camera.Position[0] -= rightX;
+			m_Camera.Position[2] -= rightZ;
+			moved = true;
+		}
+		if (m_keys['D'] || m_keys[VK_RIGHT])
+		{
+			m_Camera.Position[0] += rightX;
+			m_Camera.Position[2] += rightZ;
+			moved = true;
+		}
+		// E / Q = move straight up / down (world-space)
+		if (m_keys['E'])
+		{
+			m_Camera.Position[1] += speed;
+			moved = true;
+		}
+		if (m_keys['Q'])
+		{
+			m_Camera.Position[1] -= speed;
+			moved = true;
+		}
+
+		if (moved)
+		{
+			RECT rc; GetClientRect(&rc);
+			InvalidateRect(&rc, false);
+		}
+	}
+	CView::OnTimer(nIDEvent);
 }
 
 void CSOEditView::anm_normalizer()
@@ -1986,8 +1972,20 @@ void CSOEditView::OnMButtonUp(UINT nFlags, CPoint point)
 
 void CSOEditView::OnRButtonUp(UINT nFlags, CPoint point)
 {
-	m_rButton = false;
-	CView::OnLButtonUp(nFlags, point);
+	if (m_FlyMode)
+	{
+		m_FlyMode = false;
+		m_rButton = false;
+		ShowCursor(TRUE);
+		ReleaseCapture();
+		if (m_WASDTimer)
+		{
+			KillTimer(m_WASDTimer);
+			m_WASDTimer = 0;
+		}
+		memset(m_keys, 0, sizeof(m_keys));
+	}
+	CView::OnRButtonUp(nFlags, point);
 }
 
 void CSOEditView::OnColorize()

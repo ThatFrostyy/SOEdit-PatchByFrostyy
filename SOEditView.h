@@ -62,6 +62,11 @@ protected: // create from serialization only
        HDC       m_hDC;
        HGLRC     m_hRC;
 
+	   bool  m_FlyMode;        // true while RMB is held for look-around
+	   CPoint m_FlyAnchor;     // screen centre for cursor lock
+	   bool  m_keys[256];      // currently held keys
+	   UINT_PTR m_WASDTimer;   // timer ID for WASD tick
+
 	   CString OverlayStr[20];
 
     // Operations
@@ -125,6 +130,12 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnColorize();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnKillFocus(CWnd* pNewWnd);
+
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:

@@ -1704,45 +1704,25 @@ void CAnimData::OnReverseAnimation()
 /////////////////////////// RESET BONES /////////////////////////// 
 void CAnimData::OnBnClickedResetBone()
 {
-	// 1. Capture current dialog state (prevents jumping to Frame 0)
-	UpdateData(TRUE);
-
-	// 2. Set the Identity Matrix in the Dialog Variables
+	// Set the identity matrix in the dialog member variables
 	m_M1_1 = 1.0f; m_M1_2 = 0.0f; m_M1_3 = 0.0f;
 	m_M2_1 = 0.0f; m_M2_2 = 1.0f; m_M2_3 = 0.0f;
 	m_M3_1 = 0.0f; m_M3_2 = 0.0f; m_M3_3 = 1.0f;
 	m_M4_1 = 0.0f; m_M4_2 = 0.0f; m_M4_3 = 0.0f;
 
-	// 3. Update the text boxes on screen
-	UpdateData(FALSE);
+	// Push values to the screen text boxes.
+	// This fires ON_EN_CHANGE for each box, but m_RewritePermission
+	// blocks them from saving prematurely while we're still writing.
+	m_RewritePermission = FALSE;
+	SetMatrixData(IDC_M1_1, m_M1_1); SetMatrixData(IDC_M1_2, m_M1_2); SetMatrixData(IDC_M1_3, m_M1_3);
+	SetMatrixData(IDC_M2_1, m_M2_1); SetMatrixData(IDC_M2_2, m_M2_2); SetMatrixData(IDC_M2_3, m_M2_3);
+	SetMatrixData(IDC_M3_1, m_M3_1); SetMatrixData(IDC_M3_2, m_M3_2); SetMatrixData(IDC_M3_3, m_M3_3);
+	SetMatrixData(IDC_M4_1, m_M4_1); SetMatrixData(IDC_M4_2, m_M4_2); SetMatrixData(IDC_M4_3, m_M4_3);
+	m_RewritePermission = TRUE;
 
-	// 4. Save to the actual Document Data
-	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
-	CSOEditDoc* pDoc = (CSOEditDoc*)pWnd->GetActiveDocument();
-
-	if (pDoc && pDoc->m_AnimBone)
-	{
-		int sel = m_BoneList.GetCurSel();
-		if (sel != LB_ERR)
-		{
-			// Use m_FrameNo-1 to ensure we are targeting the correct frame
-			CAnimSub* pSub = pDoc->m_AnimBone->m_Frames[m_FrameNo - 1].FindSub(sel);
-			if (pSub)
-			{
-				// Accessing the struct directly since .m[][] doesn't exist
-				// This assumes matrix34_t is a flat array or a simple struct
-				float* pMat = (float*)&pSub->m_Matrix34;
-
-				pMat[0] = 1.0f; pMat[1] = 0.0f; pMat[2] = 0.0f;  // Row 1
-				pMat[3] = 0.0f; pMat[4] = 1.0f; pMat[5] = 0.0f;  // Row 2
-				pMat[6] = 0.0f; pMat[7] = 0.0f; pMat[8] = 1.0f;  // Row 3
-				pMat[9] = 0.0f; pMat[10] = 0.0f; pMat[11] = 0.0f; // Row 4 (Translation)
-
-				pDoc->SetModifiedFlag();
-				pDoc->UpdateAllViews(NULL);
-			}
-		}
-	}
+	// Now trigger a single save through the normal path,
+	// exactly the same way OnPasteMatrix does it.
+	OnCheckerMatrix11();
 }
 
 /////////////////////////// COPY-PASTE /////////////////////////// 
