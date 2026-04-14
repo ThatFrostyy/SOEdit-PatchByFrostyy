@@ -1969,19 +1969,6 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 	}
 	if (nIDEvent == 1 && m_FlyMode)
 	{
-		// Camera-relative movement.
-		//
-		// DrawScene applies the camera as:
-		//   glRotatef(Orient[0], 1,0,0)   -- pitch
-		//   glRotatef(Orient[1], 0,1,0)   -- yaw
-		//   glTranslatef(Pos[0], Pos[1], Pos[2] * ZoomFactor * 5)
-		//
-		// Because Position[2] is multiplied by (m_Scale * 5 * 5) = m_Scale*25 at
-		// render time, moving Position[2] by 1 unit moves the camera m_Scale*25
-		// times further on screen than moving Position[0] or Position[1] by 1 unit.
-		// We must divide any Z delta by that same factor so all three axes travel
-		// at the same real-world rate.
-		//
 		// ZoomFactor = m_Scale * 5  →  the full Z multiplier is ZoomFactor * 5 = m_Scale * 25.
 		float zScale = m_Scale * 25.0f;
 		if (zScale < 0.0001f) zScale = 0.0001f; // guard against divide-by-zero
@@ -2000,52 +1987,46 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 		float cosPitch = cosf(pitch), sinPitch = sinf(pitch);
 
 		// Camera forward direction in world-position space (unit vector).
-		// Derived by rotating (0,0,-1) through Ry(yaw) then Rx(pitch):
-		//   fwd = ( -sinYaw*cosPitch,  sinPitch,  -cosYaw*cosPitch )
-		// The X and Y components go directly into Position[0/1].
-		// The Z component goes into Position[2] which is later multiplied by zScale,
-		// so we pre-divide it here so the on-screen effect is uniform.
+		// Derived by calculating the inverse rotation of the camera view.
 		float fwdX = -sinYaw * cosPitch;
 		float fwdY = sinPitch;
-		float fwdZ = (-cosYaw * cosPitch) / zScale;   // <-- compensate Z scale
+		float fwdZ = (cosYaw * cosPitch) / zScale;   // <-- Compensated Z scale & fixed sign
 
 		// Camera right direction (horizontal strafe, yaw only — no pitch).
-		// Derived by rotating (1,0,0) through Ry(yaw):
-		//   right = ( cosYaw, 0, -sinYaw )
-		float rightX = cosYaw;
-		float rightZ = (-sinYaw) / zScale;              // <-- compensate Z scale
+		float rightX = -cosYaw;                      // <-- Fixed sign
+		float rightZ = -sinYaw / zScale;             // <-- Compensated Z scale & fixed sign
 
 		bool moved = false;
 
 		// W/S — move along camera forward/back (pitch-aware)
 		if (m_keys['W'] || m_keys[VK_UP])
 		{
-			m_Camera.Position[0] -= fwdX * speed;
-			m_Camera.Position[1] -= fwdY * speed;
-			m_Camera.Position[2] -= fwdZ * speed;
-			moved = true;
-		}
-		if (m_keys['S'] || m_keys[VK_DOWN])
-		{
 			m_Camera.Position[0] += fwdX * speed;
 			m_Camera.Position[1] += fwdY * speed;
 			m_Camera.Position[2] += fwdZ * speed;
 			moved = true;
 		}
-		// A/D — strafe left/right (horizontal, yaw-aware)
-		if (m_keys['A'] || m_keys[VK_LEFT])
+		if (m_keys['S'] || m_keys[VK_DOWN])
 		{
-			m_Camera.Position[0] += rightX * speed;
-			m_Camera.Position[2] += rightZ * speed;
+			m_Camera.Position[0] -= fwdX * speed;
+			m_Camera.Position[1] -= fwdY * speed;
+			m_Camera.Position[2] -= fwdZ * speed;
 			moved = true;
 		}
-		if (m_keys['D'] || m_keys[VK_RIGHT])
+		// A/D — strafe left/right (horizontal, yaw-aware)
+		if (m_keys['A'] || m_keys[VK_LEFT])
 		{
 			m_Camera.Position[0] -= rightX * speed;
 			m_Camera.Position[2] -= rightZ * speed;
 			moved = true;
 		}
-		// E/Q — move straight up/down in world space (no Z involved, no compensation needed)
+		if (m_keys['D'] || m_keys[VK_RIGHT])
+		{
+			m_Camera.Position[0] += rightX * speed;
+			m_Camera.Position[2] += rightZ * speed;
+			moved = true;
+		}
+		// E/Q — move straight up/down in world space
 		if (m_keys['E'])
 		{
 			m_Camera.Position[1] -= speed;

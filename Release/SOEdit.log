@@ -65,13 +65,13 @@ D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1900,14): warning C4244: 'initial
 D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(1901,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(2492,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(2473,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(2497,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(2478,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/SOEditView.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(2743,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\SOEditView.cpp(2724,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/SOEditView.cpp')
   
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
