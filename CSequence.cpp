@@ -9,6 +9,23 @@ extern HWND m_hWnd;
 #include "MainFrm.h"
 #include "CSdl.h"
 
+static void AppendParsedEvent(CSequence* seq, int frame, const char* eventName)
+{
+	if (!seq || !eventName || !strlen(eventName))
+		return;
+	AnimEvent* events = new AnimEvent[seq->m_EventCount + 1];
+	for (int i = 0; i < seq->m_EventCount; i++)
+	{
+		events[i] = seq->m_Events[i];
+	}
+	events[seq->m_EventCount].frame = frame;
+	events[seq->m_EventCount].name = new char[strlen(eventName) + 1];
+	strcpy(events[seq->m_EventCount].name, eventName);
+	delete[] seq->m_Events;
+	seq->m_Events = events;
+	seq->m_EventCount++;
+}
+
 CSequence::CSequence()
 {
 	m_sdl = NULL;
@@ -135,6 +152,18 @@ void CSequence::ParseFile()
 			else if (!stricmp("smooth", word)) { SetSmooth(); }
 			else if (!stricmp("speed", word)) { SetSpeed(); }
 			else if (!stricmp("events", word)) { SetEvents(); }
+			else if (!stricmp("event", word))
+			{
+				char* frameWord = m_sdl->GetNextWord();
+				char* nameWord = m_sdl->GetNextWord();
+				char* endWord = m_sdl->GetNextWord(); // consume '}'
+				if (frameWord && nameWord && endWord && !stricmp("}", endWord))
+				{
+					char* ename = nameWord;
+					if (ename[0] == '"') ename++;
+					AppendParsedEvent(this, atoi(frameWord), ename);
+				}
+			}
 			else
 			{
 #ifdef ALTERNATIVE_LANG

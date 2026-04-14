@@ -123,12 +123,16 @@ public:
 	afx_msg void OnChecker2();
 	afx_msg void OnBnClickedBoneSequenceAdd();
 	afx_msg void OnBnClickedBoneSequenceDelete();
+	afx_msg void OnBnClickedAddSequenceEvent();
+	afx_msg void OnBnClickedRemoveSequenceEvent();
+	afx_msg void OnSelchangeSequenceEvents();
 	float FixBoneMX(int id);
 	void DrawSwatch();
 	void SkeletonOff();
 	void AnimationOff();
 	void SubBoneON();
 	void LayerUPD();
+	void RefreshSequenceEventList();
 
 	//}}AFX_VIRTUAL
 
