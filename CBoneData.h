@@ -149,6 +149,13 @@ public:
 	afx_msg void OnBnClickedLod();
 	afx_msg void OnEnChangeBoneSequenceSmooth();
 	afx_msg void OnBnClickedBoneWrench();
+	afx_msg void OnSelchangeSequenceEvents();
+	afx_msg void OnBnClickedSequenceEventAdd();
+	afx_msg void OnBnClickedSequenceEventRemove();
+	afx_msg void OnEnChangeSequenceEventName();
+	afx_msg void OnEnChangeSequenceEventFrame();
+	void UpdateSequenceEventList();
+	void UpdateSequenceEventControls();
 };
 
 //{{AFX_INSERT_LOCATION}}

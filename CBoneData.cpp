@@ -211,6 +211,11 @@ BEGIN_MESSAGE_MAP(CBoneData, CDialog)
 	ON_BN_CLICKED(IDC_LOD, &CBoneData::OnBnClickedLod)
 	ON_EN_CHANGE(IDC_BONE_SEQUENCE_SMOOTH, &CBoneData::OnEnChangeBoneSequenceSmooth)
 	ON_BN_CLICKED(IDC_BONE_WRENCH, &CBoneData::OnBnClickedBoneWrench)
+	ON_LBN_SELCHANGE(IDC_LIST2, &CBoneData::OnSelchangeSequenceEvents)
+	ON_BN_CLICKED(IDC_BUTTON5, &CBoneData::OnBnClickedSequenceEventAdd)
+	ON_BN_CLICKED(IDC_BUTTON6, &CBoneData::OnBnClickedSequenceEventRemove)
+	ON_EN_CHANGE(IDC_EDIT4, &CBoneData::OnEnChangeSequenceEventName)
+	ON_EN_CHANGE(IDC_EDIT5, &CBoneData::OnEnChangeSequenceEventFrame)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -254,8 +259,8 @@ void CBoneData::OnBrowse()
 		static char szFilter[] = "PLY-file (*.ply)|*.ply|";
 		static char szTitle[] = "Opening a mesh file";
 	#else
-		static char szFilter[] = "PLY-ôàéë (*.ply)|*.ply|";
-		static char szTitle[] = "Îòêğûòèå ìıø-ôàéëà";
+		static char szFilter[] = "PLY-Ã´Ã Ã©Ã« (*.ply)|*.ply|";
+		static char szTitle[] = "ÃÃ²ÃªÃ°Ã»Ã²Ã¨Ã¥ Ã¬Ã½Ã¸-Ã´Ã Ã©Ã«Ã ";
 	#endif
 	CFileDialog dlg(TRUE, "*.ply", NULL, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, szFilter);
 	dlg.m_ofn.lpstrTitle = szTitle;
@@ -303,7 +308,7 @@ void CBoneData::OnCheckerMatrix11()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX11);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix11 = (float)atof(text_buff);}
@@ -316,7 +321,7 @@ void CBoneData::OnCheckerMatrix12()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX12);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix12 = (float)atof(text_buff);}
@@ -329,7 +334,7 @@ void CBoneData::OnCheckerMatrix13()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX13);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix13 = (float)atof(text_buff);}
@@ -342,7 +347,7 @@ void CBoneData::OnCheckerMatrix21()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX21);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix21 = (float)atof(text_buff);}
@@ -355,7 +360,7 @@ void CBoneData::OnCheckerMatrix22()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX22);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix22 = (float)atof(text_buff);}
@@ -368,7 +373,7 @@ void CBoneData::OnCheckerMatrix23()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX23);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix23 = (float)atof(text_buff);}
@@ -381,7 +386,7 @@ void CBoneData::OnCheckerMatrix31()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX31);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix31 = (float)atof(text_buff);}
@@ -394,7 +399,7 @@ void CBoneData::OnCheckerMatrix32()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX32);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix32 = (float)atof(text_buff);}
@@ -407,7 +412,7 @@ void CBoneData::OnCheckerMatrix33()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX33);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix33 = (float)atof(text_buff);}
@@ -420,7 +425,7 @@ void CBoneData::OnCheckerMatrix41()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX41);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix41 = (float)atof(text_buff);}
@@ -433,7 +438,7 @@ void CBoneData::OnCheckerMatrix42()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX42);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix42 = (float)atof(text_buff);}
@@ -446,7 +451,7 @@ void CBoneData::OnCheckerMatrix43()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_MATRIX43);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Matrix43 = (float)atof(text_buff);}
@@ -459,7 +464,7 @@ void CBoneData::OnCheckerLimits_Common()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_LIMITS_COMMON);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_LimitsCommon = (float)atof(text_buff);}
@@ -472,7 +477,7 @@ void CBoneData::OnCheckerLimits_Hi()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_LIMITS_HI);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_LimitsHi = (float)atof(text_buff);}
@@ -485,7 +490,7 @@ void CBoneData::OnCheckerLimits_Lo()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_LIMITS_LO);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_LimitsLo = (float)atof(text_buff);}
@@ -498,7 +503,7 @@ void CBoneData::OnCheckerParameters()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_PARAMETERS);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	m_Parameters = text_buff;
 }
 
@@ -566,7 +571,7 @@ void CBoneData::OnBoneSpeed()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_BONE_SPEED);
 	ASSERT(pEdit);
 	pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-	ÑommaFixer(text_buff);
+	Ã‘ommaFixer(text_buff);
 	ForbiddenSymbolFixer(text_buff);
 	if(isFloat(text_buff))
 		{m_Speed = (float)atof(text_buff);}
@@ -695,6 +700,8 @@ void CBoneData::OnSelchangeElements()
 				pButton -> EnableWindow(true);
 				pButton = (CButton *)GetDlgItem(IDC_BONE_SEQUENCE_FILE_BROWSE);
 				pButton -> EnableWindow(true);
+				UpdateSequenceEventList();
+				UpdateSequenceEventControls();
 				SeqSelMode = false;
 				break;
 			}
@@ -774,12 +781,214 @@ void CBoneData::OnBnClickedBoneSequenceDelete()
 			pButton -> EnableWindow(false);
 			pButton = (CButton *)GetDlgItem(IDC_BONE_SEQUENCE_FILE_BROWSE);
 			pButton -> EnableWindow(false);
+			UpdateSequenceEventControls();
 		}
 		else
 		if(count - 1 == sel)
 			{pList -> SetCurSel(sel - 1);}
 		OnSelchangeElements();
 	}
+}
+
+
+void CBoneData::UpdateSequenceEventList()
+{
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	if(!pEvents)
+		{return;}
+	pEvents -> ResetContent();
+	if(!pSeq || pSeq -> m_EventCount <= 0 || !pSeq -> m_Events)
+		{return;}
+	for(int i = 0; i < pSeq -> m_EventCount; i++)
+	{
+		CString evLine;
+		evLine.Format("%d: %s", pSeq -> m_Events[i].frame, (pSeq -> m_Events[i].name ? pSeq -> m_Events[i].name : ""));
+		pEvents -> AddString(evLine);
+	}
+	pEvents -> SetCurSel(0);
+}
+
+void CBoneData::UpdateSequenceEventControls()
+{
+	CWnd* pWnd = NULL;
+	bool hasSeq = (pSeq != NULL);
+	bool hasEvents = (hasSeq && pSeq -> m_EventCount > 0 && pSeq -> m_Events);
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	CEdit* pEventName = (CEdit*)GetDlgItem(IDC_EDIT4);
+	CEdit* pEventFrame = (CEdit*)GetDlgItem(IDC_EDIT5);
+	if(pEvents)
+		{pEvents -> EnableWindow(hasSeq);}
+	pWnd = GetDlgItem(IDC_BUTTON5);
+	if(pWnd)
+		{pWnd -> EnableWindow(hasSeq);}
+	pWnd = GetDlgItem(IDC_BUTTON6);
+	if(pWnd)
+		{pWnd -> EnableWindow(hasEvents);}
+	if(!hasEvents)
+	{
+		if(pEventName)
+			{pEventName -> SetWindowText("");}
+		if(pEventFrame)
+			{pEventFrame -> SetWindowText("");}
+	}
+	if(pEventName)
+		{pEventName -> EnableWindow(hasEvents);}
+	if(pEventFrame)
+		{pEventFrame -> EnableWindow(hasEvents);}
+}
+
+void CBoneData::OnSelchangeSequenceEvents()
+{
+	if(!pSeq || !pSeq -> m_Events || pSeq -> m_EventCount <= 0)
+		{return;}
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	CEdit* pEventName = (CEdit*)GetDlgItem(IDC_EDIT4);
+	CEdit* pEventFrame = (CEdit*)GetDlgItem(IDC_EDIT5);
+	if(!pEvents || !pEventName || !pEventFrame)
+		{return;}
+	int sel = pEvents -> GetCurSel();
+	if(sel < 0 || sel >= pSeq -> m_EventCount)
+		{return;}
+	SeqSelMode = true;
+	pEventName -> SetWindowText((pSeq -> m_Events[sel].name ? pSeq -> m_Events[sel].name : ""));
+	CString frameStr;
+	frameStr.Format("%d", pSeq -> m_Events[sel].frame);
+	pEventFrame -> SetWindowText(frameStr);
+	SeqSelMode = false;
+	UpdateSequenceEventControls();
+}
+
+void CBoneData::OnBnClickedSequenceEventAdd()
+{
+	if(!pSeq)
+		{return;}
+	AnimEvent* oldEvents = pSeq -> m_Events;
+	int oldCount = pSeq -> m_EventCount;
+	AnimEvent* newEvents = new AnimEvent[oldCount + 1];
+	for(int i = 0; i < oldCount; i++)
+	{
+		newEvents[i].frame = oldEvents[i].frame;
+		newEvents[i].name = NULL;
+		if(oldEvents[i].name)
+		{
+			newEvents[i].name = new char[strlen(oldEvents[i].name) + 1];
+			strcpy(newEvents[i].name, oldEvents[i].name);
+		}
+	}
+	newEvents[oldCount].frame = 0;
+	newEvents[oldCount].name = new char[6];
+	strcpy(newEvents[oldCount].name, "event");
+	if(oldEvents)
+	{
+		for(int i = 0; i < oldCount; i++)
+		{
+			if(oldEvents[i].name)
+				{delete[] oldEvents[i].name;}
+		}
+		delete[] oldEvents;
+	}
+	pSeq -> m_Events = newEvents;
+	pSeq -> m_EventCount = oldCount + 1;
+	UpdateSequenceEventList();
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	if(pEvents)
+		{pEvents -> SetCurSel(pSeq -> m_EventCount - 1);}
+	OnSelchangeSequenceEvents();
+}
+
+void CBoneData::OnBnClickedSequenceEventRemove()
+{
+	if(!pSeq || !pSeq -> m_Events || pSeq -> m_EventCount <= 0)
+		{return;}
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	if(!pEvents)
+		{return;}
+	int sel = pEvents -> GetCurSel();
+	if(sel < 0 || sel >= pSeq -> m_EventCount)
+		{return;}
+	int oldCount = pSeq -> m_EventCount;
+	AnimEvent* oldEvents = pSeq -> m_Events;
+	AnimEvent* newEvents = NULL;
+	if(oldCount - 1 > 0)
+		{newEvents = new AnimEvent[oldCount - 1];}
+	int wr = 0;
+	for(int i = 0; i < oldCount; i++)
+	{
+		if(i == sel)
+		{
+			if(oldEvents[i].name)
+				{delete[] oldEvents[i].name;}
+			continue;
+		}
+		newEvents[wr].frame = oldEvents[i].frame;
+		newEvents[wr].name = NULL;
+		if(oldEvents[i].name)
+		{
+			newEvents[wr].name = new char[strlen(oldEvents[i].name) + 1];
+			strcpy(newEvents[wr].name, oldEvents[i].name);
+			delete[] oldEvents[i].name;
+		}
+		wr++;
+	}
+	delete[] oldEvents;
+	pSeq -> m_Events = newEvents;
+	pSeq -> m_EventCount = oldCount - 1;
+	UpdateSequenceEventList();
+	if(pSeq -> m_EventCount > 0)
+	{
+		if(sel >= pSeq -> m_EventCount)
+			{sel = pSeq -> m_EventCount - 1;}
+		pEvents -> SetCurSel(sel);
+		OnSelchangeSequenceEvents();
+	}
+	UpdateSequenceEventControls();
+}
+
+void CBoneData::OnEnChangeSequenceEventName()
+{
+	if(SeqSelMode || !pSeq || !pSeq -> m_Events || pSeq -> m_EventCount <= 0)
+		{return;}
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	CEdit* pEventName = (CEdit*)GetDlgItem(IDC_EDIT4);
+	if(!pEvents || !pEventName)
+		{return;}
+	int sel = pEvents -> GetCurSel();
+	if(sel < 0 || sel >= pSeq -> m_EventCount)
+		{return;}
+	char evName[_MAX_PATH] = {0};
+	pEventName -> GetWindowText(evName, _MAX_PATH - 1);
+	if(pSeq -> m_Events[sel].name)
+	{
+		delete[] pSeq -> m_Events[sel].name;
+		pSeq -> m_Events[sel].name = NULL;
+	}
+	pSeq -> m_Events[sel].name = new char[strlen(evName) + 1];
+	strcpy(pSeq -> m_Events[sel].name, evName);
+	int cur = pEvents -> GetCurSel();
+	UpdateSequenceEventList();
+	pEvents -> SetCurSel(cur);
+}
+
+void CBoneData::OnEnChangeSequenceEventFrame()
+{
+	if(SeqSelMode || !pSeq || !pSeq -> m_Events || pSeq -> m_EventCount <= 0)
+		{return;}
+	CListBox* pEvents = (CListBox*)GetDlgItem(IDC_LIST2);
+	CEdit* pEventFrame = (CEdit*)GetDlgItem(IDC_EDIT5);
+	if(!pEvents || !pEventFrame)
+		{return;}
+	int sel = pEvents -> GetCurSel();
+	if(sel < 0 || sel >= pSeq -> m_EventCount)
+		{return;}
+	char frameStr[_MAX_PATH] = {0};
+	pEventFrame -> GetWindowText(frameStr, _MAX_PATH - 1);
+	ForbiddenSymbolFixer(frameStr);
+	if(strlen(frameStr) == 0 || !strcmp(frameStr, "-"))
+		{return;}
+	pSeq -> m_Events[sel].frame = atoi(frameStr);
+	int cur = pEvents -> GetCurSel();
+	UpdateSequenceEventList();
+	pEvents -> SetCurSel(cur);
 }
 
 void CBoneData::SkeletonOff()
@@ -911,7 +1120,7 @@ void CBoneData::OnEnChangeBoneSequenceSpeed()
 		ASSERT(pEdit);
 		pEdit -> GetSel(nStartChar, nEndChar);
 		pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-		ÑommaFixer(text_buff);
+		Ã‘ommaFixer(text_buff);
 		dilta = strlen(text_buff);
 		ForbiddenSymbolFixer(text_buff);
 		dilta -= strlen(text_buff);
@@ -982,8 +1191,8 @@ void CBoneData::OnBnClickedBoneSequenceFileBrowse()
 		static char szFilter[] = "ANM-file (*.anm)|*.anm|";
 		static char szTitle[] = "Opening an animation file";
 	#else
-		static char szFilter[] = "ANM-ôàéë (*.anm)|*.anm|";
-		static char szTitle[] = "Îòêğûòèå ôàéëà àíèìàöèè";
+		static char szFilter[] = "ANM-Ã´Ã Ã©Ã« (*.anm)|*.anm|";
+		static char szTitle[] = "ÃÃ²ÃªÃ°Ã»Ã²Ã¨Ã¥ Ã´Ã Ã©Ã«Ã  Ã Ã­Ã¨Ã¬Ã Ã¶Ã¨Ã¨";
 	#endif
 	CFileDialog dlg(TRUE, "*.anm", NULL, OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
 	dlg.m_ofn.lpstrTitle = szTitle;
@@ -1027,7 +1236,7 @@ void CBoneData::OnOK()
 		#ifdef ALTERNATIVE_LANG
 			MessageBox("The lod does not contain a mesh. Fix it!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
 		#else
-			MessageBox("Ëîä íå ñîäåğæèò ìıø. Èñïğàâü!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
+			MessageBox("Ã‹Ã®Ã¤ Ã­Ã¥ Ã±Ã®Ã¤Ã¥Ã°Ã¦Ã¨Ã² Ã¬Ã½Ã¸. ÃˆÃ±Ã¯Ã°Ã Ã¢Ã¼!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
 		#endif
 	}
 	else
@@ -1036,7 +1245,7 @@ void CBoneData::OnOK()
 		#ifdef ALTERNATIVE_LANG
 			MessageBox("The sub-mesh does not contain a mesh. Fix it!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
 		#else
-			MessageBox("Ñóá. ìıø íå ñîäåğæèò ìıø. Èñïğàâü!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
+			MessageBox("Ã‘Ã³Ã¡. Ã¬Ã½Ã¸ Ã­Ã¥ Ã±Ã®Ã¤Ã¥Ã°Ã¦Ã¨Ã² Ã¬Ã½Ã¸. ÃˆÃ±Ã¯Ã°Ã Ã¢Ã¼!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
 		#endif
 	}
 	else
@@ -1085,7 +1294,7 @@ void CBoneData::OnEnChangeBoneSequenceSmooth()
 		ASSERT(pEdit);
 		pEdit -> GetSel(nStartChar, nEndChar);
 		pEdit -> GetWindowText(text_buff, _MAX_PATH - 1);
-		ÑommaFixer(text_buff);
+		Ã‘ommaFixer(text_buff);
 		dilta = strlen(text_buff);
 		ForbiddenSymbolFixer(text_buff);
 		dilta -= strlen(text_buff);
@@ -1348,7 +1557,7 @@ void CBoneData::OnBnClickedBoneWrench()
 					#ifdef ALTERNATIVE_LANG
 						MessageBox("TOverwriting the file failed. Sadness!", "ERROR: CBoneData::OnBnClickedBoneWrench()", MB_ICONHAND);
 					#else
-						MessageBox("Ïåğåçàïèñü ôàéëà íå óäàëàñü. Ïå÷àëüêà!", "ERROR: CBoneData::OnBnClickedBoneWrench()", MB_ICONHAND);
+						MessageBox("ÃÃ¥Ã°Ã¥Ã§Ã Ã¯Ã¨Ã±Ã¼ Ã´Ã Ã©Ã«Ã  Ã­Ã¥ Ã³Ã¤Ã Ã«Ã Ã±Ã¼. ÃÃ¥Ã·Ã Ã«Ã¼ÃªÃ !", "ERROR: CBoneData::OnBnClickedBoneWrench()", MB_ICONHAND);
 					#endif
 				}
 				forced_ply_upd = true;
