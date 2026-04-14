@@ -600,6 +600,8 @@ void CAnimData::OnInsertFrame()
 	m_FrameCnt = pDoc -> m_AnimBone -> m_FrameCnt;
 	m_Frame = m_FrameNo;
 	pDoc -> m_Frame = m_FrameNo;
+	m_Framer.SetRange(0, m_FrameCnt - 1);
+	m_Framer.SetPos(m_FrameNo);
 	OnSelchangeMbones();
 	char szValue[_MAX_PATH];
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_FRAMENO);
@@ -608,6 +610,7 @@ void CAnimData::OnInsertFrame()
 	pEdit = (CEdit *)GetDlgItem(IDC_FRAMECNT);
 	sprintf(szValue, "%d", m_FrameCnt);
 	pEdit -> SetWindowText(szValue);
+	pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CAnimData::OnBnClickedDeleteFrame()//удалив кадр, нужно править задания
@@ -628,6 +631,8 @@ void CAnimData::OnBnClickedDeleteFrame()//удалив кадр, нужно править задания
 	m_FrameNo = indx;
 	pDoc -> m_Frame = m_Frame;
 	m_FrameCnt = pDoc -> m_AnimBone -> m_FrameCnt;
+	m_Framer.SetRange(0, m_FrameCnt - 1);
+	m_Framer.SetPos(m_FrameNo);
 	OnSelchangeMbones();
 	char szValue[_MAX_PATH];
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_FRAMENO);
@@ -636,6 +641,7 @@ void CAnimData::OnBnClickedDeleteFrame()//удалив кадр, нужно править задания
 	pEdit = (CEdit *)GetDlgItem(IDC_FRAMECNT);
 	sprintf(szValue, "%d", m_FrameCnt);
 	pEdit -> SetWindowText(szValue);
+	pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CAnimData::OnBnClickedVisi()
