@@ -1850,16 +1850,16 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 		// W/S — move along camera forward/back (pitch-aware)
 		if (m_keys['W'] || m_keys[VK_UP])
 		{
-			m_Camera.Position[0] -= fwdX * speed;
-			m_Camera.Position[1] -= fwdY * speed;
-			m_Camera.Position[2] -= fwdZ * speed;
+			m_Camera.Position[0] += fwdX;
+			m_Camera.Position[1] += fwdY;
+			m_Camera.Position[2] -= fwdZ;
 			moved = true;
 		}
 		if (m_keys['S'] || m_keys[VK_DOWN])
 		{
-			m_Camera.Position[0] += fwdX * speed;
-			m_Camera.Position[1] += fwdY * speed;
-			m_Camera.Position[2] += fwdZ * speed;
+			m_Camera.Position[0] -= fwdX;
+			m_Camera.Position[1] -= fwdY;
+			m_Camera.Position[2] += fwdZ;
 			moved = true;
 		}
 		// A/D — strafe left/right (horizontal, yaw-aware)
