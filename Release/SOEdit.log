@@ -835,85 +835,91 @@ D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BON
       D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
       see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(55,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(59,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(60,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(64,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(83,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(82,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(86,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(120,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(92,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(125,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(95,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(135,11): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(98,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(140,12): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(101,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(145,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(104,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(150,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(107,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(155,15): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(110,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(160,16): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(113,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(165,17): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(133,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(170,18): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(145,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(231,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(156,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(191,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(157,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(215,33): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(179,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(218,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(190,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(236,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(206,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(269,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(222,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(282,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(242,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(298,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(244,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(314,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(266,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(334,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(278,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(336,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(287,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(360,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(304,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(372,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(423,31): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(381,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSequence.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(398,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSequence.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(519,24): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
   CSkeleton.cpp
