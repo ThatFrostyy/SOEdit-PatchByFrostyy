@@ -1815,10 +1815,13 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 		float cosA = cos(rad), sinA = sin(rad);
 		float cosA2 = cos(rad2), sinA2 = sin(rad2);
 
-		// Forward vector (same sign convention as wheel zoom)
-		float fwdX = -sinA * cosA2 * speed;  // position[0] component
-		float fwdY = sinA2 * speed;           // position[1] (up/down lean)
-		float fwdZ = cosA * cosA2 * speed;  // position[2] component
+		// Forward vector (match OnMouseWheel sign convention exactly so WASD
+		// movement remains camera-relative in the same direction as wheel zoom).
+		float outputX = -((speed * cosA) * cosA2);
+		float outputY = -((speed * sinA) * cosA2);
+		float fwdX = outputY;            // position[0] component
+		float fwdY = speed * sinA2;      // position[1] (up/down lean)
+		float fwdZ = -outputX;           // position[2] component
 
 		// Right vector (perpendicular in XZ plane)
 		float rightX = cosA * speed;
@@ -1830,14 +1833,14 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 		{
 			m_Camera.Position[0] += fwdX;
 			m_Camera.Position[1] += fwdY;
-			m_Camera.Position[2] -= fwdZ;
+			m_Camera.Position[2] += fwdZ;
 			moved = true;
 		}
 		if (m_keys['S'] || m_keys[VK_DOWN])
 		{
 			m_Camera.Position[0] -= fwdX;
 			m_Camera.Position[1] -= fwdY;
-			m_Camera.Position[2] += fwdZ;
+			m_Camera.Position[2] -= fwdZ;
 			moved = true;
 		}
 		if (m_keys['A'] || m_keys[VK_LEFT])
