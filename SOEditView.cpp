@@ -1799,68 +1799,91 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 	}
 	if (nIDEvent == 1 && m_FlyMode)
 	{
-		// Build the forward/right/up vectors from current yaw & pitch
-		// (reuse the exact same trig pattern already used by OnMouseWheel)
-		const float speed = 3.0f;
-		float Angle = m_Camera.Orient[1];   // yaw
-		float Angle2 = m_Camera.Orient[0];   // pitch
+		// Camera-relative movement.
+		//
+		// DrawScene applies the camera as:
+		//   glRotatef(Orient[0], 1,0,0)   -- pitch
+		//   glRotatef(Orient[1], 0,1,0)   -- yaw
+		//   glTranslatef(Pos[0], Pos[1], Pos[2] * ZoomFactor * 5)
+		//
+		// Because Position[2] is multiplied by (m_Scale * 5 * 5) = m_Scale*25 at
+		// render time, moving Position[2] by 1 unit moves the camera m_Scale*25
+		// times further on screen than moving Position[0] or Position[1] by 1 unit.
+		// We must divide any Z delta by that same factor so all three axes travel
+		// at the same real-world rate.
+		//
+		// ZoomFactor = m_Scale * 5  →  the full Z multiplier is ZoomFactor * 5 = m_Scale * 25.
+		float zScale = m_Scale * 25.0f;
+		if (zScale < 0.0001f) zScale = 0.0001f; // guard against divide-by-zero
 
-		if (Angle < 0)   Angle += 360.0f;
-		else if (Angle > 360) Angle -= 360.0f;
-		if (Angle2 < 0)  Angle2 += 360.0f;
-		else if (Angle2 > 360) Angle2 -= 360.0f;
+		// Speed: hold Shift = slow (÷5), hold Ctrl = fast (×5).
+		float speed = 3.0f;
+		if (m_keys[VK_SHIFT])   speed /= 5.0f;
+		if (m_keys[VK_CONTROL]) speed *= 5.0f;
 
-		float rad = (float)((double)(2 * 3.1416 * Angle) / 360);
-		float rad2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
-		float cosA = cos(rad), sinA = sin(rad);
-		float cosA2 = cos(rad2), sinA2 = sin(rad2);
+		// Convert Orient angles to radians.
+		// Orient[1] = yaw (rotation around world Y), Orient[0] = pitch (rotation around X).
+		float yaw   = m_Camera.Orient[1] * 3.14159265f / 180.0f;
+		float pitch = m_Camera.Orient[0] * 3.14159265f / 180.0f;
 
-		// Forward vector (same sign convention as wheel zoom)
-		float fwdX = -sinA * cosA2 * speed;  // position[0] component
-		float fwdY = sinA2 * speed;           // position[1] (up/down lean)
-		float fwdZ = cosA * cosA2 * speed;  // position[2] component
+		float cosYaw   = cosf(yaw),  sinYaw   = sinf(yaw);
+		float cosPitch = cosf(pitch), sinPitch = sinf(pitch);
 
-		// Right vector (perpendicular in XZ plane)
-		float rightX = cosA * speed;
-		float rightZ = sinA * speed;
+		// Camera forward direction in world-position space (unit vector).
+		// Derived by rotating (0,0,-1) through Ry(yaw) then Rx(pitch):
+		//   fwd = ( -sinYaw*cosPitch,  sinPitch,  -cosYaw*cosPitch )
+		// The X and Y components go directly into Position[0/1].
+		// The Z component goes into Position[2] which is later multiplied by zScale,
+		// so we pre-divide it here so the on-screen effect is uniform.
+		float fwdX =  -sinYaw * cosPitch;
+		float fwdY =   sinPitch;
+		float fwdZ =  (-cosYaw * cosPitch) / zScale;   // <-- compensate Z scale
+
+		// Camera right direction (horizontal strafe, yaw only — no pitch).
+		// Derived by rotating (1,0,0) through Ry(yaw):
+		//   right = ( cosYaw, 0, -sinYaw )
+		float rightX =  cosYaw;
+		float rightZ = (-sinYaw) / zScale;              // <-- compensate Z scale
 
 		bool moved = false;
 
+		// W/S — move along camera forward/back (pitch-aware)
 		if (m_keys['W'] || m_keys[VK_UP])
 		{
-			m_Camera.Position[0] += fwdX;
-			m_Camera.Position[1] += fwdY;
-			m_Camera.Position[2] -= fwdZ;
+			m_Camera.Position[0] -= fwdX * speed;
+			m_Camera.Position[1] -= fwdY * speed;
+			m_Camera.Position[2] -= fwdZ * speed;
 			moved = true;
 		}
 		if (m_keys['S'] || m_keys[VK_DOWN])
 		{
-			m_Camera.Position[0] -= fwdX;
-			m_Camera.Position[1] -= fwdY;
-			m_Camera.Position[2] += fwdZ;
+			m_Camera.Position[0] += fwdX * speed;
+			m_Camera.Position[1] += fwdY * speed;
+			m_Camera.Position[2] += fwdZ * speed;
 			moved = true;
 		}
+		// A/D — strafe left/right (horizontal, yaw-aware)
 		if (m_keys['A'] || m_keys[VK_LEFT])
 		{
-			m_Camera.Position[0] -= rightX;
-			m_Camera.Position[2] -= rightZ;
+			m_Camera.Position[0] += rightX * speed;
+			m_Camera.Position[2] += rightZ * speed;
 			moved = true;
 		}
 		if (m_keys['D'] || m_keys[VK_RIGHT])
 		{
-			m_Camera.Position[0] += rightX;
-			m_Camera.Position[2] += rightZ;
+			m_Camera.Position[0] -= rightX * speed;
+			m_Camera.Position[2] -= rightZ * speed;
 			moved = true;
 		}
-		// E / Q = move straight up / down (world-space)
+		// E/Q — move straight up/down in world space (no Z involved, no compensation needed)
 		if (m_keys['E'])
 		{
-			m_Camera.Position[1] += speed;
+			m_Camera.Position[1] -= speed;
 			moved = true;
 		}
 		if (m_keys['Q'])
 		{
-			m_Camera.Position[1] -= speed;
+			m_Camera.Position[1] += speed;
 			moved = true;
 		}
 
