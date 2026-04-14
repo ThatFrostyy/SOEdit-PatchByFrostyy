@@ -2927,7 +2927,27 @@ void CSOEditDoc::CreateNewBoneInAnm(CBone *basis)
 {
 	if(!m_AnimBone)
 		{return;}
-	m_AnimBone -> BoneAdd(basis -> m_Name, basis -> Matrix34, basis -> m_Visibility);
+	matrix34_t matrix_with_scale = { 0 };
+	if (basis->Matrix34)
+	{
+		memcpy(&matrix_with_scale, basis->Matrix34, sizeof(matrix34_t));
+	}
+	else
+	{
+		matrix_with_scale.v[0][0] = 1.0f;
+		matrix_with_scale.v[1][1] = 1.0f;
+		matrix_with_scale.v[2][2] = 1.0f;
+	}
+
+	for (int row = 0; row < 3; row++)
+	{
+		for (int col = 0; col < 3; col++)
+		{
+			matrix_with_scale.v[row][col] *= basis->m_Scales[row];
+		}
+	}
+
+	m_AnimBone->BoneAdd(basis->m_Name, &matrix_with_scale, basis->m_Visibility);
 	AnimBoxUPD();
 }
 

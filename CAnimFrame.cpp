@@ -358,9 +358,27 @@ bool CAnimBone::Process(FILE* fp)
 		{
 			if (!(find_sub->chunk_flags & B_ORIENTATION))
 			{
-				find_sub->m_Matrix34.v[0][0] = 1;
-				find_sub->m_Matrix34.v[1][1] = 1;
-				find_sub->m_Matrix34.v[2][2] = 1;
+				bool orientation_restored = false;
+				for (int seek_frame = 1; seek_frame < m_FrameCnt; seek_frame++)
+				{
+					CAnimSub* next_sub = m_Frames[seek_frame].FindSub(CurBone);
+					if (!next_sub)
+					{
+						continue;
+					}
+					if (next_sub->chunk_flags & B_ORIENTATION)
+					{
+						memcpy(&find_sub->m_Matrix34, &next_sub->m_Matrix34, sizeof(float) * 9);
+						orientation_restored = true;
+						break;
+					}
+				}
+				if (!orientation_restored)
+				{
+					find_sub->m_Matrix34.v[0][0] = 1;
+					find_sub->m_Matrix34.v[1][1] = 1;
+					find_sub->m_Matrix34.v[2][2] = 1;
+				}
 				find_sub->chunk_flags |= B_ORIENTATION;
 			}
 		}
