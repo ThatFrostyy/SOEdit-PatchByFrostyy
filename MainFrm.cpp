@@ -132,6 +132,10 @@ CMainFrame::CMainFrame()
 	RegVer = ProgVer = 0;
 	m_AllMeshVectors = m_CollisionSide = m_Vertex = false;
 	memset(m_author, 0, _MAX_PATH);
+	m_FrameHoldTimerId = 0;
+	m_FrameHoldBaseInterval = 180;
+	m_FrameHoldStartTick = 0;
+	m_FrameHoldCommandId = 0;
 	wchar_t szVersionFile[MAX_PATH];
 	GetModuleFileNameW(NULL, szVersionFile, MAX_PATH);
 	DWORD verHandle = 0;
@@ -282,6 +286,16 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     pSpinner -> SetRange(1, 20);
     pSpinner -> SetPos(10);
     pWnd -> SetWindowText("1.0");
+	CWnd* pLerpStart = (CWnd*)m_wndAnimBox.GetDlgItem(IDC_LERP_START_FRAME);
+	CWnd* pLerpEnd = (CWnd*)m_wndAnimBox.GetDlgItem(IDC_LERP_END_FRAME);
+	if (pLerpStart)
+	{
+		pLerpStart->SetWindowText("1");
+	}
+	if (pLerpEnd)
+	{
+		pLerpEnd->SetWindowText("2");
+	}
 	#ifdef ALTERNATIVE_LANG
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_ANM_EDITING_MODE);
 		pWnd -> SetWindowText("Mode: Skeleton Editing");
@@ -293,6 +307,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pWnd -> SetWindowText("Insert a frame");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_ANMBOX_DELETE_FRAME);
 		pWnd -> SetWindowText("Delete a frame");
+		pWnd = (CWnd*)m_wndAnimBox.GetDlgItem(IDC_REVERSE_ANIM);
+		pWnd->SetWindowText("Reverse");
+		pWnd = (CWnd*)m_wndAnimBox.GetDlgItem(IDC_ANM_LERP_APPLY);
+		pWnd->SetWindowText("Fill");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_STATIC_AB_1);
 		pWnd -> SetWindowText("Frame:");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_STATIC_AB_3);
@@ -904,6 +922,12 @@ void CMainFrame::SaveGameDataPath()
 
 BOOL CMainFrame::DestroyWindow()
 {
+	if (m_FrameHoldTimerId)
+	{
+		KillTimer(0xA11F);
+		m_FrameHoldTimerId = 0;
+		m_FrameHoldCommandId = 0;
+	}
 	SaveGameDataPath();
 	return CFrameWnd::DestroyWindow();
 }
@@ -1112,6 +1136,58 @@ void CMainFrame::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 {
 	bool up_down = false, action = false;
+	if (pMsg->message == WM_TIMER && pMsg->wParam == 0xA11F && m_FrameHoldCommandId)
+	{
+		if (GetActiveDocument())
+		{
+			SendMessage(WM_COMMAND, m_FrameHoldCommandId, 0);
+		}
+		DWORD holdMs = GetTickCount() - m_FrameHoldStartTick;
+		UINT nextInterval = m_FrameHoldBaseInterval;
+		if (holdMs > 1200)
+		{
+			nextInterval = 35;
+		}
+		else if (holdMs > 700)
+		{
+			nextInterval = 60;
+		}
+		else if (holdMs > 300)
+		{
+			nextInterval = 100;
+		}
+		if (nextInterval != m_FrameHoldBaseInterval)
+		{
+			m_FrameHoldBaseInterval = nextInterval;
+			SetTimer(0xA11F, m_FrameHoldBaseInterval, NULL);
+		}
+		return TRUE;
+	}
+	if (pMsg->message == WM_LBUTTONDOWN)
+	{
+		HWND hInsert = m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INSERT_FRAME) ? m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INSERT_FRAME)->GetSafeHwnd() : NULL;
+		HWND hDelete = m_wndAnimBox.GetDlgItem(IDC_ANMBOX_DELETE_FRAME) ? m_wndAnimBox.GetDlgItem(IDC_ANMBOX_DELETE_FRAME)->GetSafeHwnd() : NULL;
+		if (pMsg->hwnd == hInsert || pMsg->hwnd == hDelete)
+		{
+			m_FrameHoldCommandId = (pMsg->hwnd == hInsert) ? IDC_ANMBOX_INSERT_FRAME : IDC_ANMBOX_DELETE_FRAME;
+			m_FrameHoldStartTick = GetTickCount();
+			m_FrameHoldBaseInterval = 180;
+			if (m_FrameHoldTimerId)
+			{
+				KillTimer(0xA11F);
+			}
+			m_FrameHoldTimerId = SetTimer(0xA11F, m_FrameHoldBaseInterval, NULL);
+		}
+	}
+	if (pMsg->message == WM_LBUTTONUP)
+	{
+		if (m_FrameHoldTimerId)
+		{
+			KillTimer(0xA11F);
+			m_FrameHoldTimerId = 0;
+			m_FrameHoldCommandId = 0;
+		}
+	}
 	if(pMsg -> message == WM_KEYDOWN || pMsg -> message == WM_MOUSEWHEEL)
 	{
 		if (pMsg->message == WM_KEYDOWN)
@@ -1136,6 +1212,25 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 		}
 		CEdit *pEdit = (CEdit *)m_wndAnimBox.GetDlgItem(IDC_SPEED);
 		CEdit *pEdit2 = (CEdit *)m_wndToolTab.GetDlgItem(IDC_FINDING_COMPONENT);
+		if (pMsg->message == WM_KEYDOWN && !(GetKeyState(VK_CONTROL) & 0x8000) && !(GetKeyState(VK_MENU) & 0x8000))
+		{
+			if (pMsg->wParam == 'I')
+			{
+				if (GetActiveDocument())
+				{
+					SendMessage(WM_COMMAND, IDC_ANMBOX_INSERT_FRAME, 0);
+				}
+				return TRUE;
+			}
+			if (pMsg->wParam == VK_DELETE)
+			{
+				if (GetActiveDocument())
+				{
+					SendMessage(WM_COMMAND, IDC_ANMBOX_DELETE_FRAME, 0);
+				}
+				return TRUE;
+			}
+		}
 		if(pMsg -> hwnd == pEdit -> GetSafeHwnd())
 		{
 			if(pMsg -> wParam == VK_DOWN || pMsg -> wParam == VK_UP)

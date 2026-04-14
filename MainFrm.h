@@ -87,7 +87,10 @@ public:
 	BOOL m_ram;
 	DWORD m_fov;
 	char m_author[_MAX_PATH];
-
+	UINT m_FrameHoldTimerId;
+	UINT m_FrameHoldBaseInterval;
+	DWORD m_FrameHoldStartTick;
+	UINT m_FrameHoldCommandId;
 
 	virtual ~CMainFrame();
 #ifdef _DEBUG

@@ -177,10 +177,16 @@ BOOL CAnimData::OnInitDialog()
 	}
 	st.Format("%d", defaultStart);
 	pEdit = (CEdit*)GetDlgItem(IDC_LERP_START_FRAME);
-	pEdit->SetWindowText(st);
+	if (pEdit)
+	{
+		pEdit->SetWindowText(st);
+	}
 	st.Format("%d", defaultEnd);
 	pEdit = (CEdit*)GetDlgItem(IDC_LERP_END_FRAME);
-	pEdit->SetWindowText(st);
+	if (pEdit)
+	{
+		pEdit->SetWindowText(st);
+	}
 	#ifdef ALTERNATIVE_LANG
 		pListBox -> AddString("Moving");
 		pListBox -> AddString("Rotation");
@@ -258,7 +264,10 @@ BOOL CAnimData::OnInitDialog()
 		pWndl = (CWnd *)GetDlgItem(IDC_ANM_BONE_IMPORT);
 		pWndl -> SetWindowText("Import");
 		pWndl = (CWnd*)GetDlgItem(IDC_ANM_LERP_APPLY);
-		pWndl->SetWindowText("Fill");
+		if (pWndl)
+		{
+			pWndl->SetWindowText("Fill");
+		}
 		pWndl = (CWnd *)GetDlgItem(IDOK);
 		pWndl -> SetWindowText("OK");
 	#endif

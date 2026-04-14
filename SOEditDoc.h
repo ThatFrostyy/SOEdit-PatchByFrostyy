@@ -185,6 +185,9 @@ public:
 	afx_msg void OnDelBoneFromAnm();
 	afx_msg void OnBnClickedAnmboxDeleteFrame();
 	afx_msg void OnBnClickedAnmboxInsertFrame();
+	afx_msg void OnReverseAnimation();
+	afx_msg void OnBnClickedAnmLerpApply();
+	afx_msg void OnBnClickedAnmboxAuto();
 };
 
 /////////////////////////////////////////////////////////////////////////////

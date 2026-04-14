@@ -1,5 +1,7 @@
 ﻿resource.h(743): warning RC4005: 'IDC_RESET_BONE' : redefinition
   
+SOEdit.rc(583): warning RC2182: duplicate dialog control ID 1151
+  
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   1 File(s) copied

@@ -126,6 +126,9 @@ BEGIN_MESSAGE_MAP(CSOEditDoc, CDocument)
 	ON_COMMAND(ID_DEL_BONE_FROM_ANM_AL, &CSOEditDoc::OnDelBoneFromAnm)
 	ON_BN_CLICKED(IDC_ANMBOX_DELETE_FRAME, &CSOEditDoc::OnBnClickedAnmboxDeleteFrame)
 	ON_BN_CLICKED(IDC_ANMBOX_INSERT_FRAME, &CSOEditDoc::OnBnClickedAnmboxInsertFrame)
+	ON_BN_CLICKED(IDC_REVERSE_ANIM, &CSOEditDoc::OnReverseAnimation)
+	ON_BN_CLICKED(IDC_ANM_LERP_APPLY, &CSOEditDoc::OnBnClickedAnmLerpApply)
+	ON_BN_CLICKED(IDC_ANM_AUTO, &CSOEditDoc::OnBnClickedAnmboxAuto)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2870,6 +2873,12 @@ void CSOEditDoc::ANM_Tool(bool mod)
 	pButton -> EnableWindow(mod);
 	pButton = (CButton *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INHERIT_MATRIX);
 	pButton -> EnableWindow(mod);
+	pButton = (CButton*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_REVERSE_ANIM);
+	pButton->EnableWindow(mod);
+	pButton = (CButton*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANM_LERP_APPLY);
+	pButton->EnableWindow(mod);
+	pButton = (CButton*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANM_AUTO);
+	pButton->EnableWindow(mod);
 	pButton = (CButton *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INHERIT_MATRIX);
 	pFrameWnd -> m_wndAnimBox.CheckDlgButton(IDC_ANMBOX_INHERIT_MATRIX, 0);
 	CStatic *pStatic = (CStatic *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANM_EDITING_MODE);
@@ -2938,6 +2947,41 @@ void CSOEditDoc::AnimBoxUPD()
 	CSliderCtrl *pSlider = (CSliderCtrl *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANIM_SLIDER);
 	pSlider -> SetPos(m_Frame);
 	pSlider -> SetRange(0, m_AnimBone -> m_FrameCnt - 1, true);
+	pFrameWnd->m_wndAnimBox.CheckDlgButton(IDC_ANM_AUTO, auto_animation ? 1 : 0);
+	if (m_AnimBone->m_FrameCnt > 0)
+	{
+		CWnd* pStartEdit = (CWnd*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_LERP_START_FRAME);
+		CWnd* pEndEdit = (CWnd*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_LERP_END_FRAME);
+		if (pStartEdit && pEndEdit)
+		{
+			char buff[32] = { 0 };
+			pStartEdit->GetWindowText(buff, 31);
+			int startFrame = atoi(buff);
+			pEndEdit->GetWindowText(buff, 31);
+			int endFrame = atoi(buff);
+			if (startFrame < 1)
+			{
+				startFrame = 1;
+			}
+			if (endFrame <= startFrame)
+			{
+				endFrame = min(m_AnimBone->m_FrameCnt, startFrame + 1);
+			}
+			if (endFrame > m_AnimBone->m_FrameCnt)
+			{
+				endFrame = m_AnimBone->m_FrameCnt;
+			}
+			if (startFrame >= endFrame)
+			{
+				startFrame = max(1, endFrame - 1);
+			}
+			char szValue[32];
+			sprintf(szValue, "%d", startFrame);
+			pStartEdit->SetWindowText(szValue);
+			sprintf(szValue, "%d", endFrame);
+			pEndEdit->SetWindowText(szValue);
+		}
+	}
 }
 
 void CSOEditDoc::OnBnClickedAnmboxInheritMatrix()
@@ -3487,4 +3531,130 @@ void CSOEditDoc::OnBnClickedAnmboxInsertFrame()
 		{return;}
 	m_Frame = m_AnimBone -> OnInsertFrame(m_Frame);
 	AnimBoxUPD();
+}
+
+void CSOEditDoc::OnBnClickedAnmboxAuto()
+{
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	if (!pFrameWnd)
+	{
+		return;
+	}
+	CButton* pAutoButton = (CButton*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANM_AUTO);
+	if (!pAutoButton)
+	{
+		return;
+	}
+	auto_animation = pAutoButton->GetCheck() == BST_CHECKED;
+}
+
+void CSOEditDoc::OnReverseAnimation()
+{
+	if (!m_AnimBone || m_AnimBone->m_FrameCnt <= 1)
+	{
+		return;
+	}
+	int left = 0;
+	int right = m_AnimBone->m_FrameCnt - 1;
+	while (left < right)
+	{
+		CAnimFrame& frame1 = m_AnimBone->m_Frames[left];
+		CAnimFrame& frame2 = m_AnimBone->m_Frames[right];
+		CAnimSub* tempHead = frame1.m_head;
+		CAnimSub* tempTail = frame1.m_tail;
+		frame1.m_head = frame2.m_head;
+		frame1.m_tail = frame2.m_tail;
+		frame2.m_head = tempHead;
+		frame2.m_tail = tempTail;
+		int tempBone = frame1.m_Bone;
+		frame1.m_Bone = frame2.m_Bone;
+		frame2.m_Bone = tempBone;
+		matrix34_t tempMatrix = frame1.m_Matrix34;
+		frame1.m_Matrix34 = frame2.m_Matrix34;
+		frame2.m_Matrix34 = tempMatrix;
+		left++;
+		right--;
+	}
+	AnimBoxUPD();
+	UpdateAllViews(NULL, 0, NULL);
+}
+
+void CSOEditDoc::OnBnClickedAnmLerpApply()
+{
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	if (!pFrameWnd || !m_AnimBone)
+	{
+		return;
+	}
+	char frameBuff[32] = { 0 };
+	int startFrame = 0, endFrame = 0;
+	CWnd* pStartEdit = pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_LERP_START_FRAME);
+	CWnd* pEndEdit = pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_LERP_END_FRAME);
+	if (!pStartEdit || !pEndEdit)
+	{
+		return;
+	}
+	pStartEdit->GetWindowText(frameBuff, 31);
+	startFrame = atoi(frameBuff);
+	memset(frameBuff, 0, sizeof(frameBuff));
+	pEndEdit->GetWindowText(frameBuff, 31);
+	endFrame = atoi(frameBuff);
+	if (startFrame < 1 || endFrame < 1 || startFrame >= endFrame || endFrame > m_AnimBone->m_FrameCnt)
+	{
+		return;
+	}
+
+	CTreeCtrl* pTreeCtrl = (CTreeCtrl*)pFrameWnd->m_wndToolTab.m_ModelTree.GetDlgItem(IDC_MODELTREE);
+	HTREEITEM hTreeItem = pTreeCtrl ? pTreeCtrl->GetSelectedItem() : NULL;
+	if (!hTreeItem || !m_Model || !m_Model->m_skeleton || !m_Model->m_skeleton->m_bonelist)
+	{
+		return;
+	}
+	CBone* pFindBone = m_Model->m_skeleton->m_bonelist->FindBoneByTreeID(hTreeItem);
+	if (!pFindBone)
+	{
+		return;
+	}
+
+	int boneIndex = -1;
+	for (int i = 0; i < m_AnimBone->m_BoneCnt; i++)
+	{
+		if (!stricmp(pFindBone->m_Name, m_AnimBone->m_BoneMap[i]))
+		{
+			boneIndex = i;
+			break;
+		}
+	}
+	if (boneIndex < 0)
+	{
+		return;
+	}
+
+	CAnimSub* startSub = m_AnimBone->m_Frames[startFrame - 1].FindSub(boneIndex);
+	CAnimSub* endSub = m_AnimBone->m_Frames[endFrame - 1].FindSub(boneIndex);
+	if (!startSub || !endSub)
+	{
+		return;
+	}
+	const int stepCount = endFrame - startFrame;
+	for (int frame = startFrame + 1; frame < endFrame; frame++)
+	{
+		const float t = (float)(frame - startFrame) / (float)stepCount;
+		CAnimSub* midSub = m_AnimBone->m_Frames[frame - 1].FindSub(boneIndex);
+		if (!midSub)
+		{
+			continue;
+		}
+		for (int row = 0; row < 4; row++)
+		{
+			for (int col = 0; col < 3; col++)
+			{
+				const float a = startSub->m_Matrix34.v[row][col];
+				const float b = endSub->m_Matrix34.v[row][col];
+				midSub->m_Matrix34.v[row][col] = a + ((b - a) * t);
+			}
+		}
+		midSub->m_Visible = (t < 0.5f) ? startSub->m_Visible : endSub->m_Visible;
+	}
+	UpdateAllViews(NULL, 0, NULL);
 }
