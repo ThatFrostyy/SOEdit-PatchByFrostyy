@@ -132,6 +132,7 @@ BEGIN_MESSAGE_MAP(CAnimData, CDialog)
 	ON_BN_CLICKED(IDC_ANM_BONE_EXPORT, &CAnimData::OnBnClickedAnmBoneExport)
 	ON_BN_CLICKED(IDC_ANM_BONE_IMPORT, &CAnimData::OnBnClickedAnmBoneImport)
 	ON_BN_CLICKED(IDC_REVERSE_ANIM, &CAnimData::OnReverseAnimation)
+	ON_BN_CLICKED(IDC_ANM_LERP_APPLY, &CAnimData::OnBnClickedAnmLerpApply)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -168,6 +169,18 @@ BOOL CAnimData::OnInitDialog()
 	OnSelchangeMbones();
 	CListBox *pListBox = (CListBox *)GetDlgItem(IDC_ANM_ACTION);
 	pListBox -> AddString("-----------------------------------");
+	int defaultStart = m_FrameNo + 1;
+	int defaultEnd = min(defaultStart + 1, pDoc->m_AnimBone->m_FrameCnt);
+	if (defaultEnd <= defaultStart)
+	{
+		defaultStart = max(1, pDoc->m_AnimBone->m_FrameCnt - 1), defaultEnd = pDoc->m_AnimBone->m_FrameCnt;
+	}
+	st.Format("%d", defaultStart);
+	pEdit = (CEdit*)GetDlgItem(IDC_LERP_START_FRAME);
+	pEdit->SetWindowText(st);
+	st.Format("%d", defaultEnd);
+	pEdit = (CEdit*)GetDlgItem(IDC_LERP_END_FRAME);
+	pEdit->SetWindowText(st);
 	#ifdef ALTERNATIVE_LANG
 		pListBox -> AddString("Moving");
 		pListBox -> AddString("Rotation");
@@ -244,6 +257,8 @@ BOOL CAnimData::OnInitDialog()
 		pWndl -> SetWindowText("Export");
 		pWndl = (CWnd *)GetDlgItem(IDC_ANM_BONE_IMPORT);
 		pWndl -> SetWindowText("Import");
+		pWndl = (CWnd*)GetDlgItem(IDC_ANM_LERP_APPLY);
+		pWndl->SetWindowText("Fill");
 		pWndl = (CWnd *)GetDlgItem(IDOK);
 		pWndl -> SetWindowText("OK");
 	#endif
@@ -1762,4 +1777,61 @@ void CAnimData::OnPasteMatrix()
 
 	UpdateData(FALSE);    // Push the new numbers back to the screen boxes
 	OnCheckerMatrix11(); // This tells the program "Hey, the data changed, please save it!"
+}
+
+void CAnimData::OnBnClickedAnmLerpApply()
+{
+	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
+	CSOEditDoc* pDoc = (CSOEditDoc*)pWnd->GetActiveDocument();
+	if (!pDoc || !pDoc->m_AnimBone || !m_pSub)
+	{
+		return;
+	}
+
+	char frameBuff[32] = { 0 };
+	int startFrame = 0, endFrame = 0;
+	GetDlgItem(IDC_LERP_START_FRAME)->GetWindowText(frameBuff, 31);
+	startFrame = atoi(frameBuff);
+	memset(frameBuff, 0, sizeof(frameBuff));
+	GetDlgItem(IDC_LERP_END_FRAME)->GetWindowText(frameBuff, 31);
+	endFrame = atoi(frameBuff);
+
+	if (startFrame < 1 || endFrame < 1 || startFrame >= endFrame || endFrame > pDoc->m_AnimBone->m_FrameCnt)
+	{
+		MessageBox("Invalid frame range. Use 1-based values where End > Start.", "ERROR: CAnimData::OnBnClickedAnmLerpApply", MB_ICONHAND);
+		return;
+	}
+
+	const int boneIndex = m_pSub->m_Bone;
+	CAnimSub* startSub = pDoc->m_AnimBone->m_Frames[startFrame - 1].FindSub(boneIndex);
+	CAnimSub* endSub = pDoc->m_AnimBone->m_Frames[endFrame - 1].FindSub(boneIndex);
+	if (!startSub || !endSub)
+	{
+		MessageBox("Selected bone must exist on both start and end frames.", "ERROR: CAnimData::OnBnClickedAnmLerpApply", MB_ICONHAND);
+		return;
+	}
+
+	const int stepCount = endFrame - startFrame;
+	for (int frame = startFrame + 1; frame < endFrame; frame++)
+	{
+		const float t = (float)(frame - startFrame) / (float)stepCount;
+		CAnimSub* midSub = pDoc->m_AnimBone->m_Frames[frame - 1].FindSub(boneIndex);
+		if (!midSub)
+		{
+			continue;
+		}
+		for (int row = 0; row < 4; row++)
+		{
+			for (int col = 0; col < 3; col++)
+			{
+				const float a = startSub->m_Matrix34.v[row][col];
+				const float b = endSub->m_Matrix34.v[row][col];
+				midSub->m_Matrix34.v[row][col] = a + ((b - a) * t);
+			}
+		}
+		midSub->m_Visible = (t < 0.5f) ? startSub->m_Visible : endSub->m_Visible;
+	}
+
+	OnSelchangeMbones();
+	MessageBox("Lerp fill completed between selected frames.", "Success", MB_OK);
 }

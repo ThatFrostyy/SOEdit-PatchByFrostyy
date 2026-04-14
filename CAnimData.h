@@ -127,6 +127,7 @@ public:
 	afx_msg void OnBnClickedAnmBoneExport();
 	afx_msg void OnBnClickedAnmBoneImport();
 	afx_msg void OnReverseAnimation();
+	afx_msg void OnBnClickedAnmLerpApply();
 };
 
 //{{AFX_INSERT_LOCATION}}

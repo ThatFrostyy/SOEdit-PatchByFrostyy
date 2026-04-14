@@ -431,6 +431,9 @@
 #define IDC_STATIC_ABO_4                1331
 #define IDC_MY_FLAG                     1332
 #define IDC_REVERSE_ANIM                1334
+#define IDC_LERP_START_FRAME            1336
+#define IDC_LERP_END_FRAME              1337
+#define IDC_ANM_LERP_APPLY              1338
 #define IDC_BUTTON9                     1335
 #define IDC_RESET_BONE                  1335
 #define ID_VIEW_LAYOUT                  32771
