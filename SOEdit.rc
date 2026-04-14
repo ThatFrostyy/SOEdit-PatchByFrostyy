@@ -1459,8 +1459,8 @@ END
 
 STRINGTABLE
 BEGIN
-    IDR_MAINFRAME           "SOEdit_v0.5 by Brian (+patch v0.7m4 by TonaTor)\n\nSOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)+ 1.0 PATCH BY FROSTYY\n\n\nSOEdit.Document\nSOEdit Document"
-    IDR_MAINFRAME_AL        "SOEdit_v0.5 by Brian (+patch v0.7m4 by TonaTor)+ 1.0 PATCH BY FROSTYY\n\nSOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)\n\n\nSOEdit.Document\nSOEdit Document"
+    IDR_MAINFRAME           "SOEdit_v0.5 by Brian (+patch v0.7m4 by TonaTor)\n\nSOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)+ 1.1 PATCH BY FROSTYY\n\n\nSOEdit.Document\nSOEdit Document"
+    IDR_MAINFRAME_AL        "SOEdit_v0.5 by Brian (+patch v0.7m4 by TonaTor)+ 1.1 PATCH BY FROSTYY\n\nSOEdit_v0.5 by Brian  (+patch v0.7m4 by TonaTor)\n\n\nSOEdit.Document\nSOEdit Document"
 END
 
 STRINGTABLE
