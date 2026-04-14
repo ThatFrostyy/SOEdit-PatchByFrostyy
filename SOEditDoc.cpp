@@ -3438,7 +3438,61 @@ void CSOEditDoc::OnAnmSave()
 
 void CSOEditDoc::OnAnmNew()
 {
-	// TODO: добавьте свой код обработчика команд
+	// TODO:     
+	if (!m_Model || !m_Model->m_skeleton || !m_Model->m_skeleton->m_bonelist)
+	{
+#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "The model skeleton is not loaded!", "ERROR: CSOEditDoc::OnAnmNew", MB_ICONHAND);
+#else
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "    !", "ERROR: CSOEditDoc::OnAnmNew", MB_ICONHAND);
+#endif
+		return;
+	}
+
+	m_Animate = false;
+	m_Frame = 0;
+	old_frm = 0;
+	memset(szAnimPath, 0, _MAX_PATH);
+
+	if (m_AnimBone)
+	{
+		delete m_AnimBone;
+		m_AnimBone = NULL;
+	}
+
+	m_AnimBone = new CAnimBone();
+	m_AnimBone->Header_ID = 0x00060001;
+	m_AnimBone->m_FrameCnt = 1;
+	m_AnimBone->m_Frames = new CAnimFrame[m_AnimBone->m_FrameCnt];
+
+	ANM_Tool(true);
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	CWnd* pWnd = (CWnd*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_FRAMENO);
+	pWnd->SetWindowText("1");
+	pWnd = (CWnd*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_FRAMES);
+	pWnd->SetWindowText("1");
+	CSpinButtonCtrl* pSpinner = (CSpinButtonCtrl*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_SPEED_CONTROL);
+	pSpinner->SetRange(1, 1);
+	pSpinner->SetPos(1);
+	pWnd = (CWnd*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_SPEED);
+	pWnd->SetWindowText("1.0");
+	CSliderCtrl* pSlider = (CSliderCtrl*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANIM_SLIDER);
+	pSlider->SetPos(0);
+	pSlider->SetRange(0, 0, true);
+	pWnd = (CEdit*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANIM_NAME);
+	pWnd->SetWindowText("new_animation.anm");
+
+	CMenu* pMenu = pFrameWnd->GetMenu();
+	CMenu* pPopup = pMenu->GetSubMenu(3);
+	ASSERT(pPopup != NULL);
+#ifdef ALTERNATIVE_LANG
+	pPopup->EnableMenuItem(ID_ANM_SAVE_AL, MF_BYCOMMAND | MF_ENABLED);
+	pPopup->EnableMenuItem(ID_ANM_CLOSE_AL, MF_BYCOMMAND | MF_ENABLED);
+#else
+	pPopup->EnableMenuItem(ID_ANM_SAVE, MF_BYCOMMAND | MF_ENABLED);
+	pPopup->EnableMenuItem(ID_ANM_CLOSE, MF_BYCOMMAND | MF_ENABLED);
+#endif
+	UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditDoc::OnAnmClose()
