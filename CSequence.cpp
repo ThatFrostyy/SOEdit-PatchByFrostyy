@@ -114,145 +114,99 @@ CSequence::~CSequence()
 void CSequence::ParseFile()
 {
 	char* word = m_sdl->GetNextWord();
-	int block = 0;
 	while (strlen(word))
 	{
-		if (!stricmp(word, "{"))// Beginning our processing block
+		if (!stricmp(word, "{"))
 		{
-			block++;
-		}
-		else
-			if (!stricmp(word, "}"))// Ending our processing block -- drop out here
+			// Read the keyword that follows the opening brace, then dispatch.
+			// Each handler is fully responsible for consuming up to and including its own '}'.
+			word = m_sdl->GetNextWord();
+			if (!strlen(word)) break;
+			if (word[0] == '"')
 			{
-				break;
+				SetName(word);
+				// bare name inside braces: no closing brace — just a name token
 			}
+			else if (!stricmp("file", word)) { SetFile(); }
+			else if (!stricmp("name", word)) { SetName(); }
+			else if (!stricmp("resume", word)) { m_Resume = true; m_sdl->GetNextWord(); /* eat } */ }
+			else if (!stricmp("store", word)) { m_Store = true; m_sdl->GetNextWord(); /* eat } */ }
+			else if (!stricmp("autostart", word)) { m_Autostart = true; m_sdl->GetNextWord(); /* eat } */ }
+			else if (!stricmp("smooth", word)) { SetSmooth(); }
+			else if (!stricmp("speed", word)) { SetSpeed(); }
+			else if (!stricmp("events", word)) { SetEvents(); }
 			else
-				if (word[0] == '"')
-				{
-					SetName(word);
-				}
-				else
-					if (!stricmp("file", word))
-					{
-						SetFile();
-					}
-					else
-						if (!stricmp("name", word))
-						{
-							SetName();
-						}
-						else
-							if (!stricmp("resume", word))
-							{
-								SetResume();
-							}
-							else
-								if (!stricmp("store", word))
-								{
-									SetStore();
-								}
-								else
-									if (!stricmp("autostart", word))
-									{
-										SetAutoStart();
-									}
-									else
-										if (!stricmp("smooth", word))
-										{
-											SetSmooth();
-										}
-										else
-											if (!stricmp("speed", word))
-											{
-												SetSpeed();
-											}
-											else
-												if (!stricmp("events", word))
-												{
-													SetEvents();
-												}
-												else
-												{
+			{
 #ifdef ALTERNATIVE_LANG
-													msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl->m_line);
+				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl->m_line);
 #else
-													msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl->m_line);
+				msg_st.Format("\u041d\u0435\u043e\u043f\u043e\u0437\u043d\u0430\u043d\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430: %s\r\n\u0421\u0442\u0440\u043e\u043a\u0430: %d", word, m_sdl->m_line);
 #endif
-													MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CAnimation::ParseFile", MB_ICONHAND);
-												}
+				MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CAnimation::ParseFile", MB_ICONHAND);
+			}
+		}
+		else if (!stricmp(word, "}"))
+		{
+			break; // outer sequence closing brace
+		}
+		else if (word[0] == '"')
+		{
+			// sequence name appears as a bare quoted token before any sub-blocks
+			SetName(word);
+		}
 		word = m_sdl->GetNextWord();
 	}
 }
 
 void CSequence::SetEvents()
 {
-	// Read the outer '{' of the events block
-	char* word = m_sdl->GetNextWord();
-	if (stricmp("{", word))
-	{
-		return;
-	} // malformed - bail out silently
-
- // Count how many event entries exist first (look-ahead not possible,
- // so we collect into a temporary dynamic array)
-	const int MAX_EVENTS = 64;
-	AnimEvent tempEvents[MAX_EVENTS];
-	int count = 0;
-
-	// Free any previous events
+	// ParseFile already consumed '{' and "events".
+	// We own everything up to and including the closing '}'.
 	if (m_Events)
 	{
 		for (int i = 0; i < m_EventCount; i++)
-		{
 			if (m_Events[i].name) delete[] m_Events[i].name;
-		}
 		delete[] m_Events;
 		m_Events = NULL;
 		m_EventCount = 0;
 	}
 
-	word = m_sdl->GetNextWord();
+	const int MAX_EVENTS = 64;
+	AnimEvent tempEvents[MAX_EVENTS];
+	int count = 0;
+
+	char* word = m_sdl->GetNextWord();
 	while (word && strlen(word) && stricmp("}", word) && count < MAX_EVENTS)
 	{
-		// Each entry is: { frameNum "eventName" }
 		if (!stricmp("{", word))
 		{
-			// read frame number
-			word = m_sdl->GetNextWord();
+			word = m_sdl->GetNextWord();        // frame number
 			tempEvents[count].frame = atoi(word);
 			tempEvents[count].name = NULL;
-			// read event name (may be quoted)
-			word = m_sdl->GetNextWord();
+			word = m_sdl->GetNextWord();        // event name
 			char* ename = word;
-			if (ename[0] == '"') { ename++; }
+			if (ename[0] == '"') ename++;
 			if (strlen(ename) > 0)
 			{
 				tempEvents[count].name = new char[strlen(ename) + 1];
 				strcpy(tempEvents[count].name, ename);
 			}
 			count++;
-			// read closing '}'
-			word = m_sdl->GetNextWord();
-			if (stricmp("}", word))
-			{
-				// unexpected token; continue anyway
-				continue;
-			}
+			m_sdl->GetNextWord();               // closing '}' of this event entry
 		}
 		word = m_sdl->GetNextWord();
 	}
-	// word is now '}' (outer close of events block), which is what we want
+	// word is now '}' — the events block closer, consuming it balances the '{' ParseFile saw.
 
 	if (count > 0)
 	{
 		m_Events = new AnimEvent[count];
 		m_EventCount = count;
 		for (int i = 0; i < count; i++)
-		{
 			m_Events[i] = tempEvents[i];
-		}
 	}
 }
+
 void CSequence::SetName(char* name)
 {
 	if (m_Name)
@@ -276,50 +230,17 @@ char* CSequence::GetName()
 
 void CSequence::SetStore()
 {
-	char* word;
 	m_Store = true;
-	word = m_sdl->GetNextWord();
-	if (stricmp("}", word))
-	{
-#ifdef ALTERNATIVE_LANG
-		msg_st.Format("The block is damaged \"STORE\". Incorrect end of the block.\r\nLine: %d", m_sdl->m_line);
-#else
-		msg_st.Format("Повреждён блок \"STORE\". Неверный конец блока.\r\nСтрока: %d", m_sdl->m_line);
-#endif
-		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CSequence::SetStore", MB_OK);
-	}
 }
 
 void CSequence::SetResume()
 {
-	char* word;
 	m_Resume = true;
-	word = m_sdl->GetNextWord();
-	if (stricmp("}", word))
-	{
-#ifdef ALTERNATIVE_LANG
-		msg_st.Format("The block is damaged \"RESUME\". Incorrect end of the block.\r\nLine: %d", m_sdl->m_line);
-#else
-		msg_st.Format("Повреждён блок \"RESUME\". Неверный конец блока.\r\nСтрока: %d", m_sdl->m_line);
-#endif
-		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CSequence::SetResume", MB_OK);
-	}
 }
 
 void CSequence::SetAutoStart()
 {
-	char* word;
 	m_Autostart = true;
-	word = m_sdl->GetNextWord();
-	if (stricmp("}", word))
-	{
-#ifdef ALTERNATIVE_LANG
-		msg_st.Format("The block is damaged \"AUTOSTART\". Incorrect end of the block.\r\nLine: %d", m_sdl->m_line);
-#else
-		msg_st.Format("Повреждён блок \"AUTOSTART\". Неверный конец блока.\r\nСтрока: %d", m_sdl->m_line);
-#endif
-		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CSequence::SetAutoStart", MB_OK);
-	}
 }
 
 void CSequence::SetFile()
