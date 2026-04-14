@@ -896,7 +896,6 @@ void CBoneData::OnBnClickedAddSequenceEvent()
 	pFrame->GetWindowText(frameText, _MAX_PATH - 1);
 	pName->GetWindowText(eventName, _MAX_PATH - 1);
 	ForbiddenSymbolFixer(frameText);
-	ForbiddenSymbolFixer(eventName);
 	if (!IsIntegerText(frameText) || !strlen(eventName))
 		return;
 	if (!AppendSequenceEvent(pSeq, atoi(frameText), eventName))
