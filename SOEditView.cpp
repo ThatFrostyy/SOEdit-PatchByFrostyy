@@ -456,6 +456,7 @@ void CSOEditView::DrawBone(CBone* basis, bool transparency_mod)
 			}
 		}
 	}
+	bool bAnmScaleBaked = false;
 	if (m_pDoc->m_AnimBone && basis != m_pDoc->BLamp_View)
 	{
 		int iBone;
@@ -499,13 +500,19 @@ void CSOEditView::DrawBone(CBone* basis, bool transparency_mod)
 				glMultMatrixf(basis->m_Animatrix);
 				delete[] basis->m_Animatrix;
 				basis->m_Animatrix = NULL;
+				// Scale is now baked into the ANM matrix by CreateNewBoneInAnm().
+				// Do NOT apply glScalef on top or the preview will double-scale.
+				bAnmScaleBaked = true;
 			}
 		}
 	}
 	glRotatef(basis->m_Rotations[0], 1.0f, 0.0f, 0.0f);
 	glRotatef(basis->m_Rotations[1], 0.0f, 1.0f, 0.0f);
 	glRotatef(basis->m_Rotations[2], 0.0f, 0.0f, 1.0f);
-	glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+	if (!bAnmScaleBaked)
+	{
+		glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+	}
 	if (m_pDoc->m_AnimBone)
 	{
 		if (basis->sub)
@@ -2716,6 +2723,7 @@ void CSOEditView::DrawVolumeLayer(CBone* basis)
 			glMultMatrixf((float*)&m);
 		}
 	}
+	bool bVolAnmScaleBaked = false;
 	if (m_pDoc->m_AnimBone)
 	{
 		int iBone;
@@ -2729,28 +2737,19 @@ void CSOEditView::DrawVolumeLayer(CBone* basis)
 		CAnimSub* t_sub;
 		if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
 		{
-			if (m_pDoc->m_Frame >= m_pDoc->m_AnimBone->m_FrameCnt)
+			if (NULL != (t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)))
 			{
-				m_pDoc->m_Frame = m_pDoc->m_AnimBone->m_FrameCnt - 1;
-				if (m_pDoc->m_Frame < 0)
-				{
-					m_pDoc->m_Frame = 0;
-				}
-			}
-			if ((t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)) != NULL)
-			{
-				int i, j;
-				if (!basis->m_Animatrix)
+				if (NULL == basis->m_Animatrix)
 				{
 					basis->m_Animatrix = new float[16];
 				}
-				for (i = 0; i < 4; i++)
+				for (int i = 0; i < 4; i++)
 				{
-					for (j = 0; j < 3; j++)
+					for (int j = 0; j < 3; j++)
 					{
 						basis->m_Animatrix[i * 4 + j] = t_sub->m_Matrix34.v[i][j];
 					}
-					basis->m_Animatrix[i * 4 + j] = 0.0f;
+					basis->m_Animatrix[i * 4 + 3] = 0.0f; // Replaced 'j' with '3'
 				}
 				basis->m_Animatrix[15] = 1.0f;
 				glPopMatrix();
@@ -2758,13 +2757,15 @@ void CSOEditView::DrawVolumeLayer(CBone* basis)
 				glMultMatrixf(basis->m_Animatrix);
 				delete[] basis->m_Animatrix;
 				basis->m_Animatrix = NULL;
+				// Scale is baked into the ANM matrix. Don't double-apply it here.
+				bVolAnmScaleBaked = true;
 			}
 		}
 	}
-	glRotatef(basis->m_Rotations[0], 1.0f, 0.0f, 0.0f);
-	glRotatef(basis->m_Rotations[1], 0.0f, 1.0f, 0.0f);
-	glRotatef(basis->m_Rotations[2], 0.0f, 0.0f, 1.0f);
-	glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+	if (!bVolAnmScaleBaked)
+	{
+		glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+	}
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_DST_ALPHA);
 	if ((m_pDoc->m_Model->m_VolumeList) && (pWnd->m_ViewVols) && basis)
