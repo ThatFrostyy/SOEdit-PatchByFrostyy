@@ -1,6 +1,45 @@
-﻿resource.h(743): warning RC4005: 'IDC_RESET_BONE' : redefinition
+﻿  CAnimFrame.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CAnimFrame.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
+      see previous definition of 'IDC_RESET_BONE'
   
-SOEdit.rc(583): warning RC2182: duplicate dialog control ID 1151
+D:\SOEdit Version Next (v0.7m4)\resource.h(438,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CAnimFrame.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(743,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CAnimFrame.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(103,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(142,6): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(152,6): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(158,6): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(181,9): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(611,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(819,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(795,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimFrame.cpp(799,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimFrame.cpp')
   
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe

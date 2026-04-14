@@ -54,6 +54,7 @@ class CAnimBone
 	   int FrameDelete(int indx);
 	   int OnInsertFrame(int indx);
 	   int OnAddClone(int indx);
+       void ReverseFrames(void);
 
 
 	   unsigned int Header_ID;

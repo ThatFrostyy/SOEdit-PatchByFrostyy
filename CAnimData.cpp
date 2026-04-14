@@ -1689,36 +1689,10 @@ void CAnimData::OnReverseAnimation()
 
 	if (!pBone || pBone->m_FrameCnt <= 1) return;
 
-	int left = 0;
-	int right = pBone->m_FrameCnt - 1;
-
-	while (left < right)
-	{
-		// We swap the contents of the frames manually to avoid 
-		// triggering the destructor (which would delete the sub-bones)
-		CAnimFrame& frame1 = pBone->m_Frames[left];
-		CAnimFrame& frame2 = pBone->m_Frames[right];
-
-		// Swap the linked list pointers
-		CAnimSub* tempHead = frame1.m_head;
-		CAnimSub* tempTail = frame1.m_tail;
-		frame1.m_head = frame2.m_head;
-		frame1.m_tail = frame2.m_tail;
-		frame2.m_head = tempHead;
-		frame2.m_tail = tempTail;
-
-		// Swap other frame-level properties
-		int tempBone = frame1.m_Bone;
-		frame1.m_Bone = frame2.m_Bone;
-		frame2.m_Bone = tempBone;
-
-		matrix34_t tempMatrix = frame1.m_Matrix34;
-		frame1.m_Matrix34 = frame2.m_Matrix34;
-		frame2.m_Matrix34 = tempMatrix;
-
-		left++;
-		right--;
-	}
+	pBone->ReverseFrames();
+	m_FrameNo = 0;
+	m_Frame = 0;
+	pDoc->m_Frame = 0;
 
 	// Refresh the UI to show the change
 	OnSelchangeMbones();
