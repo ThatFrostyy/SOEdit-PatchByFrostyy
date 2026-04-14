@@ -87,7 +87,10 @@ CTexture::CTexture(char *texfile)
 			#else
 				sprintf(text_buff, "Ошибка парсинга файла %s\nTextPoint = %d", m_TexFile, TP.TP);
 			#endif
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, text_buff, "ERROR: CTexture::CTexture", MB_ICONHAND);
+				if (pWnd->m_ShowTextureErrors)
+				{
+					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, text_buff, "ERROR: CTexture::CTexture", MB_ICONHAND);
+				}
 		}
 		link_type = true;
 		if(!strlen(PM -> TDiffuse))
@@ -97,7 +100,10 @@ CTexture::CTexture(char *texfile)
 			#else
 				sprintf(ErrMsg, "Файл материалов не содержит данных о Diffuse-текстуре: %s", CurFile_ptr);
 			#endif
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, ErrMsg, "ERROR: CTexture::CTexture", MB_ICONHAND);
+				if (pWnd->m_ShowTextureErrors)
+				{
+					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, ErrMsg, "ERROR: CTexture::CTexture", MB_ICONHAND);
+				}
 			m_FrameName = new char[12];
 			strcpy(m_FrameName, "<<checker>>");
 			delete PM;
@@ -259,7 +265,10 @@ CTexture::CTexture(char *texfile)
 			#else
 				sprintf(ErrMsg, "Не удалось найти текстуру: %s\nИз файла материалов:\n%s", m_FrameName, CurFile_ptr);
 			#endif
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, ErrMsg, "ERROR: CTexture::CTexture", MB_ICONHAND);
+				if (pWnd->m_ShowTextureErrors)
+				{
+					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, ErrMsg, "ERROR: CTexture::CTexture", MB_ICONHAND);
+				}
 			delete[] m_FrameName;
 			m_FrameName = NULL;
 			m_FrameName = new char[12];

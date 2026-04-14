@@ -203,6 +203,7 @@ BEGIN
             MENUITEM "&Smaller",                    ID_GRID_SMALLER_AL
         END
         MENUITEM "&Reset cameras",              ID_RESET_CAMERAS_AL
+        MENUITEM "Show texture-related errors", 33087, CHECKED
     END
     POPUP "&Help"
     BEGIN

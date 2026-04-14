@@ -1647,11 +1647,15 @@ void CSOEditView::LoadTexture(char *texfile, int texnumb, CMaterial *pMaterial)
     CTexFile *tex = new CTexFile(texfile);
     if(!tex -> GetBits())
 	{
-		#ifdef ALTERNATIVE_LANG
-			MessageBox(CString("Failed to load texture file:\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
-		#else
-			MessageBox(CString("Íå óäàëîñü çàãðóçèòü ôàéë òåêñòóðû:\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
-		#endif
+		CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
+		if (!pWnd || pWnd->m_ShowTextureErrors)
+		{
+#ifdef ALTERNATIVE_LANG
+			MessageBox(CString("Failed to load texture file:\\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
+#else
+			MessageBox(CString("Failed to load texture file:\\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
+#endif
+		}
 	}
 	pMaterial -> m_transparency = tex -> m_transparency;
 	if(m_pDoc -> TexOff)

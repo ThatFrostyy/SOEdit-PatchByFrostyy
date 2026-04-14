@@ -431,14 +431,16 @@
 #define IDC_STATIC_ABO_4                1331
 #define IDC_MY_FLAG                     1332
 #define IDC_REVERSE_ANIM                1334
+#define IDC_BUTTON9                     1335
 #define IDC_LERP_START_FRAME            1336
 #define IDC_LERP_END_FRAME              1337
 #define IDC_ANM_LERP_APPLY              1338
-#define IDC_BUTTON9                     1335
-#define IDC_RESET_BONE                  1335
 #define ID_VIEW_LAYOUT                  32771
+#define ID_COPY_MATRIX                  32771
 #define ID_PLY_ADD                      32772
+#define ID_PASTE_MATRIX                 32772
 #define ID_PLY_DELETE                   32773
+#define IDC_RESET_BONE                  32773
 #define ID_TEX_CHANGE                   32774
 #define ID_VIEW_BACKFACES               32776
 #define ID_VIEW_SELECTED                32777
@@ -738,9 +740,7 @@
 #define ID_ADD_BONE_TO_ANM_A            33084
 #define ID_ADD_BONE_TO_ANM_AL           33085
 #define ID_DEL_BONE_FROM_ANM_AL         33086
-#define ID_COPY_MATRIX      32771
-#define ID_PASTE_MATRIX     32772
-#define IDC_RESET_BONE      32773
+#define ID_DISPLAY_TEXTURE_ERRORS_AL    33087
 
 // Next default values for new objects
 // 
@@ -748,7 +748,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        206
-#define _APS_NEXT_COMMAND_VALUE         33087
+#define _APS_NEXT_COMMAND_VALUE         33088
 #define _APS_NEXT_CONTROL_VALUE         1336
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

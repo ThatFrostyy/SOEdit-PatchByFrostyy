@@ -61,6 +61,7 @@ public:
 	bool          m_Vertex;
 	bool          m_CollisionSide;
 	bool          m_AllMeshVectors;
+	bool          m_ShowTextureErrors;
 	bool          m_GEMI_Compatibility; //Совместимость со старой версией импортёра в 3D MAX
 
     int           m_cBackGround2[3];
@@ -142,6 +143,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	public:
 	afx_msg void OnDisplayDisplayallmeshvectors();
+	afx_msg void OnDisplayTextureErrors();
 };
 
 

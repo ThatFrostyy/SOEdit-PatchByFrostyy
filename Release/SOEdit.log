@@ -1,44 +1,220 @@
-﻿  CBoneData.cpp
-D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
-  (compiling source file '/CBoneData.cpp')
-      D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
-      see previous definition of 'IDC_RESET_BONE'
+﻿  CAnimData.cpp
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(283,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(22,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(300,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(722,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(340,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(726,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(464,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(791,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(608,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(930,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(611,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1426,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(639,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1428,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(642,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1444,6): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(967,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1482,19): warning C4267: '=': conversion from 'size_t' to 'BYTE', possible loss of data
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(975,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1486,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(983,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1488,19): warning C4267: '=': conversion from 'size_t' to 'BYTE', possible loss of data
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(991,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1492,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (compiling source file '/CBoneData.cpp')
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1007,69): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1362,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1363,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1388,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1404,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1369,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1387,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1420,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1469,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1500,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1459,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1508,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1522,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1544,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1586,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1612,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1644,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1570,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1576,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1579,11): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1595,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1602,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1605,11): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1681,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CAnimData.cpp(1684,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CAnimData.cpp')
+  
+  CVolBoxDlg.cpp
+  MainFrm.cpp
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(26,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(422,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(460,13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(480,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(506,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(571,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(592,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(747,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(748,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(749,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(750,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(751,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(752,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(775,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(848,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\MainFrm.cpp(1282,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/MainFrm.cpp')
+  
+  PLY_Tweaker.cpp
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(206,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(208,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(210,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(212,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(214,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(216,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(218,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(220,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(222,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(224,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(226,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(228,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(230,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(232,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(234,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(272,19): warning C4566: character represented by universal-character-name '\u0421' cannot be represented in the current code page (1252)
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\PLY_Tweaker.cpp(482,15): warning C4244: '=': conversion from 'DWORD' to 'short', possible loss of data
+  (compiling source file '/PLY_Tweaker.cpp')
+  
+  setup_window.cpp
+  Generating Code...
+SOEdit.rc(584): warning RC2182: duplicate dialog control ID 1151
   
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe

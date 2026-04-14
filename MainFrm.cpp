@@ -96,6 +96,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_INITMENUPOPUP()
 	ON_COMMAND(ID_DISPLAY_DISPLAYALLMESHVECTORS_AL, &CMainFrame::OnDisplayDisplayallmeshvectors)
 	ON_COMMAND(ID_DISPLAY_DISPLAYALLMESHVECTORS, &CMainFrame::OnDisplayDisplayallmeshvectors)
+	ON_COMMAND(ID_DISPLAY_TEXTURE_ERRORS_AL, &CMainFrame::OnDisplayTextureErrors)
 END_MESSAGE_MAP()
 
 
@@ -131,6 +132,7 @@ CMainFrame::CMainFrame()
 	m_GEMI_Compatibility = false;
 	RegVer = ProgVer = 0;
 	m_AllMeshVectors = m_CollisionSide = m_Vertex = false;
+	m_ShowTextureErrors = true;
 	memset(m_author, 0, _MAX_PATH);
 	m_FrameHoldTimerId = 0;
 	m_FrameHoldBaseInterval = 180;
@@ -1103,6 +1105,19 @@ void CMainFrame::OnDisplayDisplayallmeshvectors()
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
 }
 
+void CMainFrame::OnDisplayTextureErrors()
+{
+	CMenu* pMenu = GetMenu();
+	CMenu* pPopup = pMenu->GetSubMenu(6);
+	ASSERT(pPopup != NULL);
+	m_ShowTextureErrors = !m_ShowTextureErrors;
+#ifdef ALTERNATIVE_LANG
+	pPopup->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS_AL, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
+#else
+	pPopup->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
+#endif
+}
+
 void CMainFrame::OnGEMICompatibility()
 {
 	CMenu *pMenu = GetMenu();
@@ -1128,8 +1143,12 @@ void CMainFrame::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
 	#ifdef ALTERNATIVE_LANG
 		pPopupMenu -> CheckMenuItem(ID_VIEW_COLORIZE_AL, (pDoc -> Colorized_3d) ? MF_CHECKED : MF_UNCHECKED);
+		pPopupMenu->CheckMenuItem(ID_DISPLAY_DISPLAYALLMESHVECTORS_AL, (m_AllMeshVectors) ? MF_CHECKED : MF_UNCHECKED);
+		pPopupMenu->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS_AL, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
 	#else
 		pPopupMenu -> CheckMenuItem(ID_VIEW_COLORIZE, (pDoc -> Colorized_3d) ? MF_CHECKED : MF_UNCHECKED);
+		pPopupMenu->CheckMenuItem(ID_DISPLAY_DISPLAYALLMESHVECTORS, (m_AllMeshVectors) ? MF_CHECKED : MF_UNCHECKED);
+		pPopupMenu->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
 	#endif
 }
 

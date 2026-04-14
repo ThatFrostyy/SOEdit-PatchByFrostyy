@@ -1,7 +1,9 @@
  
 // Commands (ID_* and IDM_*) 
 HID_VIEW_LAYOUT                         0x18003
+HID_COPY_MATRIX                         0x18003
 HID_PLY_ADD                             0x18004
+HID_PASTE_MATRIX                        0x18004
 HID_PLY_DELETE                          0x18005
 HID_TEX_CHANGE                          0x18006
 HID_VIEW_BACKFACES                      0x18008
@@ -287,8 +289,7 @@ HID_ANIMATION_                          0x1813B
 HID_ADD_BONE_TO_ANM_A                   0x1813C
 HID_ADD_BONE_TO_ANM_AL                  0x1813D
 HID_DEL_BONE_FROM_ANM_AL                0x1813E
-HID_COPY_MATRIX                         0x18003
-HID_PASTE_MATRIX                        0x18004
+HID_DISPLAY_TEXTURE_ERRORS_AL           0x1813F
  
 // Prompts (IDP_*) 
  
