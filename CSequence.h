@@ -27,6 +27,7 @@ class CSequence
        void   SetSpeed();
 	   void   SetSmooth();
 	   void   SetEvents();
+	   void   SetUnknownBlock(char *word);
        void   SetResume();
        void   SetAutoStart();
 
@@ -43,6 +44,8 @@ class CSequence
        bool   m_Store;
 	   bool   m_Resume;
        bool   m_Autostart;
+	   CString m_EventsBlock;
+	   CString m_UnknownBlocks;
 
     private:
 	   CString msg_st;

@@ -22,6 +22,8 @@ CSequence::CSequence()
     next = NULL;
     prev = NULL;
 	m_AnimBone = NULL;
+	m_EventsBlock = "";
+	m_UnknownBlocks = "";
 }
 
 CSequence::CSequence(CSdl *sdl)
@@ -37,6 +39,8 @@ CSequence::CSequence(CSdl *sdl)
     next = NULL;
     prev = NULL;
 	m_AnimBone = NULL;
+	m_EventsBlock = "";
+	m_UnknownBlocks = "";
     ParseFile();
 }
 
@@ -62,6 +66,8 @@ CSequence::CSequence(CSequence *anm)
 	next = NULL;
 	prev = NULL;
 	m_AnimBone = anm -> m_AnimBone;
+	m_EventsBlock = anm -> m_EventsBlock;
+	m_UnknownBlocks = anm -> m_UnknownBlocks;
 }
 
 CSequence::~CSequence()
@@ -113,14 +119,7 @@ void CSequence::ParseFile()
 		if(!stricmp("events", word))
 			{SetEvents();}
 		else
-		{
-			#ifdef ALTERNATIVE_LANG
-				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			#else
-				msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl -> m_line);
-			#endif
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CAnimation::ParseFile", MB_ICONHAND);
-		}
+			{SetUnknownBlock(word);}
 		word = m_sdl -> GetNextWord();
 	}
 }
@@ -128,41 +127,74 @@ void CSequence::ParseFile()
 void CSequence::SetEvents()
 {
 	char *word = m_sdl -> GetNextWord();
-	do
-	{
-		if(stricmp("{", word))
-		{
-			#ifdef ALTERNATIVE_LANG
-				msg_st.Format("The block is damaged \"EVENTS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-			#else
-				msg_st.Format("Повреждён блок \"EVENTS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-			#endif
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetEvents", MB_ICONHAND);
-		}
-		word = m_sdl -> GetNextWord();//num
-		word = m_sdl -> GetNextWord();//Event name
-		word = m_sdl -> GetNextWord();
-		if(stricmp("}", word))
-		{
-			#ifdef ALTERNATIVE_LANG
-				msg_st.Format("The block is damaged \"EVENTS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-			#else
-				msg_st.Format("Повреждён блок \"EVENTS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-			#endif
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetEvents", MB_ICONHAND);
-		}
-		word = m_sdl -> GetNextWord();
-	}
-	while(stricmp("{", word) == 0);
-	if(stricmp("}", word))
+	if(stricmp("{", word))
 	{
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"EVENTS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"EVENTS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+			msg_st.Format("  \"EVENTS\".   .\r\n: %d", m_sdl -> m_line);
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetEvents", MB_ICONHAND);
+		return;
 	}
+
+	int block = 1;
+	m_EventsBlock = "{Events";
+	while(block > 0)
+	{
+		word = m_sdl -> GetNextWord();
+		if(!strlen(word))
+			{break;}
+		if(!stricmp("{", word))
+		{
+			block++;
+			m_EventsBlock += " {";
+		}
+		else
+		if(!stricmp("}", word))
+		{
+			block--;
+			m_EventsBlock += "}";
+		}
+		else
+		{
+			m_EventsBlock += " ";
+			m_EventsBlock += word;
+		}
+	}
+}
+
+void CSequence::SetUnknownBlock(char *word)
+{
+	CString block;
+	block.Format("{%s", word);
+	int depth = 1;
+	char *next_word = m_sdl -> GetNextWord();
+	while(strlen(next_word))
+	{
+		if(!stricmp("{", next_word))
+		{
+			depth++;
+			block += " {";
+		}
+		else
+		if(!stricmp("}", next_word))
+		{
+			depth--;
+			block += "}";
+			if(depth <= 0)
+				{break;}
+		}
+		else
+		{
+			block += " ";
+			block += next_word;
+		}
+		next_word = m_sdl -> GetNextWord();
+	}
+	if(!m_UnknownBlocks.IsEmpty())
+		{m_UnknownBlocks += " ";}
+	m_UnknownBlocks += block;
 }
 
 void CSequence::SetName(char *name)
@@ -192,7 +224,7 @@ void CSequence::SetStore()
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"STORE\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"STORE\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+    m_Autostart = true;
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetStore", MB_OK);
 	}
@@ -208,7 +240,7 @@ void CSequence::SetResume()
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"RESUME\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"RESUME\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+			msg_st.Format("ГЏГ®ГўГ°ГҐГ¦Г¤ВёГ­ ГЎГ«Г®ГЄ \"RESUME\". ГЌГҐГўГҐГ°Г­Г»Г© ГЄГ®Г­ГҐГ¶ ГЎГ«Г®ГЄГ .\r\nГ‘ГІГ°Г®ГЄГ : %d", m_sdl -> m_line);
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetResume", MB_OK);
 	}
@@ -224,7 +256,7 @@ void CSequence::SetAutoStart()
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"AUTOSTART\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"AUTOSTART\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+			msg_st.Format("ГЏГ®ГўГ°ГҐГ¦Г¤ВёГ­ ГЎГ«Г®ГЄ \"AUTOSTART\". ГЌГҐГўГҐГ°Г­Г»Г© ГЄГ®Г­ГҐГ¶ ГЎГ«Г®ГЄГ .\r\nГ‘ГІГ°Г®ГЄГ : %d", m_sdl -> m_line);
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetAutoStart", MB_OK);
 	}
@@ -246,7 +278,7 @@ void CSequence::SetFile()
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"FILE\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"FILE\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+			msg_st.Format("ГЏГ®ГўГ°ГҐГ¦Г¤ВёГ­ ГЎГ«Г®ГЄ \"FILE\". ГЌГҐГўГҐГ°Г­Г»Г© ГЄГ®Г­ГҐГ¶ ГЎГ«Г®ГЄГ .\r\nГ‘ГІГ°Г®ГЄГ : %d", m_sdl -> m_line);
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetFile", MB_OK);
 	}
@@ -289,7 +321,7 @@ void CSequence::SetSpeed()
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"SPEED\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"SPEED\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+			msg_st.Format("ГЏГ®ГўГ°ГҐГ¦Г¤ВёГ­ ГЎГ«Г®ГЄ \"SPEED\". ГЌГҐГўГҐГ°Г­Г»Г© ГЄГ®Г­ГҐГ¶ ГЎГ«Г®ГЄГ .\r\nГ‘ГІГ°Г®ГЄГ : %d", m_sdl -> m_line);
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetSpeed", MB_OK);
 	}
@@ -306,7 +338,7 @@ void CSequence::SetSmooth()
 		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"SMOOTH\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
 		#else
-			msg_st.Format("Повреждён блок \"SMOOTH\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
+			msg_st.Format("ГЏГ®ГўГ°ГҐГ¦Г¤ВёГ­ ГЎГ«Г®ГЄ \"SMOOTH\". ГЌГҐГўГҐГ°Г­Г»Г© ГЄГ®Г­ГҐГ¶ ГЎГ«Г®ГЄГ .\r\nГ‘ГІГ°Г®ГЄГ : %d", m_sdl -> m_line);
 		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CSequence::SetSmooth", MB_OK);
 	}
@@ -512,16 +544,16 @@ void CSequenceList::WriteMdl(FILE *fp, int indent)
 		if((pSeq -> m_Speed != 0.0f) && (pSeq -> m_Speed != 1.0f))
 		{
 			if(pDoc -> Copy_Mode)
-				{tmp_str.Format(" {Speed %0.1f}", pSeq -> m_Speed); pDoc -> Code_block += tmp_str;}
+				{tmp_str.Format(" {Speed %.6g}", pSeq -> m_Speed); pDoc -> Code_block += tmp_str;}
 			else
-				{fprintf(fp, " {Speed %0.1f}", pSeq -> m_Speed);}
+				{fprintf(fp, " {Speed %.6g}", pSeq -> m_Speed);}
 		}
 		if((pSeq -> m_Smooth != 0.0f) && (pSeq -> m_Smooth != 1.0f))
 		{
 			if(pDoc -> Copy_Mode)
-				{tmp_str.Format(" {Smooth %0.1f}", pSeq -> m_Smooth); pDoc -> Code_block += tmp_str;}
+				{tmp_str.Format(" {Smooth %.6g}", pSeq -> m_Smooth); pDoc -> Code_block += tmp_str;}
 			else
-				{fprintf(fp, " {Smooth %0.1f}", pSeq -> m_Smooth);}
+				{fprintf(fp, " {Smooth %.6g}", pSeq -> m_Smooth);}
 		}
 		if(pSeq -> m_Resume)
 		{
@@ -543,6 +575,20 @@ void CSequenceList::WriteMdl(FILE *fp, int indent)
 				{tmp_str.Format(" {Store}"); pDoc -> Code_block += tmp_str;}
 			else
 				{fprintf(fp, " {Store}");}
+		}
+		if(!pSeq -> m_EventsBlock.IsEmpty())
+		{
+			if(pDoc -> Copy_Mode)
+				{tmp_str.Format(" %s", pSeq -> m_EventsBlock); pDoc -> Code_block += tmp_str;}
+			else
+				{fprintf(fp, " %s", (LPCSTR)pSeq -> m_EventsBlock);}
+		}
+		if(!pSeq -> m_UnknownBlocks.IsEmpty())
+		{
+			if(pDoc -> Copy_Mode)
+				{tmp_str.Format(" %s", pSeq -> m_UnknownBlocks); pDoc -> Code_block += tmp_str;}
+			else
+				{fprintf(fp, " %s", (LPCSTR)pSeq -> m_UnknownBlocks);}
 		}
 		if(pDoc -> Copy_Mode)
 			{tmp_str.Format("}\n"); pDoc -> Code_block += tmp_str;}
