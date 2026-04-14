@@ -8,6 +8,66 @@
 #include "CPly.h"
 #include "PLY_Tweaker.h"
 
+static bool AppendSequenceEvent(CSequence* seq, int frame, const char* name)
+{
+	if (!seq || !name || !strlen(name))
+		return false;
+	AnimEvent* events = new AnimEvent[seq->m_EventCount + 1];
+	for (int i = 0; i < seq->m_EventCount; i++)
+	{
+		events[i] = seq->m_Events[i];
+	}
+	events[seq->m_EventCount].frame = frame;
+	events[seq->m_EventCount].name = new char[strlen(name) + 1];
+	strcpy(events[seq->m_EventCount].name, name);
+	delete[] seq->m_Events;
+	seq->m_Events = events;
+	seq->m_EventCount++;
+	return true;
+}
+
+static bool IsIntegerText(const char* text)
+{
+	if (!text || !strlen(text))
+		return false;
+	int i = 0;
+	if (text[0] == '-' || text[0] == '+')
+		i = 1;
+	if (!text[i])
+		return false;
+	for (; text[i]; i++)
+	{
+		if (text[i] < '0' || text[i] > '9')
+			return false;
+	}
+	return true;
+}
+
+static void RemoveSequenceEvent(CSequence* seq, int index)
+{
+	if (!seq || !seq->m_Events || index < 0 || index >= seq->m_EventCount)
+		return;
+	delete[] seq->m_Events[index].name;
+	if (seq->m_EventCount == 1)
+	{
+		delete[] seq->m_Events;
+		seq->m_Events = NULL;
+		seq->m_EventCount = 0;
+		return;
+	}
+	AnimEvent* events = new AnimEvent[seq->m_EventCount - 1];
+	int dst = 0;
+	for (int i = 0; i < seq->m_EventCount; i++)
+	{
+		if (i == index)
+			continue;
+		events[dst++] = seq->m_Events[i];
+	}
+	delete[] seq->m_Events;
+	seq->m_Events = events;
+	seq->m_EventCount--;
+}
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -202,6 +262,9 @@ BEGIN_MESSAGE_MAP(CBoneData, CDialog)
 	ON_WM_PAINT()
 	ON_BN_CLICKED(IDC_BONE_SEQUENCE_ADD, &CBoneData::OnBnClickedBoneSequenceAdd)
 	ON_BN_CLICKED(IDC_BONE_SEQUENCE_DELETE, &CBoneData::OnBnClickedBoneSequenceDelete)
+	ON_BN_CLICKED(IDC_BUTTON5, &CBoneData::OnBnClickedAddSequenceEvent)
+	ON_BN_CLICKED(IDC_BUTTON6, &CBoneData::OnBnClickedRemoveSequenceEvent)
+	ON_LBN_SELCHANGE(IDC_LIST2, &CBoneData::OnSelchangeSequenceEvents)
 	ON_EN_CHANGE(IDC_BONE_SEQUENCE_SPEED, &CBoneData::OnEnChangeBoneSequenceSpeed)
 	ON_EN_CHANGE(IDC_BONE_SEQUENCE_NAME, &CBoneData::OnEnChangeBoneSequenceName)
 	ON_BN_CLICKED(IDC_BONE_SEQUENCE_FILE_BROWSE, &CBoneData::OnBnClickedBoneSequenceFileBrowse)
@@ -695,11 +758,38 @@ void CBoneData::OnSelchangeElements()
 				pButton -> EnableWindow(true);
 				pButton = (CButton *)GetDlgItem(IDC_BONE_SEQUENCE_FILE_BROWSE);
 				pButton -> EnableWindow(true);
+				pButton = (CButton*)GetDlgItem(IDC_BUTTON5);
+				pButton->EnableWindow(true);
+				pButton = (CButton*)GetDlgItem(IDC_BUTTON6);
+				pButton->EnableWindow(true);
+				pEdit = (CEdit*)GetDlgItem(IDC_EDIT4);
+				pEdit->EnableWindow(true);
+				pEdit = (CEdit*)GetDlgItem(IDC_EDIT5);
+				pEdit->EnableWindow(true);
+				CListBox* pEventList = (CListBox*)GetDlgItem(IDC_LIST2);
+				pEventList->EnableWindow(true);
+				RefreshSequenceEventList();
 				SeqSelMode = false;
 				break;
 			}
 			pSeq = pSeq -> next;
 		}
+	}
+}
+
+void CBoneData::RefreshSequenceEventList()
+{
+	CListBox* pEventList = (CListBox*)GetDlgItem(IDC_LIST2);
+	if (!pEventList)
+		return;
+	pEventList->ResetContent();
+	if (!pSeq || !pSeq->m_Events || pSeq->m_EventCount <= 0)
+		return;
+	char row[256] = { 0 };
+	for (int i = 0; i < pSeq->m_EventCount; i++)
+	{
+		sprintf(row, "%d | %s", pSeq->m_Events[i].frame, pSeq->m_Events[i].name ? pSeq->m_Events[i].name : "");
+		pEventList->AddString(row);
 	}
 }
 
@@ -766,6 +856,12 @@ void CBoneData::OnBnClickedBoneSequenceDelete()
 			pEdit = (CEdit *)GetDlgItem(IDC_BONE_SEQUENCE_NAME);
 			pEdit -> SetWindowText("");
 			pEdit -> EnableWindow(false);
+			pEdit = (CEdit*)GetDlgItem(IDC_EDIT4);
+			pEdit->SetWindowText("");
+			pEdit->EnableWindow(false);
+			pEdit = (CEdit*)GetDlgItem(IDC_EDIT5);
+			pEdit->SetWindowText("");
+			pEdit->EnableWindow(false);
 			pButton = (CButton *)GetDlgItem(IDC_BONE_SEQUENCE_AUTOSTART);
 			pButton -> EnableWindow(false);
 			pButton = (CButton *)GetDlgItem(IDC_BONE_SEQUENCE_STORE);
@@ -774,12 +870,69 @@ void CBoneData::OnBnClickedBoneSequenceDelete()
 			pButton -> EnableWindow(false);
 			pButton = (CButton *)GetDlgItem(IDC_BONE_SEQUENCE_FILE_BROWSE);
 			pButton -> EnableWindow(false);
+			pButton = (CButton*)GetDlgItem(IDC_BUTTON5);
+			pButton->EnableWindow(false);
+			pButton = (CButton*)GetDlgItem(IDC_BUTTON6);
+			pButton->EnableWindow(false);
+			CListBox* pEventList = (CListBox*)GetDlgItem(IDC_LIST2);
+			pEventList->ResetContent();
+			pEventList->EnableWindow(false);
 		}
 		else
 		if(count - 1 == sel)
 			{pList -> SetCurSel(sel - 1);}
 		OnSelchangeElements();
 	}
+}
+
+void CBoneData::OnBnClickedAddSequenceEvent()
+{
+	if (!pSeq)
+		return;
+	char frameText[_MAX_PATH] = { 0 };
+	char eventName[_MAX_PATH] = { 0 };
+	CEdit* pFrame = (CEdit*)GetDlgItem(IDC_EDIT4);
+	CEdit* pName = (CEdit*)GetDlgItem(IDC_EDIT5);
+	pFrame->GetWindowText(frameText, _MAX_PATH - 1);
+	pName->GetWindowText(eventName, _MAX_PATH - 1);
+	ForbiddenSymbolFixer(frameText);
+	ForbiddenSymbolFixer(eventName);
+	if (!IsIntegerText(frameText) || !strlen(eventName))
+		return;
+	if (!AppendSequenceEvent(pSeq, atoi(frameText), eventName))
+		return;
+	RefreshSequenceEventList();
+	CListBox* pList = (CListBox*)GetDlgItem(IDC_LIST2);
+	pList->SetCurSel(pList->GetCount() - 1);
+}
+
+void CBoneData::OnBnClickedRemoveSequenceEvent()
+{
+	if (!pSeq)
+		return;
+	CListBox* pList = (CListBox*)GetDlgItem(IDC_LIST2);
+	int cur = pList->GetCurSel();
+	if (cur < 0)
+		return;
+	RemoveSequenceEvent(pSeq, cur);
+	RefreshSequenceEventList();
+	if (pList->GetCount() > 0)
+		pList->SetCurSel(min(cur, pList->GetCount() - 1));
+	OnSelchangeSequenceEvents();
+}
+
+void CBoneData::OnSelchangeSequenceEvents()
+{
+	CListBox* pList = (CListBox*)GetDlgItem(IDC_LIST2);
+	int cur = pList->GetCurSel();
+	if (!pSeq || cur < 0 || !pSeq->m_Events || cur >= pSeq->m_EventCount)
+		return;
+	char frameText[64] = { 0 };
+	sprintf(frameText, "%d", pSeq->m_Events[cur].frame);
+	CEdit* pFrame = (CEdit*)GetDlgItem(IDC_EDIT4);
+	CEdit* pName = (CEdit*)GetDlgItem(IDC_EDIT5);
+	pFrame->SetWindowText(frameText);
+	pName->SetWindowText(pSeq->m_Events[cur].name ? pSeq->m_Events[cur].name : "");
 }
 
 void CBoneData::SkeletonOff()

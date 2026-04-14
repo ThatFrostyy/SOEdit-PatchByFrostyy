@@ -1,4 +1,46 @@
-﻿  CSequence.cpp
+﻿  CBoneData.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/CBoneData.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(22,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(722,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(726,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(791,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(931,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1427,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1429,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1445,6): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1483,19): warning C4267: '=': conversion from 'size_t' to 'BYTE', possible loss of data
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1487,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1489,19): warning C4267: '=': conversion from 'size_t' to 'BYTE', possible loss of data
+  (compiling source file '/CBoneData.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBoneData.cpp(1493,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBoneData.cpp')
+  
+  CSequence.cpp
 D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
   (compiling source file '/CSequence.cpp')
       D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
@@ -14,78 +56,389 @@ D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BON
       D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
       see previous definition of 'IDC_RESET_BONE'
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(59,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(23,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(64,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(76,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(82,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(81,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(119,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(99,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(130,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(136,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(131,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(147,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(132,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(148,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(133,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(149,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(134,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(150,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(135,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(151,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(136,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(152,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(137,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(153,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(148,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(154,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(192,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(155,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(179,33): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(160,46): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(181,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(177,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(223,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(221,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(255,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(208,33): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(257,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(210,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(281,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(252,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(293,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(284,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(302,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(286,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(319,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(310,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
-D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(440,24): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(322,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/CSequence.cpp')
   
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(331,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSequence.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(348,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSequence.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CSequence.cpp(469,24): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CSequence.cpp')
+  
+  SOEditDoc.cpp
+D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/SOEditDoc.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(438,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/SOEditDoc.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(743,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\resource.h(743,9): warning C4005: 'IDC_RESET_BONE': macro redefinition
+  (compiling source file '/SOEditDoc.cpp')
+      D:\SOEdit Version Next (v0.7m4)\resource.h(438,9):
+      see previous definition of 'IDC_RESET_BONE'
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(365,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(367,15): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(427,3): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(477,8): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(511,10): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(753,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(762,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(840,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(895,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(907,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(926,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(929,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(980,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1001,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1010,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1013,13): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1015,13): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1037,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1042,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1070,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(974,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1028,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1111,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1131,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1180,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1189,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1192,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1194,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1216,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1221,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1119,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1207,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1266,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1373,6): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1384,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1429,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1469,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1584,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1681,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1730,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1766,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1586,15): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1836,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1890,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1897,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1902,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1941,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1943,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1945,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1950,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(1954,16): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2025,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2047,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2049,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2052,6): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2053,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2116,6): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2036,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2057,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2088,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2135,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2315,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2303,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2345,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2334,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2384,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2443,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2715,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2703,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2782,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2939,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2942,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2979,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(2981,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3058,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3134,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3173,3): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3184,13): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3203,13): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3222,13): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3241,13): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3260,13): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3179,9): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3198,9): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3217,9): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3236,9): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3255,9): warning C4996: 'strnicmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strnicmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3379,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3399,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3390,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3402,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3427,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3494,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3513,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3603,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/SOEditDoc.cpp')
+  
+  Generating Code...
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   1 File(s) copied
