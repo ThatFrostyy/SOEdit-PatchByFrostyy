@@ -86,63 +86,65 @@ END_MESSAGE_MAP()
 
 CSOEditView::CSOEditView()
 {
-    m_pDoc = NULL;
+	m_pDoc = NULL;
 	memset((void*)&m_point, 0, sizeof(POINT));
-    m_hDC = 0;
-    m_hRC = 0;
+	m_hDC = 0;
+	m_hRC = 0;
 	m_rButton = m_mButton = m_lButton = false;
-    m_glnWidth = 0;
-    m_glnHeight = 0;
-    m_gldAspect = 0.0f;
+	m_glnWidth = 0;
+	m_glnHeight = 0;
+	m_gldAspect = 0.0f;
 	m_Scale = 0.05f;
-	
+
 	//îñëàáèë ñ 0.25
-    m_AmbientLight[0] = 0.225f;
-    m_AmbientLight[1] = 0.225f;
-    m_AmbientLight[2] = 0.225f;
-    m_AmbientLight[3] = 1.0f;
+	m_AmbientLight[0] = 0.225f;
+	m_AmbientLight[1] = 0.225f;
+	m_AmbientLight[2] = 0.225f;
+	m_AmbientLight[3] = 1.0f;
 
 	//óñèëèë íà 0.15
 	m_DiffuseLight[0] = 0.75f;
 	m_DiffuseLight[1] = 0.75f;
-    m_DiffuseLight[2] = 0.75f;
-    m_DiffuseLight[3] = 1.0f;
+	m_DiffuseLight[2] = 0.75f;
+	m_DiffuseLight[3] = 1.0f;
 
-    m_Specular[0] = 0.50f;
-    m_Specular[1] = 0.50f;
-    m_Specular[2] = 0.50f; 
-    m_Specular[3] = 1.50f;
+	m_Specular[0] = 0.50f;
+	m_Specular[1] = 0.50f;
+	m_Specular[2] = 0.50f;
+	m_Specular[3] = 1.50f;
 
-    m_LightPos[0] = 0.0f;
-    m_LightPos[1] = 0.0f;
-    m_LightPos[2] = 200.0f;
-    m_LightPos[3] = 0.0f;//
+	m_LightPos[0] = 0.0f;
+	m_LightPos[1] = 0.0f;
+	m_LightPos[2] = 200.0f;
+	m_LightPos[3] = 0.0f;//
 
-    /*m_ClearColor[0] = 0.5f;
-    m_ClearColor[1] = 0.5f;
-    m_ClearColor[2] = 0.5f;
-    m_ClearColor[3] = 1.0f;*/
+	/*m_ClearColor[0] = 0.5f;
+	m_ClearColor[1] = 0.5f;
+	m_ClearColor[2] = 0.5f;
+	m_ClearColor[3] = 1.0f;*/
 
 	//È êàê ýòî íàñòðàèâàòü?
-    m_SpecRef[0] = 1.0f;
-    m_SpecRef[1] = 1.0f;
-    m_SpecRef[2] = 1.0f;
-    m_SpecRef[3] = 1.0f;
+	m_SpecRef[0] = 1.0f;
+	m_SpecRef[1] = 1.0f;
+	m_SpecRef[2] = 1.0f;
+	m_SpecRef[3] = 1.0f;
 
-    m_SceneGround = 0;
+	m_SceneGround = 0;
 
-    m_Camera.Position[0] = 0.0f;
-    m_Camera.Position[1] = -10.0f;
-    m_Camera.Position[2] = -150.0f;
-    m_Camera.Orient[0] = 0.0f;
-    m_Camera.Orient[1] = 0.0f;
-    m_Camera.Orient[2] = 0.0f;
+	m_Camera.Position[0] = 0.0f;
+	m_Camera.Position[1] = -10.0f;
+	m_Camera.Position[2] = -150.0f;
+	m_Camera.Orient[0] = 0.0f;
+	m_Camera.Orient[1] = 0.0f;
+	m_Camera.Orient[2] = 0.0f;
 
 	m_DrawMode = rl_ambient;
 	m_ViewMod = vm3_visual;
 
-	for(int i = 0; i < 20; i++)
-		{OverlayStr[i] = "";}
+	for (int i = 0; i < 20; i++)
+	{
+		OverlayStr[i] = "";
+	}
 	m_pDC = NULL;
 	m_grid = true;
 	m_ViewMeshVector = m_Paint_selected_meshes = m_WireframeOverMesh = m_ViewMeshAsWireframe = m_ViewEnts3dAsWireframe = m_vol_wireframe = false;
@@ -157,10 +159,10 @@ CSOEditView::CSOEditView()
 
 CSOEditView::~CSOEditView()
 {
-    if(m_hRC)
+	if (m_hRC)
 	{
-        wglMakeCurrent(NULL, NULL);
-        wglDeleteContext(m_hRC);
+		wglMakeCurrent(NULL, NULL);
+		wglDeleteContext(m_hRC);
 	}
 }
 
@@ -168,7 +170,7 @@ BOOL CSOEditView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
-    cs.style |= (WS_CLIPCHILDREN | WS_CLIPSIBLINGS);
+	cs.style |= (WS_CLIPCHILDREN | WS_CLIPSIBLINGS);
 	return CView::PreCreateWindow(cs);
 }
 
@@ -180,60 +182,80 @@ void CSOEditView::OnDraw(CDC* pDC)
 	CSOEditDoc* pDoc = GetDocument();
 	int type = 0; // 1- bone, 2 - volume
 	ASSERT_VALID(pDoc);
-	if(!m_pDoc -> ViewWorks[3])
+	if (!m_pDoc->ViewWorks[3])
 	{
 		OverlayStr[0] = "";
-		m_pDoc -> ViewWorks[3] = 1;
+		m_pDoc->ViewWorks[3] = 1;
 		DrawScene();
-		m_pDoc -> ViewWorks[3] = 0;
+		m_pDoc->ViewWorks[3] = 0;
 
-		if(m_pDoc && m_pDoc -> m_Model && m_pDoc -> m_Model -> m_skeleton && m_pDoc -> m_Model -> m_skeleton -> m_bonelist)
+		if (m_pDoc && m_pDoc->m_Model && m_pDoc->m_Model->m_skeleton && m_pDoc->m_Model->m_skeleton->m_bonelist)
 		{
-			CBone *pSelect = m_pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBoneByTreeID(m_pDoc -> hSelTreeItem);
-			if(pSelect)
+			CBone* pSelect = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBoneByTreeID(m_pDoc->hSelTreeItem);
+			if (pSelect)
 			{
 				type = 1;
-				OverlayStr[0] = pSelect -> m_Name;
-				if(pSelect -> m_VolumeView)
-					{OverlayStr[0] += " [M]";}
+				OverlayStr[0] = pSelect->m_Name;
+				if (pSelect->m_VolumeView)
+				{
+					OverlayStr[0] += " [M]";
+				}
 				else
-					{OverlayStr[0] += " [NM]";}
-				if(!pSelect -> m_tree_check)
-					{OverlayStr[0] += " [H]";}
-				if(pSelect -> m_Animation && pSelect -> m_Animation -> m_SequenceList)
-					{OverlayStr[0] += " [A]";}
+				{
+					OverlayStr[0] += " [NM]";
+				}
+				if (!pSelect->m_tree_check)
+				{
+					OverlayStr[0] += " [H]";
+				}
+				if (pSelect->m_Animation && pSelect->m_Animation->m_SequenceList)
+				{
+					OverlayStr[0] += " [A]";
+				}
 			}
 		}
-		if(m_pDoc && m_pDoc -> m_Model && m_pDoc -> m_Model -> m_skeleton && m_pDoc -> m_Model -> m_skeleton -> m_bonelist)
+		if (m_pDoc && m_pDoc->m_Model && m_pDoc->m_Model->m_skeleton && m_pDoc->m_Model->m_skeleton->m_bonelist)
 		{
-			CVolume *pSelect = m_pDoc -> m_Model -> m_VolumeList -> FindVolumeByTreeID(m_pDoc -> hSelTreeItem);
-			if(pSelect)
+			CVolume* pSelect = m_pDoc->m_Model->m_VolumeList->FindVolumeByTreeID(m_pDoc->hSelTreeItem);
+			if (pSelect)
 			{
 				type = 2;
-				OverlayStr[0] = pSelect -> m_Name;
-				if(pSelect -> m_Type == VT_PLY)
-					{OverlayStr[0] += " [M]";}
+				OverlayStr[0] = pSelect->m_Name;
+				if (pSelect->m_Type == VT_PLY)
+				{
+					OverlayStr[0] += " [M]";
+				}
 				else
-					{OverlayStr[0] += " [NM]";}
-				if(!pSelect -> m_tree_check)
-					{OverlayStr[0] += " [H]";}
+				{
+					OverlayStr[0] += " [NM]";
+				}
+				if (!pSelect->m_tree_check)
+				{
+					OverlayStr[0] += " [H]";
+				}
 			}
 		}
-		if(pDC)
+		if (pDC)
 		{
-			pDC -> SetBkMode(OPAQUE);
-			pDC -> SetBkColor(0x00);
-			pDC -> SetTextColor(0x3F3F3F);
-			if(type)
+			pDC->SetBkMode(OPAQUE);
+			pDC->SetBkColor(0x00);
+			pDC->SetTextColor(0x3F3F3F);
+			if (type)
 			{
-				if(type == 1)
-					{pDC -> SetTextColor(0x00ffff);}
-				if(type == 2)
-					{pDC -> SetTextColor(0xffff00);}
-				pDC -> TextOut(2, 0, OverlayStr[0]);
+				if (type == 1)
+				{
+					pDC->SetTextColor(0x00ffff);
+				}
+				if (type == 2)
+				{
+					pDC->SetTextColor(0xffff00);
+				}
+				pDC->TextOut(2, 0, OverlayStr[0]);
 			}
-			for(int i = 1; i < 20; i++)
-				{pDC -> TextOut(2, 17 * i, OverlayStr[i]);}
+			for (int i = 1; i < 20; i++)
+			{
+				pDC->TextOut(2, 17 * i, OverlayStr[i]);
+			}
 		}
 	}
 }
@@ -262,10 +284,14 @@ void CSOEditView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 
 #ifdef _DEBUG
 void CSOEditView::AssertValid() const
-	{CView::AssertValid();}
+{
+	CView::AssertValid();
+}
 
 void CSOEditView::Dump(CDumpContext& dc) const
-	{CView::Dump(dc);}
+{
+	CView::Dump(dc);
+}
 
 CSOEditDoc* CSOEditView::GetDocument() // non-debug version is inline
 {
@@ -276,298 +302,336 @@ CSOEditDoc* CSOEditView::GetDocument() // non-debug version is inline
 
 BOOL CSOEditView::InitGL()
 {
-    int nMyPixelFormatID;
-    static PIXELFORMATDESCRIPTOR pfd = {
-        sizeof(PIXELFORMATDESCRIPTOR), // struct size 
-        1,                              // Version number
-        PFD_DRAW_TO_WINDOW |    // Flags, draw to a window,
-        PFD_SUPPORT_OPENGL |    // use OpenGL
-        PFD_DOUBLEBUFFER,       // want double buffering
-        PFD_TYPE_RGBA,          // RGBA pixel values
-        24,                     // 32-bit color
-        0, 0, 0, 0, 0, 0,       // RGB bits & shift sizes. Don't care about them
-        0,                      // No alpha buffer info
-        0,                      // shift bit ignored
-        0,                      // no accumulation buffer
-        0, 0, 0, 0,             // accum bits ignored
-        16,                     // 16-bit depth buffer
-        0,                      // No stencil buffer
-        0,                      // No auxiliary buffers
-        PFD_MAIN_PLANE,         // main layer
-        0,                      // Reserved (must be 0)
-        0, 0, 0                 // No layer, visible or damage masks
+	int nMyPixelFormatID;
+	static PIXELFORMATDESCRIPTOR pfd = {
+		sizeof(PIXELFORMATDESCRIPTOR), // struct size 
+		1,                              // Version number
+		PFD_DRAW_TO_WINDOW |    // Flags, draw to a window,
+		PFD_SUPPORT_OPENGL |    // use OpenGL
+		PFD_DOUBLEBUFFER,       // want double buffering
+		PFD_TYPE_RGBA,          // RGBA pixel values
+		24,                     // 32-bit color
+		0, 0, 0, 0, 0, 0,       // RGB bits & shift sizes. Don't care about them
+		0,                      // No alpha buffer info
+		0,                      // shift bit ignored
+		0,                      // no accumulation buffer
+		0, 0, 0, 0,             // accum bits ignored
+		16,                     // 16-bit depth buffer
+		0,                      // No stencil buffer
+		0,                      // No auxiliary buffers
+		PFD_MAIN_PLANE,         // main layer
+		0,                      // Reserved (must be 0)
+		0, 0, 0                 // No layer, visible or damage masks
 	};
 
-    nMyPixelFormatID = ChoosePixelFormat(m_hDC, &pfd);
+	nMyPixelFormatID = ChoosePixelFormat(m_hDC, &pfd);
 
-    if(nMyPixelFormatID == 0)
+	if (nMyPixelFormatID == 0)
 	{
-		#ifdef ALTERNATIVE_LANG
-			::MessageBoxA(this -> m_hWnd, "Unable to set pixel format", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
-		#else
-			::MessageBoxA(this -> m_hWnd, "Íåâîçìîæíî óñòàíîâèòü ïèêñåëüíûé ôîðìàò", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
-		#endif
-        return(FALSE);
+#ifdef ALTERNATIVE_LANG
+		::MessageBoxA(this->m_hWnd, "Unable to set pixel format", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
+#else
+		::MessageBoxA(this->m_hWnd, "Íåâîçìîæíî óñòàíîâèòü ïèêñåëüíûé ôîðìàò", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
+#endif
+		return(FALSE);
 	}
-    // catch errors here.
-    // If nMyPixelFormat is zero, then there's
-    // something wrong... most likely the window's
-    // style bits are incorrect (in CreateWindow() )
-    // or OpenGl isn't installed on this machine
-    SetPixelFormat(m_hDC, nMyPixelFormatID, &pfd);
-    m_hRC = wglCreateContext(m_hDC);
-//  This next code should be moved out of the OpenGL class and back into the view
-    wglMakeCurrent(m_hDC, m_hRC);
-    CMainFrame *pFrameWnd = (CMainFrame *)AfxGetMainWnd();
-    if(pFrameWnd)
-		{glClearColor(pFrameWnd -> m_Colors[C_BG3D][0] / 255.0f, pFrameWnd -> m_Colors[C_BG3D][1] / 255.0f, pFrameWnd -> m_Colors[C_BG3D][2] / 255.0f, 1.0f);}
-    glEnable(GL_DEPTH_TEST);
-    // Setup the backface polygon culling
-    //glEnable(GL_CULL_FACE);
-    //glFrontFace(GL_CCW);
-    //glCullFace(GL_BACK);
-    // Turn on the lights
-    glEnable(GL_LIGHTING);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, m_AmbientLight);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, m_DiffuseLight);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, m_Specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, m_LightPos);
+	// catch errors here.
+	// If nMyPixelFormat is zero, then there's
+	// something wrong... most likely the window's
+	// style bits are incorrect (in CreateWindow() )
+	// or OpenGl isn't installed on this machine
+	SetPixelFormat(m_hDC, nMyPixelFormatID, &pfd);
+	m_hRC = wglCreateContext(m_hDC);
+	//  This next code should be moved out of the OpenGL class and back into the view
+	wglMakeCurrent(m_hDC, m_hRC);
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	if (pFrameWnd)
+	{
+		glClearColor(pFrameWnd->m_Colors[C_BG3D][0] / 255.0f, pFrameWnd->m_Colors[C_BG3D][1] / 255.0f, pFrameWnd->m_Colors[C_BG3D][2] / 255.0f, 1.0f);
+	}
+	glEnable(GL_DEPTH_TEST);
+	// Setup the backface polygon culling
+	//glEnable(GL_CULL_FACE);
+	//glFrontFace(GL_CCW);
+	//glCullFace(GL_BACK);
+	// Turn on the lights
+	glEnable(GL_LIGHTING);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, m_AmbientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, m_DiffuseLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, m_Specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, m_LightPos);
 	glEnable(GL_LIGHT0);
-    glEnable(GL_COLOR_MATERIAL);
-    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, m_SpecRef);
-    glMateriali(GL_FRONT, GL_SHININESS, 128);
-    glNewList(m_SceneGround = glGenLists(1), GL_COMPILE);
-        glNormal3f(0.0f, 1.0f, 0.0f);
-        glColor3f(0.50f, 0.50f, 0.50f);    // 50% grey
-        glBegin( GL_QUADS );
-            glVertex3f(-25.0f, -15.0f, -25.0f);
-            glVertex3f(-25.0f, -15.0f,  25.0f);
-            glVertex3f( 25.0f, -15.0f,  25.0f);            
-            glVertex3f( 25.0f, -15.0f, -25.0f);
-        glEnd();
-        glNormal3f(0.0f, 1.0f, 0.0f);
-        glColor3f( 0.90f, 0.90f, 0.90f);    // 10% grey
-        glBegin( GL_QUADS);
-            glVertex3f(-25.0f,  10.0f, -25.0f);
-            glVertex3f(-25.0f, -15.0f, -25.0f);
-            glVertex3f( 25.0f, -15.0f, -25.0f);            
-            glVertex3f( 25.0f,  10.0f, -25.0f);
-        glEnd();
-    glEndList();
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    // a perspective-view matrix...
-    gluPerspective(45, m_gldAspect, Near_View, Far_View);
-    glViewport(0, 0, m_glnWidth, m_glnHeight);
-    wglMakeCurrent(NULL, NULL);
-    return TRUE;
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, m_SpecRef);
+	glMateriali(GL_FRONT, GL_SHININESS, 128);
+	glNewList(m_SceneGround = glGenLists(1), GL_COMPILE);
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.50f, 0.50f, 0.50f);    // 50% grey
+	glBegin(GL_QUADS);
+	glVertex3f(-25.0f, -15.0f, -25.0f);
+	glVertex3f(-25.0f, -15.0f, 25.0f);
+	glVertex3f(25.0f, -15.0f, 25.0f);
+	glVertex3f(25.0f, -15.0f, -25.0f);
+	glEnd();
+	glNormal3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.90f, 0.90f, 0.90f);    // 10% grey
+	glBegin(GL_QUADS);
+	glVertex3f(-25.0f, 10.0f, -25.0f);
+	glVertex3f(-25.0f, -15.0f, -25.0f);
+	glVertex3f(25.0f, -15.0f, -25.0f);
+	glVertex3f(25.0f, 10.0f, -25.0f);
+	glEnd();
+	glEndList();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	// a perspective-view matrix...
+	gluPerspective(45, m_gldAspect, Near_View, Far_View);
+	glViewport(0, 0, m_glnWidth, m_glnHeight);
+	wglMakeCurrent(NULL, NULL);
+	return TRUE;
 }
 
 void CSOEditView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
 	m_pDC = GetDC();
-	m_hDC = m_pDC -> m_hDC;
+	m_hDC = m_pDC->m_hDC;
 	InitGL();
 }
 
-void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
+void CSOEditView::DrawBone(CBone* basis, bool transparency_mod)
 {
-    CBone *child, *pSelect = NULL;
-	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
-    int f, v;
+	CBone* child, * pSelect = NULL;
+	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
+	int f, v;
 	bool selected = false, anm_visi = true;
-	if(m_pDoc -> m_SelBone)
+	if (m_pDoc->m_SelBone)
 	{
-		pSelect = m_pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBoneByTreeID(m_pDoc -> hSelTreeItem);
-		if(pSelect == basis)
-			{selected = true;}
+		pSelect = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBoneByTreeID(m_pDoc->hSelTreeItem);
+		if (pSelect == basis)
+		{
+			selected = true;
+		}
 	}
-    glPushMatrix();
-	m_pDoc -> m_skin = false;
-	if(!m_pDoc -> m_skin)
+	glPushMatrix();
+	m_pDoc->m_skin = false;
+	if (!m_pDoc->m_skin)
 	{
-		if(basis -> Matrix34)
+		if (basis->Matrix34)
 		{
 			int i, j;
 			float m[16];
-			for(i = 0; i < 4; i++)
+			for (i = 0; i < 4; i++)
 			{
-				for(j = 0; j < 3; j++)
-					{m[i * 4 + j] = basis -> Matrix34 -> v[i][j];}
+				for (j = 0; j < 3; j++)
+				{
+					m[i * 4 + j] = basis->Matrix34->v[i][j];
+				}
 				m[i * 4 + j] = 0.0f;
 			}
 			m[15] = 1.0f;
-			glMultMatrixf((float *)&m);
+			glMultMatrixf((float*)&m);
 		}
 	}
-	if(basis -> m_Skin)//Ýýýý?
+	if (basis->m_Skin)//Ýýýý?
 	{
-		CBone *pSkin = m_pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBone("skin");
-		if(pSkin)
+		CBone* pSkin = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone("skin");
+		if (pSkin)
 		{
-			if(pSkin -> Matrix34)
+			if (pSkin->Matrix34)
 			{
 				int i, j;
 				float m[16];
-				for(i = 0; i < 4; i++)
+				for (i = 0; i < 4; i++)
 				{
-					for(j = 0; j < 3; j++)
-						{m[i * 4 + j] = pSkin -> Matrix34 -> v[i][j];}
+					for (j = 0; j < 3; j++)
+					{
+						m[i * 4 + j] = pSkin->Matrix34->v[i][j];
+					}
 					m[i * 4 + j] = 0.0f;
 				}
 				m[15] = 1.0f;
-				glMultMatrixf((float *)&m);
+				glMultMatrixf((float*)&m);
 			}
 		}
 	}
-	if(m_pDoc -> m_AnimBone && basis != m_pDoc -> BLamp_View)
+	if (m_pDoc->m_AnimBone && basis != m_pDoc->BLamp_View)
 	{
 		int iBone;
-		for(iBone = 0; iBone < m_pDoc -> m_AnimBone -> m_BoneCnt; iBone++)
+		for (iBone = 0; iBone < m_pDoc->m_AnimBone->m_BoneCnt; iBone++)
 		{
-			if(!stricmp(m_pDoc -> m_AnimBone -> m_BoneMap[iBone], basis -> m_Name))
-				{break;}
-		}
-		CAnimSub *t_sub;
-		if(iBone < m_pDoc -> m_AnimBone -> m_BoneCnt)
-		{
-			if(m_pDoc -> m_Frame >= m_pDoc -> m_AnimBone -> m_FrameCnt)
+			if (!stricmp(m_pDoc->m_AnimBone->m_BoneMap[iBone], basis->m_Name))
 			{
-				m_pDoc -> m_Frame = m_pDoc -> m_AnimBone -> m_FrameCnt - 1;
-				if(m_pDoc -> m_Frame < 0)
-					{m_pDoc -> m_Frame = 0;}
+				break;
 			}
-			if((t_sub = m_pDoc -> m_AnimBone -> m_Frames[m_pDoc -> m_Frame].FindSub(iBone)) != NULL)
+		}
+		CAnimSub* t_sub;
+		if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
+		{
+			if (m_pDoc->m_Frame >= m_pDoc->m_AnimBone->m_FrameCnt)
+			{
+				m_pDoc->m_Frame = m_pDoc->m_AnimBone->m_FrameCnt - 1;
+				if (m_pDoc->m_Frame < 0)
+				{
+					m_pDoc->m_Frame = 0;
+				}
+			}
+			if ((t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)) != NULL)
 			{
 				int i, j;
-				basis -> m_anm_visi = t_sub -> m_Visible;
-				if(!basis -> m_Animatrix)
-					{basis -> m_Animatrix = new float[16];}
-				for(i = 0; i < 4; i++)
+				basis->m_anm_visi = t_sub->m_Visible;
+				if (!basis->m_Animatrix)
 				{
-					for(j = 0; j < 3; j++)
-						{basis -> m_Animatrix[i * 4 + j] = t_sub -> m_Matrix34.v[i][j];}
-					basis -> m_Animatrix[i * 4 + j] = 0.0f;
+					basis->m_Animatrix = new float[16];
 				}
-				basis -> m_Animatrix[15] = 1.0f;
+				for (i = 0; i < 4; i++)
+				{
+					for (j = 0; j < 3; j++)
+					{
+						basis->m_Animatrix[i * 4 + j] = t_sub->m_Matrix34.v[i][j];
+					}
+					basis->m_Animatrix[i * 4 + j] = 0.0f;
+				}
+				basis->m_Animatrix[15] = 1.0f;
 				glPopMatrix();
 				glPushMatrix();
-				glMultMatrixf(basis -> m_Animatrix);
-				delete[] basis -> m_Animatrix;
-				basis -> m_Animatrix = NULL;
+				glMultMatrixf(basis->m_Animatrix);
+				delete[] basis->m_Animatrix;
+				basis->m_Animatrix = NULL;
 			}
 		}
 	}
-    glRotatef(basis -> m_Rotations[0], 1.0f, 0.0f, 0.0f);
-    glRotatef(basis -> m_Rotations[1], 0.0f, 1.0f, 0.0f);
-    glRotatef(basis -> m_Rotations[2], 0.0f, 0.0f, 1.0f);
-    glScalef(basis -> m_Scales[0], basis -> m_Scales[1], basis -> m_Scales[2]);
-	if(m_pDoc -> m_AnimBone)
+	glRotatef(basis->m_Rotations[0], 1.0f, 0.0f, 0.0f);
+	glRotatef(basis->m_Rotations[1], 0.0f, 1.0f, 0.0f);
+	glRotatef(basis->m_Rotations[2], 0.0f, 0.0f, 1.0f);
+	glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+	if (m_pDoc->m_AnimBone)
 	{
-		if(basis -> sub)
-			{anm_visi = basis -> m_parent -> m_anm_visi;}
-		else
-			{anm_visi = basis -> m_anm_visi;}
-	}
-    if((basis -> m_VolumeView) && (!m_pDoc -> m_skin) && ((selected && (pWnd -> m_Selected && m_pDoc -> m_SelBone)) || (!(pWnd -> m_Selected && m_pDoc -> m_SelBone))) && basis -> m_tree_check)
-	{
-        long CR = 0, CG = 0, CB = 0;
-		if(m_pDoc -> Colorized_3d || basis == m_pDoc -> BLamp_View || (m_Paint_selected_meshes && selected))
+		if (basis->sub)
 		{
-			CR = GetRValue(basis -> m_bone_color);
-			CG = GetGValue(basis -> m_bone_color);
-			CB = GetBValue(basis -> m_bone_color);
+			anm_visi = basis->m_parent->m_anm_visi;
 		}
 		else
-			{CR = CG = CB = 255;}
-        //glAlphaFunc(GL_GREATER, 50.0f / 255.0f); //åñëè blend - òî 0, åñëè test - òî 128
-		int rep = 1;
-		if(m_WireframeOverMesh && !m_ViewMeshAsWireframe && m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
-			{rep = 2;}
-		for(int iDraw = 0; iDraw < rep; iDraw++)
 		{
-			if(iDraw)
+			anm_visi = basis->m_anm_visi;
+		}
+	}
+	if ((basis->m_VolumeView) && (!m_pDoc->m_skin) && ((selected && (pWnd->m_Selected && m_pDoc->m_SelBone)) || (!(pWnd->m_Selected && m_pDoc->m_SelBone))) && basis->m_tree_check)
+	{
+		long CR = 0, CG = 0, CB = 0;
+		if (m_pDoc->Colorized_3d || basis == m_pDoc->BLamp_View || (m_Paint_selected_meshes && selected))
+		{
+			CR = GetRValue(basis->m_bone_color);
+			CG = GetGValue(basis->m_bone_color);
+			CB = GetBValue(basis->m_bone_color);
+		}
+		else
+		{
+			CR = CG = CB = 255;
+		}
+		//glAlphaFunc(GL_GREATER, 50.0f / 255.0f); //åñëè blend - òî 0, åñëè test - òî 128
+		int rep = 1;
+		if (m_WireframeOverMesh && !m_ViewMeshAsWireframe && m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
+		{
+			rep = 2;
+		}
+		for (int iDraw = 0; iDraw < rep; iDraw++)
+		{
+			if (iDraw)
 			{
 				glPolygonMode(GL_FRONT, GL_LINE);
 				glPolygonMode(GL_BACK, GL_LINE);
 				glDisable(GL_LIGHTING);
 				glDisable(GL_TEXTURE_2D);
-				CR = GetRValue(basis -> m_bone_color);
-				CG = GetGValue(basis -> m_bone_color);
-				CB = GetBValue(basis -> m_bone_color);
+				CR = GetRValue(basis->m_bone_color);
+				CG = GetGValue(basis->m_bone_color);
+				CB = GetBValue(basis->m_bone_color);
 			}
 			else
-				{glEnable(GL_TEXTURE_2D);}
-			CMesh *pMesh = basis -> m_VolumeView -> m_meshlist -> GetFirst();
-			while(pMesh)
+			{
+				glEnable(GL_TEXTURE_2D);
+			}
+			CMesh* pMesh = basis->m_VolumeView->m_meshlist->GetFirst();
+			while (pMesh)
 			{
 				bool alpha_blend = false;
-				if(!iDraw)
+				if (!iDraw)
 				{
-					if(pMesh -> m_texnumb[0] == -1 && pMesh -> m_texture[0])
+					if (pMesh->m_texnumb[0] == -1 && pMesh->m_texture[0])
 					{
-						CMaterial *pMaterial = m_pDoc -> m_MtlList.FindMaterial(pMesh -> m_texture[0] -> m_FrameName);
-						if(pMaterial)
+						CMaterial* pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
+						if (pMaterial)
 						{
-							pMesh -> m_texnumb[0] = pMaterial -> m_iTexNumb;
-							pMesh -> m_transparency = pMaterial -> m_transparency;
+							pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
+							pMesh->m_transparency = pMaterial->m_transparency;
 						}
 					}
-					if(pMesh -> m_texnumb[1] == -1 && pMesh -> m_texture[1])
+					if (pMesh->m_texnumb[1] == -1 && pMesh->m_texture[1])
 					{
-						CMaterial *pMaterial = m_pDoc -> m_MtlList.FindMaterial(pMesh -> m_texture[1] -> m_FrameName);
-						if(pMaterial)
-							{pMesh -> m_texnumb[1] = pMaterial -> m_iTexNumb;}
+						CMaterial* pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[1]->m_FrameName);
+						if (pMaterial)
+						{
+							pMesh->m_texnumb[1] = pMaterial->m_iTexNumb;
+						}
 					}
-					if(pMesh -> m_forced_alpha_test)
-						{glEnable(GL_ALPHA_TEST);}
+					if (pMesh->m_forced_alpha_test)
+					{
+						glEnable(GL_ALPHA_TEST);
+					}
 					else
-						{glDisable(GL_ALPHA_TEST);}
-					if(pMesh -> m_texture[0] -> m_Blend)//ïåðåäåëàòü ýòè õðåíè
+					{
+						glDisable(GL_ALPHA_TEST);
+					}
+					if (pMesh->m_texture[0]->m_Blend)//ïåðåäåëàòü ýòè õðåíè
 					{
 						glEnable(GL_ALPHA_TEST);
 						glEnable(GL_BLEND);
 						glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 						alpha_blend = true;
-						if(!stricmp(pMesh -> m_texture[0] -> m_Blend, "test"))
-							{glAlphaFunc(GL_GREATER, 128.0f / 255.0f);}
+						if (!stricmp(pMesh->m_texture[0]->m_Blend, "test"))
+						{
+							glAlphaFunc(GL_GREATER, 128.0f / 255.0f);
+						}
 						else
-						if(!stricmp(pMesh -> m_texture[0] -> m_Blend, "blend") || !stricmp(pMesh -> m_texture[0] -> m_Blend, "add_sub"))
-							{glAlphaFunc(GL_GREATER, 0.0f);}
+							if (!stricmp(pMesh->m_texture[0]->m_Blend, "blend") || !stricmp(pMesh->m_texture[0]->m_Blend, "add_sub"))
+							{
+								glAlphaFunc(GL_GREATER, 0.0f);
+							}
 					}
-					glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh -> m_texnumb[0]]);
+					glBindTexture(GL_TEXTURE_2D, m_pDoc->texName[pMesh->m_texnumb[0]]);
 				}
-				if(pMesh -> m_fvf == 0x1158 || pMesh -> m_flags & MESH_FLAG_TWO_SIDED || m_ViewMeshAsWireframe || iDraw || m_DrawMode == rl_wire || m_DrawMode == rl_ambient_tex_off)
-					{glDisable(GL_CULL_FACE);}
+				if (pMesh->m_fvf == 0x1158 || pMesh->m_flags & MESH_FLAG_TWO_SIDED || m_ViewMeshAsWireframe || iDraw || m_DrawMode == rl_wire || m_DrawMode == rl_ambient_tex_off)
+				{
+					glDisable(GL_CULL_FACE);
+				}
 				//ïåðâàÿ î÷åðåäü ïîëèãîíà
 				long RS = 0, GS = 0, BS = 0, AS = 0;
 				DWORD DC = 0;
-				if(m_ViewMeshAsWireframe)
+				if (m_ViewMeshAsWireframe)
 				{
 					glPolygonMode(GL_FRONT, GL_LINE);
 					glPolygonMode(GL_BACK, GL_LINE);
 				}
-				for(f = pMesh -> m_first; f < pMesh -> m_count + pMesh -> m_first && ((!iDraw) ? anm_visi : true); f++)
+				for (f = pMesh->m_first; f < pMesh->m_count + pMesh->m_first && ((!iDraw) ? anm_visi : true); f++)
 				{
-					if(transparency_mod == (alpha_blend && pMesh -> m_transparency))//êàêàÿ î÷åðåäü
+					if (transparency_mod == (alpha_blend && pMesh->m_transparency))//êàêàÿ î÷åðåäü
 					{
 						glBegin(GL_POLYGON);
-						
-						for(v = 2; v >= 0; v--)
-						{ 
+
+						for (v = 2; v >= 0; v--)
+						{
 							v2_t uv;
-							uv[0] = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].uv[0][0];
-							uv[1] = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].uv[0][1];
+							uv[0] = basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].uv[0][0];
+							uv[1] = basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].uv[0][1];
 							glTexCoord2fv(uv);
-							glNormal3fv(basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].vn);
-							DC = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].diffuse;
+							glNormal3fv(basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].vn);
+							DC = basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].diffuse;
 							RS = GetRValue(DC);
 							GS = GetGValue(DC);
 							BS = GetBValue(DC);
 							AS = GetAValue(DC);
-							
+
 							RS = (RS + CB) - 255;
 							GS = (GS + CG) - 255;
 							BS = (BS + CR) - 255;
@@ -585,22 +649,22 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 								{glDepthMask(GL_TRUE);}
 							else
 								{glDepthMask(GL_FALSE);}*/
-							glVertex3fv(basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].xyz);
+							glVertex3fv(basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].xyz);
 						}
 						glEnd();
 					}
 				}
-				if(m_ViewMeshAsWireframe)
+				if (m_ViewMeshAsWireframe)
 				{
-					switch(m_DrawMode)
+					switch (m_DrawMode)
 					{
-						case rl_ambient:
-						case rl_tex_off:
-						case rl_diffuse:
-						{
-							glPolygonMode(GL_FRONT, GL_FILL);
-							glPolygonMode(GL_BACK, GL_FILL);
-						}
+					case rl_ambient:
+					case rl_tex_off:
+					case rl_diffuse:
+					{
+						glPolygonMode(GL_FRONT, GL_FILL);
+						glPolygonMode(GL_BACK, GL_FILL);
+					}
 					};
 				}
 				/*glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh -> m_texnumb[1]]);
@@ -611,7 +675,7 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 					{
 						glBegin(GL_POLYGON);
 						for(v = 2; v >= 0; v--)
-						{ 
+						{
 							v2_t uv;
 							uv[0] = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].uv[0][0];
 							uv[1] = basis -> m_VolumeView -> m_vertlist[basis -> m_VolumeView -> m_polylist[f].v[v]].uv[0][1];
@@ -632,585 +696,611 @@ void CSOEditView::DrawBone(CBone *basis, bool transparency_mod)
 						glEnd();
 					}
 				}*/
-				if(!iDraw)
+				if (!iDraw)
 				{
-					if(pMesh -> m_texture[0] -> m_Blend)
-						{glDisable(GL_BLEND);}
+					if (pMesh->m_texture[0]->m_Blend)
+					{
+						glDisable(GL_BLEND);
+					}
 					glBindTexture(GL_TEXTURE_2D, 0);///
 				}
-				if(pMesh -> m_fvf == 0x1158 || pMesh -> m_flags & MESH_FLAG_TWO_SIDED || m_ViewMeshAsWireframe || iDraw || m_DrawMode == rl_wire || m_DrawMode == rl_ambient_tex_off)
-					{glEnable(GL_CULL_FACE);}
-				pMesh = pMesh -> next;
+				if (pMesh->m_fvf == 0x1158 || pMesh->m_flags & MESH_FLAG_TWO_SIDED || m_ViewMeshAsWireframe || iDraw || m_DrawMode == rl_wire || m_DrawMode == rl_ambient_tex_off)
+				{
+					glEnable(GL_CULL_FACE);
+				}
+				pMesh = pMesh->next;
 			}
-			if(iDraw)
+			if (iDraw)
 			{
 				glPolygonMode(GL_FRONT, GL_FILL);
 				glPolygonMode(GL_BACK, GL_FILL);
-				if(m_DrawMode == rl_ambient || m_DrawMode == rl_tex_off)
-					{glEnable(GL_LIGHTING);}
+				if (m_DrawMode == rl_ambient || m_DrawMode == rl_tex_off)
+				{
+					glEnable(GL_LIGHTING);
+				}
 			}
 		}
 		glDisable(GL_ALPHA_TEST);
-		if(pWnd -> m_AllMeshVectors || (m_ViewMeshVector && selected))
-			{DrawXYZLinesGL();}
-	}
-	else
-	if((!basis -> m_VolumeView) && (!m_pDoc -> m_skin) && basis -> m_tree_check)
-	{
-		if(((selected && (pWnd -> m_Selected && m_pDoc -> m_SelBone)) || (!(pWnd -> m_Selected && m_pDoc -> m_SelBone))) && (pWnd -> m_ViewEnts3d))
+		if (pWnd->m_AllMeshVectors || (m_ViewMeshVector && selected))
 		{
-			if(selected)
-				{glColor3f((pWnd -> m_Colors[C_ENTITYS][0] / 255.0f) * 3, (pWnd -> m_Colors[C_ENTITYS][1] / 255.0f) * 3, (pWnd -> m_Colors[C_ENTITYS][2] / 255.0f) * 3);}
-			else
-				{glColor3f((pWnd -> m_Colors[C_ENTITY][0] / 255.0f) * 3, (pWnd -> m_Colors[C_ENTITY][1] / 255.0f) * 3, (pWnd -> m_Colors[C_ENTITY][2] / 255.0f) * 3);}
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f); 
-			glEnable(GL_TEXTURE_2D);
-			glDisable(GL_CULL_FACE);
-			v3_t box;
-			box[0] = 8.0f;
-			box[1] = 5.0f;
-			box[2] = 2.0f;
-			DrawTrapGL(box);
-			glEnable(GL_CULL_FACE);
-			glDisable(GL_ALPHA_TEST);
+			DrawXYZLinesGL();
 		}
 	}
-    if(basis -> m_Skin)
-	{
-        glColor3f(1.0f, 1.0f, 1.0f);
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glEnable(GL_TEXTURE_2D);
-        CBone *pSkin = m_pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBone("skin");
-        if(pSkin)
+	else
+		if ((!basis->m_VolumeView) && (!m_pDoc->m_skin) && basis->m_tree_check)
 		{
-            CMesh *pMesh = pSkin -> m_VolumeView -> m_meshlist -> GetFirst();
-            if(pMesh -> m_texnumb[0] == -1)
+			if (((selected && (pWnd->m_Selected && m_pDoc->m_SelBone)) || (!(pWnd->m_Selected && m_pDoc->m_SelBone))) && (pWnd->m_ViewEnts3d))
 			{
-                CMaterial *pMaterial = m_pDoc -> m_MtlList.FindMaterial(pMesh -> m_texture[0] -> m_FrameName);
-                if(pMaterial)
-					{pMesh -> m_texnumb[0] = pMaterial -> m_iTexNumb;}
-			}
-            if(pMesh -> m_texture[0] -> m_Blend)
-			{
-				if(!stricmp("alpha", pMesh -> m_texture[0] -> m_Blend))
+				if (selected)
 				{
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+					glColor3f((pWnd->m_Colors[C_ENTITYS][0] / 255.0f) * 3, (pWnd->m_Colors[C_ENTITYS][1] / 255.0f) * 3, (pWnd->m_Colors[C_ENTITYS][2] / 255.0f) * 3);
+				}
+				else
+				{
+					glColor3f((pWnd->m_Colors[C_ENTITY][0] / 255.0f) * 3, (pWnd->m_Colors[C_ENTITY][1] / 255.0f) * 3, (pWnd->m_Colors[C_ENTITY][2] / 255.0f) * 3);
+				}
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+				glEnable(GL_TEXTURE_2D);
+				glDisable(GL_CULL_FACE);
+				v3_t box;
+				box[0] = 8.0f;
+				box[1] = 5.0f;
+				box[2] = 2.0f;
+				DrawTrapGL(box);
+				glEnable(GL_CULL_FACE);
+				glDisable(GL_ALPHA_TEST);
+			}
+		}
+	if (basis->m_Skin)
+	{
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0f);
+		glEnable(GL_TEXTURE_2D);
+		CBone* pSkin = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone("skin");
+		if (pSkin)
+		{
+			CMesh* pMesh = pSkin->m_VolumeView->m_meshlist->GetFirst();
+			if (pMesh->m_texnumb[0] == -1)
+			{
+				CMaterial* pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
+				if (pMaterial)
+				{
+					pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
 				}
 			}
-            glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh -> m_texnumb[0]]);
-            int face;
-            for(f = 0; f < basis -> m_Skin -> m_faces; f++)
+			if (pMesh->m_texture[0]->m_Blend)
 			{
-                face = basis -> m_Skin -> m_facelist[f];
-                glBegin(GL_POLYGON);
-                for(v = 2; v >= 0; v--)
-				{ 
-                    glTexCoord2fv(pSkin -> m_VolumeView -> m_vertlist[pSkin -> m_VolumeView -> m_polylist[face].v[v]].uv[0]);
-                    glVertex3fv(pSkin -> m_VolumeView -> m_vertlist[pSkin -> m_VolumeView -> m_polylist[face].v[v]].xyz);
+				if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+				{
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 				}
-                glEnd();
-                glBegin(GL_POLYGON);
-				for(v = 0; v < 2; v++)
-				{ 
-                    glTexCoord2fv(pSkin -> m_VolumeView -> m_vertlist[pSkin -> m_VolumeView -> m_polylist[face].v[v]].uv[0]);
-                    glVertex3fv(pSkin -> m_VolumeView -> m_vertlist[pSkin -> m_VolumeView -> m_polylist[face].v[v]].xyz);
+			}
+			glBindTexture(GL_TEXTURE_2D, m_pDoc->texName[pMesh->m_texnumb[0]]);
+			int face;
+			for (f = 0; f < basis->m_Skin->m_faces; f++)
+			{
+				face = basis->m_Skin->m_facelist[f];
+				glBegin(GL_POLYGON);
+				for (v = 2; v >= 0; v--)
+				{
+					glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv[0]);
+					glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
+				}
+				glEnd();
+				glBegin(GL_POLYGON);
+				for (v = 0; v < 2; v++)
+				{
+					glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv[0]);
+					glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
 				}
 				glEnd();
 			}
-			if(pMesh -> m_texture[0] -> m_Blend)
+			if (pMesh->m_texture[0]->m_Blend)
 			{
-				if(!stricmp("alpha", pMesh -> m_texture[0] -> m_Blend))
-					{glDisable(GL_BLEND);}
+				if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+				{
+					glDisable(GL_BLEND);
+				}
 			}
 			glBindTexture(GL_TEXTURE_2D, 0);
-			pMesh = pMesh -> next;
+			pMesh = pMesh->next;
 		}
 		glDisable(GL_ALPHA_TEST);
 	}
-	if((child = basis -> m_ChildFirst) != NULL)
+	if ((child = basis->m_ChildFirst) != NULL)
 	{
-		while(child)
+		while (child)
 		{
-			if(basis -> m_Skin)
+			if (basis->m_Skin)
 			{
 				glPopMatrix();
 				glPushMatrix();
 			}
 			DrawBone(child, transparency_mod);
-			child = child -> next;
+			child = child->next;
 		}
 	}
-    glPopMatrix();
+	glPopMatrix();
 }
 
 /*void CSOEditView::DrawChunk(CBone *basis)
 {
-    CBone      *child;
-    int         f, v;
+	CBone      *child;
+	int         f, v;
 
-    glPushMatrix();
+	glPushMatrix();
 
-    if (basis->Matrix34)
-       {
-        int        i, j;
-        float      m[16];
+	if (basis->Matrix34)
+	   {
+		int        i, j;
+		float      m[16];
 
-        for (i = 0; i < 4; i++)
-           {
-            for (j = 0; j < 3; j++)
-               {
-                m[i*4+j] = basis->Matrix34->v[i][j];
-               }
-            m[i*4+j] = 0.0f;
-           }
-        m[15] = 1.0f;
+		for (i = 0; i < 4; i++)
+		   {
+			for (j = 0; j < 3; j++)
+			   {
+				m[i*4+j] = basis->Matrix34->v[i][j];
+			   }
+			m[i*4+j] = 0.0f;
+		   }
+		m[15] = 1.0f;
 
-        glMultMatrixf((float *)&m);
-       }
+		glMultMatrixf((float *)&m);
+	   }
 
-    if (basis->m_Skin)
-       {
-        CBone *pSkin = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone("skin");
-        if (pSkin)
-           {
-            glPopMatrix();
-            glPushMatrix();
+	if (basis->m_Skin)
+	   {
+		CBone *pSkin = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone("skin");
+		if (pSkin)
+		   {
+			glPopMatrix();
+			glPushMatrix();
 
-            if (pSkin->Matrix34)
-               {
-                int        i, j;
-                float      m[16];
- 
-                for (i = 0; i < 4; i++)
-                   {
-                    for (j = 0; j < 3; j++)
-                       {
-                        m[i*4+j] = pSkin->Matrix34->v[i][j];
-                       }
-                    m[i*4+j] = 0.0f;
-                   }
-                m[15] = 1.0f;
+			if (pSkin->Matrix34)
+			   {
+				int        i, j;
+				float      m[16];
 
-                glMultMatrixf((float *)&m);
-               }
-           }
-       }
+				for (i = 0; i < 4; i++)
+				   {
+					for (j = 0; j < 3; j++)
+					   {
+						m[i*4+j] = pSkin->Matrix34->v[i][j];
+					   }
+					m[i*4+j] = 0.0f;
+				   }
+				m[15] = 1.0f;
 
-    if (m_pDoc->m_AnimBone)
-       {
-        int iBone;
-   
-        for (iBone = 0; iBone < m_pDoc->m_AnimBone->m_BoneCnt; iBone++)
-           {
-            if (!stricmp(m_pDoc->m_AnimBone->m_BoneMap[iBone], basis->m_Name))
-               {
-                break;
-               }
-           }
+				glMultMatrixf((float *)&m);
+			   }
+		   }
+	   }
 
-        CAnimSub *t_sub;
-        if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
-           {
-            if (NULL != (t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)))
-               {
-                int        i, j;
-                if (NULL == basis->m_Animatrix)
-                   {
-                    basis->m_Animatrix = new float[16];
-                   }
+	if (m_pDoc->m_AnimBone)
+	   {
+		int iBone;
 
-                for (i = 0; i < 4; i++)
-                   {
-                    for (j = 0; j < 3; j++)
-                       {
-                        basis->m_Animatrix[i*4+j] = t_sub->m_Matrix34.v[i][j];
-                       }
-                    basis->m_Animatrix[i*4+j] = 0.0f;
-                   }
-                basis->m_Animatrix[15] = 1.0f;
+		for (iBone = 0; iBone < m_pDoc->m_AnimBone->m_BoneCnt; iBone++)
+		   {
+			if (!stricmp(m_pDoc->m_AnimBone->m_BoneMap[iBone], basis->m_Name))
+			   {
+				break;
+			   }
+		   }
 
-                //if (NULL == basis->m_Skin)
-                   //{
-                    glPopMatrix();
-                    glPushMatrix();
-                   //}
-                glMultMatrixf(basis->m_Animatrix);
-               }
-           }
-       }
+		CAnimSub *t_sub;
+		if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
+		   {
+			if (NULL != (t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)))
+			   {
+				int        i, j;
+				if (NULL == basis->m_Animatrix)
+				   {
+					basis->m_Animatrix = new float[16];
+				   }
 
-    //glTranslatef(basis->m_Translations[0], basis->m_Translations[1], basis->m_Translations[2]);//
-    glRotatef(basis->m_Rotations[0], 1.0f, 0.0f, 0.0f);
-    glRotatef(basis->m_Rotations[1], 0.0f, 1.0f, 0.0f);
-    glRotatef(basis->m_Rotations[2], 0.0f, 0.0f, 1.0f);
-    glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+				for (i = 0; i < 4; i++)
+				   {
+					for (j = 0; j < 3; j++)
+					   {
+						basis->m_Animatrix[i*4+j] = t_sub->m_Matrix34.v[i][j];
+					   }
+					basis->m_Animatrix[i*4+j] = 0.0f;
+				   }
+				basis->m_Animatrix[15] = 1.0f;
 
-    if ((basis->m_VolumeView) && (false == m_pDoc->m_skin))
-       {
-        CMesh *pMesh = basis->m_VolumeView->m_meshlist->GetFirst();
+				//if (NULL == basis->m_Skin)
+				   //{
+					glPopMatrix();
+					glPushMatrix();
+				   //}
+				glMultMatrixf(basis->m_Animatrix);
+			   }
+		   }
+	   }
 
-        glColor3f( 1.0f, 1.0f, 1.0f );
+	//glTranslatef(basis->m_Translations[0], basis->m_Translations[1], basis->m_Translations[2]);//
+	glRotatef(basis->m_Rotations[0], 1.0f, 0.0f, 0.0f);
+	glRotatef(basis->m_Rotations[1], 0.0f, 1.0f, 0.0f);
+	glRotatef(basis->m_Rotations[2], 0.0f, 0.0f, 1.0f);
+	glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
 
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
+	if ((basis->m_VolumeView) && (false == m_pDoc->m_skin))
+	   {
+		CMesh *pMesh = basis->m_VolumeView->m_meshlist->GetFirst();
 
-        glEnable(GL_TEXTURE_2D);
-        while (NULL != pMesh)
-           {
-            if (-1 == pMesh->m_texnumb[0])
-               {
-                CMaterial *pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
-                if (NULL != pMaterial)
-                   {
-                    pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
-                   }
-               }
-            if (pMesh->m_texture[0]->m_Blend)
-               {
-                if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
-                   {
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-                   }
-               }
-            glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh->m_texnumb[0]]);
-            for (f = pMesh->m_first; f < pMesh->m_count+pMesh->m_first; f++)
-               {
-                glBegin( GL_POLYGON );
-                for (v = 2; v >= 0; v--)
-                   { 
-                    v2_t uv;
+		glColor3f( 1.0f, 1.0f, 1.0f );
+
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0f);
+
+		glEnable(GL_TEXTURE_2D);
+		while (NULL != pMesh)
+		   {
+			if (-1 == pMesh->m_texnumb[0])
+			   {
+				CMaterial *pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
+				if (NULL != pMaterial)
+				   {
+					pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
+				   }
+			   }
+			if (pMesh->m_texture[0]->m_Blend)
+			   {
+				if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+				   {
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+				   }
+			   }
+			glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh->m_texnumb[0]]);
+			for (f = pMesh->m_first; f < pMesh->m_count+pMesh->m_first; f++)
+			   {
+				glBegin( GL_POLYGON );
+				for (v = 2; v >= 0; v--)
+				   {
+					v2_t uv;
 					uv[0] = basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].uv[0];
 					uv[1] = basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].uv[1];
 
-                    glTexCoord2fv(uv);
-                    if (0 == basis->m_VolumeView->m_bones)
-                       {
-                        glNormal3fv(basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].vn);
-                       }
-                    glVertex3fv(basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].xyz);
-                   }
-                glEnd();
-               }
-            if (pMesh->m_texture[0]->m_Blend)
-               {
-                if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
-                   {
-                    glDisable(GL_BLEND);
-                   }
-               }
-            glBindTexture(GL_TEXTURE_2D, 0);
-            pMesh = pMesh->next;
-           }
+					glTexCoord2fv(uv);
+					if (0 == basis->m_VolumeView->m_bones)
+					   {
+						glNormal3fv(basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].vn);
+					   }
+					glVertex3fv(basis->m_VolumeView->m_vertlist[basis->m_VolumeView->m_polylist[f].v[v]].xyz);
+				   }
+				glEnd();
+			   }
+			if (pMesh->m_texture[0]->m_Blend)
+			   {
+				if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+				   {
+					glDisable(GL_BLEND);
+				   }
+			   }
+			glBindTexture(GL_TEXTURE_2D, 0);
+			pMesh = pMesh->next;
+		   }
 
-        glDisable(GL_ALPHA_TEST);
-       }
+		glDisable(GL_ALPHA_TEST);
+	   }
 
-    if (basis->m_Skin)
-       {
-        glColor3f( 1.0f, 1.0f, 1.0f );
+	if (basis->m_Skin)
+	   {
+		glColor3f( 1.0f, 1.0f, 1.0f );
 
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0f);
 
-        glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_2D);
 
-        CBone *pSkin = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone("skin");
-        if (pSkin)
-           {
-            CMesh *pMesh = pSkin->m_VolumeView->m_meshlist->GetFirst();
-            if (-1 == pMesh->m_texnumb[0])
-               {
-                CMaterial *pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
-                if (NULL != pMaterial)
-                   {
-                    pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
-                   }
-               }
-            if (pMesh->m_texture[0]->m_Blend)
-               {
-                if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
-                   {
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-                   }
-               }
-            glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh->m_texnumb[0]]);
+		CBone *pSkin = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone("skin");
+		if (pSkin)
+		   {
+			CMesh *pMesh = pSkin->m_VolumeView->m_meshlist->GetFirst();
+			if (-1 == pMesh->m_texnumb[0])
+			   {
+				CMaterial *pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
+				if (NULL != pMaterial)
+				   {
+					pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
+				   }
+			   }
+			if (pMesh->m_texture[0]->m_Blend)
+			   {
+				if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+				   {
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+				   }
+			   }
+			glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh->m_texnumb[0]]);
 
-            int face;
-            for (f = 0; f < basis->m_Skin->m_faces; f++)
-               {
-                face = basis->m_Skin->m_facelist[f];
-                glBegin( GL_POLYGON );
-                for (v = 2; v >= 0; v--)
-                   { 
-                    glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv);
-                    glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
-                   }
-                glEnd();
-               }
+			int face;
+			for (f = 0; f < basis->m_Skin->m_faces; f++)
+			   {
+				face = basis->m_Skin->m_facelist[f];
+				glBegin( GL_POLYGON );
+				for (v = 2; v >= 0; v--)
+				   {
+					glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv);
+					glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
+				   }
+				glEnd();
+			   }
 
-            if (pMesh->m_texture[0]->m_Blend)
-               {
-                if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
-                   {
-                    glDisable(GL_BLEND);
-                   }
-               }
-            glBindTexture(GL_TEXTURE_2D, 0);
-            pMesh = pMesh->next;
-           }
+			if (pMesh->m_texture[0]->m_Blend)
+			   {
+				if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+				   {
+					glDisable(GL_BLEND);
+				   }
+			   }
+			glBindTexture(GL_TEXTURE_2D, 0);
+			pMesh = pMesh->next;
+		   }
 
-        glDisable(GL_ALPHA_TEST);
-       }
+		glDisable(GL_ALPHA_TEST);
+	   }
 
-    if (NULL != (child = basis->m_ChildFirst))
-       {
-        while (child)
-           {
-            DrawBone(child);
-            child = child->next;
-           }
-       }
+	if (NULL != (child = basis->m_ChildFirst))
+	   {
+		while (child)
+		   {
+			DrawBone(child);
+			child = child->next;
+		   }
+	   }
 
-    glPopMatrix();
+	glPopMatrix();
 }*/
 
 /*void CSOEditView::DrawSkin(CBone *pSkin)
 {
-    int         f, v;
+	int         f, v;
 
-    glPushMatrix();
-    glColor3f( 1.0f, 1.0f, 1.0f );
+	glPushMatrix();
+	glColor3f( 1.0f, 1.0f, 1.0f );
 
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
-    glEnable(GL_TEXTURE_2D);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glEnable(GL_TEXTURE_2D);
 
-    CMesh *pMesh = pSkin->m_VolumeView->m_meshlist->GetFirst();
-    if (-1 == pMesh->m_texnumb[0])
-       {
-        CMaterial *pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
-        if (NULL != pMaterial)
-           {
-            pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
-           }
-       }
-    if (pMesh->m_texture[0]->m_Blend)
-       {
-        if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
-           {
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-           }
-       }
-    glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh->m_texnumb[0]]);
+	CMesh *pMesh = pSkin->m_VolumeView->m_meshlist->GetFirst();
+	if (-1 == pMesh->m_texnumb[0])
+	   {
+		CMaterial *pMaterial = m_pDoc->m_MtlList.FindMaterial(pMesh->m_texture[0]->m_FrameName);
+		if (NULL != pMaterial)
+		   {
+			pMesh->m_texnumb[0] = pMaterial->m_iTexNumb;
+		   }
+	   }
+	if (pMesh->m_texture[0]->m_Blend)
+	   {
+		if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+		   {
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		   }
+	   }
+	glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[pMesh->m_texnumb[0]]);
 
-    if (m_pDoc->m_AnimBone)
-       {
-        for (int b = 0; b < m_pDoc->m_AnimBone->m_BoneCnt; b++)
-           {
-            CBone *pBone = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone(m_pDoc->m_AnimBone->m_BoneMap[b]);
+	if (m_pDoc->m_AnimBone)
+	   {
+		for (int b = 0; b < m_pDoc->m_AnimBone->m_BoneCnt; b++)
+		   {
+			CBone *pBone = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone(m_pDoc->m_AnimBone->m_BoneMap[b]);
 
-            if (NULL == pBone)
-               {
-                TRACE("ERROR: Animation refers to a bone [%s] that does not exist!", m_pDoc->m_AnimBone->m_BoneMap[b]);
-                continue;
-               }
+			if (NULL == pBone)
+			   {
+				TRACE("ERROR: Animation refers to a bone [%s] that does not exist!", m_pDoc->m_AnimBone->m_BoneMap[b]);
+				continue;
+			   }
 
-            if (NULL == pBone->m_Skin)
-               {
-                continue;
-               }
+			if (NULL == pBone->m_Skin)
+			   {
+				continue;
+			   }
 
-            CAnimSub *pAnimSub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(b);
-            if (pAnimSub)
-               {
-                int        i, j;
-                if (NULL == pBone->m_Animatrix)
-                   {
-                    pBone->m_Animatrix = new float[16];
-                   }
+			CAnimSub *pAnimSub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(b);
+			if (pAnimSub)
+			   {
+				int        i, j;
+				if (NULL == pBone->m_Animatrix)
+				   {
+					pBone->m_Animatrix = new float[16];
+				   }
 
-                for (i = 0; i < 4; i++)
-                   {
-                    for (j = 0; j < 3; j++)
-                       {
-                        pBone->m_Animatrix[i*4+j] = pSkin->Matrix34->v[i][j];
-                       }
-                    pBone->m_Animatrix[i*4+j] = 0.0f;
-                   }
-                pBone->m_Animatrix[15] = 1.0f;
-               }
-            glMultMatrixf((float *)&pBone->m_Animatrix);
+				for (i = 0; i < 4; i++)
+				   {
+					for (j = 0; j < 3; j++)
+					   {
+						pBone->m_Animatrix[i*4+j] = pSkin->Matrix34->v[i][j];
+					   }
+					pBone->m_Animatrix[i*4+j] = 0.0f;
+				   }
+				pBone->m_Animatrix[15] = 1.0f;
+			   }
+			glMultMatrixf((float *)&pBone->m_Animatrix);
 
-            int face;
-            for (f = 0; f < pBone->m_Skin->m_faces; f++)
-               {
-                face = pBone->m_Skin->m_facelist[f];
-                glBegin( GL_POLYGON );
-                for (v = 2; v >= 0; v--)
-                   { 
-                    glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv[0]);
-                    glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
-                   }
-                glEnd();
-               } 
-           }
-       }
+			int face;
+			for (f = 0; f < pBone->m_Skin->m_faces; f++)
+			   {
+				face = pBone->m_Skin->m_facelist[f];
+				glBegin( GL_POLYGON );
+				for (v = 2; v >= 0; v--)
+				   {
+					glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv[0]);
+					glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
+				   }
+				glEnd();
+			   }
+		   }
+	   }
 
 /*
-    for (int b = 0; b < pSkin->m_VolumeView->m_bones; b++)
-       {
-        glPushMatrix();
+	for (int b = 0; b < pSkin->m_VolumeView->m_bones; b++)
+	   {
+		glPushMatrix();
 
-        CBone *pBone = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone(pSkin->m_VolumeView->m_bonelist[b]);
+		CBone *pBone = m_pDoc->m_Model->m_skeleton->m_bonelist->FindBone(pSkin->m_VolumeView->m_bonelist[b]);
 
-        if (NULL == pBone)
-           {
-            TRACE("Bone %s from model not found.", pSkin->m_VolumeView->m_bonelist[b]);
-            continue;
-           }
+		if (NULL == pBone)
+		   {
+			TRACE("Bone %s from model not found.", pSkin->m_VolumeView->m_bonelist[b]);
+			continue;
+		   }
 
-        if (pBone->m_Skin)
-           {
-            if (m_pDoc->m_AnimBone)
-               {
-                int iBone;
-   
-                for (iBone = 0; iBone < m_pDoc->m_AnimBone->m_BoneCnt; iBone++)
-                   {
-                    if (!stricmp(m_pDoc->m_AnimBone->m_BoneMap[iBone], pBone->m_Name))
-                       {
-                        break;
-                       }
-                   }
+		if (pBone->m_Skin)
+		   {
+			if (m_pDoc->m_AnimBone)
+			   {
+				int iBone;
 
-                CAnimSub *t_sub;
-                if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
-                   { 
-                    if (NULL != (t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)))
-                       {
-                        int        i, j;
+				for (iBone = 0; iBone < m_pDoc->m_AnimBone->m_BoneCnt; iBone++)
+				   {
+					if (!stricmp(m_pDoc->m_AnimBone->m_BoneMap[iBone], pBone->m_Name))
+					   {
+						break;
+					   }
+				   }
 
-                        for (i = 0; i < 4; i++)
-                           {
-                            for (j = 0; j < 3; j++)
-                               {
-                                pBone->m_Animatrix[i*4+j] = t_sub->m_Matrix34.v[i][j];
-                               }
-                            pBone->m_Animatrix[i*4+j] = 0.0f;
-                           }
-                        pBone->m_Animatrix[15] = 1.0f;
- 
-                        glPopMatrix();
-                        glPushMatrix();
-                       }
-                    glMultMatrixf(pBone->m_Animatrix);
-                   }
-               }
+				CAnimSub *t_sub;
+				if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
+				   {
+					if (NULL != (t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)))
+					   {
+						int        i, j;
 
-            int face;
-            for (f = 0; f < pBone->m_Skin->m_faces; f++)
-               {
-                face = pBone->m_Skin->m_facelist[f];
-                glBegin( GL_POLYGON );
-                for (v = 2; v >= 0; v--)
-                   { 
-                    glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv2);
-                    glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
-                   }
-                glEnd();
-               } 
-           }
-        glPopMatrix();
-       }
+						for (i = 0; i < 4; i++)
+						   {
+							for (j = 0; j < 3; j++)
+							   {
+								pBone->m_Animatrix[i*4+j] = t_sub->m_Matrix34.v[i][j];
+							   }
+							pBone->m_Animatrix[i*4+j] = 0.0f;
+						   }
+						pBone->m_Animatrix[15] = 1.0f;
+
+						glPopMatrix();
+						glPushMatrix();
+					   }
+					glMultMatrixf(pBone->m_Animatrix);
+				   }
+			   }
+
+			int face;
+			for (f = 0; f < pBone->m_Skin->m_faces; f++)
+			   {
+				face = pBone->m_Skin->m_facelist[f];
+				glBegin( GL_POLYGON );
+				for (v = 2; v >= 0; v--)
+				   {
+					glTexCoord2fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].uv2);
+					glVertex3fv(pSkin->m_VolumeView->m_vertlist[pSkin->m_VolumeView->m_polylist[face].v[v]].xyz);
+				   }
+				glEnd();
+			   }
+		   }
+		glPopMatrix();
+	   }
 *//*
-    if (pMesh->m_texture[0]->m_Blend)
-       {
-        if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
-           {
-            glDisable(GL_BLEND);
-           }
-       }
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glDisable(GL_ALPHA_TEST);
+	if (pMesh->m_texture[0]->m_Blend)
+	   {
+		if (!stricmp("alpha", pMesh->m_texture[0]->m_Blend))
+		   {
+			glDisable(GL_BLEND);
+		   }
+	   }
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_ALPHA_TEST);
 
-    glPopMatrix();
+	glPopMatrix();
 }*/
-   
+
 void CSOEditView::DrawScene()
 {
-    if(!m_pDoc)
-		{m_pDoc = GetDocument();}
-    wglMakeCurrent(m_hDC, m_hRC);
-	if(m_pDoc -> m_NewModel)
-		{m_DrawMode = rl_ambient;}
-    // Be sure all the textures are loaded so we can render the object
-    CMaterial *pMaterial = m_pDoc -> m_MtlList.GoToHead();
-	while(pMaterial)
+	if (!m_pDoc)
 	{
-		if(pMaterial -> m_iTexNumb == -1)
+		m_pDoc = GetDocument();
+	}
+	wglMakeCurrent(m_hDC, m_hRC);
+	if (m_pDoc->m_NewModel)
+	{
+		m_DrawMode = rl_ambient;
+	}
+	// Be sure all the textures are loaded so we can render the object
+	CMaterial* pMaterial = m_pDoc->m_MtlList.GoToHead();
+	while (pMaterial)
+	{
+		if (pMaterial->m_iTexNumb == -1)
 		{
-			pMaterial -> m_iTexNumb = m_pDoc -> m_texCount;
-			LoadTexture(pMaterial -> m_szName, m_pDoc -> m_texCount, pMaterial);
+			pMaterial->m_iTexNumb = m_pDoc->m_texCount;
+			LoadTexture(pMaterial->m_szName, m_pDoc->m_texCount, pMaterial);
 		}
-		pMaterial = m_pDoc -> m_MtlList.GetNext();
+		pMaterial = m_pDoc->m_MtlList.GetNext();
 	}
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_FILL);
 
-	CMainFrame *pFrameWnd = (CMainFrame *)AfxGetMainWnd();
-	if(pFrameWnd)
-		{glClearColor(pFrameWnd -> m_Colors[C_BG3D][0] / 255.0f, pFrameWnd -> m_Colors[C_BG3D][1] / 255.0f, pFrameWnd -> m_Colors[C_BG3D][2] / 255.0f, 1.0f);}
-	
-	// Clear the color and depth buffers.
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
-    // Define the modelview transformation.
-	koef_light_diffuse = 1.0f;
-	switch(m_DrawMode)
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	if (pFrameWnd)
 	{
-		case rl_ambient:
-			{koef_light_diffuse = 1.25f;}
-		//break íå ñòàâèòü!
-		case rl_tex_off:
-		{
-			glEnable(GL_LIGHTING);
-			glLightfv(GL_LIGHT0, GL_AMBIENT, m_AmbientLight);
-			glLightfv(GL_LIGHT0, GL_DIFFUSE, m_DiffuseLight);
-			glLightfv(GL_LIGHT0, GL_SPECULAR, m_Specular);
-			glLightfv(GL_LIGHT0, GL_POSITION, m_LightPos);
-			glEnable(GL_LIGHT0);
-		}
-		break;
-		case rl_diffuse:
-		{
-			glDisable(GL_LIGHTING);
-			koef_light_diffuse = 1.25f;
-		}
-		break;
-		case rl_wire:
-		case rl_ambient_tex_off:
-		{
-			glPolygonMode(GL_FRONT, GL_LINE);
-			glPolygonMode(GL_BACK, GL_LINE);
-			glDisable(GL_LIGHTING);
-		}
-		break;
+		glClearColor(pFrameWnd->m_Colors[C_BG3D][0] / 255.0f, pFrameWnd->m_Colors[C_BG3D][1] / 255.0f, pFrameWnd->m_Colors[C_BG3D][2] / 255.0f, 1.0f);
+	}
+
+	// Clear the color and depth buffers.
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+	// Define the modelview transformation.
+	koef_light_diffuse = 1.0f;
+	switch (m_DrawMode)
+	{
+	case rl_ambient:
+	{ koef_light_diffuse = 1.25f; }
+	//break íå ñòàâèòü!
+	case rl_tex_off:
+	{
+		glEnable(GL_LIGHTING);
+		glLightfv(GL_LIGHT0, GL_AMBIENT, m_AmbientLight);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, m_DiffuseLight);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, m_Specular);
+		glLightfv(GL_LIGHT0, GL_POSITION, m_LightPos);
+		glEnable(GL_LIGHT0);
+	}
+	break;
+	case rl_diffuse:
+	{
+		glDisable(GL_LIGHTING);
+		koef_light_diffuse = 1.25f;
+	}
+	break;
+	case rl_wire:
+	case rl_ambient_tex_off:
+	{
+		glPolygonMode(GL_FRONT, GL_LINE);
+		glPolygonMode(GL_BACK, GL_LINE);
+		glDisable(GL_LIGHTING);
+	}
+	break;
 	};
 	//glEnable(GL_NORMALIZE);
-	if(pFrameWnd)
-		{gluPerspective(pFrameWnd -> m_fov, m_gldAspect, Near_View, Far_View);}
+	if (pFrameWnd)
+	{
+		gluPerspective(pFrameWnd->m_fov, m_gldAspect, Near_View, Far_View);
+	}
 	else
-		{gluPerspective(45, m_gldAspect, Near_View, Far_View);}
+	{
+		gluPerspective(45, m_gldAspect, Near_View, Far_View);
+	}
 	glViewport(0, 0, m_glnWidth, m_glnHeight);
-	if(m_pDoc -> ResetCamView[3])
+	if (m_pDoc->ResetCamView[3])
 	{
 		m_Camera.Position[0] = 0.0f;
 		m_Camera.Position[1] = -10.0f;
@@ -1218,7 +1308,7 @@ void CSOEditView::DrawScene()
 		m_Camera.Orient[0] = 0.0f;
 		m_Camera.Orient[1] = 0.0f;
 		m_Camera.Orient[2] = 0.0f;
-		m_pDoc -> ResetCamView[3] = false;
+		m_pDoc->ResetCamView[3] = false;
 	}
 	//float ZoomFactor = (m_scales[m_Scale] * 5);
 	float ZoomFactor = (m_Scale * 5);
@@ -1227,21 +1317,23 @@ void CSOEditView::DrawScene()
 	glRotatef(m_Camera.Orient[1], 0.0f, 1.0f, 0.0f);
 	glRotatef(m_Camera.Orient[2], 0.0f, 0.0f, 1.0f);
 	glTranslatef(m_Camera.Position[0], m_Camera.Position[1], m_Camera.Position[2] * ZoomFactor * 5);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-	if(m_grid)
-		{DrawGridGL();}
-    glRotatef(m_pDoc -> model[0], 1.0f, 0.0f, 0.0f);
-    glRotatef(m_pDoc -> model[1], 0.0f, 1.0f, 0.0f);
-    glRotatef(m_pDoc -> model[2], 0.0f, 0.0f, 1.0f);
-    m_reference[0] = 0.0f;
-    m_reference[1] = 0.0f;
-    m_reference[2] = 0.0f;
-    glPushMatrix();
-	if(m_pDoc -> fix_mx_ori)
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	if (m_grid)
+	{
+		DrawGridGL();
+	}
+	glRotatef(m_pDoc->model[0], 1.0f, 0.0f, 0.0f);
+	glRotatef(m_pDoc->model[1], 0.0f, 1.0f, 0.0f);
+	glRotatef(m_pDoc->model[2], 0.0f, 0.0f, 1.0f);
+	m_reference[0] = 0.0f;
+	m_reference[1] = 0.0f;
+	m_reference[2] = 0.0f;
+	glPushMatrix();
+	if (m_pDoc->fix_mx_ori)
 	{
 		anm_normalizer();//Äà-äà... Âîò òàê âîò ïðîñòî èñïðàâëÿåì ìàòðèöó ïðÿìî â ïðîöåññå ðåíäåðà...
-		m_pDoc -> fix_mx_ori = false;
+		m_pDoc->fix_mx_ori = false;
 		//TODO:
 		//ïåðåäåëàòü ýòîò òðýø
 		//...
@@ -1249,35 +1341,45 @@ void CSOEditView::DrawScene()
 		//...
 		//Ïîèñêàòü ìåòîä ðåøåíèÿ ïðîáëåìû
 	}
-	if(m_pDoc -> BLamp_View && pFrameWnd -> m_lamp)
+	if (m_pDoc->BLamp_View && pFrameWnd->m_lamp)
 	{
-		m_pDoc -> BLamp_View -> Matrix34 -> v[3][0] = m_LightPos[0];
-		m_pDoc -> BLamp_View -> Matrix34 -> v[3][1] = m_LightPos[1];
-		m_pDoc -> BLamp_View -> Matrix34 -> v[3][2] = m_LightPos[2] - 2.0f;
-		DrawBone(m_pDoc -> BLamp_View, false);
+		m_pDoc->BLamp_View->Matrix34->v[3][0] = m_LightPos[0];
+		m_pDoc->BLamp_View->Matrix34->v[3][1] = m_LightPos[1];
+		m_pDoc->BLamp_View->Matrix34->v[3][2] = m_LightPos[2] - 2.0f;
+		DrawBone(m_pDoc->BLamp_View, false);
 	}
-	if(m_pDoc -> m_Model)// a perspective-view matrix...
+	if (m_pDoc->m_Model)// a perspective-view matrix...
 	{
 		glScalef(1.0f, -1.0f, 1.0f);
-		if(m_pDoc -> m_Model -> m_skeleton)
+		if (m_pDoc->m_Model->m_skeleton)
 		{
-			if(m_pDoc -> m_Model -> m_skeleton -> m_bonelist)
+			if (m_pDoc->m_Model->m_skeleton->m_bonelist)
 			{
-				if(m_vol_wireframe)
+				if (m_vol_wireframe)
 				{
-					if(m_ViewMod == vm3_collision || m_ViewMod == vm3_hybrid)
-						{RenderCollision();}
-					if(m_ViewMod == vm3_visual || m_ViewMod == vm3_hybrid)
-						{RenderVisual(false); RenderVisual(true);}
+					if (m_ViewMod == vm3_collision || m_ViewMod == vm3_hybrid)
+					{
+						RenderCollision();
+					}
+					if (m_ViewMod == vm3_visual || m_ViewMod == vm3_hybrid)
+					{
+						RenderVisual(false); RenderVisual(true);
+					}
 				}
 				else
 				{
-					if(m_ViewMod == vm3_visual || m_ViewMod == vm3_hybrid)
-						{RenderVisual(false); }
-					if(m_ViewMod != vm3_collision)
-						{RenderVisual(true);}
-					if(m_ViewMod == vm3_collision || m_ViewMod == vm3_hybrid)
-						{RenderCollision();}
+					if (m_ViewMod == vm3_visual || m_ViewMod == vm3_hybrid)
+					{
+						RenderVisual(false);
+					}
+					if (m_ViewMod != vm3_collision)
+					{
+						RenderVisual(true);
+					}
+					if (m_ViewMod == vm3_collision || m_ViewMod == vm3_hybrid)
+					{
+						RenderCollision();
+					}
 				}
 				/*if(m_pDoc->m_skin)
 				{
@@ -1300,29 +1402,29 @@ void CSOEditView::DrawScene()
 	glFinish();
 	SwapBuffers(m_hDC);
 	wglMakeCurrent(NULL, NULL);
-	m_pDoc -> m_NewModel = false;
+	m_pDoc->m_NewModel = false;
 }
 
 void CSOEditView::RenderCollision()
 {
 	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f); 
+	glAlphaFunc(GL_GREATER, 0.0f);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_CULL_FACE);
-	if(m_vol_wireframe)
+	if (m_vol_wireframe)
 	{
 		glPolygonMode(GL_FRONT, GL_LINE);
 		glPolygonMode(GL_BACK, GL_LINE);
 	}
-	CBone *Nlist = m_pDoc -> m_Model -> m_skeleton -> m_bonelist;
-	while(Nlist)
+	CBone* Nlist = m_pDoc->m_Model->m_skeleton->m_bonelist;
+	while (Nlist)
 	{
 		DrawVolumeLayer(Nlist);
-		Nlist = Nlist -> next;
+		Nlist = Nlist->next;
 	}
 	glEnable(GL_CULL_FACE);
 	glDisable(GL_ALPHA_TEST);
-	if(m_vol_wireframe && m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
+	if (m_vol_wireframe && m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
 	{
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_FILL);
@@ -1331,17 +1433,17 @@ void CSOEditView::RenderCollision()
 
 void CSOEditView::RenderVisual(bool transparency_mod)
 {
-	CBone *Nlist = m_pDoc -> m_Model -> m_skeleton -> m_bonelist;
-	while(Nlist && !transparency_mod)
+	CBone* Nlist = m_pDoc->m_Model->m_skeleton->m_bonelist;
+	while (Nlist && !transparency_mod)
 	{
 		DrawBone(Nlist, transparency_mod);
-		Nlist = Nlist -> next;
+		Nlist = Nlist->next;
 	}
-	Nlist = m_pDoc -> m_Model -> m_skeleton -> m_bonelist;
-	while(Nlist && transparency_mod)
+	Nlist = m_pDoc->m_Model->m_skeleton->m_bonelist;
+	while (Nlist && transparency_mod)
 	{
 		DrawBone(Nlist, transparency_mod);
-		Nlist = Nlist -> next;
+		Nlist = Nlist->next;
 	}
 }
 
@@ -1380,17 +1482,27 @@ void CSOEditView::OnMouseMove(UINT nFlags, CPoint point)
 	OverlayStr[13] = "";
 	POINT delta;
 	bool k_ShButton = false, k_CoButton = false;
-	if(!(nFlags & MK_LBUTTON))
-		{m_lButton = false;}
-	if(!(nFlags & MK_MBUTTON))
-		{m_mButton = false;}
-	if(!(nFlags & MK_RBUTTON))
-		{m_rButton = false;}
-	if(nFlags & MK_CONTROL)
-		{k_CoButton = true;}
-	if(nFlags & MK_SHIFT)
-		{k_ShButton = true;}
-	if(!m_lButton && !m_mButton && !m_rButton && !k_CoButton && !k_ShButton)
+	if (!(nFlags & MK_LBUTTON))
+	{
+		m_lButton = false;
+	}
+	if (!(nFlags & MK_MBUTTON))
+	{
+		m_mButton = false;
+	}
+	if (!(nFlags & MK_RBUTTON))
+	{
+		m_rButton = false;
+	}
+	if (nFlags & MK_CONTROL)
+	{
+		k_CoButton = true;
+	}
+	if (nFlags & MK_SHIFT)
+	{
+		k_ShButton = true;
+	}
+	if (!m_lButton && !m_mButton && !m_rButton && !k_CoButton && !k_ShButton)
 	{
 		CView::OnMouseMove(nFlags, point);
 		return;
@@ -1398,22 +1510,30 @@ void CSOEditView::OnMouseMove(UINT nFlags, CPoint point)
 	m_pDoc = GetDocument();
 	delta.x = point.x;
 	delta.y = point.y;
-	if(!m_lButton && !m_rButton && m_mButton && (nFlags & MK_CONTROL))
+	if (!m_lButton && !m_rButton && m_mButton && (nFlags & MK_CONTROL))
 	{//zoom in and out
 		float Angle = m_Camera.Orient[1];
 		float Angle2 = m_Camera.Orient[0];
 		//----------------------------------------
-		if(Angle < 0)
-			{Angle += 360;}
+		if (Angle < 0)
+		{
+			Angle += 360;
+		}
 		else
-		if(Angle > 360)
-			{Angle -= 360;}
+			if (Angle > 360)
+			{
+				Angle -= 360;
+			}
 		//----------------------------------------
-		if(Angle2 < 0)
-			{Angle2 += 360;}
+		if (Angle2 < 0)
+		{
+			Angle2 += 360;
+		}
 		else
-		if(Angle2 > 360)
-			{Angle2 -= 360;}
+			if (Angle2 > 360)
+			{
+				Angle2 -= 360;
+			}
 		//----------------------------------------
 		float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
 		float cosA = cos(radians);
@@ -1423,163 +1543,193 @@ void CSOEditView::OnMouseMove(UINT nFlags, CPoint point)
 		outputY -= (1.0f * sinA);
 		float radians2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
 		float sinA2 = sin(radians2);
-		if((delta.y - m_point.y) < 0)
+		if ((delta.y - m_point.y) < 0)
 		{
 			m_Camera.Position[0] += outputY;
 			m_Camera.Position[1] += (2.0f * sinA2);
 			m_Camera.Position[2] -= outputX;
 		}
 		else
-		if((delta.y - m_point.y) > 0)
-		{
-			m_Camera.Position[0] -= outputY;
-			m_Camera.Position[1] -= (2.0f * sinA2);
-			m_Camera.Position[2] += outputX;
-		}
-		m_point.y = delta.y;
-		m_point.x = delta.x;
-	}
-	else
-	if(!m_lButton && !m_rButton && m_mButton)
-	{
-		// move camera
-		float inputZ = (delta.y - m_point.y) * 0.5f;
-		float outputX = 0, outputY = 0;
-		float Angle = m_Camera.Orient[1];
-		float Angle2 = m_Camera.Orient[0];
-		float inputX = (delta.x - m_point.x) * 0.5f;
-		//----------------------------------------
-		if(Angle < 0)
-			{Angle += 360;}
-		else
-		if(Angle > 360)
-			{Angle -= 360;}
-		//----------------------------------------
-		if(Angle2 < 0)
-			{Angle2 += 360;}
-		else
-		if(Angle2 > 360)
-			{Angle2 -= 360;}
-		//----------------------------------------
-		float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
-		float radians2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
-		float cosA = cos(radians);
-		float sinA = sin(radians);
-		float cosA2 = cos(radians2);
-		float sinA2 = sin(radians2);
-		float KoefInputZ = inputZ * sinA2;
-		outputX -= (inputX * cosA);
-		outputY -= (inputX * sinA);
-		outputX += (KoefInputZ * sinA);
-		outputY -= (KoefInputZ * cosA);
-		/*OverlayStr[12].Format("outputX = %g", outputX);
-		OverlayStr[13].Format("outputY = %g", outputY);*/
-		m_Camera.Position[0] -= outputX;
-		m_Camera.Position[2] -= outputY;
-		m_Camera.Position[1] -= (inputZ * cosA2);//Z
-		m_point.y = delta.y;
-		m_point.x = delta.x;
-	}
-	else
-	if(!m_mButton && !m_rButton && m_lButton)
-	{
-		if(nFlags & MK_CONTROL && !(nFlags & MK_SHIFT))//rotate camera
-		{
-			m_Camera.Orient[0] += delta.y - m_point.y;
-			m_Camera.Orient[2] -= delta.x - m_point.x;
-		}
-		else
-		if(nFlags & MK_SHIFT)//rotate light
-		{
-			float Angle = m_Camera.Orient[1];
-			float outputX = 0, outputY = 0;
-			float inputY = (delta.y - m_point.y) * 0.5f;
-			float inputX = (delta.x - m_point.x) * 0.5f;
-			//----------------------------------------
-			if(Angle < 0)
-				{Angle += 360;}
-			else
-			if(Angle > 360)
-				{Angle -= 360;}
-			//----------------------------------------
-			float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
-			float cosA = cos(radians);
-			float sinA = sin(radians);
-			outputX += (inputY * cosA);
-			outputY -= (inputY * sinA);
-			outputY += (inputX * cosA);
-			outputX += (inputX * sinA);
-			if(nFlags & MK_CONTROL)
-				{m_LightPos[2] -= inputY;}
-			else
+			if ((delta.y - m_point.y) > 0)
 			{
-				m_LightPos[0] += outputX;
-				m_LightPos[1] += outputY;
+				m_Camera.Position[0] -= outputY;
+				m_Camera.Position[1] -= (2.0f * sinA2);
+				m_Camera.Position[2] += outputX;
 			}
-		}
-		else// rotate model
+		m_point.y = delta.y;
+		m_point.x = delta.x;
+	}
+	else
+		if (!m_lButton && !m_rButton && m_mButton)
 		{
-			m_Camera.Orient[0] += delta.y - m_point.y;
-			m_Camera.Orient[1] += delta.x - m_point.x;
-			
-			/*float inputZ = (delta.y - m_point.y) * 1.0f;
+			// move camera
+			float inputZ = (delta.y - m_point.y) * 0.5f;
 			float outputX = 0, outputY = 0;
 			float Angle = m_Camera.Orient[1];
 			float Angle2 = m_Camera.Orient[0];
-			float inputX = (delta.x - m_point.x) * 1.0f;
+			float inputX = (delta.x - m_point.x) * 0.5f;
 			//----------------------------------------
-			if(Angle < 0)
-				{Angle += 360;}
+			if (Angle < 0)
+			{
+				Angle += 360;
+			}
 			else
-			if(Angle > 360)
-				{Angle -= 360;}
+				if (Angle > 360)
+				{
+					Angle -= 360;
+				}
 			//----------------------------------------
-			if(Angle2 < 0)
-				{Angle2 += 360;}
+			if (Angle2 < 0)
+			{
+				Angle2 += 360;
+			}
 			else
-			if(Angle2 > 360)
-				{Angle2 -= 360;}
+				if (Angle2 > 360)
+				{
+					Angle2 -= 360;
+				}
 			//----------------------------------------
-			float radians = (2 * 3.1416 * Angle) / 360;
-			float radians2 = (2 * 3.1416 * Angle2) / 360;
+			float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
+			float radians2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
 			float cosA = cos(radians);
 			float sinA = sin(radians);
 			float cosA2 = cos(radians2);
 			float sinA2 = sin(radians2);
 			float KoefInputZ = inputZ * sinA2;
-			outputX -= ((inputX * cosA) * cosA2);
-			outputY -= ((inputX * sinA) * cosA2);
-			/*outputX += (KoefInputZ * sinA);
-			outputY -= (KoefInputZ * cosA);*/
-			/*m_Camera.Position[0] -= outputX;
+			outputX -= (inputX * cosA);
+			outputY -= (inputX * sinA);
+			outputX += (KoefInputZ * sinA);
+			outputY -= (KoefInputZ * cosA);
+			/*OverlayStr[12].Format("outputX = %g", outputX);
+			OverlayStr[13].Format("outputY = %g", outputY);*/
+			m_Camera.Position[0] -= outputX;
 			m_Camera.Position[2] -= outputY;
-			//m_Camera.Position[1] -= (inputZ * cosA2);//Z
-			*/
-
+			m_Camera.Position[1] -= (inputZ * cosA2);//Z
+			m_point.y = delta.y;
+			m_point.x = delta.x;
 		}
-		if(m_Camera.Orient[0] > 180)
-			{m_Camera.Orient[0] -= 360;}
-		if(m_Camera.Orient[0] < -180)
-			{m_Camera.Orient[0] += 360;}
-		if(m_Camera.Orient[1] > 180)
-			{m_Camera.Orient[1] -= 360;}
-		if(m_Camera.Orient[1] < -180)
-			{m_Camera.Orient[1] += 360;}
-		m_point.y = delta.y;
-		m_point.x = delta.x;
-	}
+		else
+			if (!m_mButton && !m_rButton && m_lButton)
+			{
+				if (nFlags & MK_CONTROL && !(nFlags & MK_SHIFT))//rotate camera
+				{
+					m_Camera.Orient[0] += delta.y - m_point.y;
+					m_Camera.Orient[2] -= delta.x - m_point.x;
+				}
+				else
+					if (nFlags & MK_SHIFT)//rotate light
+					{
+						float Angle = m_Camera.Orient[1];
+						float outputX = 0, outputY = 0;
+						float inputY = (delta.y - m_point.y) * 0.5f;
+						float inputX = (delta.x - m_point.x) * 0.5f;
+						//----------------------------------------
+						if (Angle < 0)
+						{
+							Angle += 360;
+						}
+						else
+							if (Angle > 360)
+							{
+								Angle -= 360;
+							}
+						//----------------------------------------
+						float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
+						float cosA = cos(radians);
+						float sinA = sin(radians);
+						outputX += (inputY * cosA);
+						outputY -= (inputY * sinA);
+						outputY += (inputX * cosA);
+						outputX += (inputX * sinA);
+						if (nFlags & MK_CONTROL)
+						{
+							m_LightPos[2] -= inputY;
+						}
+						else
+						{
+							m_LightPos[0] += outputX;
+							m_LightPos[1] += outputY;
+						}
+					}
+					else// rotate model
+					{
+						m_Camera.Orient[0] += delta.y - m_point.y;
+						m_Camera.Orient[1] += delta.x - m_point.x;
+
+						/*float inputZ = (delta.y - m_point.y) * 1.0f;
+						float outputX = 0, outputY = 0;
+						float Angle = m_Camera.Orient[1];
+						float Angle2 = m_Camera.Orient[0];
+						float inputX = (delta.x - m_point.x) * 1.0f;
+						//----------------------------------------
+						if(Angle < 0)
+							{Angle += 360;}
+						else
+						if(Angle > 360)
+							{Angle -= 360;}
+						//----------------------------------------
+						if(Angle2 < 0)
+							{Angle2 += 360;}
+						else
+						if(Angle2 > 360)
+							{Angle2 -= 360;}
+						//----------------------------------------
+						float radians = (2 * 3.1416 * Angle) / 360;
+						float radians2 = (2 * 3.1416 * Angle2) / 360;
+						float cosA = cos(radians);
+						float sinA = sin(radians);
+						float cosA2 = cos(radians2);
+						float sinA2 = sin(radians2);
+						float KoefInputZ = inputZ * sinA2;
+						outputX -= ((inputX * cosA) * cosA2);
+						outputY -= ((inputX * sinA) * cosA2);
+						/*outputX += (KoefInputZ * sinA);
+						outputY -= (KoefInputZ * cosA);*/
+						/*m_Camera.Position[0] -= outputX;
+						m_Camera.Position[2] -= outputY;
+						//m_Camera.Position[1] -= (inputZ * cosA2);//Z
+						*/
+
+					}
+				if (m_Camera.Orient[0] > 180)
+				{
+					m_Camera.Orient[0] -= 360;
+				}
+				if (m_Camera.Orient[0] < -180)
+				{
+					m_Camera.Orient[0] += 360;
+				}
+				if (m_Camera.Orient[1] > 180)
+				{
+					m_Camera.Orient[1] -= 360;
+				}
+				if (m_Camera.Orient[1] < -180)
+				{
+					m_Camera.Orient[1] += 360;
+				}
+				m_point.y = delta.y;
+				m_point.x = delta.x;
+			}
 	//îòëàäêà
 	float Angle = m_Camera.Orient[1], Angle2 = m_Camera.Orient[0];
-	if(Angle < 0)
-		{Angle += 360;}
+	if (Angle < 0)
+	{
+		Angle += 360;
+	}
 	else
-	if(Angle > 360)
-		{Angle -= 360;}
-	if(Angle2 < 0)
-		{Angle2 += 360;}
+		if (Angle > 360)
+		{
+			Angle -= 360;
+		}
+	if (Angle2 < 0)
+	{
+		Angle2 += 360;
+	}
 	else
-	if(Angle2 > 360)
-		{Angle2 -= 360;}
+		if (Angle2 > 360)
+		{
+			Angle2 -= 360;
+		}
 	float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
 	float radians2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
 	float cosA = cos(radians);
@@ -1641,11 +1791,11 @@ void CSOEditView::OnRButtonDown(UINT nFlags, CPoint point)
 	SetTimer(2, 200, NULL);
 }
 
-void CSOEditView::LoadTexture(char *texfile, int texnumb, CMaterial *pMaterial)
+void CSOEditView::LoadTexture(char* texfile, int texnumb, CMaterial* pMaterial)
 {
-    //MessageBox(texfile, "LoadTexture: Loading texture file", MB_OK);
-    CTexFile *tex = new CTexFile(texfile);
-    if(!tex -> GetBits())
+	//MessageBox(texfile, "LoadTexture: Loading texture file", MB_OK);
+	CTexFile* tex = new CTexFile(texfile);
+	if (!tex->GetBits())
 	{
 		CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
 		if (!pWnd || pWnd->m_ShowTextureErrors)
@@ -1657,71 +1807,91 @@ void CSOEditView::LoadTexture(char *texfile, int texnumb, CMaterial *pMaterial)
 #endif
 		}
 	}
-	pMaterial -> m_transparency = tex -> m_transparency;
-	if(m_pDoc -> TexOff)
-		{memcpy(m_pDoc -> texName, m_pDoc -> tmptexName, sizeof(unsigned int) * 256);}
-    glGenTextures(1, &m_pDoc -> texName[texnumb]);
-    glBindTexture(GL_TEXTURE_2D, m_pDoc -> texName[texnumb]);
-	if(m_pDoc -> TexOff)
+	pMaterial->m_transparency = tex->m_transparency;
+	if (m_pDoc->TexOff)
 	{
-		memcpy(m_pDoc -> tmptexName, m_pDoc -> texName, sizeof(unsigned int) * 256);
-		memset(m_pDoc -> texName, 0, sizeof(unsigned int) * 256);
+		memcpy(m_pDoc->texName, m_pDoc->tmptexName, sizeof(unsigned int) * 256);
 	}
-    m_pDoc -> m_texCount++;
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    // Define the 2D texture image.
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);	// Force 4-byte alignment
-    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-    glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
-    glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
-    if(tex -> GetBPP() == 24)
-		{glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex -> GetWidth(), tex -> GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, tex -> GetBits());}
-    else
-    if(tex -> GetBPP() == 32)
-		{glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex -> GetWidth(), tex -> GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tex -> GetBits());}
-    delete tex;
+	glGenTextures(1, &m_pDoc->texName[texnumb]);
+	glBindTexture(GL_TEXTURE_2D, m_pDoc->texName[texnumb]);
+	if (m_pDoc->TexOff)
+	{
+		memcpy(m_pDoc->tmptexName, m_pDoc->texName, sizeof(unsigned int) * 256);
+		memset(m_pDoc->texName, 0, sizeof(unsigned int) * 256);
+	}
+	m_pDoc->m_texCount++;
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	// Define the 2D texture image.
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);	// Force 4-byte alignment
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
+	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
+	if (tex->GetBPP() == 24)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex->GetWidth(), tex->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, tex->GetBits());
+	}
+	else
+		if (tex->GetBPP() == 32)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->GetWidth(), tex->GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tex->GetBits());
+		}
+	delete tex;
 }
 
 void CSOEditView::OnSize(UINT nType, int cx, int cy)
 {
 	CView::OnSize(nType, cx, cy);
-    RECT rect;
-    GetClientRect(&rect);
-    m_glnWidth = rect.right;
-    m_glnHeight = rect.bottom;
-    m_gldAspect = (GLdouble)m_glnWidth / (GLdouble)m_glnHeight;
-    InvalidateRect(&rect, false);
-    DrawScene();
+	RECT rect;
+	GetClientRect(&rect);
+	m_glnWidth = rect.right;
+	m_glnHeight = rect.bottom;
+	m_gldAspect = (GLdouble)m_glnWidth / (GLdouble)m_glnHeight;
+	InvalidateRect(&rect, false);
+	DrawScene();
 }
 
-void CSOEditView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) 
-	{OnDraw(m_pDC);}
+void CSOEditView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
+{
+	OnDraw(m_pDC);
+}
 
 BOOL CSOEditView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	float CamSpeed = 3.0f;
 	float Angle = m_Camera.Orient[1];
 	float Angle2 = m_Camera.Orient[0];
-	if(nFlags & MK_CONTROL)
-		{CamSpeed *= 10;}
+	if (nFlags & MK_CONTROL)
+	{
+		CamSpeed *= 10;
+	}
 	else
-	if(nFlags & MK_SHIFT)
-		{CamSpeed /= 3;}
+		if (nFlags & MK_SHIFT)
+		{
+			CamSpeed /= 3;
+		}
 	//----------------------------------------
-	if(Angle < 0)
-		{Angle += 360;}
+	if (Angle < 0)
+	{
+		Angle += 360;
+	}
 	else
-	if(Angle > 360)
-		{Angle -= 360;}
+		if (Angle > 360)
+		{
+			Angle -= 360;
+		}
 	//----------------------------------------
-	if(Angle2 < 0)
-		{Angle2 += 360;}
+	if (Angle2 < 0)
+	{
+		Angle2 += 360;
+	}
 	else
-	if(Angle2 > 360)
-		{Angle2 -= 360;}
+		if (Angle2 > 360)
+		{
+			Angle2 -= 360;
+		}
 	//----------------------------------------
 	float radians = (float)((double)(2 * 3.1416 * Angle) / 360);
 	float radians2 = (float)((double)(2 * 3.1416 * Angle2) / 360);
@@ -1733,19 +1903,19 @@ BOOL CSOEditView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	outputX -= ((CamSpeed * cosA) * cosA2);
 	outputY -= ((CamSpeed * sinA) * cosA2);
 	//zoom in and out
-	if(zDelta > 0)
+	if (zDelta > 0)
 	{
 		m_Camera.Position[0] += outputY;
 		m_Camera.Position[1] += (CamSpeed * sinA2);
 		m_Camera.Position[2] -= outputX;
 	}
 	else
-	if(zDelta < 0)
-	{
-		m_Camera.Position[0] -= outputY;
-		m_Camera.Position[1] -= (CamSpeed * sinA2);
-		m_Camera.Position[2] += outputX;
-	}
+		if (zDelta < 0)
+		{
+			m_Camera.Position[0] -= outputY;
+			m_Camera.Position[1] -= (CamSpeed * sinA2);
+			m_Camera.Position[2] += outputX;
+		}
 	InvalidateRect(NULL, false);
 	OnUpdate(NULL, 0, NULL);
 	return CView::OnMouseWheel(nFlags, zDelta, pt);
@@ -1823,10 +1993,10 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 
 		// Convert Orient angles to radians.
 		// Orient[1] = yaw (rotation around world Y), Orient[0] = pitch (rotation around X).
-		float yaw   = m_Camera.Orient[1] * 3.14159265f / 180.0f;
+		float yaw = m_Camera.Orient[1] * 3.14159265f / 180.0f;
 		float pitch = m_Camera.Orient[0] * 3.14159265f / 180.0f;
 
-		float cosYaw   = cosf(yaw),  sinYaw   = sinf(yaw);
+		float cosYaw = cosf(yaw), sinYaw = sinf(yaw);
 		float cosPitch = cosf(pitch), sinPitch = sinf(pitch);
 
 		// Camera forward direction in world-position space (unit vector).
@@ -1835,14 +2005,14 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 		// The X and Y components go directly into Position[0/1].
 		// The Z component goes into Position[2] which is later multiplied by zScale,
 		// so we pre-divide it here so the on-screen effect is uniform.
-		float fwdX =  -sinYaw * cosPitch;
-		float fwdY =   sinPitch;
-		float fwdZ =  (-cosYaw * cosPitch) / zScale;   // <-- compensate Z scale
+		float fwdX = -sinYaw * cosPitch;
+		float fwdY = sinPitch;
+		float fwdZ = (-cosYaw * cosPitch) / zScale;   // <-- compensate Z scale
 
 		// Camera right direction (horizontal strafe, yaw only — no pitch).
 		// Derived by rotating (1,0,0) through Ry(yaw):
 		//   right = ( cosYaw, 0, -sinYaw )
-		float rightX =  cosYaw;
+		float rightX = cosYaw;
 		float rightZ = (-sinYaw) / zScale;              // <-- compensate Z scale
 
 		bool moved = false;
@@ -1850,16 +2020,16 @@ void CSOEditView::OnTimer(UINT_PTR nIDEvent)
 		// W/S — move along camera forward/back (pitch-aware)
 		if (m_keys['W'] || m_keys[VK_UP])
 		{
-			m_Camera.Position[0] += fwdX;
-			m_Camera.Position[1] += fwdY;
-			m_Camera.Position[2] -= fwdZ;
+			m_Camera.Position[0] -= fwdX * speed;
+			m_Camera.Position[1] -= fwdY * speed;
+			m_Camera.Position[2] -= fwdZ * speed;
 			moved = true;
 		}
 		if (m_keys['S'] || m_keys[VK_DOWN])
 		{
-			m_Camera.Position[0] -= fwdX;
-			m_Camera.Position[1] -= fwdY;
-			m_Camera.Position[2] += fwdZ;
+			m_Camera.Position[0] += fwdX * speed;
+			m_Camera.Position[1] += fwdY * speed;
+			m_Camera.Position[2] += fwdZ * speed;
 			moved = true;
 		}
 		// A/D — strafe left/right (horizontal, yaw-aware)
@@ -1900,98 +2070,110 @@ void CSOEditView::anm_normalizer()
 {
 	glPushMatrix();
 	glLoadIdentity();
-	CAnimSub *subFRM = NULL;
-	if(m_pDoc -> m_AnimBone)
+	CAnimSub* subFRM = NULL;
+	if (m_pDoc->m_AnimBone)
 	{
-		for(int CurBone = 0; CurBone < m_pDoc -> m_AnimBone -> m_BoneCnt; CurBone++)
+		for (int CurBone = 0; CurBone < m_pDoc->m_AnimBone->m_BoneCnt; CurBone++)
 		{
-			for(int CurFrm = 0; CurFrm < m_pDoc -> m_AnimBone -> m_FrameCnt; CurFrm++)
+			for (int CurFrm = 0; CurFrm < m_pDoc->m_AnimBone->m_FrameCnt; CurFrm++)
 			{
-				if(subFRM = m_pDoc -> m_AnimBone -> m_Frames[CurFrm].FindSub(CurBone))
+				if (subFRM = m_pDoc->m_AnimBone->m_Frames[CurFrm].FindSub(CurBone))
 				{
-					if(subFRM -> chunk_flags & B_LEFT_HANDED)
+					if (subFRM->chunk_flags & B_LEFT_HANDED)
 					{
 						glLoadIdentity();
-						float m[16] = {0};
+						float m[16] = { 0 };
 						int i, j;
-						for(i = 0; i < 4; i++)
+						for (i = 0; i < 4; i++)
 						{
-							for(j = 0; j < 3; j++)
-								{m[i * 4 + j] = subFRM -> m_Matrix34.v[i][j];}
+							for (j = 0; j < 3; j++)
+							{
+								m[i * 4 + j] = subFRM->m_Matrix34.v[i][j];
+							}
 							m[i * 4 + j] = 0.0f;
 						}
 						m[15] = 1.0f;
-						glMultMatrixf((float *)&m);
+						glMultMatrixf((float*)&m);
 						glScalef(1.0f, 1.0f, -1.0f);
 						glGetFloatv(GL_MODELVIEW_MATRIX, m);
-						for(int i = 0; i < 4; i++)
+						for (int i = 0; i < 4; i++)
 						{
-							for(int j = 0; j < 3; j++)
-								{subFRM -> m_Matrix34.v[i][j] = m[i * 4 + j];}
+							for (int j = 0; j < 3; j++)
+							{
+								subFRM->m_Matrix34.v[i][j] = m[i * 4 + j];
+							}
 						}
-						subFRM -> chunk_flags &= ~(1 << B_LEFT_HANDED);
+						subFRM->chunk_flags &= ~(1 << B_LEFT_HANDED);
 					}
 				}
 			}
 		}
 	}
 	glPopMatrix();
-}  
+}
 
 void CSOEditView::OnViewShaded()
 {
-	if(m_pDoc -> TexOff)
-		{OnTexturesOn();}
+	if (m_pDoc->TexOff)
+	{
+		OnTexturesOn();
+	}
 	m_DrawMode = rl_ambient;
-	m_pDoc -> UpdateAllViews(NULL, 0, NULL);
+	m_pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditView::OnViewTextured()
 {
-	if(m_pDoc -> TexOff)
-		{OnTexturesOn();}
+	if (m_pDoc->TexOff)
+	{
+		OnTexturesOn();
+	}
 	m_DrawMode = rl_diffuse;
-	m_pDoc -> UpdateAllViews(NULL, 0, NULL);
+	m_pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditView::OnViewWireframe()
 {
-	if(m_pDoc -> TexOff)
-		{OnTexturesOn();}
+	if (m_pDoc->TexOff)
+	{
+		OnTexturesOn();
+	}
 	m_DrawMode = rl_wire;
-	m_pDoc -> UpdateAllViews(NULL, 0, NULL);
+	m_pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditView::OnViewTexturesOff()
 {
 	m_DrawMode = rl_tex_off;
 	OnTexturesOff();
-	m_pDoc -> UpdateAllViews(NULL, 0, NULL);
+	m_pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditView::OnViewWireframeTexturesOff()
 {
 	m_DrawMode = rl_ambient_tex_off;
 	OnTexturesOff();
-	m_pDoc -> UpdateAllViews(NULL, 0, NULL);
+	m_pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditView::OnTexturesOff()
 {
-	if(m_pDoc -> TexOff)
-		{return;}
-	m_pDoc -> Colorized_3d = true;
-	memcpy(m_pDoc -> tmptexName, m_pDoc -> texName, sizeof(unsigned int) * 256);
-	memset(m_pDoc -> texName, 0, sizeof(unsigned int) * 256);
-	m_pDoc -> TexOff = true;
+	if (m_pDoc->TexOff)
+	{
+		return;
+	}
+	m_pDoc->Colorized_3d = true;
+	memcpy(m_pDoc->tmptexName, m_pDoc->texName, sizeof(unsigned int) * 256);
+	memset(m_pDoc->texName, 0, sizeof(unsigned int) * 256);
+	m_pDoc->TexOff = true;
 }
 
 void CSOEditView::OnTexturesOn()
 {
-	m_pDoc -> Colorized_3d = false;
-	memcpy(m_pDoc -> texName, m_pDoc -> tmptexName, sizeof(unsigned int) * 256);
-	memset(m_pDoc -> tmptexName, 0, sizeof(unsigned int) * 256);
-	m_pDoc -> TexOff = false;
+	m_pDoc->Colorized_3d = false;
+	memcpy(m_pDoc->texName, m_pDoc->tmptexName, sizeof(unsigned int) * 256);
+	memset(m_pDoc->tmptexName, 0, sizeof(unsigned int) * 256);
+	m_pDoc->TexOff = false;
 }
 
 void CSOEditView::OnLButtonUp(UINT nFlags, CPoint point)
@@ -2281,412 +2463,442 @@ void CSOEditView::OnRButtonUp(UINT nFlags, CPoint point)
 
 void CSOEditView::OnColorize()
 {
-	m_pDoc -> Colorized_3d = !m_pDoc -> Colorized_3d;
-	m_pDoc -> UpdateAllViews(NULL, 0, NULL);
+	m_pDoc->Colorized_3d = !m_pDoc->Colorized_3d;
+	m_pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
-void CSOEditView::DrawVolumeGL(CBone *basis)
+void CSOEditView::DrawVolumeGL(CBone* basis)
 {
 	CSOEditDoc* pDoc = GetDocument();
 	bool selected;
-	CVolume *pSelect = NULL;
-	CVolume *pVol = pDoc -> m_Model -> m_VolumeList -> GetFirst();
-	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
+	CVolume* pSelect = NULL;
+	CVolume* pVol = pDoc->m_Model->m_VolumeList->GetFirst();
+	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
 	float VSaturation = 0.0f;
-	while(pVol)
+	while (pVol)
 	{
-		if(pVol -> boneptr != basis || !pVol -> m_tree_check)
-			{pVol = pVol -> next; continue;}
-		selected = false;
-		if(pDoc -> m_SelVolume)
+		if (pVol->boneptr != basis || !pVol->m_tree_check)
 		{
-			if(pVol -> hTreeItem == pDoc -> hSelTreeItem)
-				{selected = true;}
+			pVol = pVol->next; continue;
 		}
-		if(!stricmp(pVol -> m_Name, "ram") && !pWnd -> m_ram && !selected)
-			{pVol = pVol -> next; continue;}
+		selected = false;
+		if (pDoc->m_SelVolume)
+		{
+			if (pVol->hTreeItem == pDoc->hSelTreeItem)
+			{
+				selected = true;
+			}
+		}
+		if (!stricmp(pVol->m_Name, "ram") && !pWnd->m_ram && !selected)
+		{
+			pVol = pVol->next; continue;
+		}
 
-		if((!stricmp(pVol -> m_Name, "trackleft") || !stricmp(pVol -> m_Name, "trackright") || !stricmp(pVol -> m_Name, "trackl") || !stricmp(pVol -> m_Name, "trackr")) && !pWnd -> m_track && !selected)
-			{pVol = pVol -> next; continue;}
+		if ((!stricmp(pVol->m_Name, "trackleft") || !stricmp(pVol->m_Name, "trackright") || !stricmp(pVol->m_Name, "trackl") || !stricmp(pVol->m_Name, "trackr")) && !pWnd->m_track && !selected)
+		{
+			pVol = pVol->next; continue;
+		}
 		glPushMatrix();
-		if(pVol -> m_Matrix34)
+		if (pVol->m_Matrix34)
 		{
 			int i, j;
 			float m[16];
-			for(i = 0; i < 4; i++)
+			for (i = 0; i < 4; i++)
 			{
-				for(j = 0; j < 3; j++)
-					{m[i * 4 + j] = pVol -> m_Matrix34 -> v[i][j];}
+				for (j = 0; j < 3; j++)
+				{
+					m[i * 4 + j] = pVol->m_Matrix34->v[i][j];
+				}
 				m[i * 4 + j] = 0.0f;
 			}
 			m[15] = 1.0f;
-			glMultMatrixf((float *)&m);
+			glMultMatrixf((float*)&m);
 		}
-		if(selected && m_ViewMod == vm3_collision)
-			{glDisable(GL_BLEND);}
-		if(selected)
+		if (selected && m_ViewMod == vm3_collision)
 		{
-			if(m_ViewMod == vm3_collision)
-				{VSaturation = 120.0f;}
+			glDisable(GL_BLEND);
+		}
+		if (selected)
+		{
+			if (m_ViewMod == vm3_collision)
+			{
+				VSaturation = 120.0f;
+			}
 			else
-				{VSaturation = 180.0f;}
-			glColor3f(pWnd -> m_Colors[C_VOLUMES][0] / VSaturation, pWnd -> m_Colors[C_VOLUMES][1] / VSaturation, pWnd -> m_Colors[C_VOLUMES][2] / VSaturation);
+			{
+				VSaturation = 180.0f;
+			}
+			glColor3f(pWnd->m_Colors[C_VOLUMES][0] / VSaturation, pWnd->m_Colors[C_VOLUMES][1] / VSaturation, pWnd->m_Colors[C_VOLUMES][2] / VSaturation);
 		}
 		else
 		{
 			VSaturation = 384.0f;
-			glColor3f(pWnd -> m_Colors[C_VOLUME][0] / VSaturation, pWnd -> m_Colors[C_VOLUME][1] / VSaturation, pWnd -> m_Colors[C_VOLUME][2] / VSaturation);
+			glColor3f(pWnd->m_Colors[C_VOLUME][0] / VSaturation, pWnd->m_Colors[C_VOLUME][1] / VSaturation, pWnd->m_Colors[C_VOLUME][2] / VSaturation);
 		}
-		glRotatef(pVol -> m_Rotations[0], 1.0f, 0.0f, 0.0f);
-		glRotatef(pVol -> m_Rotations[1], 0.0f, 1.0f, 0.0f);
-		glRotatef(pVol -> m_Rotations[2], 0.0f, 0.0f, 1.0f);
-		glScalef(pVol -> m_Scales[0], pVol -> m_Scales[1], pVol -> m_Scales[2]);
-		if((selected && (pWnd -> m_Selected  && pDoc -> m_SelVolume)) || (!(pWnd -> m_Selected && pDoc -> m_SelVolume)))
+		glRotatef(pVol->m_Rotations[0], 1.0f, 0.0f, 0.0f);
+		glRotatef(pVol->m_Rotations[1], 0.0f, 1.0f, 0.0f);
+		glRotatef(pVol->m_Rotations[2], 0.0f, 0.0f, 1.0f);
+		glScalef(pVol->m_Scales[0], pVol->m_Scales[1], pVol->m_Scales[2]);
+		if ((selected && (pWnd->m_Selected && pDoc->m_SelVolume)) || (!(pWnd->m_Selected && pDoc->m_SelVolume)))
 		{
-			switch(pVol -> m_Type)
+			switch (pVol->m_Type)
 			{
-				case VT_BOX:
-				{
-					DrawBoxGL(pVol -> m_Box);
-					break;
-				}
-				case VT_CYLINDER:
-				{
-					DrawCylGL(pVol -> m_Cyl);
-					break;
-				}
-				case VT_PLY:
-				{
-					for(int f = 0; pVol -> m_Vol && f < pVol -> m_Vol -> m_numpolys; f++)
-					{
-						if(selected || pWnd -> m_CollisionSide)
-						{
-							switch(pVol -> m_Vol -> m_sidelist[f])
-							{
-								case 1://front
-									{glColor3f(pWnd -> m_Colors[VOLUME_FRONT][0] / VSaturation, pWnd -> m_Colors[VOLUME_FRONT][1] / VSaturation, pWnd -> m_Colors[VOLUME_FRONT][2] / VSaturation);}//, alpha_intensity / 255.0f
-								break;
-								case 2://top
-									{glColor3f(pWnd -> m_Colors[VOLUME_TOP][0] / VSaturation, pWnd -> m_Colors[VOLUME_TOP][1] / VSaturation, pWnd -> m_Colors[VOLUME_TOP][2] / VSaturation);}
-								break;
-								case 3://left
-									{glColor3f(pWnd -> m_Colors[VOLUME_LEFT][0] / VSaturation, pWnd -> m_Colors[VOLUME_LEFT][1] / VSaturation, pWnd -> m_Colors[VOLUME_LEFT][2] / VSaturation);}
-								break;
-								case 4://right
-									{glColor3f(pWnd -> m_Colors[VOLUME_RIGHT][0] / VSaturation, pWnd -> m_Colors[VOLUME_RIGHT][1] / VSaturation, pWnd -> m_Colors[VOLUME_RIGHT][2] / VSaturation);}
-								break;
-								case 5://rear
-									{glColor3f(pWnd -> m_Colors[VOLUME_REAR][0] / VSaturation, pWnd -> m_Colors[VOLUME_REAR][1] / VSaturation, pWnd -> m_Colors[VOLUME_REAR][2] / VSaturation);}
-								break;
-								case 6://bottom
-									{glColor3f(pWnd -> m_Colors[VOLUME_BOTTOM][0] / VSaturation, pWnd -> m_Colors[VOLUME_BOTTOM][1] / VSaturation, pWnd -> m_Colors[VOLUME_BOTTOM][2] / VSaturation);}
-								break;
-							};
-						}
-						v3_t vn = {0};
-						glBegin(GL_POLYGON);
-						for(int v = 2; v >= 0; v--)
-						{
-							glVertex3fv(pVol -> m_Vol -> m_vertlist[pVol -> m_Vol -> m_polylist[f].v[v]].xyz);
-							glNormal3fv(vn);
-						}
-						glEnd();
-					}
-				}
+			case VT_BOX:
+			{
+				DrawBoxGL(pVol->m_Box);
 				break;
 			}
+			case VT_CYLINDER:
+			{
+				DrawCylGL(pVol->m_Cyl);
+				break;
+			}
+			case VT_PLY:
+			{
+				for (int f = 0; pVol->m_Vol && f < pVol->m_Vol->m_numpolys; f++)
+				{
+					if (selected || pWnd->m_CollisionSide)
+					{
+						switch (pVol->m_Vol->m_sidelist[f])
+						{
+						case 1://front
+						{ glColor3f(pWnd->m_Colors[VOLUME_FRONT][0] / VSaturation, pWnd->m_Colors[VOLUME_FRONT][1] / VSaturation, pWnd->m_Colors[VOLUME_FRONT][2] / VSaturation); }//, alpha_intensity / 255.0f
+						break;
+						case 2://top
+						{ glColor3f(pWnd->m_Colors[VOLUME_TOP][0] / VSaturation, pWnd->m_Colors[VOLUME_TOP][1] / VSaturation, pWnd->m_Colors[VOLUME_TOP][2] / VSaturation); }
+						break;
+						case 3://left
+						{ glColor3f(pWnd->m_Colors[VOLUME_LEFT][0] / VSaturation, pWnd->m_Colors[VOLUME_LEFT][1] / VSaturation, pWnd->m_Colors[VOLUME_LEFT][2] / VSaturation); }
+						break;
+						case 4://right
+						{ glColor3f(pWnd->m_Colors[VOLUME_RIGHT][0] / VSaturation, pWnd->m_Colors[VOLUME_RIGHT][1] / VSaturation, pWnd->m_Colors[VOLUME_RIGHT][2] / VSaturation); }
+						break;
+						case 5://rear
+						{ glColor3f(pWnd->m_Colors[VOLUME_REAR][0] / VSaturation, pWnd->m_Colors[VOLUME_REAR][1] / VSaturation, pWnd->m_Colors[VOLUME_REAR][2] / VSaturation); }
+						break;
+						case 6://bottom
+						{ glColor3f(pWnd->m_Colors[VOLUME_BOTTOM][0] / VSaturation, pWnd->m_Colors[VOLUME_BOTTOM][1] / VSaturation, pWnd->m_Colors[VOLUME_BOTTOM][2] / VSaturation); }
+						break;
+						};
+					}
+					v3_t vn = { 0 };
+					glBegin(GL_POLYGON);
+					for (int v = 2; v >= 0; v--)
+					{
+						glVertex3fv(pVol->m_Vol->m_vertlist[pVol->m_Vol->m_polylist[f].v[v]].xyz);
+						glNormal3fv(vn);
+					}
+					glEnd();
+				}
+			}
+			break;
+			}
 		}
-		if(selected && m_ViewMod == vm3_collision)
-			{glEnable(GL_BLEND);}
+		if (selected && m_ViewMod == vm3_collision)
+		{
+			glEnable(GL_BLEND);
+		}
 		glPopMatrix();
-		pVol = pVol -> next;
+		pVol = pVol->next;
 	}
 }
 
 void CSOEditView::DrawBoxGL(v3_t box)
 {
-    v3_t vert[8];
-	v3_t vn = {0};
+	v3_t vert[8];
+	v3_t vn = { 0 };
 
-    // left rear top
-    vert[0][0] = box[0] / -2.0f;
-    vert[0][1] = box[1] / -2.0f;
-    vert[0][2] = box[2] / 2.0f;
+	// left rear top
+	vert[0][0] = box[0] / -2.0f;
+	vert[0][1] = box[1] / -2.0f;
+	vert[0][2] = box[2] / 2.0f;
 
-    // right rear top
-    vert[1][0] = box[0] / -2.0f;
-    vert[1][1] = box[1] / 2.0f;
-    vert[1][2] = box[2] / 2.0f;
+	// right rear top
+	vert[1][0] = box[0] / -2.0f;
+	vert[1][1] = box[1] / 2.0f;
+	vert[1][2] = box[2] / 2.0f;
 
-    // right front top
-    vert[2][0] = box[0] / 2.0f;
-    vert[2][1] = box[1] / 2.0f;
-    vert[2][2] = box[2] / 2.0f;
+	// right front top
+	vert[2][0] = box[0] / 2.0f;
+	vert[2][1] = box[1] / 2.0f;
+	vert[2][2] = box[2] / 2.0f;
 
-    // left front top
-    vert[3][0] = box[0] / 2.0f;
-    vert[3][1] = box[1] / -2.0f;
-    vert[3][2] = box[2] / 2.0f;
+	// left front top
+	vert[3][0] = box[0] / 2.0f;
+	vert[3][1] = box[1] / -2.0f;
+	vert[3][2] = box[2] / 2.0f;
 
-    // left rear bottom
-    vert[4][0] = box[0] / -2.0f;
-    vert[4][1] = box[1] / -2.0f;
-    vert[4][2] = box[2] / -2.0f;
+	// left rear bottom
+	vert[4][0] = box[0] / -2.0f;
+	vert[4][1] = box[1] / -2.0f;
+	vert[4][2] = box[2] / -2.0f;
 
-    // right rear bottom
-    vert[5][0] = box[0] / -2.0f;
-    vert[5][1] = box[1] / 2.0f;
-    vert[5][2] = box[2] / -2.0f;
+	// right rear bottom
+	vert[5][0] = box[0] / -2.0f;
+	vert[5][1] = box[1] / 2.0f;
+	vert[5][2] = box[2] / -2.0f;
 
-    // right front bottom
-    vert[6][0] = box[0] / 2.0f;
-    vert[6][1] = box[1] / 2.0f;
-    vert[6][2] = box[2] / -2.0f;
+	// right front bottom
+	vert[6][0] = box[0] / 2.0f;
+	vert[6][1] = box[1] / 2.0f;
+	vert[6][2] = box[2] / -2.0f;
 
-    // left front bottom
-    vert[7][0] = box[0] / 2.0f;
-    vert[7][1] = box[1] / -2.0f;
-    vert[7][2] = box[2] / -2.0f;
+	// left front bottom
+	vert[7][0] = box[0] / 2.0f;
+	vert[7][1] = box[1] / -2.0f;
+	vert[7][2] = box[2] / -2.0f;
 
-    indx_t indx[12];
-    indx[0].v[0] = 3;
-    indx[0].v[1] = 0;
-    indx[0].v[2] = 1;
-    indx[1].v[0] = 1;
-    indx[1].v[1] = 2;
-    indx[1].v[2] = 3;
-    indx[2].v[0] = 5;
-    indx[2].v[1] = 2;
-    indx[2].v[2] = 1;
-    indx[3].v[0] = 6;
-    indx[3].v[1] = 2;
-    indx[3].v[2] = 5;
-    indx[4].v[0] = 2;
-    indx[4].v[1] = 6;
-    indx[4].v[2] = 3;
-    indx[5].v[0] = 6;
-    indx[5].v[1] = 7;
-    indx[5].v[2] = 3;
-    indx[6].v[0] = 3;
-    indx[6].v[1] = 7;
-    indx[6].v[2] = 0;
-    indx[7].v[0] = 4;
-    indx[7].v[1] = 0;
-    indx[7].v[2] = 7;
-    indx[8].v[0] = 0;
-    indx[8].v[1] = 4;
-    indx[8].v[2] = 1;
-    indx[9].v[0] = 4;
-    indx[9].v[1] = 5;
-    indx[9].v[2] = 1;
-    indx[10].v[0] = 6;
-    indx[10].v[1] = 5;
-    indx[10].v[2] = 4;
-    indx[11].v[0] = 7;
-    indx[11].v[1] = 6;
-    indx[11].v[2] = 4;
-	for(int f = 0; f < 12; f++)
-	{
-        glBegin(GL_POLYGON);
-        for(int v = 2; v >= 0; v--)
-		{
-			glVertex3fv(vert[indx[f].v[v]]);
-			glNormal3fv(vn);
-		}
-        glEnd();
-	}
-}
-
-void CSOEditView::DrawCylGL(CCylinder *cyl)
-{
-	v3_t vn = {0};
-	for(int f = 0; f < cyl -> m_faces; f++)
+	indx_t indx[12];
+	indx[0].v[0] = 3;
+	indx[0].v[1] = 0;
+	indx[0].v[2] = 1;
+	indx[1].v[0] = 1;
+	indx[1].v[1] = 2;
+	indx[1].v[2] = 3;
+	indx[2].v[0] = 5;
+	indx[2].v[1] = 2;
+	indx[2].v[2] = 1;
+	indx[3].v[0] = 6;
+	indx[3].v[1] = 2;
+	indx[3].v[2] = 5;
+	indx[4].v[0] = 2;
+	indx[4].v[1] = 6;
+	indx[4].v[2] = 3;
+	indx[5].v[0] = 6;
+	indx[5].v[1] = 7;
+	indx[5].v[2] = 3;
+	indx[6].v[0] = 3;
+	indx[6].v[1] = 7;
+	indx[6].v[2] = 0;
+	indx[7].v[0] = 4;
+	indx[7].v[1] = 0;
+	indx[7].v[2] = 7;
+	indx[8].v[0] = 0;
+	indx[8].v[1] = 4;
+	indx[8].v[2] = 1;
+	indx[9].v[0] = 4;
+	indx[9].v[1] = 5;
+	indx[9].v[2] = 1;
+	indx[10].v[0] = 6;
+	indx[10].v[1] = 5;
+	indx[10].v[2] = 4;
+	indx[11].v[0] = 7;
+	indx[11].v[1] = 6;
+	indx[11].v[2] = 4;
+	for (int f = 0; f < 12; f++)
 	{
 		glBegin(GL_POLYGON);
-		for(int v = 2; v >= 0; v--)
+		for (int v = 2; v >= 0; v--)
 		{
-			glVertex3fv(cyl -> m_vert[cyl -> m_face[f].v[v]]);
+			glVertex3fv(vert[indx[f].v[v]]);
 			glNormal3fv(vn);
 		}
 		glEnd();
 	}
 }
 
-void CSOEditView::DrawVolumeLayer(CBone *basis)
+void CSOEditView::DrawCylGL(CCylinder* cyl)
 {
-    CBone *child;
-	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
-    glPushMatrix();
-	if(!m_pDoc -> m_skin)
+	v3_t vn = { 0 };
+	for (int f = 0; f < cyl->m_faces; f++)
 	{
-		if(basis -> Matrix34)
+		glBegin(GL_POLYGON);
+		for (int v = 2; v >= 0; v--)
+		{
+			glVertex3fv(cyl->m_vert[cyl->m_face[f].v[v]]);
+			glNormal3fv(vn);
+		}
+		glEnd();
+	}
+}
+
+void CSOEditView::DrawVolumeLayer(CBone* basis)
+{
+	CBone* child;
+	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
+	glPushMatrix();
+	if (!m_pDoc->m_skin)
+	{
+		if (basis->Matrix34)
 		{
 			int i, j;
 			float m[16];
-			for(i = 0; i < 4; i++)
+			for (i = 0; i < 4; i++)
 			{
-				for(j = 0; j < 3; j++)
-					{m[i * 4 + j] = basis -> Matrix34 -> v[i][j];}
+				for (j = 0; j < 3; j++)
+				{
+					m[i * 4 + j] = basis->Matrix34->v[i][j];
+				}
 				m[i * 4 + j] = 0.0f;
 			}
 			m[15] = 1.0f;
-			glMultMatrixf((float *)&m);
+			glMultMatrixf((float*)&m);
 		}
 	}
-	if(m_pDoc -> m_AnimBone)
+	if (m_pDoc->m_AnimBone)
 	{
 		int iBone;
-		for(iBone = 0; iBone < m_pDoc -> m_AnimBone -> m_BoneCnt; iBone++)
+		for (iBone = 0; iBone < m_pDoc->m_AnimBone->m_BoneCnt; iBone++)
 		{
-			if(!stricmp(m_pDoc -> m_AnimBone -> m_BoneMap[iBone], basis -> m_Name))
-				{break;}
-		}
-		CAnimSub *t_sub;
-		if(iBone < m_pDoc -> m_AnimBone -> m_BoneCnt)
-		{
-			if(m_pDoc -> m_Frame >= m_pDoc -> m_AnimBone -> m_FrameCnt)
+			if (!stricmp(m_pDoc->m_AnimBone->m_BoneMap[iBone], basis->m_Name))
 			{
-				m_pDoc -> m_Frame = m_pDoc -> m_AnimBone -> m_FrameCnt - 1;
-				if(m_pDoc -> m_Frame < 0)
-					{m_pDoc -> m_Frame = 0;}
+				break;
 			}
-			if((t_sub = m_pDoc -> m_AnimBone -> m_Frames[m_pDoc -> m_Frame].FindSub(iBone)) != NULL)
+		}
+		CAnimSub* t_sub;
+		if (iBone < m_pDoc->m_AnimBone->m_BoneCnt)
+		{
+			if (m_pDoc->m_Frame >= m_pDoc->m_AnimBone->m_FrameCnt)
+			{
+				m_pDoc->m_Frame = m_pDoc->m_AnimBone->m_FrameCnt - 1;
+				if (m_pDoc->m_Frame < 0)
+				{
+					m_pDoc->m_Frame = 0;
+				}
+			}
+			if ((t_sub = m_pDoc->m_AnimBone->m_Frames[m_pDoc->m_Frame].FindSub(iBone)) != NULL)
 			{
 				int i, j;
-				if(!basis -> m_Animatrix)
-					{basis -> m_Animatrix = new float[16];}
-				for(i = 0; i < 4; i++)
+				if (!basis->m_Animatrix)
 				{
-					for(j = 0; j < 3; j++)
-						{basis -> m_Animatrix[i * 4 + j] = t_sub -> m_Matrix34.v[i][j];}
-					basis -> m_Animatrix[i * 4 + j] = 0.0f;
+					basis->m_Animatrix = new float[16];
 				}
-				basis -> m_Animatrix[15] = 1.0f;
+				for (i = 0; i < 4; i++)
+				{
+					for (j = 0; j < 3; j++)
+					{
+						basis->m_Animatrix[i * 4 + j] = t_sub->m_Matrix34.v[i][j];
+					}
+					basis->m_Animatrix[i * 4 + j] = 0.0f;
+				}
+				basis->m_Animatrix[15] = 1.0f;
 				glPopMatrix();
 				glPushMatrix();
-				glMultMatrixf(basis -> m_Animatrix);
-				delete[] basis -> m_Animatrix;
-				basis -> m_Animatrix = NULL;
+				glMultMatrixf(basis->m_Animatrix);
+				delete[] basis->m_Animatrix;
+				basis->m_Animatrix = NULL;
 			}
 		}
 	}
-    glRotatef(basis -> m_Rotations[0], 1.0f, 0.0f, 0.0f);
-    glRotatef(basis -> m_Rotations[1], 0.0f, 1.0f, 0.0f);
-    glRotatef(basis -> m_Rotations[2], 0.0f, 0.0f, 1.0f);
-    glScalef(basis -> m_Scales[0], basis -> m_Scales[1], basis -> m_Scales[2]);
-    glEnable(GL_BLEND);
+	glRotatef(basis->m_Rotations[0], 1.0f, 0.0f, 0.0f);
+	glRotatef(basis->m_Rotations[1], 0.0f, 1.0f, 0.0f);
+	glRotatef(basis->m_Rotations[2], 0.0f, 0.0f, 1.0f);
+	glScalef(basis->m_Scales[0], basis->m_Scales[1], basis->m_Scales[2]);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_DST_ALPHA);
-	if((m_pDoc-> m_Model -> m_VolumeList) && (pWnd -> m_ViewVols) && basis)
-		{DrawVolumeGL(basis);}
-	glDisable(GL_BLEND);
-	if((child = basis -> m_ChildFirst) != NULL)
+	if ((m_pDoc->m_Model->m_VolumeList) && (pWnd->m_ViewVols) && basis)
 	{
-		while(child)
+		DrawVolumeGL(basis);
+	}
+	glDisable(GL_BLEND);
+	if ((child = basis->m_ChildFirst) != NULL)
+	{
+		while (child)
 		{
 			DrawVolumeLayer(child);
-			child = child -> next;
+			child = child->next;
 		}
 	}
-    glPopMatrix();
+	glPopMatrix();
 }
 
 void CSOEditView::On3DCollisionsViewer()
 {
 	CSOEditDoc* pDoc = GetDocument();
-	pDoc -> m_ViewMod = m_ViewMod = vm3_collision;
-	pDoc -> UpdateAllViews(NULL);
+	pDoc->m_ViewMod = m_ViewMod = vm3_collision;
+	pDoc->UpdateAllViews(NULL);
 }
 
 void CSOEditView::On3DVisual()
 {
 	CSOEditDoc* pDoc = GetDocument();
-	pDoc -> m_ViewMod = m_ViewMod = vm3_visual;
-	pDoc -> UpdateAllViews(NULL);
+	pDoc->m_ViewMod = m_ViewMod = vm3_visual;
+	pDoc->UpdateAllViews(NULL);
 }
 
 void CSOEditView::On3DHybrid()
 {
 	CSOEditDoc* pDoc = GetDocument();
-	pDoc -> m_ViewMod = m_ViewMod = vm3_hybrid;
-	pDoc -> UpdateAllViews(NULL);
+	pDoc->m_ViewMod = m_ViewMod = vm3_hybrid;
+	pDoc->UpdateAllViews(NULL);
 }
 
 void CSOEditView::DrawTrapGL(v3_t box)
 {
-    v3_t vert[6];
-	v3_t vn = {0};
-	if(m_ViewEnts3dAsWireframe)
+	v3_t vert[6];
+	v3_t vn = { 0 };
+	if (m_ViewEnts3dAsWireframe)
 	{
 		glPolygonMode(GL_FRONT, GL_LINE);
 		glPolygonMode(GL_BACK, GL_LINE);
 	}
 
-    // left rear top
-    vert[0][0] = box[0] / -2.0f;
-    vert[0][1] = box[1] / -2.0f;
-    vert[0][2] = box[2] / 2.0f;
+	// left rear top
+	vert[0][0] = box[0] / -2.0f;
+	vert[0][1] = box[1] / -2.0f;
+	vert[0][2] = box[2] / 2.0f;
 
-    // right rear top
-    vert[1][0] = box[0] / -2.0f;
-    vert[1][1] = box[1] / 2.0f;
-    vert[1][2] = box[2] / 2.0f;
+	// right rear top
+	vert[1][0] = box[0] / -2.0f;
+	vert[1][1] = box[1] / 2.0f;
+	vert[1][2] = box[2] / 2.0f;
 
-    // left rear bottom
-    vert[2][0] = box[0] / -2.0f;
-    vert[2][1] = box[1] / -2.0f;
-    vert[2][2] = box[2] / -2.0f;
+	// left rear bottom
+	vert[2][0] = box[0] / -2.0f;
+	vert[2][1] = box[1] / -2.0f;
+	vert[2][2] = box[2] / -2.0f;
 
-    // right rear bottom
-    vert[3][0] = box[0] / -2.0f;
-    vert[3][1] = box[1] / 2.0f;
-    vert[3][2] = box[2] / -2.0f;
+	// right rear bottom
+	vert[3][0] = box[0] / -2.0f;
+	vert[3][1] = box[1] / 2.0f;
+	vert[3][2] = box[2] / -2.0f;
 
-    // right front bottom
-    vert[4][0] = box[0] / 2.0f;
-    vert[4][1] = box[1] / 2.0f;
-    vert[4][2] = box[2] / -2.0f;
+	// right front bottom
+	vert[4][0] = box[0] / 2.0f;
+	vert[4][1] = box[1] / 2.0f;
+	vert[4][2] = box[2] / -2.0f;
 
-    // left front bottom
-    vert[5][0] = box[0] / 2.0f;
-    vert[5][1] = box[1] / -2.0f;
-    vert[5][2] = box[2] / -2.0f;
+	// left front bottom
+	vert[5][0] = box[0] / 2.0f;
+	vert[5][1] = box[1] / -2.0f;
+	vert[5][2] = box[2] / -2.0f;
 
-    indx_t indx[8];
-    indx[0].v[0] = 1;
-    indx[0].v[1] = 4;
-    indx[0].v[2] = 3;
-    indx[1].v[0] = 5;
-    indx[1].v[1] = 0;
-    indx[1].v[2] = 2;
-    indx[2].v[0] = 0;
-    indx[2].v[1] = 1;
-    indx[2].v[2] = 3;
-    indx[3].v[0] = 3;
-    indx[3].v[1] = 2;
-    indx[3].v[2] = 0;
-    indx[4].v[0] = 1;
-    indx[4].v[1] = 0;
-    indx[4].v[2] = 5;
-    indx[5].v[0] = 5;
-    indx[5].v[1] = 4;
-    indx[5].v[2] = 1;
-    indx[6].v[0] = 2;
-    indx[6].v[1] = 3;
-    indx[6].v[2] = 4;
-    indx[7].v[0] = 4;
-    indx[7].v[1] = 5;
-    indx[7].v[2] = 2;
-	for(int f = 0; f < 8; f++)
+	indx_t indx[8];
+	indx[0].v[0] = 1;
+	indx[0].v[1] = 4;
+	indx[0].v[2] = 3;
+	indx[1].v[0] = 5;
+	indx[1].v[1] = 0;
+	indx[1].v[2] = 2;
+	indx[2].v[0] = 0;
+	indx[2].v[1] = 1;
+	indx[2].v[2] = 3;
+	indx[3].v[0] = 3;
+	indx[3].v[1] = 2;
+	indx[3].v[2] = 0;
+	indx[4].v[0] = 1;
+	indx[4].v[1] = 0;
+	indx[4].v[2] = 5;
+	indx[5].v[0] = 5;
+	indx[5].v[1] = 4;
+	indx[5].v[2] = 1;
+	indx[6].v[0] = 2;
+	indx[6].v[1] = 3;
+	indx[6].v[2] = 4;
+	indx[7].v[0] = 4;
+	indx[7].v[1] = 5;
+	indx[7].v[2] = 2;
+	for (int f = 0; f < 8; f++)
 	{
-        glBegin(GL_POLYGON);
-        for(int v = 2; v >= 0; v--)
+		glBegin(GL_POLYGON);
+		for (int v = 2; v >= 0; v--)
 		{
 			glVertex3fv(vert[indx[f].v[v]]);
 			glNormal3fv(vn);
 		}
-        glEnd();
+		glEnd();
 	}
-	if(m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
+	if (m_DrawMode != rl_wire && m_DrawMode != rl_ambient_tex_off)
 	{
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_FILL);
@@ -2695,94 +2907,96 @@ void CSOEditView::DrawTrapGL(v3_t box)
 
 void CSOEditView::OnView3dEntity()
 {
-	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
+	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
 	CSOEditDoc* pDoc = GetDocument();
-	pWnd -> m_ViewEnts3d = !pWnd -> m_ViewEnts3d;
-	pDoc -> UpdateAllViews(NULL, 0, NULL);
+	pWnd->m_ViewEnts3d = !pWnd->m_ViewEnts3d;
+	pDoc->UpdateAllViews(NULL, 0, NULL);
 }
 
 void CSOEditView::DrawXYZLinesGL()
 {
 	v3_t vert[4];
 	vert[0][0] = 0.0f;
-    vert[0][1] = 0.0f;
-    vert[0][2] = 0.0f;
+	vert[0][1] = 0.0f;
+	vert[0][2] = 0.0f;
 
 	vert[1][0] = 50.0f;
-    vert[1][1] = 0.0f;
-    vert[1][2] = 0.0f;
+	vert[1][1] = 0.0f;
+	vert[1][2] = 0.0f;
 
 	vert[2][0] = 0.0f;
-    vert[2][1] = 50.0f;
-    vert[2][2] = 0.0f;
+	vert[2][1] = 50.0f;
+	vert[2][2] = 0.0f;
 
 	vert[3][0] = 0.0f;
-    vert[3][1] = 0.0f;
-    vert[3][2] = 50.0f;
+	vert[3][1] = 0.0f;
+	vert[3][2] = 50.0f;
 
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glColor3f(2.0f, 0.0f, 0.0f);
 	glBegin(GL_LINES);
-		glVertex3fv(vert[0]);
-		glVertex3fv(vert[1]);
+	glVertex3fv(vert[0]);
+	glVertex3fv(vert[1]);
 	glEnd();
 	glColor3f(0.0f, 2.0f, 0.0f);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glBegin(GL_LINES);
-		glVertex3fv(vert[0]);
-		glVertex3fv(vert[2]);
+	glVertex3fv(vert[0]);
+	glVertex3fv(vert[2]);
 	glEnd();
 	glColor3f(0.0f, 0.0f, 2.0f);
 	glNormal3f(0.0f, 1.0f, 0.0f);
 	glBegin(GL_LINES);
-		glVertex3fv(vert[0]);
-		glVertex3fv(vert[3]);
+	glVertex3fv(vert[0]);
+	glVertex3fv(vert[3]);
 	glEnd();
 }
 
 
 void CSOEditView::DrawGridGL()
 {
-    v3_t v1, v2;
-    CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
+	v3_t v1, v2;
+	CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
 	CSOEditDoc* pDoc = GetDocument();
-    if(pWnd)
-		{glColor3f(pWnd -> m_Colors[C_3D_GRID][0]/255.0f, pWnd -> m_Colors[C_3D_GRID][1]/255.0f, pWnd -> m_Colors[C_3D_GRID][2]/255.0f);}
-    v1[0] = 0.0f;
-    v1[1] = 0.0f;
-    v1[2] = 0.0f;
-    v1[0] = 1000.0f;
-    v2[0] = 0.0f;
-    v2[1] = 0.0f;
-    v2[2] = 0.0f;
-    v2[0] = -1000.0f;
-    for(int x = -1000; x < 1000; x += pDoc -> m_GridSize)
+	if (pWnd)
 	{
-        v1[2] = (float)x;
-        v2[2] = (float)x;
-		glNormal3f(0.0f, 1.0f, 0.0f);
-        glBegin(GL_LINES);
-           glVertex3fv(v1);
-           glVertex3fv(v2);
-        glEnd();
+		glColor3f(pWnd->m_Colors[C_3D_GRID][0] / 255.0f, pWnd->m_Colors[C_3D_GRID][1] / 255.0f, pWnd->m_Colors[C_3D_GRID][2] / 255.0f);
 	}
-    v1[0] = 0.0f;
-    v1[1] = 0.0f;
-    v1[2] = 0.0f;
-    v1[2] = 1000.0f;
-    v2[0] = 0.0f;
-    v2[1] = 0.0f;
-    v2[2] = 0.0f;
-    v2[2] = -1000.0f;
-    for(int y = -1000; y < 1000; y += pDoc -> m_GridSize)
+	v1[0] = 0.0f;
+	v1[1] = 0.0f;
+	v1[2] = 0.0f;
+	v1[0] = 1000.0f;
+	v2[0] = 0.0f;
+	v2[1] = 0.0f;
+	v2[2] = 0.0f;
+	v2[0] = -1000.0f;
+	for (int x = -1000; x < 1000; x += pDoc->m_GridSize)
 	{
-        v1[0] = (float)y;
-        v2[0] = (float)y;
+		v1[2] = (float)x;
+		v2[2] = (float)x;
 		glNormal3f(0.0f, 1.0f, 0.0f);
-        glBegin(GL_LINES);
-           glVertex3fv(v1);
-           glVertex3fv(v2);
-        glEnd();
+		glBegin(GL_LINES);
+		glVertex3fv(v1);
+		glVertex3fv(v2);
+		glEnd();
+	}
+	v1[0] = 0.0f;
+	v1[1] = 0.0f;
+	v1[2] = 0.0f;
+	v1[2] = 1000.0f;
+	v2[0] = 0.0f;
+	v2[1] = 0.0f;
+	v2[2] = 0.0f;
+	v2[2] = -1000.0f;
+	for (int y = -1000; y < 1000; y += pDoc->m_GridSize)
+	{
+		v1[0] = (float)y;
+		v2[0] = (float)y;
+		glNormal3f(0.0f, 1.0f, 0.0f);
+		glBegin(GL_LINES);
+		glVertex3fv(v1);
+		glVertex3fv(v2);
+		glEnd();
 	}
 }
 
