@@ -129,6 +129,7 @@ BEGIN_MESSAGE_MAP(CSOEditDoc, CDocument)
 	ON_BN_CLICKED(IDC_REVERSE_ANIM, &CSOEditDoc::OnReverseAnimation)
 	ON_BN_CLICKED(IDC_ANM_LERP_APPLY, &CSOEditDoc::OnBnClickedAnmLerpApply)
 	ON_BN_CLICKED(IDC_ANM_AUTO, &CSOEditDoc::OnBnClickedAnmboxAuto)
+	ON_BN_CLICKED(IDC_ANMBOX_DROP_FIRST_FRAME, &CSOEditDoc::OnBnClickedAnmboxDropFirstFrame)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -166,6 +167,7 @@ CSOEditDoc::CSOEditDoc()
 	memset(ViewWorks, 0, sizeof(int) * 4);
 	old_frm = 0;
 	auto_animation = m_skin = Colorized_3d = CuteMode = GeneralVolumesOpened = false;
+	m_DropFirstFrameOnSave = false;
 	m_NewModel = TexOff = VolToBone = Lod_writer = fix_mx_ori = false;
 	InheritMatrix = AnmEditingMod = Anm_and_skeleton_editing_prohibited = false;
 	VolToBone_Name = _T("");
@@ -2918,6 +2920,9 @@ void CSOEditDoc::ANM_Tool(bool mod)
 	pButton->EnableWindow(mod);
 	pButton = (CButton *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INHERIT_MATRIX);
 	pFrameWnd -> m_wndAnimBox.CheckDlgButton(IDC_ANMBOX_INHERIT_MATRIX, 0);
+	pButton = (CButton*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANMBOX_DROP_FIRST_FRAME);
+	if (pButton)
+		pButton->EnableWindow(mod);
 	CStatic *pStatic = (CStatic *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANM_EDITING_MODE);
 	#ifdef ALTERNATIVE_LANG
 		pStatic -> SetWindowText("Mode: Skeleton Editing");
@@ -3486,14 +3491,21 @@ void CSOEditDoc::OnAnmSave()
 		}
 		if(saveit)
 		{
-			if((fp = fopen(szAnimPath, "wb")) != NULL)
+			if (m_DropFirstFrameOnSave && m_AnimBone && m_AnimBone->m_FrameCnt >= 2)
 			{
-				m_AnimBone -> ProcessSave(fp);
+				m_AnimBone->FrameDelete(0);
+				// Keep the current-frame cursor inside valid range.
+				if (m_Frame > 0)
+					m_Frame--;
+				// Reflect the new frame count in the UI.
+				AnimBoxUPD();
+			}
+
+			if ((fp = fopen(szAnimPath, "wb")) != NULL)
+			{
+				m_AnimBone->ProcessSave(fp);
 				fclose(fp);
 			}
-			CMainFrame *pFrameWnd = (CMainFrame *)AfxGetMainWnd();
-			CWnd *pWnd = (CWnd *)pFrameWnd -> m_wndAnimBox.GetDlgItem(IDC_ANIM_NAME);
-			pWnd -> SetWindowText(szAnimPath);
 		}
 	}
 }
@@ -3754,4 +3766,11 @@ void CSOEditDoc::OnBnClickedAnmLerpApply()
 		midSub->m_Visible = (t < 0.5f) ? startSub->m_Visible : endSub->m_Visible;
 	}
 	UpdateAllViews(NULL, 0, NULL);
+}
+
+void CSOEditDoc::OnBnClickedAnmboxDropFirstFrame()
+{
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	m_DropFirstFrameOnSave =
+		pFrameWnd->m_wndAnimBox.IsDlgButtonChecked(IDC_ANMBOX_DROP_FIRST_FRAME) != 0;
 }

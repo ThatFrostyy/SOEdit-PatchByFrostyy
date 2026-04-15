@@ -285,6 +285,7 @@
 #define IDC_CHECK10                     1193
 #define IDC_NO_GROUP_MESH               1193
 #define IDC_PT_S_MV_MIRRORED            1193
+#define IDC_ANMBOX_DROP_FIRST_FRAME     1193
 #define IDC_SPIN1                       1194
 #define IDC_LOD_LAYERS                  1194
 #define IDC_FOV_EDITOR                  1194

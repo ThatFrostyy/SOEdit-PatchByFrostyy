@@ -70,6 +70,7 @@ protected: // create from serialization only
 	   int m_GridSize;
 	   bool m_grid;
 	   BOOL m_lamp;
+	   bool m_DropFirstFrameOnSave;
 	   
 		CString m_old_author;
 		CString m_old_author_ply;
@@ -138,6 +139,7 @@ public:
 // Generated message map functions
 protected:
 	//{{AFX_MSG(CSOEditDoc)
+	afx_msg void OnBnClickedAnmboxDropFirstFrame();
 	afx_msg void OnFileOpen();
 	afx_msg void OnAnmLoad();
 	afx_msg void OnVolAdd();
