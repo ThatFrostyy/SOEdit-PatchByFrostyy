@@ -1,4 +1,275 @@
-﻿  SOEditDoc.cpp
+﻿  CBone.cpp
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(150,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(153,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(159,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(162,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(165,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(168,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(171,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(174,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(177,14): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(180,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(183,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(186,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(189,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(192,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(195,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(198,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(201,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(204,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(207,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(210,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(213,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(216,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(219,7): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(243,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(246,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(249,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(252,13): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(295,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(300,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(305,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(306,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(313,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(281,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(289,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(330,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(352,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(369,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(372,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(386,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(401,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(416,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(431,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(446,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(461,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(476,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(496,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(498,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(533,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(534,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(537,9): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(541,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(570,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(599,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(616,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(634,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(651,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(667,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(676,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(681,6): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(713,5): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(843,27): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1115,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1131,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1137,6): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1161,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1278,20): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'CString'
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1120,4): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1121,4): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1133,5): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1151,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1153,22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1160,7): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1166,4): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1168,4): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1186,7): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1200,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1350,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1359,13): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1363,13): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1375,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1381,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1387,5): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1411,6): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1367,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1376,3): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1383,4): warning C4996: 'strlwr': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strlwr. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1400,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1401,21): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1425,6): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+D:\SOEdit Version Next (v0.7m4)\CBone.cpp(1431,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (compiling source file '/CBone.cpp')
+  
+  SOEditDoc.cpp
 D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(365,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   (compiling source file '/SOEditDoc.cpp')
   
@@ -284,6 +555,7 @@ D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3629,7): warning C4996: 'stricmp':
 D:\SOEdit Version Next (v0.7m4)\SOEditDoc.cpp(3719,8): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
   (compiling source file '/SOEditDoc.cpp')
   
+  Generating Code...
   SOEdit.vcxproj -> D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
   1 File(s) copied

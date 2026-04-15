@@ -989,9 +989,15 @@ void CBone::WriteMdl(FILE *fp, int indent)
 		{
 			if(Matrix34 -> v[3][0] == 0 && Matrix34 -> v[3][1] == 0 && Matrix34 -> v[3][2] == 0)
 				{FT--;}
-			if(Matrix34 -> v[0][0] == 1 && Matrix34 -> v[1][1] == 1 && Matrix34 -> v[2][2] == 1 \
-			 && Matrix34 -> v[0][1] == 0 && Matrix34 -> v[0][2] == 0 && Matrix34 -> v[1][0] == 0 && Matrix34 -> v[1][2] == 0 && Matrix34 -> v[2][0] == 0 && Matrix34 -> v[2][1] == 0)
-				{FT -= 2;}
+			// Only skip writing orientation if BOTH the raw matrix is identity
+			// AND the scale is {1,1,1}. If scale differs, we must write the matrix.
+			bool scaleIsIdentity = (m_Scales[0] == 1.0f && m_Scales[1] == 1.0f && m_Scales[2] == 1.0f);
+			if (scaleIsIdentity
+				&& Matrix34->v[0][0] == 1 && Matrix34->v[1][1] == 1 && Matrix34->v[2][2] == 1
+				&& Matrix34->v[0][1] == 0 && Matrix34->v[0][2] == 0 && Matrix34->v[1][0] == 0 && Matrix34->v[1][2] == 0 && Matrix34->v[2][0] == 0 && Matrix34->v[2][1] == 0)
+			{
+				FT -= 2;
+			}
 			if(pWnd -> m_GEMI_Compatibility)
 				{FT = 3;}
 			switch(FT)
@@ -1010,12 +1016,21 @@ void CBone::WriteMdl(FILE *fp, int indent)
 						{tmp_str.Format("%*s{Orientation\n", (4 * indent++), ""); pDoc -> Code_block += tmp_str;}
 					else
 						{fprintf(fp, "%*s{Orientation\n", (4 * indent++), "");}
-					for(int i = 0; i < 3; i++)
+					for (int i = 0; i < 3; i++)
 					{
-						if(pDoc -> Copy_Mode)
-							{tmp_str.Format("%*s%g\t%g\t%g\n", (4 * indent), "", Matrix34 -> v[i][0], Matrix34 -> v[i][1], Matrix34 -> v[i][2]); pDoc -> Code_block += tmp_str;}
+						// Bake m_Scales into the orientation rows at save time.
+						// Column j of row i is scaled by m_Scales[j].
+						float r0 = Matrix34->v[i][0] * m_Scales[0];
+						float r1 = Matrix34->v[i][1] * m_Scales[1];
+						float r2 = Matrix34->v[i][2] * m_Scales[2];
+						if (pDoc->Copy_Mode)
+						{
+							tmp_str.Format("%*s%g\t%g\t%g\n", (4 * indent), "", r0, r1, r2); pDoc->Code_block += tmp_str;
+						}
 						else
-							{fprintf(fp, "%*s%g\t%g\t%g\n", (4 * indent), "", Matrix34 -> v[i][0], Matrix34 -> v[i][1], Matrix34 -> v[i][2]);}
+						{
+							fprintf(fp, "%*s%g\t%g\t%g\n", (4 * indent), "", r0, r1, r2);
+						}
 					}
 					indent--;
 					if(pDoc -> Copy_Mode)
@@ -1030,12 +1045,31 @@ void CBone::WriteMdl(FILE *fp, int indent)
 						{tmp_str.Format("%*s{Matrix34\n", (4 * indent++), ""); pDoc -> Code_block += tmp_str;}
 					else
 						{fprintf(fp, "%*s{Matrix34\n", (4 * indent++), "");}
-					for(int i = 0; i < 4; i++)
+					for (int i = 0; i < 4; i++)
 					{
-						if(pDoc -> Copy_Mode)
-							{tmp_str.Format("%*s%g\t%g\t%g\n", (4 * indent), "", Matrix34 -> v[i][0], Matrix34 -> v[i][1], Matrix34 -> v[i][2]); pDoc -> Code_block += tmp_str;}
+						float r0, r1, r2;
+						if (i < 3)
+						{
+							// Orientation rows: bake m_Scales[j] into column j.
+							r0 = Matrix34->v[i][0] * m_Scales[0];
+							r1 = Matrix34->v[i][1] * m_Scales[1];
+							r2 = Matrix34->v[i][2] * m_Scales[2];
+						}
 						else
-							{fprintf(fp, "%*s%g\t%g\t%g\n", (4 * indent), "", Matrix34 -> v[i][0], Matrix34 -> v[i][1], Matrix34 -> v[i][2]);}
+						{
+							// Position row (row 3): never scale the translation.
+							r0 = Matrix34->v[i][0];
+							r1 = Matrix34->v[i][1];
+							r2 = Matrix34->v[i][2];
+						}
+						if (pDoc->Copy_Mode)
+						{
+							tmp_str.Format("%*s%g\t%g\t%g\n", (4 * indent), "", r0, r1, r2); pDoc->Code_block += tmp_str;
+						}
+						else
+						{
+							fprintf(fp, "%*s%g\t%g\t%g\n", (4 * indent), "", r0, r1, r2);
+						}
 					}
 					indent--;
 					if(pDoc -> Copy_Mode)
@@ -1045,6 +1079,21 @@ void CBone::WriteMdl(FILE *fp, int indent)
 				}
 				break;
 			};
+		}
+		// Scale has now been baked into the file. Bake it into the in-memory
+		// Matrix34 as well, and reset m_Scales to {1,1,1}, so that rendering
+		// and future saves remain consistent.
+		if (Matrix34 && !(m_Scales[0] == 1.0f && m_Scales[1] == 1.0f && m_Scales[2] == 1.0f))
+		{
+			for (int row = 0; row < 3; row++)
+			{
+				Matrix34->v[row][0] *= m_Scales[0];
+				Matrix34->v[row][1] *= m_Scales[1];
+				Matrix34->v[row][2] *= m_Scales[2];
+			}
+			m_Scales[0] = 1.0f;
+			m_Scales[1] = 1.0f;
+			m_Scales[2] = 1.0f;
 		}
 		if(m_Visibility != 2)
 		{
