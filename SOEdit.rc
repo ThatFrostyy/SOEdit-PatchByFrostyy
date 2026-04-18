@@ -59,6 +59,7 @@ BEGIN
     POPUP "&????"
     BEGIN
         MENUITEM "&?????????",                  ID_PLY_ADD, INACTIVE
+        MENUITEM "Merge &PLY files...",         ID_PLY_MERGE
         MENUITEM "&???????",                    ID_PLY_DELETE, INACTIVE
         MENUITEM "&????????",                   ID_PLY_TEXTURE, INACTIVE
     END
@@ -153,6 +154,7 @@ BEGIN
     POPUP "&Meshs"
     BEGIN
         MENUITEM "&Upload",                     ID_PLY_ADD_AL, INACTIVE
+        MENUITEM "&Merge PLY files...",         ID_PLY_MERGE_AL
         MENUITEM "&Remove",                     ID_PLY_DELETE_AL, INACTIVE
         MENUITEM "&Textures",                   ID_PLY_TEXTURE_AL, INACTIVE
     END
@@ -1443,7 +1445,7 @@ BEGIN
             VALUE "FileDescription", "SOEdit MFC Application"
             VALUE "FileVersion", "0.0.7.4"
             VALUE "InternalName", "SOEdit"
-            VALUE "LegalCopyright", "Copyright © 2022 MoW Community"
+            VALUE "LegalCopyright", "Copyright Â© 2022 MoW Community"
             VALUE "OriginalFilename", "SOEdit.EXE"
             VALUE "ProductName", "SOEdit Application"
             VALUE "ProductVersion", "0.0.7.4"
