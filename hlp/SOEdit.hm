@@ -290,6 +290,8 @@ HID_ADD_BONE_TO_ANM_A                   0x1813C
 HID_ADD_BONE_TO_ANM_AL                  0x1813D
 HID_DEL_BONE_FROM_ANM_AL                0x1813E
 HID_DISPLAY_TEXTURE_ERRORS_AL           0x1813F
+HID_PLY_MERGE                           0x18140
+HID_PLY_MERGE_AL                        0x18141
  
 // Prompts (IDP_*) 
  
