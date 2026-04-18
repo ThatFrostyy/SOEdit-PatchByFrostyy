@@ -255,6 +255,14 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 				if(itemData == IT_BONE)
 				{
 					CBone *pFindBone = pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBoneByTreeID(hTreeItem);
+					if(!pFindBone || !pFindBone -> m_parent || !pFindBone -> m_VolumeViewName)
+					{
+						#ifdef ALTERNATIVE_LANG
+							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+						#else
+							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+						#endif
+					}
 					if(pFindBone && pFindBone -> m_LODView && pFindBone -> sub)
 					{
 						#ifdef ALTERNATIVE_LANG
@@ -271,6 +279,7 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 							pPopup -> EnableMenuItem(ID_BONE_COLLAPSE_BRANCH_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_ADD_VOLUME_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_DELETE_PLY_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_ADD_LOD_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_EXPAND_BRANCH_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_SHOW_BRANCH_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
@@ -295,6 +304,7 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 							pPopup -> EnableMenuItem(ID_BONE_COLLAPSE_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_ADD_VOLUME, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_DELETE_PLY, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_ADD_LOD, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_EXPAND_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_SHOW_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
