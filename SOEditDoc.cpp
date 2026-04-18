@@ -2447,6 +2447,62 @@ void CSOEditDoc::OnPlyMergeFiles()
 		return;
 	}
 
+	// --- Vertex format compatibility check ---
+	{
+		VertexFormatMismatch mismatch;
+		if (basePly.DetectVertexFormatMismatch(&appendPly, mismatch))
+		{
+			// Build the prompt message.
+			char promptMsg[3072];
+#ifdef ALTERNATIVE_LANG
+			_snprintf(promptMsg, sizeof(promptMsg) - 1,
+				"%s\n"
+				"Do you want SOEdit to automatically fix the appended mesh's\n"
+				"vertex format to match the base mesh so the merge can proceed?\n\n"
+				"Click YES to auto-fix and merge.\n"
+				"Click NO to cancel the merge.",
+				mismatch.summary);
+			promptMsg[sizeof(promptMsg) - 1] = '\0';
+			int choice = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+				promptMsg,
+				"Vertex format mismatch - fix automatically?",
+				MB_YESNO | MB_ICONWARNING);
+#else
+			_snprintf(promptMsg, sizeof(promptMsg) - 1,
+				"%s\n"
+				"Âû õîòèòå, ÷òîáû SOEdit àâòîìàòè÷åñêè ïðèâёë ôîðìàò âåðøèí\n"
+				"äîáàâëÿåìîãî ìýøà â ñîîòâåòñòâèå ñ áàçîâûì è âûïîëíèë ñëèÿíèå?\n\n"
+				"ÄÀ — àâòî-èñïðàâèòü è ñëèòü.\n"
+				"ÍÅÒ — îòìåíèòü ñëèÿíèå.",
+				mismatch.summary);
+			promptMsg[sizeof(promptMsg) - 1] = '\0';
+			int choice = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+				promptMsg,
+				"Íåñîâìåñòèìûé ôîðìàò âåðøèí — èñïðàâèòü àâòîìàòè÷åñêè?",
+				MB_YESNO | MB_ICONWARNING);
+#endif
+			if (choice != IDYES)
+			{
+				return; // user chose to cancel
+			}
+
+			// Auto-fix: rewrite append vertices to match base format.
+			if (!basePly.ReconcileVertexFormat(&appendPly))
+			{
+#ifdef ALTERNATIVE_LANG
+				MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+					"Automatic vertex format fix failed.",
+					"ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+#else
+				MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+					"Àâòîìàòè÷åñêîå èñïðàâëåíèå ôîðìàòà âåðøèí íå óäàëîñü.",
+					"ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+#endif
+				return;
+			}
+		}
+	}
+
 	if (!basePly.MergeKeepSeparateTextures(&appendPly))
 	{
 #ifdef ALTERNATIVE_LANG
@@ -2987,6 +3043,62 @@ void CSOEditDoc::OnBoneMergeToParent()
 	bool ok = true;
 	if (parentBone->m_VolumeViewName && strlen(parentBone->m_VolumeViewName))
 	{
+		// --- Vertex format compatibility check for bone merge ---
+		{
+			VertexFormatMismatch mismatch;
+			if (basePly->DetectVertexFormatMismatch(&childPly, mismatch))
+			{
+				char promptMsg[3072];
+#ifdef ALTERNATIVE_LANG
+				_snprintf(promptMsg, sizeof(promptMsg) - 1,
+					"%s\n"
+					"Do you want SOEdit to automatically fix the child bone's\n"
+					"vertex format to match the parent so the merge can proceed?\n\n"
+					"Click YES to auto-fix and merge.\n"
+					"Click NO to cancel the merge.",
+					mismatch.summary);
+				promptMsg[sizeof(promptMsg) - 1] = '\0';
+				int choice = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+					promptMsg,
+					"Vertex format mismatch - fix automatically?",
+					MB_YESNO | MB_ICONWARNING);
+#else
+				_snprintf(promptMsg, sizeof(promptMsg) - 1,
+					"%s\n"
+					"Âû õîòèòå, ÷òîáû SOEdit àâòîìàòè÷åñêè ïðèâёë ôîðìàò âåðøèí\n"
+					"äî÷åðíåé êîñòè ê ðîäèòåëüñêîé è âûïîëíèë ñëèÿíèå?\n\n"
+					"ÄÀ — àâòî-èñïðàâèòü è ñëèòü.\n"
+					"ÍÅÒ — îòìåíèòü ñëèÿíèå.",
+					mismatch.summary);
+				promptMsg[sizeof(promptMsg) - 1] = '\0';
+				int choice = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+					promptMsg,
+					"Íåñîâìåñòèìûé ôîðìàò âåðøèí — èñïðàâèòü àâòîìàòè÷åñêè?",
+					MB_YESNO | MB_ICONWARNING);
+#endif
+				if (choice != IDYES)
+				{
+					delete basePly;
+					return; // user chose to cancel
+				}
+
+				if (!basePly->ReconcileVertexFormat(&childPly))
+				{
+					delete basePly;
+#ifdef ALTERNATIVE_LANG
+					MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+						"Automatic vertex format fix failed.",
+						"ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#else
+					MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
+						"Àâòîìàòè÷åñêîå èñïðàâëåíèå ôîðìàòà âåðøèí íå óäàëîñü.",
+						"ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#endif
+					return;
+				}
+			}
+		}
+
 		ok = basePly->MergeKeepSeparateTextures(&childPly);
 	}
 	if (!ok)

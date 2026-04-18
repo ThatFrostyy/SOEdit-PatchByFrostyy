@@ -11,21 +11,63 @@
 #ifndef _CPLY_
 #define _CPLY_
 
+// Describes exactly how two PLY vertex formats differ.
+// Filled by CPly::DetectVertexFormatMismatch() and consumed by
+// CPly::ReconcileVertexFormat() to upgrade the appended PLY in-place.
+struct VertexFormatMismatch
+{
+	bool any;               // true if there is any mismatch at all
+
+	// Per-field differences (base vs append)
+	bool vsize_diff;
+	bool vflags_diff;
+	bool weights_diff;
+	bool texcoords_diff;
+	bool unknown_diff;
+
+	// Specific vertex-channel differences
+	bool base_has_normal, append_has_normal;
+	bool base_has_diffuse, append_has_diffuse;
+	bool base_has_specular, append_has_specular;
+	bool base_has_bump, append_has_bump;
+	bool base_has_weights, append_has_weights;
+	bool base_has_rhw, append_has_rhw;
+
+	// Numeric deltas
+	int  base_num_weights, append_num_weights;
+	int  base_num_texcoords, append_num_texcoords;
+	int  base_unknown_size, append_unknown_size;
+
+	// Human-readable summary (filled by DetectVertexFormatMismatch)
+	char summary[2048];
+};
+
 class CPly
 {
 public:
-	CPly(char *path);
+	CPly(char* path);
 	~CPly();
 
-	bool WriteFile(char *plyname);
+	bool WriteFile(char* plyname);
 	// Appends mesh/vertex/index data from another PLY while keeping each source mesh material/texture assignment.
-	bool MergeKeepSeparateTextures(const CPly *append_ply);
+	bool MergeKeepSeparateTextures(const CPly* append_ply);
+
+	// Fills 'out' with a description of how append_ply's vertex format differs from this one.
+	// Returns true if there is any mismatch.
+	bool DetectVertexFormatMismatch(const CPly* append_ply, VertexFormatMismatch& out) const;
+
+	// Upgrades append_ply's vertex data in-place so it matches this PLY's vertex format.
+	// Missing channels are filled with safe defaults.  Extra channels on append_ply that
+	// the base does not have are dropped.
+	// Returns true on success.
+	bool ReconcileVertexFormat(CPly* append_ply) const;
+
 	// Applies affine transform to vertex positions (and rotation to normals/bump basis).
 	void ApplyTransform(const matrix34_t* matrix);
 	// Rebinds skin references from one bone name to another.
 	void RebindBoneName(const char* old_name, const char* new_name);
 
-	FILE *m_fp;
+	FILE* m_fp;
 	bool loading_successes, Bply;
 
 	//---------BNDS---------
@@ -40,12 +82,12 @@ public:
 
 	//---------SKIN---------
 	int m_bones;
-	char **m_bonelist;
+	char** m_bonelist;
 	//----------------------
-	   
+
 	//---------MESH---------
-	CMesh *m_CurrMesh;
-	CMeshList *m_meshlist;
+	CMesh* m_CurrMesh;
+	CMeshList* m_meshlist;
 	BOOL SKINNED;
 	DWORD GlFvf;
 	DWORD specular_rgba_color;
@@ -53,19 +95,19 @@ public:
 	BYTE subskin_count;
 	DWORD GlFlags;
 	//----------------------
-		
+
 	//---------VERT---------
 	int m_numverts, num_weights, num_tex_coords, unknown_data_size;
-	vert_t *m_vertlist;
+	vert_t* m_vertlist;
 	short m_vsize, m_vflags, m_calculated_vsize;
 	BOOL has_pos, has_rhw, has_weights, has_normal, has_psize, has_diffuse, has_mesh_bump;
 	BOOL has_specular, has_tex_coords, has_matrix_indices, has_mesh_specular, has_w;
-	  //----------------------
-		
-	//---------INDX/IND4---------
+	//----------------------
+
+  //---------INDX/IND4---------
 	int INDXcount;
 	int m_numpolys;
-	indx_t *m_polylist;
+	indx_t* m_polylist;
 	BYTE IndexType;// 1 - INDX, 2 - IND4
 	int poly_count;
 	//----------------------
@@ -74,17 +116,17 @@ public:
 	int m_mirror;
 	BOOL MROR;
 	//----------------------
-      
+
 	//---------ADJA---------
 	BOOL ADJA;
 	int m_numadjas;
-	adja_t *m_adjalist;
+	adja_t* m_adjalist;
 	//----------------------
 
 	//---------SHDW---------
 	BOOL SHDW;
 	int m_numshdws;
-	unsigned char *m_shdwlist;
+	unsigned char* m_shdwlist;
 	//----------------------
 };
 
@@ -113,7 +155,7 @@ unsigned char tname[texlen]; // name of texture to use for skin for this mesch
 unsigned char vert[4];       // VERT - vertex info section tag
 int           pvcount        // Polygon vertex count?
 int           blksize;       // Size of info blocks (each unit is this size in bytes) seems to be always 36
-                              
+
 // Polygon vertex block info (repeats pvcount times, each block is blksize in size)
 float         x,y,z;         // x, y and z 3d coordinates (these all fit within the bounding box)
 float         x,y,z;         // vertex normal?  Not unit vectors... (needed for lighting)
@@ -124,14 +166,14 @@ float         s,t;           // S and T texture coordinates
 unsigned char indx[4];       // INDX - polygon description section
 int           count;         // Count of elements in this section
 short         v1,v2,v3;      // each element is two bytes long in groups of three
-                             // Appears to be three shorts corresponding to three vertices
-                             // values here range from zero to pvcount
+							 // Appears to be three shorts corresponding to three vertices
+							 // values here range from zero to pvcount
 
 // ADJA section
 unsigned char adja[4];       // ADJA - adjust something? alpha? armor?
 int           count;         // Count of elements in this section
 short         adj;           // each element is six bytes long don't know meaning yet
-                             // values range from 0xffff (negative 1) to fcount - 1
+							 // values range from 0xffff (negative 1) to fcount - 1
 
 // SHDW section
 unsigned char shdw[4];       // SHDW - cause shadow from this face?

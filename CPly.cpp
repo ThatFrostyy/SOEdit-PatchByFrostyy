@@ -937,6 +937,303 @@ void CPly::RebindBoneName(const char* old_name, const char* new_name)
 	}
 }
 
+// ---------------------------------------------------------------------------
+// DetectVertexFormatMismatch
+// Compares this PLY's vertex layout against append_ply and fills 'out' with
+// a human-readable summary and per-field flags.  Returns true when any
+// mismatch is found.
+// ---------------------------------------------------------------------------
+bool CPly::DetectVertexFormatMismatch(const CPly* append_ply, VertexFormatMismatch& out) const
+{
+	memset(&out, 0, sizeof(VertexFormatMismatch));
+	if (!append_ply || m_numverts == 0)
+		return false;
+
+	out.vsize_diff = (m_vsize != append_ply->m_vsize);
+	out.vflags_diff = (m_vflags != append_ply->m_vflags);
+	out.weights_diff = (num_weights != append_ply->num_weights);
+	out.texcoords_diff = (num_tex_coords != append_ply->num_tex_coords);
+	out.unknown_diff = (unknown_data_size != append_ply->unknown_data_size);
+
+	out.base_has_normal = (has_normal == TRUE);
+	out.append_has_normal = (append_ply->has_normal == TRUE);
+	out.base_has_diffuse = (has_diffuse == TRUE);
+	out.append_has_diffuse = (append_ply->has_diffuse == TRUE);
+	out.base_has_specular = (has_specular == TRUE);
+	out.append_has_specular = (append_ply->has_specular == TRUE);
+	out.base_has_bump = (has_mesh_bump == TRUE);
+	out.append_has_bump = (append_ply->has_mesh_bump == TRUE);
+	out.base_has_weights = (has_weights == TRUE);
+	out.append_has_weights = (append_ply->has_weights == TRUE);
+	out.base_has_rhw = (has_rhw == TRUE);
+	out.append_has_rhw = (append_ply->has_rhw == TRUE);
+
+	out.base_num_weights = num_weights;
+	out.append_num_weights = append_ply->num_weights;
+	out.base_num_texcoords = num_tex_coords;
+	out.append_num_texcoords = append_ply->num_tex_coords;
+	out.base_unknown_size = unknown_data_size;
+	out.append_unknown_size = append_ply->unknown_data_size;
+
+	out.any = out.vsize_diff || out.vflags_diff || out.weights_diff
+		|| out.texcoords_diff || out.unknown_diff;
+
+	if (!out.any)
+		return false;
+
+	// Build a human-readable summary.
+	char tmp[256];
+	strcpy(out.summary, "Vertex format mismatch between the two PLY files:\n\n");
+
+	if (out.vsize_diff)
+	{
+		sprintf(tmp, "  Vertex size:   base=%d  append=%d\n", (int)m_vsize, (int)append_ply->m_vsize);
+		strcat(out.summary, tmp);
+	}
+	if (out.vflags_diff)
+	{
+		sprintf(tmp, "  Vertex flags:  base=0x%04X  append=0x%04X\n", (unsigned)m_vflags, (unsigned)append_ply->m_vflags);
+		strcat(out.summary, tmp);
+	}
+	// Per-channel breakdown
+	if (out.base_has_normal != out.append_has_normal)
+	{
+		sprintf(tmp, "  Normals:   base=%s  append=%s\n",
+			out.base_has_normal ? "YES" : "NO",
+			out.append_has_normal ? "YES" : "NO");
+		strcat(out.summary, tmp);
+	}
+	if (out.base_has_diffuse != out.append_has_diffuse)
+	{
+		sprintf(tmp, "  Diffuse:   base=%s  append=%s\n",
+			out.base_has_diffuse ? "YES" : "NO",
+			out.append_has_diffuse ? "YES" : "NO");
+		strcat(out.summary, tmp);
+	}
+	if (out.base_has_specular != out.append_has_specular)
+	{
+		sprintf(tmp, "  Specular:  base=%s  append=%s\n",
+			out.base_has_specular ? "YES" : "NO",
+			out.append_has_specular ? "YES" : "NO");
+		strcat(out.summary, tmp);
+	}
+	if (out.base_has_bump != out.append_has_bump)
+	{
+		sprintf(tmp, "  Bump:      base=%s  append=%s\n",
+			out.base_has_bump ? "YES" : "NO",
+			out.append_has_bump ? "YES" : "NO");
+		strcat(out.summary, tmp);
+	}
+	if (out.weights_diff)
+	{
+		sprintf(tmp, "  Weights:   base=%d  append=%d\n",
+			out.base_num_weights, out.append_num_weights);
+		strcat(out.summary, tmp);
+	}
+	if (out.texcoords_diff)
+	{
+		sprintf(tmp, "  UV channels: base=%d  append=%d\n",
+			out.base_num_texcoords, out.append_num_texcoords);
+		strcat(out.summary, tmp);
+	}
+	if (out.unknown_diff)
+	{
+		sprintf(tmp, "  Unknown data: base=%d bytes  append=%d bytes\n",
+			out.base_unknown_size, out.append_unknown_size);
+		strcat(out.summary, tmp);
+	}
+
+	strcat(out.summary, "\nAutomatic fix will:\n");
+	if (out.base_has_normal && !out.append_has_normal)
+		strcat(out.summary, "  + Add normals to append vertices (set to 0,0,1)\n");
+	if (!out.base_has_normal && out.append_has_normal)
+		strcat(out.summary, "  - Remove normals from append vertices\n");
+	if (out.base_has_diffuse && !out.append_has_diffuse)
+		strcat(out.summary, "  + Add diffuse to append vertices (set to 0xFFFFFFFF white)\n");
+	if (!out.base_has_diffuse && out.append_has_diffuse)
+		strcat(out.summary, "  - Remove diffuse from append vertices\n");
+	if (out.base_has_specular && !out.append_has_specular)
+		strcat(out.summary, "  + Add specular to append vertices (set to 0)\n");
+	if (!out.base_has_specular && out.append_has_specular)
+		strcat(out.summary, "  - Remove specular from append vertices\n");
+	if (out.base_has_bump && !out.append_has_bump)
+		strcat(out.summary, "  + Add bump data to append vertices (zeroed)\n");
+	if (!out.base_has_bump && out.append_has_bump)
+		strcat(out.summary, "  - Remove bump data from append vertices\n");
+	if (out.texcoords_diff)
+	{
+		if (out.base_num_texcoords > out.append_num_texcoords)
+		{
+			sprintf(tmp, "  + Add %d UV channel(s) to append vertices (zeroed)\n",
+				out.base_num_texcoords - out.append_num_texcoords);
+			strcat(out.summary, tmp);
+		}
+		else
+		{
+			sprintf(tmp, "  - Remove %d UV channel(s) from append vertices\n",
+				out.append_num_texcoords - out.base_num_texcoords);
+			strcat(out.summary, tmp);
+		}
+	}
+	if (out.unknown_diff)
+		strcat(out.summary, "  * Unknown trailing data will be zeroed / trimmed to match base size\n");
+
+	return true;
+}
+
+// ---------------------------------------------------------------------------
+// ReconcileVertexFormat
+// Rewrites append_ply's vertex array so it exactly matches this PLY's vertex
+// format.  Missing channels get safe defaults; extra channels are dropped.
+// The append_ply's format fields (vsize, vflags, num_weights, etc.) are also
+// updated so that the subsequent merge check passes.
+// Returns true on success.
+// ---------------------------------------------------------------------------
+bool CPly::ReconcileVertexFormat(CPly* append_ply) const
+{
+	if (!append_ply || append_ply->m_numverts == 0)
+		return true; // nothing to do
+
+	int n = append_ply->m_numverts;
+	vert_t* new_verts = new vert_t[n];
+	memset(new_verts, 0, sizeof(vert_t) * n);
+
+	// Target UV channel count — allocate UV arrays for each vertex if needed.
+	int tgt_uvs = num_tex_coords;
+
+	for (int i = 0; i < n; i++)
+	{
+		vert_t& src = append_ply->m_vertlist[i];
+		vert_t& dst = new_verts[i];
+
+		// --- Position (always carry over) ---
+		if (has_pos)
+		{
+			memcpy(dst.xyz, src.xyz, sizeof(v3_t));
+		}
+
+		// --- RHW / W ---
+		if (has_rhw || has_w)
+		{
+			dst.rhw = (append_ply->has_rhw || append_ply->has_w) ? src.rhw : 0;
+		}
+
+		// --- Blend weights ---
+		if (num_weights > 0)
+		{
+			dst.WeightsData = new DWORD[num_weights];
+			memset(dst.WeightsData, 0, sizeof(DWORD) * num_weights);
+			if (append_ply->num_weights > 0 && src.WeightsData)
+			{
+				int copy_cnt = min(num_weights, append_ply->num_weights);
+				memcpy(dst.WeightsData, src.WeightsData, sizeof(DWORD) * copy_cnt);
+			}
+		}
+
+		// --- Matrix (bone) indices ---
+		if (has_matrix_indices)
+		{
+			memcpy(dst.bones, src.bones, 4);
+		}
+
+		// --- Normal ---
+		if (has_normal)
+		{
+			if (append_ply->has_normal)
+			{
+				memcpy(dst.vn, src.vn, sizeof(v3_t));
+			}
+			else
+			{
+				// Default: unit normal pointing towards +Z
+				dst.vn[0] = 0.0f; dst.vn[1] = 0.0f; dst.vn[2] = 1.0f;
+			}
+		}
+
+		// --- Psize ---
+		if (has_psize)
+		{
+			dst.psize = append_ply->has_psize ? src.psize : 0;
+		}
+
+		// --- Diffuse ---
+		if (has_diffuse)
+		{
+			dst.diffuse = append_ply->has_diffuse ? src.diffuse : 0xFFFFFFFF;
+		}
+
+		// --- Specular ---
+		if (has_specular)
+		{
+			dst.specular = append_ply->has_specular ? src.specular : 0;
+		}
+
+		// --- UV coordinates ---
+		// uv is a fixed array v2_t uv[2] inside vert_t — never heap-allocate it.
+		// new_verts was already zeroed by memset so missing channels default to 0.
+		if (tgt_uvs > 0 && append_ply->num_tex_coords > 0)
+		{
+			int copy_uvs = min(tgt_uvs, append_ply->num_tex_coords);
+			memcpy(dst.uv, src.uv, sizeof(v2_t) * copy_uvs);
+		}
+
+		// --- Bump data ---
+		if (has_mesh_bump)
+		{
+			if (append_ply->has_mesh_bump)
+			{
+				memcpy(dst.bump12, src.bump12, sizeof(v3_t));
+				dst.bump4 = src.bump4;
+			}
+			// else: stays zeroed — acceptable default
+		}
+
+		// --- Unknown trailing data ---
+		if (unknown_data_size > 0)
+		{
+			// other_buff is a fixed-size member; zero it (already done by memset above).
+			// If the append had unknown data of the same size, copy it.
+			if (append_ply->unknown_data_size == unknown_data_size)
+			{
+				memcpy(dst.other_buff, src.other_buff, unknown_data_size);
+			}
+		}
+	}
+
+	// Free old vertex array — only WeightsData is heap-allocated; uv is a fixed array.
+	for (int i = 0; i < n; i++)
+	{
+		if (append_ply->m_vertlist[i].WeightsData)
+			delete[] append_ply->m_vertlist[i].WeightsData;
+	}
+	delete[] append_ply->m_vertlist;
+	append_ply->m_vertlist = new_verts;
+
+	// Update append_ply's format fields to match the base so the
+	// compatibility check in MergeKeepSeparateTextures passes.
+	append_ply->m_vsize = m_vsize;
+	append_ply->m_vflags = m_vflags;
+	append_ply->m_calculated_vsize = m_calculated_vsize;
+	append_ply->num_weights = num_weights;
+	append_ply->num_tex_coords = num_tex_coords;
+	append_ply->unknown_data_size = unknown_data_size;
+	append_ply->has_pos = has_pos;
+	append_ply->has_rhw = has_rhw;
+	append_ply->has_w = has_w;
+	append_ply->has_weights = has_weights;
+	append_ply->has_matrix_indices = has_matrix_indices;
+	append_ply->has_normal = has_normal;
+	append_ply->has_psize = has_psize;
+	append_ply->has_diffuse = has_diffuse;
+	append_ply->has_specular = has_specular;
+	append_ply->has_tex_coords = has_tex_coords;
+	append_ply->has_mesh_bump = has_mesh_bump;
+	append_ply->has_mesh_specular = has_mesh_specular;
+
+	return true;
+}
+
+// ---------------------------------------------------------------------------
 bool CPly::MergeKeepSeparateTextures(const CPly* append_ply)
 {
 	if (!append_ply || !append_ply->loading_successes || !append_ply->m_meshlist)
