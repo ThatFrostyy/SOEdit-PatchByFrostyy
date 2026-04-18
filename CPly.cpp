@@ -1094,32 +1094,34 @@ bool CPly::MergeKeepSeparateTextures(const CPly* append_ply)
 	}
 	if (BNDS && m_numverts > 0 && has_pos)
 	{
-		m_bbox[0] = m_bbox[1] = m_vertlist[0].xyz;
+		m_bbox[0][0] = m_bbox[1][0] = m_vertlist[0].xyz.x;
+		m_bbox[0][1] = m_bbox[1][1] = m_vertlist[0].xyz.y;
+		m_bbox[0][2] = m_bbox[1][2] = m_vertlist[0].xyz.z;
 		for (int i = 1; i < m_numverts; i++)
 		{
-			if (m_vertlist[i].xyz.x < m_bbox[0].x)
+			if (m_vertlist[i].xyz.x < m_bbox[0][0])
 			{
-				m_bbox[0].x = m_vertlist[i].xyz.x;
+				m_bbox[0][0] = m_vertlist[i].xyz.x;
 			}
-			if (m_vertlist[i].xyz.y < m_bbox[0].y)
+			if (m_vertlist[i].xyz.y < m_bbox[0][1])
 			{
-				m_bbox[0].y = m_vertlist[i].xyz.y;
+				m_bbox[0][1] = m_vertlist[i].xyz.y;
 			}
-			if (m_vertlist[i].xyz.z < m_bbox[0].z)
+			if (m_vertlist[i].xyz.z < m_bbox[0][2])
 			{
-				m_bbox[0].z = m_vertlist[i].xyz.z;
+				m_bbox[0][2] = m_vertlist[i].xyz.z;
 			}
-			if (m_vertlist[i].xyz.x > m_bbox[1].x)
+			if (m_vertlist[i].xyz.x > m_bbox[1][0])
 			{
-				m_bbox[1].x = m_vertlist[i].xyz.x;
+				m_bbox[1][0] = m_vertlist[i].xyz.x;
 			}
-			if (m_vertlist[i].xyz.y > m_bbox[1].y)
+			if (m_vertlist[i].xyz.y > m_bbox[1][1])
 			{
-				m_bbox[1].y = m_vertlist[i].xyz.y;
+				m_bbox[1][1] = m_vertlist[i].xyz.y;
 			}
-			if (m_vertlist[i].xyz.z > m_bbox[1].z)
+			if (m_vertlist[i].xyz.z > m_bbox[1][2])
 			{
-				m_bbox[1].z = m_vertlist[i].xyz.z;
+				m_bbox[1][2] = m_vertlist[i].xyz.z;
 			}
 		}
 	}
