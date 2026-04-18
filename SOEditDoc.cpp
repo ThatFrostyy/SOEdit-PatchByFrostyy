@@ -3004,7 +3004,8 @@ void CSOEditDoc::OnBoneMergeToParent()
 	const char* outSource = (parentBone->m_VolumeViewName && strlen(parentBone->m_VolumeViewName)) ? parentBone->m_VolumeViewName : childBone->m_VolumeViewName;
 	_splitpath(outSource, drive, dir, fname, ext);
 	char mergedName[_MAX_FNAME] = { 0 };
-	sprintf(mergedName, "%s_merged_%s", fname, childBone->m_Name ? childBone->m_Name : "child");
+	_snprintf(mergedName, _MAX_FNAME - 1, "%s_merged_%s", fname, childBone->m_Name ? childBone->m_Name : "child");
+	mergedName[_MAX_FNAME - 1] = '\0';
 	ForbiddenSymbolFixer(mergedName);
 	char mergedPath[_MAX_PATH] = { 0 };
 	_makepath(mergedPath, drive, dir, mergedName, ".ply");

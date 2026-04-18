@@ -863,7 +863,10 @@ void CPly::ApplyTransform(const matrix34_t* matrix)
 	if (m_numverts > 0)
 	{
 		BNDS = TRUE;
-		m_bbox[0] = m_bbox[1] = m_vertlist[0].xyz;
+		// Use memcpy to copy the 3 floats from the vertex to the bounding box points
+		memcpy(&m_bbox[0], &m_vertlist[0].xyz, sizeof(v3_t));
+		memcpy(&m_bbox[1], &m_vertlist[0].xyz, sizeof(v3_t));
+
 		for (int i = 1; i < m_numverts; i++)
 		{
 			if (m_vertlist[i].xyz[0] < m_bbox[0][0]) m_bbox[0][0] = m_vertlist[i].xyz[0];

@@ -292,6 +292,8 @@ HID_DEL_BONE_FROM_ANM_AL                0x1813E
 HID_DISPLAY_TEXTURE_ERRORS_AL           0x1813F
 HID_PLY_MERGE                           0x18140
 HID_PLY_MERGE_AL                        0x18141
+HID_BONE_MERGE_PARENT                   0x18142
+HID_BONE_MERGE_PARENT_AL                0x18143
  
 // Prompts (IDP_*) 
  

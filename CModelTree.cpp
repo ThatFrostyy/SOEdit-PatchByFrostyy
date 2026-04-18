@@ -255,7 +255,8 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 				if(itemData == IT_BONE)
 				{
 					CBone *pFindBone = pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBoneByTreeID(hTreeItem);
-					if(!pFindBone || !pFindBone -> m_parent || !pFindBone -> m_VolumeViewName)
+					if (!pFindBone || !pFindBone->m_parent || !pFindBone->m_VolumeViewName
+						|| !strlen(pFindBone->m_VolumeViewName) || pFindBone->m_ChildFirst)
 					{
 						#ifdef ALTERNATIVE_LANG
 							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
