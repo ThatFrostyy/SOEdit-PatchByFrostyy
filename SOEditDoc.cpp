@@ -95,6 +95,8 @@ BEGIN_MESSAGE_MAP(CSOEditDoc, CDocument)
 	ON_COMMAND(ID_BONE_SKELETON_ANIMATIONS_AL, &CSOEditDoc::OnBoneSkeletonAnimations)
 	ON_COMMAND(ID_FILE_NEW, &CSOEditDoc::OnFileNew)
 	ON_COMMAND(ID_FILE_NEW_AL, &CSOEditDoc::OnFileNew)
+	ON_COMMAND(ID_PLY_MERGE, &CSOEditDoc::OnPlyMergeFiles)
+	ON_COMMAND(ID_PLY_MERGE_AL, &CSOEditDoc::OnPlyMergeFiles)
 	//}}AFX_MSG_MAP
 	ON_COMMAND(ID_ANM_NEW, &CSOEditDoc::OnAnmNew)
 	ON_COMMAND(ID_ANM_NEW_AL, &CSOEditDoc::OnAnmNew)
@@ -2163,6 +2165,111 @@ void CSOEditDoc::OnFileSaveAs()
 
 void CSOEditDoc::OnFileSave()
 	{OnModelSave(false);}
+
+void CSOEditDoc::OnPlyMergeFiles()
+{
+	#ifdef ALTERNATIVE_LANG
+		static char szFilter[] = "PLY-file (*.ply)|*.ply||";
+	#else
+		static char szFilter[] = "PLY-ôàéë (*.ply)|*.ply||";
+	#endif
+
+	CMainFrame *pFrameWnd = (CMainFrame *)AfxGetMainWnd();
+	bool p = false;
+	char CurFolder[_MAX_PATH] = {0};
+	if(pFrameWnd && strlen(pFrameWnd -> m_CurMdlPath))
+	{
+		p = true;
+		strcpy(CurFolder, pFrameWnd -> m_CurMdlPath);
+		char *ptr = strrchr(CurFolder, '/');
+		if(ptr)
+			{*(ptr + 1) = 0;}
+		InvertFixPathDelim(CurFolder);
+	}
+
+	#ifdef ALTERNATIVE_LANG
+		CFileDialog dlgBase(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
+		dlgBase.m_ofn.lpstrTitle = "Select base mesh (PLY)";
+	#else
+		CFileDialog dlgBase(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
+		dlgBase.m_ofn.lpstrTitle = "Âûáåðè áàçîâûé ìýø (PLY)";
+	#endif
+	if(dlgBase.DoModal() != IDOK)
+		{return;}
+
+	#ifdef ALTERNATIVE_LANG
+		CFileDialog dlgAppend(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
+		dlgAppend.m_ofn.lpstrTitle = "Select mesh to append (PLY)";
+	#else
+		CFileDialog dlgAppend(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
+		dlgAppend.m_ofn.lpstrTitle = "Âûáåðè äîáàâëÿåìûé ìýø (PLY)";
+	#endif
+	if(dlgAppend.DoModal() != IDOK)
+		{return;}
+
+	char outPath[_MAX_PATH] = {0};
+	strcpy(outPath, dlgBase.m_ofn.lpstrFile);
+	char *dot = strrchr(outPath, '.');
+	if(dot)
+		{*dot = 0;}
+	strcat(outPath, "_merged.ply");
+
+	#ifdef ALTERNATIVE_LANG
+		CFileDialog dlgOut(FALSE, "*.ply", outPath, OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NONETWORKBUTTON, szFilter);
+		dlgOut.m_ofn.lpstrTitle = "Save merged mesh as";
+	#else
+		CFileDialog dlgOut(FALSE, "*.ply", outPath, OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NONETWORKBUTTON, szFilter);
+		dlgOut.m_ofn.lpstrTitle = "Ñîõðàíèòü îáúåäèíåííûé ìýø êàê";
+	#endif
+	if(dlgOut.DoModal() != IDOK)
+		{return;}
+
+	char basePath[_MAX_PATH] = {0}, appendPath[_MAX_PATH] = {0}, mergedPath[_MAX_PATH] = {0};
+	strcpy(basePath, dlgBase.m_ofn.lpstrFile);
+	strcpy(appendPath, dlgAppend.m_ofn.lpstrFile);
+	strcpy(mergedPath, dlgOut.m_ofn.lpstrFile);
+	FixPathDelim(basePath);
+	FixPathDelim(appendPath);
+	FixPathDelim(mergedPath);
+
+	CPly basePly(basePath);
+	CPly appendPly(appendPath);
+	if(!basePly.loading_successes || !appendPly.loading_successes)
+	{
+		#ifdef ALTERNATIVE_LANG
+			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Failed to load one of selected PLY files.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+		#else
+			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Íå óäàëîñü çàãðóçèòü îäèí èç âûáðàííûõ PLY-ôàéëîâ.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+		#endif
+		return;
+	}
+
+	if(!basePly.MergeKeepSeparateTextures(&appendPly))
+	{
+		#ifdef ALTERNATIVE_LANG
+			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Merge failed. Make sure both PLY files use compatible vertex format.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+		#else
+			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Îáúåäèíåíèå íå óäàëîñü. Ïðîâåðü ñîâìåñòèìîñòü ôîðìàòà âåðøèí îáîèõ PLY.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+		#endif
+		return;
+	}
+
+	if(!basePly.WriteFile(mergedPath))
+	{
+		#ifdef ALTERNATIVE_LANG
+			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Failed to save merged PLY file.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+		#else
+			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Íå óäàëîñü ñîõðàíèòü îáúåäèíåííûé PLY-ôàéë.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
+		#endif
+		return;
+	}
+
+	#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Merged file saved:\n" + CString(mergedPath)), "Done", MB_OK | MB_ICONINFORMATION);
+	#else
+		MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Îáúåäèíåííûé ôàéë ñîõðàíåí:\n" + CString(mergedPath)), "Ãîòîâî", MB_OK | MB_ICONINFORMATION);
+	#endif
+}
 
 void CSOEditDoc::OnVolDelete()
 {

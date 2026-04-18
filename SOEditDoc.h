@@ -179,6 +179,7 @@ protected:
 	afx_msg void OnBoneHideBranchAndCollision();
 	afx_msg void OnAnmSave();
 	afx_msg void OnAnmClose();
+	afx_msg void OnPlyMergeFiles();
 	//}}AFX_MSG
 public:
 	afx_msg void OnModEditing();

@@ -18,6 +18,8 @@ public:
 	~CPly();
 
 	bool WriteFile(char *plyname);
+	// Appends mesh/vertex/index data from another PLY while keeping each source mesh material/texture assignment.
+	bool MergeKeepSeparateTextures(const CPly *append_ply);
 
 	FILE *m_fp;
 	bool loading_successes, Bply;

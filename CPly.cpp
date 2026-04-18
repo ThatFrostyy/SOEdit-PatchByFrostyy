@@ -66,7 +66,7 @@ CPly::CPly(char *plyname)
 		#ifdef ALTERNATIVE_LANG
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Invalid mesh file:\n" + CString(plyname)), "ERROR: CPly::CPly", MB_ICONHAND);
 		#else
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Íåäåéñòâèòåëüíûé ìýø-ôàéë:\n" + CString(plyname)), "ERROR: CPly::CPly", MB_ICONHAND);
+			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("ÃÃ¥Ã¤Ã¥Ã©Ã±Ã²Ã¢Ã¨Ã²Ã¥Ã«Ã¼Ã­Ã»Ã© Ã¬Ã½Ã¸-Ã´Ã Ã©Ã«:\n" + CString(plyname)), "ERROR: CPly::CPly", MB_ICONHAND);
 		#endif
 		fclose(m_fp);
 		m_fp = NULL;
@@ -121,8 +121,8 @@ CPly::CPly(char *plyname)
 							tex_count = 1;
 						}
 						/*
-						Åñëè â ëþáîì MESH âñòðåòèëñÿ ôëàã BUMP, òî âî âñåõ ñëåäóþùèõ MESH ïðåäïîëàãàåòñÿ ôëàã BUMP
-						Àáñîëþòíî âñå âåðòåêñû â ýòîì ñëó÷àå áóäóò ñ BUMP.
+						Ã…Ã±Ã«Ã¨ Ã¢ Ã«Ã¾Ã¡Ã®Ã¬ MESH Ã¢Ã±Ã²Ã°Ã¥Ã²Ã¨Ã«Ã±Ã¿ Ã´Ã«Ã Ã£ BUMP, Ã²Ã® Ã¢Ã® Ã¢Ã±Ã¥Ãµ Ã±Ã«Ã¥Ã¤Ã³Ã¾Ã¹Ã¨Ãµ MESH Ã¯Ã°Ã¥Ã¤Ã¯Ã®Ã«Ã Ã£Ã Ã¥Ã²Ã±Ã¿ Ã´Ã«Ã Ã£ BUMP
+						Ã€Ã¡Ã±Ã®Ã«Ã¾Ã²Ã­Ã® Ã¢Ã±Ã¥ Ã¢Ã¥Ã°Ã²Ã¥ÃªÃ±Ã» Ã¢ Ã½Ã²Ã®Ã¬ Ã±Ã«Ã³Ã·Ã Ã¥ Ã¡Ã³Ã¤Ã³Ã² Ã± BUMP.
 						*/
 
 						memset(text_msg_buff, 0, 2048);
@@ -161,7 +161,7 @@ CPly::CPly(char *plyname)
 						printf("%s", text_msg_buff);
 						///MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, text_msg_buff, "PLY", MB_OK); 
 						
-						//ñïàñèáî GhostNT
+						//Ã±Ã¯Ã Ã±Ã¨Ã¡Ã® GhostNT
 						if(GlFvf)
 						{
 							fvf_wo_texcount = (GlFvf | ply_mesh.fvf) & (0xffff ^ D3DFVF_TEXCOUNT_MASK);
@@ -207,7 +207,7 @@ CPly::CPly(char *plyname)
 							{
 								int skip_item = -1;
 								char independent_path[_MAX_PATH] = {0};
-								bool find_mask = false, path_type = false;// true - àáñîëþòíûé ïóòü, false - ëîêàëüíûé ïóòü
+								bool find_mask = false, path_type = false;// true - Ã Ã¡Ã±Ã®Ã«Ã¾Ã²Ã­Ã»Ã© Ã¯Ã³Ã²Ã¼, false - Ã«Ã®ÃªÃ Ã«Ã¼Ã­Ã»Ã© Ã¯Ã³Ã²Ã¼
 								for(int path_search = 6; path_search > ((!path_type) ? 0 : -1) && !tex_test; path_search--)
 								{
 									if((!find_mask && path_type) && path_search < 6)
@@ -236,7 +236,7 @@ CPly::CPly(char *plyname)
 												path++;
 												strncpy((char *)texname[i], (char *)pWnd -> m_CurMdlPath, (path - pWnd -> m_CurMdlPath));
 												texname[i][path - pWnd -> m_CurMdlPath] = '\0';
-												//òåêóùèé ïóòü mdl`à
+												//Ã²Ã¥ÃªÃ³Ã¹Ã¨Ã© Ã¯Ã³Ã²Ã¼ mdl`Ã 
 											}
 											else
 											{
@@ -247,7 +247,7 @@ CPly::CPly(char *plyname)
 												path++;
 												strncpy((char *)texname[i], (char *)plyname, (path - plyname));
 												texname[i][path - plyname] = '\0';
-												//ïóòü ply-ôàéëà
+												//Ã¯Ã³Ã²Ã¼ ply-Ã´Ã Ã©Ã«Ã 
 											}
 										}
 										else
@@ -260,14 +260,14 @@ CPly::CPly(char *plyname)
 											sprintf(texname[i], "%s%s", pWnd -> m_ResPath[path_search], independent_path);
 										}
 										//D:\Games\Men of War Assault Squad 2\mods\LTP\resource\entity\test\2\ba27m_2\
-										//áåð¸ì ïóòü "ïî óìîë÷àíèþ" (äëÿ path_search = 6)
+										//Ã¡Ã¥Ã°Â¸Ã¬ Ã¯Ã³Ã²Ã¼ "Ã¯Ã® Ã³Ã¬Ã®Ã«Ã·Ã Ã­Ã¨Ã¾" (Ã¤Ã«Ã¿ path_search = 6)
 										if(path_search == 6)
 										{
 											for(int path_mask = 5; path_mask > -1; path_mask--)
 											{
 												int ResPath_len = strlen(pWnd -> m_ResPath[path_mask]);
 												//D:\Games\Men of War Assault Squad 2\mods\LTP\
-												//ïðîâåðÿåì ñïèñîê
+												//Ã¯Ã°Ã®Ã¢Ã¥Ã°Ã¿Ã¥Ã¬ Ã±Ã¯Ã¨Ã±Ã®Ãª
 												char tmp_res_path[_MAX_PATH] = {0};
 												strcpy(tmp_res_path, pWnd -> m_ResPath[path_mask]);
 												FixPathDelim(tmp_res_path);
@@ -279,19 +279,19 @@ CPly::CPly(char *plyname)
 													strncpy(independent_path, texname[i] + ResPath_len, strlen(texname[i]) - ResPath_len);
 													skip_item = path_mask;
 													//resource\entity\test\2\ba27m_2\
-													//ïîëó÷àåì êîðåíü ïóòè
+													//Ã¯Ã®Ã«Ã³Ã·Ã Ã¥Ã¬ ÃªÃ®Ã°Ã¥Ã­Ã¼ Ã¯Ã³Ã²Ã¨
 													break;
 												}
 											}
 										}
-										strcat((char *)texname[i], (char *)textemp);// ÷àñòü ïóòè (åñëè åñòü â ply), èìÿ è ðàñøèðåíèå ôàéëà ìàòåðèàëà
+										strcat((char *)texname[i], (char *)textemp);// Ã·Ã Ã±Ã²Ã¼ Ã¯Ã³Ã²Ã¨ (Ã¥Ã±Ã«Ã¨ Ã¥Ã±Ã²Ã¼ Ã¢ ply), Ã¨Ã¬Ã¿ Ã¨ Ã°Ã Ã±Ã¸Ã¨Ã°Ã¥Ã­Ã¨Ã¥ Ã´Ã Ã©Ã«Ã  Ã¬Ã Ã²Ã¥Ã°Ã¨Ã Ã«Ã 
 									}
 									FixPathDelim(texname[i]);
 									All_Trash *AT = new All_Trash();
 									AT -> Parse_Path(texname[i]);
 									delete AT;
-									//òóò ïðîâåðêà ïóòè
-									//ïðîâåðÿåì íà tex`îâîñòü èëè ïîëíîå èìÿ
+									//Ã²Ã³Ã² Ã¯Ã°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã¯Ã³Ã²Ã¨
+									//Ã¯Ã°Ã®Ã¢Ã¥Ã°Ã¿Ã¥Ã¬ Ã­Ã  tex`Ã®Ã¢Ã®Ã±Ã²Ã¼ Ã¨Ã«Ã¨ Ã¯Ã®Ã«Ã­Ã®Ã¥ Ã¨Ã¬Ã¿
 									FILE *testfp = NULL;
 									char ExtTest[MAX_PATH] = {0};
 									strcpy(ExtTest, texname[i]);
@@ -312,7 +312,7 @@ CPly::CPly(char *plyname)
 									}
 									if(testfp)
 										{fclose(testfp); testfp = NULL;}
-									//èùåì ðàñøèðåíèÿ
+									//Ã¨Ã¹Ã¥Ã¬ Ã°Ã Ã±Ã¸Ã¨Ã°Ã¥Ã­Ã¨Ã¿
 									if(!tex_test)
 									{
 										for(int texsigindx = 0; tex_siglist[texsigindx]; texsigindx++)
@@ -338,7 +338,7 @@ CPly::CPly(char *plyname)
 								#ifdef ALTERNATIVE_LANG
 									MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("The material file was not found:\n" + CString(textemp)), "ERROR: CPly::CPly", MB_ICONHAND);
 								#else
-									MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Ôàéë ìàòåðèàëà íå íàéäåí:\n" + CString(textemp)), "ERROR: CPly::CPly", MB_ICONHAND);
+									MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Ã”Ã Ã©Ã« Ã¬Ã Ã²Ã¥Ã°Ã¨Ã Ã«Ã  Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­:\n" + CString(textemp)), "ERROR: CPly::CPly", MB_ICONHAND);
 								#endif
 								memset(texname[i], 0, _MAX_PATH);
 								strcpy(texname[i], "<<checker>>");
@@ -416,7 +416,7 @@ CPly::CPly(char *plyname)
 							num_tex_coords = (GlFvf & D3DFVF_TEXCOUNT_MASK) >> D3DFVF_TEXCOUNT_SHIFT;
 							if(GlFlags & MESH_FLAG_TWOTEX)
 								{num_tex_coords *= 2;}
-							if(Bply && m_vsize == 36)//äè÷ü
+							if(Bply && m_vsize == 36)//Ã¤Ã¨Ã·Ã¼
 								{num_tex_coords -= 1; CopyUV = true;}
 							unknown_data_size -= 8 * num_tex_coords;
 							has_tex_coords = TRUE;
@@ -442,7 +442,7 @@ CPly::CPly(char *plyname)
 						m_calculated_vsize += (has_tex_coords && num_tex_coords > 0) ? (num_tex_coords * sizeof(v2_t)) : 0;
 						m_calculated_vsize += (has_mesh_bump) ? 16 : 0;
 						memset(text_msg_buff, 0, 2048);
-						sprintf(text_msg_buff, "Vertex size: %d\nÑalculated vsize: %d\nVertex count: %d\nVertex flags: %X\n------------ D3D9 FVF -----------\nFVF flags: %X\nHas position: %s\nHas RHW: %s\nHas weights: %s\nNum weights: %d\n"
+						sprintf(text_msg_buff, "Vertex size: %d\nÃ‘alculated vsize: %d\nVertex count: %d\nVertex flags: %X\n------------ D3D9 FVF -----------\nFVF flags: %X\nHas position: %s\nHas RHW: %s\nHas weights: %s\nNum weights: %d\n"
 							"Has matrix indices: %s\nHas normal: %s\nHas psize: %s\nHas diffuse: %s\nHas specular: %s\nHas tex coords: %s\nNum tex coords: %d\nHas bump: %s", m_vsize, m_calculated_vsize, m_numverts, m_vflags, ply_mesh.fvf, (has_pos) ? "TRUE" : "FALSE",
 							(has_rhw) ? "TRUE" : "FALSE", (has_weights) ? "TRUE" : "FALSE", num_weights, (has_matrix_indices) ? "TRUE" : "FALSE", (has_normal) ? "TRUE" : "FALSE", (has_psize) ? "TRUE" : "FALSE",
 							(has_diffuse) ? "TRUE" : "FALSE", (has_specular) ? "TRUE" : "FALSE", (has_tex_coords) ? "TRUE" : "FALSE", num_tex_coords, (has_mesh_bump) ? "TRUE" : "FALSE");
@@ -528,7 +528,7 @@ CPly::CPly(char *plyname)
 							/*if(SKINNED)
 							{
 								m_polylist[i].v[0] = tshort[2];//
-								m_polylist[i].v[1] = tshort[1];// Ýòîò êîñòûëü ÷èñòî äëÿ ýòîé ïðîãðàììû
+								m_polylist[i].v[1] = tshort[1];// ÃÃ²Ã®Ã² ÃªÃ®Ã±Ã²Ã»Ã«Ã¼ Ã·Ã¨Ã±Ã²Ã® Ã¤Ã«Ã¿ Ã½Ã²Ã®Ã© Ã¯Ã°Ã®Ã£Ã°Ã Ã¬Ã¬Ã»
 								m_polylist[i].v[2] = tshort[0];//
 							}
 							else*/
@@ -611,7 +611,7 @@ CPly::CPly(char *plyname)
 						#ifdef ALTERNATIVE_LANG
 							MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, "A valid but unreadable section of the file was found.", "ERROR: CPly::CPly", MB_ICONHAND);
 						#else
-							MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Íàéäåí äîïóñòèìûé, íî íå÷èòàåìûé ðàçäåë ôàéëà.", "ERROR: CPly::CPly", MB_ICONHAND);
+							MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, "ÃÃ Ã©Ã¤Ã¥Ã­ Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã»Ã©, Ã­Ã® Ã­Ã¥Ã·Ã¨Ã²Ã Ã¥Ã¬Ã»Ã© Ã°Ã Ã§Ã¤Ã¥Ã« Ã´Ã Ã©Ã«Ã .", "ERROR: CPly::CPly", MB_ICONHAND);
 						#endif
 						fclose(m_fp);
 						return;
@@ -627,7 +627,7 @@ CPly::CPly(char *plyname)
 			#ifdef ALTERNATIVE_LANG
 				st.Format("File: %s\r\ndamaged or has an unknown format.\r\nStudy the problem in the hexadecimal editor in the address area: 0x%x", plyname, failure_address);
 			#else
-				st.Format("Ôàéë: %s\r\nïîâðåæä¸í èëè èìååò íåèçâåñòíûé ôîðìàò.\r\nÈçó÷àé ïðîáëåìó â øåñòíàäöàòåðè÷íîì ðåäàêòîðå â îáëàñòè àäðåñà: 0x%x", plyname, failure_address);
+				st.Format("Ã”Ã Ã©Ã«: %s\r\nÃ¯Ã®Ã¢Ã°Ã¥Ã¦Ã¤Â¸Ã­ Ã¨Ã«Ã¨ Ã¨Ã¬Ã¥Ã¥Ã² Ã­Ã¥Ã¨Ã§Ã¢Ã¥Ã±Ã²Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã².\r\nÃˆÃ§Ã³Ã·Ã Ã© Ã¯Ã°Ã®Ã¡Ã«Ã¥Ã¬Ã³ Ã¢ Ã¸Ã¥Ã±Ã²Ã­Ã Ã¤Ã¶Ã Ã²Ã¥Ã°Ã¨Ã·Ã­Ã®Ã¬ Ã°Ã¥Ã¤Ã ÃªÃ²Ã®Ã°Ã¥ Ã¢ Ã®Ã¡Ã«Ã Ã±Ã²Ã¨ Ã Ã¤Ã°Ã¥Ã±Ã : 0x%x", plyname, failure_address);
 			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, st, "ERROR: CPly::CPly", MB_ICONHAND);
 			fclose(m_fp);
@@ -667,6 +667,282 @@ CPly::~CPly()
 	if(m_shdwlist)
 		{delete[] m_shdwlist; m_shdwlist = NULL;}
 	SKINNED = FALSE;
+}
+
+static char *DupStringOrNull(const char *src)
+{
+	if(!src)
+		{return NULL;}
+	size_t len = strlen(src) + 1;
+	char *dup = new char[len];
+	memset(dup, 0, len);
+	strcpy(dup, src);
+	return dup;
+}
+
+static void CopyVertexData(vert_t &dst, const vert_t &src, int weights_count)
+{
+	memcpy(&dst, &src, sizeof(vert_t));
+	dst.WeightsData = NULL;
+	if(weights_count > 0 && src.WeightsData)
+	{
+		dst.WeightsData = new DWORD[weights_count];
+		memset(dst.WeightsData, 0, sizeof(DWORD) * weights_count);
+		memcpy(dst.WeightsData, src.WeightsData, sizeof(DWORD) * weights_count);
+	}
+}
+
+bool CPly::MergeKeepSeparateTextures(const CPly *append_ply)
+{
+	if(!append_ply || !append_ply -> loading_successes || !append_ply -> m_meshlist)
+		{return false;}
+
+	if(!m_meshlist)
+		{m_meshlist = new CMeshList();}
+
+	if(m_numverts > 0)
+	{
+		if(m_vsize != append_ply -> m_vsize || m_vflags != append_ply -> m_vflags || num_weights != append_ply -> num_weights || num_tex_coords != append_ply -> num_tex_coords || unknown_data_size != append_ply -> unknown_data_size)
+			{return false;}
+	}
+	else
+	{
+		m_vsize = append_ply -> m_vsize;
+		m_vflags = append_ply -> m_vflags;
+		m_calculated_vsize = append_ply -> m_calculated_vsize;
+		num_weights = append_ply -> num_weights;
+		num_tex_coords = append_ply -> num_tex_coords;
+		unknown_data_size = append_ply -> unknown_data_size;
+		has_pos = append_ply -> has_pos;
+		has_rhw = append_ply -> has_rhw;
+		has_weights = append_ply -> has_weights;
+		has_normal = append_ply -> has_normal;
+		has_psize = append_ply -> has_psize;
+		has_diffuse = append_ply -> has_diffuse;
+		has_mesh_bump = append_ply -> has_mesh_bump;
+		has_specular = append_ply -> has_specular;
+		has_tex_coords = append_ply -> has_tex_coords;
+		has_matrix_indices = append_ply -> has_matrix_indices;
+		has_mesh_specular = append_ply -> has_mesh_specular;
+		has_w = append_ply -> has_w;
+	}
+
+	int oldVertCount = m_numverts;
+	int oldPolyCount = m_numpolys;
+	int oldAdjaCount = m_numadjas;
+	int oldShdwCount = m_numshdws;
+
+	int *bone_remap = NULL;
+	if(append_ply -> m_bones > 0 && append_ply -> m_bonelist)
+	{
+		bone_remap = new int[append_ply -> m_bones];
+		memset(bone_remap, 0, sizeof(int) * append_ply -> m_bones);
+
+		int merged_bone_count = m_bones;
+		for(int i = 0; i < append_ply -> m_bones; i++)
+		{
+			bool found = false;
+			for(int i2 = 0; i2 < m_bones && !found; i2++)
+			{
+				if(m_bonelist[i2] && !stricmp(m_bonelist[i2], append_ply -> m_bonelist[i]))
+					{found = true;}
+			}
+			if(!found)
+				{merged_bone_count++;}
+		}
+
+		char **merged_bones = new char*[merged_bone_count];
+		memset(merged_bones, 0, sizeof(char*) * merged_bone_count);
+		for(int i = 0; i < m_bones; i++)
+			{merged_bones[i] = DupStringOrNull(m_bonelist[i]);}
+
+		int write_bone = m_bones;
+		for(int i = 0; i < append_ply -> m_bones; i++)
+		{
+			int remap = -1;
+			for(int i2 = 0; i2 < write_bone; i2++)
+			{
+				if(merged_bones[i2] && !stricmp(merged_bones[i2], append_ply -> m_bonelist[i]))
+				{
+					remap = i2;
+					break;
+				}
+			}
+			if(remap == -1)
+			{
+				merged_bones[write_bone] = DupStringOrNull(append_ply -> m_bonelist[i]);
+				remap = write_bone;
+				write_bone++;
+			}
+			bone_remap[i] = remap;
+		}
+
+		if(m_bonelist)
+		{
+			for(int i = 0; i < m_bones; i++)
+				{delete[] m_bonelist[i];}
+			delete[] m_bonelist;
+		}
+		m_bonelist = merged_bones;
+		m_bones = merged_bone_count;
+	}
+
+	int new_vert_count = m_numverts + append_ply -> m_numverts;
+	vert_t *merged_verts = new vert_t[new_vert_count];
+	memset(merged_verts, 0, sizeof(vert_t) * new_vert_count);
+	for(int i = 0; i < m_numverts; i++)
+		{CopyVertexData(merged_verts[i], m_vertlist[i], num_weights);}
+	for(int i = 0; i < append_ply -> m_numverts; i++)
+	{
+		int dst_i = oldVertCount + i;
+		CopyVertexData(merged_verts[dst_i], append_ply -> m_vertlist[i], num_weights);
+		if(bone_remap && has_matrix_indices)
+		{
+			for(int b = 0; b < 4; b++)
+			{
+				int src_bone = (unsigned char)append_ply -> m_vertlist[i].bones[b];
+				if(src_bone < append_ply -> m_bones)
+					{merged_verts[dst_i].bones[b] = (char)bone_remap[src_bone];}
+			}
+		}
+	}
+
+	if(m_vertlist)
+	{
+		for(int i = 0; i < m_numverts; i++)
+		{
+			if(m_vertlist[i].WeightsData)
+				{delete[] m_vertlist[i].WeightsData;}
+		}
+		delete[] m_vertlist;
+	}
+	m_vertlist = merged_verts;
+	m_numverts = new_vert_count;
+
+	int new_poly_count = m_numpolys + append_ply -> m_numpolys;
+	indx_t *merged_polys = new indx_t[new_poly_count];
+	memset(merged_polys, 0, sizeof(indx_t) * new_poly_count);
+	for(int i = 0; i < m_numpolys; i++)
+		{memcpy(&merged_polys[i], &m_polylist[i], sizeof(indx_t));}
+	for(int i = 0; i < append_ply -> m_numpolys; i++)
+	{
+		int dst_i = oldPolyCount + i;
+		merged_polys[dst_i].v[0] = append_ply -> m_polylist[i].v[0] + oldVertCount;
+		merged_polys[dst_i].v[1] = append_ply -> m_polylist[i].v[1] + oldVertCount;
+		merged_polys[dst_i].v[2] = append_ply -> m_polylist[i].v[2] + oldVertCount;
+	}
+	if(m_polylist)
+		{delete[] m_polylist;}
+	m_polylist = merged_polys;
+	m_numpolys = new_poly_count;
+	INDXcount = m_numpolys * 3;
+	IndexType = (IndexType == 2 || append_ply -> IndexType == 2) ? 2 : 1;
+
+	if(ADJA && append_ply -> ADJA && m_adjalist && append_ply -> m_adjalist)
+	{
+		int new_adja_count = m_numadjas + append_ply -> m_numadjas;
+		adja_t *merged_adja = new adja_t[new_adja_count];
+		memset(merged_adja, 0, sizeof(adja_t) * new_adja_count);
+		for(int i = 0; i < oldAdjaCount; i++)
+			{memcpy(&merged_adja[i], &m_adjalist[i], sizeof(adja_t));}
+		for(int i = 0; i < append_ply -> m_numadjas; i++)
+		{
+			merged_adja[oldAdjaCount + i] = append_ply -> m_adjalist[i];
+			if(merged_adja[oldAdjaCount + i].a >= 0)
+				{merged_adja[oldAdjaCount + i].a += oldPolyCount;}
+			if(merged_adja[oldAdjaCount + i].b >= 0)
+				{merged_adja[oldAdjaCount + i].b += oldPolyCount;}
+			if(merged_adja[oldAdjaCount + i].c >= 0)
+				{merged_adja[oldAdjaCount + i].c += oldPolyCount;}
+		}
+		delete[] m_adjalist;
+		m_adjalist = merged_adja;
+		m_numadjas = new_adja_count;
+	}
+	else
+	{
+		ADJA = FALSE;
+		m_numadjas = 0;
+		if(m_adjalist)
+			{delete[] m_adjalist; m_adjalist = NULL;}
+	}
+
+	if(SHDW && append_ply -> SHDW && m_shdwlist && append_ply -> m_shdwlist)
+	{
+		int new_shdw_count = m_numshdws + append_ply -> m_numshdws;
+		unsigned char *merged_shdw = new unsigned char[new_shdw_count];
+		memset(merged_shdw, 0, new_shdw_count);
+		memcpy(merged_shdw, m_shdwlist, oldShdwCount);
+		memcpy(merged_shdw + oldShdwCount, append_ply -> m_shdwlist, append_ply -> m_numshdws);
+		delete[] m_shdwlist;
+		m_shdwlist = merged_shdw;
+		m_numshdws = new_shdw_count;
+	}
+	else
+	{
+		SHDW = FALSE;
+		m_numshdws = 0;
+		if(m_shdwlist)
+			{delete[] m_shdwlist; m_shdwlist = NULL;}
+	}
+
+	CMesh *mesh = append_ply -> m_meshlist -> GetFirst();
+	while(mesh)
+	{
+		char texname[4][_MAX_PATH] = {0};
+		for(int i = 0; i < 4; i++)
+		{
+			if(mesh -> m_texname[i])
+				{strcpy(texname[i], mesh -> m_texname[i]);}
+		}
+		BYTE remapped_subskin[MAX_PATH] = {0};
+		if(mesh -> subskin_count > 0)
+		{
+			for(int i = 0; i < mesh -> subskin_count; i++)
+			{
+				BYTE sub = mesh -> subskin_bones[i];
+				if(bone_remap && sub < append_ply -> m_bones)
+					{remapped_subskin[i] = (BYTE)bone_remap[sub];}
+				else
+					{remapped_subskin[i] = sub;}
+			}
+		}
+		m_meshlist -> AddToTail(mesh -> m_first + oldPolyCount, mesh -> m_count, mesh -> m_fvf, texname, mesh -> m_texcount, mesh -> m_flags, mesh -> specular_rgba_color, mesh -> subskin_count, remapped_subskin);
+		mesh = mesh -> next;
+	}
+
+	Bply = (Bply || append_ply -> Bply);
+	GlFvf = (GlFvf) ? GlFvf : append_ply -> GlFvf;
+	GlFlags |= append_ply -> GlFlags;
+	SKINNED = (SKINNED || append_ply -> SKINNED);
+	MROR = (MROR || append_ply -> MROR);
+	m_mirror = (MROR) ? 1 : 0;
+
+	if(!BNDS && append_ply -> BNDS)
+		{BNDS = TRUE;}
+	if(BNDS && m_numverts > 0 && has_pos)
+	{
+		m_bbox[0] = m_bbox[1] = m_vertlist[0].xyz;
+		for(int i = 1; i < m_numverts; i++)
+		{
+			if(m_vertlist[i].xyz.x < m_bbox[0].x)
+				{m_bbox[0].x = m_vertlist[i].xyz.x;}
+			if(m_vertlist[i].xyz.y < m_bbox[0].y)
+				{m_bbox[0].y = m_vertlist[i].xyz.y;}
+			if(m_vertlist[i].xyz.z < m_bbox[0].z)
+				{m_bbox[0].z = m_vertlist[i].xyz.z;}
+			if(m_vertlist[i].xyz.x > m_bbox[1].x)
+				{m_bbox[1].x = m_vertlist[i].xyz.x;}
+			if(m_vertlist[i].xyz.y > m_bbox[1].y)
+				{m_bbox[1].y = m_vertlist[i].xyz.y;}
+			if(m_vertlist[i].xyz.z > m_bbox[1].z)
+				{m_bbox[1].z = m_vertlist[i].xyz.z;}
+		}
+	}
+
+	if(bone_remap)
+		{delete[] bone_remap;}
+	return true;
 }
 
 bool CPly::WriteFile(char *plyname)

@@ -742,6 +742,8 @@
 #define ID_ADD_BONE_TO_ANM_AL           33085
 #define ID_DEL_BONE_FROM_ANM_AL         33086
 #define ID_DISPLAY_TEXTURE_ERRORS_AL    33087
+#define ID_PLY_MERGE                    33088
+#define ID_PLY_MERGE_AL                 33089
 
 // Next default values for new objects
 // 
@@ -749,7 +751,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        206
-#define _APS_NEXT_COMMAND_VALUE         33088
+#define _APS_NEXT_COMMAND_VALUE         33090
 #define _APS_NEXT_CONTROL_VALUE         1336
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
