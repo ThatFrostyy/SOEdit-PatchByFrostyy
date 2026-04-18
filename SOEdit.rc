@@ -260,6 +260,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "&??????? ???",                ID_BONE_DELETE_PLY
         MENUITEM "&????????? ? ????????????? ?????", ID_BONE_MERGE_PARENT
+        MENUITEM "&????????? PLY ?? ????????",  ID_BONE_DEMERGE_PLY
         MENUITEM SEPARATOR
         MENUITEM "&???????? ???",               ID_BONE_ADD_LOD
         MENUITEM SEPARATOR
@@ -316,6 +317,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "&Delete a mesh",              ID_BONE_DELETE_PLY_AL
         MENUITEM "&Merge with parent bone",     ID_BONE_MERGE_PARENT_AL
+        MENUITEM "&Demerge PLY into children",  ID_BONE_DEMERGE_PLY_AL
         MENUITEM SEPARATOR
         MENUITEM "&Add lod",                    ID_BONE_ADD_LOD_AL
         MENUITEM SEPARATOR
@@ -1793,6 +1795,7 @@ BEGIN
     ID_BONE_ADD_VOLUME_AL   "Add volume to the selected bone"
     ID_BONE_DELETE_PLY_AL   "Exclude the mesh-file from the selected bone"
     ID_BONE_MERGE_PARENT_AL "Merge selected child bone and its mesh into parent bone preserving world transform"
+    ID_BONE_DEMERGE_PLY_AL  "Demerge selected bone PLY into child bones and separate PLY files"
     ID_BONE_ADD_LOD_AL      "Add a Lod to the selected bone"
     IDM_BONE_ADD_AL         "Insert a new bone"
     ID_BONE_EXPAND_ALL_AL   "Expand the entire bone branch"

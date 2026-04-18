@@ -11,6 +11,11 @@
 #include "CVolProp.h"
 #include "VolPropDlg.h"
 #include "math.h"
+#include <algorithm>
+#include <vector>
+#include <map>
+#include <queue>
+#include <string>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -70,6 +75,8 @@ BEGIN_MESSAGE_MAP(CSOEditDoc, CDocument)
 	ON_COMMAND(ID_BONE_DELETE_PLY_AL, On_Bone_Delete_Mesh)
 	ON_COMMAND(ID_BONE_MERGE_PARENT, &CSOEditDoc::OnBoneMergeToParent)
 	ON_COMMAND(ID_BONE_MERGE_PARENT_AL, &CSOEditDoc::OnBoneMergeToParent)
+	ON_COMMAND(ID_BONE_DEMERGE_PLY, &CSOEditDoc::OnBoneDemergePly)
+	ON_COMMAND(ID_BONE_DEMERGE_PLY_AL, &CSOEditDoc::OnBoneDemergePly)
 	ON_COMMAND(ID_BONE_EXPAND_ALL, On_Bone_Expand)
 	ON_COMMAND(ID_BONE_EXPAND_ALL_AL, On_Bone_Expand)
 	ON_COMMAND(ID_BONE_EXPAND_BRANCH, On_Bone_Expand)
@@ -2954,6 +2961,512 @@ void CSOEditDoc::On_Bone_Delete_Mesh()
 		}
 		UpdateAllViews(NULL, 0, NULL);
 	}
+}
+
+enum DemergeMode
+{
+	DEMERGE_BY_SURFACE = 0,
+	DEMERGE_BY_TAG = 1,
+	DEMERGE_BY_ALL = 2
+};
+
+static void ClearPlyDynamicBuffers(CPly* ply)
+{
+	if (!ply)
+	{
+		return;
+	}
+	if (ply->m_vertlist)
+	{
+		for (int i = 0; i < ply->m_numverts; i++)
+		{
+			if (ply->m_vertlist[i].WeightsData)
+			{
+				delete[] ply->m_vertlist[i].WeightsData;
+				ply->m_vertlist[i].WeightsData = NULL;
+			}
+		}
+		delete[] ply->m_vertlist;
+		ply->m_vertlist = NULL;
+	}
+	if (ply->m_polylist)
+	{
+		delete[] ply->m_polylist;
+		ply->m_polylist = NULL;
+	}
+	if (ply->m_adjalist)
+	{
+		delete[] ply->m_adjalist;
+		ply->m_adjalist = NULL;
+	}
+	if (ply->m_shdwlist)
+	{
+		delete[] ply->m_shdwlist;
+		ply->m_shdwlist = NULL;
+	}
+	if (ply->m_bonelist)
+	{
+		for (int i = 0; i < ply->m_bones; i++)
+		{
+			delete[] ply->m_bonelist[i];
+		}
+		delete[] ply->m_bonelist;
+		ply->m_bonelist = NULL;
+	}
+	if (ply->m_meshlist)
+	{
+		delete ply->m_meshlist;
+		ply->m_meshlist = NULL;
+	}
+	ply->m_bones = 0;
+	ply->m_numverts = 0;
+	ply->m_numpolys = 0;
+	ply->INDXcount = 0;
+	ply->m_numadjas = 0;
+	ply->m_numshdws = 0;
+	ply->ADJA = FALSE;
+	ply->SHDW = FALSE;
+}
+
+static void CopyVertexForDemerge(vert_t& dst, const vert_t& src, int num_weights)
+{
+	dst = src;
+	dst.WeightsData = NULL;
+	if (num_weights > 0 && src.WeightsData)
+	{
+		dst.WeightsData = new DWORD[num_weights];
+		memcpy(dst.WeightsData, src.WeightsData, sizeof(DWORD) * num_weights);
+	}
+}
+
+static void BuildFaceMeshMap(const CPly& src, std::vector<int>& face_mesh_map)
+{
+	face_mesh_map.assign(src.m_numpolys, -1);
+	int mesh_index = 0;
+	CMesh* mesh = src.m_meshlist ? src.m_meshlist->GetFirst() : NULL;
+	while (mesh)
+	{
+		for (int i = 0; i < mesh->m_count; i++)
+		{
+			int face_id = mesh->m_first + i;
+			if (face_id >= 0 && face_id < src.m_numpolys)
+			{
+				face_mesh_map[face_id] = mesh_index;
+			}
+		}
+		mesh = mesh->next;
+		mesh_index++;
+	}
+}
+
+static void CollectDemergeGroups(const CPly& src, DemergeMode mode, const std::vector<int>& face_mesh_map, std::vector< std::vector<int> >& groups)
+{
+	groups.clear();
+	if (src.m_numpolys <= 0 || !src.m_polylist)
+	{
+		return;
+	}
+	if (mode == DEMERGE_BY_SURFACE)
+	{
+		CMesh* mesh = src.m_meshlist ? src.m_meshlist->GetFirst() : NULL;
+		while (mesh)
+		{
+			std::vector<int> g;
+			for (int i = 0; i < mesh->m_count; i++)
+			{
+				int face_id = mesh->m_first + i;
+				if (face_id >= 0 && face_id < src.m_numpolys)
+				{
+					g.push_back(face_id);
+				}
+			}
+			if (!g.empty())
+			{
+				groups.push_back(g);
+			}
+			mesh = mesh->next;
+		}
+		return;
+	}
+	if (mode == DEMERGE_BY_TAG)
+	{
+		std::map<std::string, int> tag_to_group;
+		CMesh* mesh = src.m_meshlist ? src.m_meshlist->GetFirst() : NULL;
+		while (mesh)
+		{
+			const char* tag_name = NULL;
+			if (mesh->m_texname[2] && strlen(mesh->m_texname[2]))
+			{
+				tag_name = mesh->m_texname[2];
+			}
+			else if (mesh->m_texname[0] && strlen(mesh->m_texname[0]))
+			{
+				tag_name = mesh->m_texname[0];
+			}
+			else
+			{
+				tag_name = "untagged";
+			}
+			std::string key(tag_name);
+			if (!tag_to_group.count(key))
+			{
+				tag_to_group[key] = (int)groups.size();
+				groups.push_back(std::vector<int>());
+			}
+			std::vector<int>& g = groups[tag_to_group[key]];
+			for (int i = 0; i < mesh->m_count; i++)
+			{
+				int face_id = mesh->m_first + i;
+				if (face_id >= 0 && face_id < src.m_numpolys)
+				{
+					g.push_back(face_id);
+				}
+			}
+			mesh = mesh->next;
+		}
+		return;
+	}
+
+	// DEMERGE_BY_ALL: split into fully disconnected triangle islands.
+	std::vector< std::vector<int> > vert_to_faces;
+	vert_to_faces.resize(src.m_numverts);
+	for (int f = 0; f < src.m_numpolys; f++)
+	{
+		for (int c = 0; c < 3; c++)
+		{
+			int v = src.m_polylist[f].v[c];
+			if (v >= 0 && v < src.m_numverts)
+			{
+				vert_to_faces[v].push_back(f);
+			}
+		}
+	}
+
+	std::vector<char> visited(src.m_numpolys, 0);
+	for (int f = 0; f < src.m_numpolys; f++)
+	{
+		if (visited[f])
+		{
+			continue;
+		}
+		std::queue<int> q;
+		q.push(f);
+		visited[f] = 1;
+		std::vector<int> g;
+		while (!q.empty())
+		{
+			int cur = q.front();
+			q.pop();
+			g.push_back(cur);
+			for (int c = 0; c < 3; c++)
+			{
+				int v = src.m_polylist[cur].v[c];
+				if (v < 0 || v >= src.m_numverts)
+				{
+					continue;
+				}
+				for (size_t k = 0; k < vert_to_faces[v].size(); k++)
+				{
+					int nei_face = vert_to_faces[v][k];
+					if (!visited[nei_face])
+					{
+						visited[nei_face] = 1;
+						q.push(nei_face);
+					}
+				}
+			}
+		}
+		if (!g.empty())
+		{
+			groups.push_back(g);
+		}
+	}
+}
+
+static bool BuildDemergedPlyFromFaces(const CPly& src, const std::vector<int>& in_faces, const std::vector<int>& face_mesh_map, CPly* out_ply)
+{
+	if (!out_ply || in_faces.empty())
+	{
+		return false;
+	}
+	std::vector<int> faces = in_faces;
+	std::sort(faces.begin(), faces.end());
+
+	ClearPlyDynamicBuffers(out_ply);
+	out_ply->Bply = src.Bply;
+	out_ply->BNDS = src.BNDS;
+	out_ply->BAS2 = src.BAS2;
+	out_ply->SKINNED = src.SKINNED;
+	out_ply->GlFvf = src.GlFvf;
+	out_ply->GlFlags = src.GlFlags;
+	out_ply->m_vsize = src.m_vsize;
+	out_ply->m_vflags = src.m_vflags;
+	out_ply->m_calculated_vsize = src.m_calculated_vsize;
+	out_ply->num_weights = src.num_weights;
+	out_ply->num_tex_coords = src.num_tex_coords;
+	out_ply->unknown_data_size = src.unknown_data_size;
+	out_ply->has_pos = src.has_pos;
+	out_ply->has_rhw = src.has_rhw;
+	out_ply->has_weights = src.has_weights;
+	out_ply->has_normal = src.has_normal;
+	out_ply->has_psize = src.has_psize;
+	out_ply->has_diffuse = src.has_diffuse;
+	out_ply->has_mesh_bump = src.has_mesh_bump;
+	out_ply->has_specular = src.has_specular;
+	out_ply->has_tex_coords = src.has_tex_coords;
+	out_ply->has_matrix_indices = src.has_matrix_indices;
+	out_ply->has_mesh_specular = src.has_mesh_specular;
+	out_ply->has_w = src.has_w;
+	out_ply->IndexType = src.IndexType;
+	memcpy(out_ply->m_basis, src.m_basis, sizeof(src.m_basis));
+	memcpy(out_ply->m_bbox, src.m_bbox, sizeof(src.m_bbox));
+	out_ply->m_mirror = src.m_mirror;
+	out_ply->MROR = src.MROR;
+
+	if (src.m_bones > 0 && src.m_bonelist)
+	{
+		out_ply->m_bones = src.m_bones;
+		out_ply->m_bonelist = new char* [out_ply->m_bones];
+		for (int i = 0; i < out_ply->m_bones; i++)
+		{
+			out_ply->m_bonelist[i] = NULL;
+			if (src.m_bonelist[i])
+			{
+				out_ply->m_bonelist[i] = new char[strlen(src.m_bonelist[i]) + 1];
+				strcpy(out_ply->m_bonelist[i], src.m_bonelist[i]);
+			}
+		}
+	}
+
+	std::map<int, int> vert_remap;
+	for (size_t i = 0; i < faces.size(); i++)
+	{
+		const indx_t& face = src.m_polylist[faces[i]];
+		for (int c = 0; c < 3; c++)
+		{
+			if (!vert_remap.count(face.v[c]))
+			{
+				vert_remap[face.v[c]] = (int)vert_remap.size();
+			}
+		}
+	}
+
+	out_ply->m_numverts = (int)vert_remap.size();
+	out_ply->m_vertlist = new vert_t[out_ply->m_numverts];
+	memset(out_ply->m_vertlist, 0, sizeof(vert_t) * out_ply->m_numverts);
+	for (std::map<int, int>::iterator it = vert_remap.begin(); it != vert_remap.end(); ++it)
+	{
+		CopyVertexForDemerge(out_ply->m_vertlist[it->second], src.m_vertlist[it->first], src.num_weights);
+	}
+
+	out_ply->m_numpolys = (int)faces.size();
+	out_ply->INDXcount = out_ply->m_numpolys * 3;
+	out_ply->m_polylist = new indx_t[out_ply->m_numpolys];
+	for (int i = 0; i < out_ply->m_numpolys; i++)
+	{
+		const indx_t& src_face = src.m_polylist[faces[i]];
+		out_ply->m_polylist[i].v[0] = vert_remap[src_face.v[0]];
+		out_ply->m_polylist[i].v[1] = vert_remap[src_face.v[1]];
+		out_ply->m_polylist[i].v[2] = vert_remap[src_face.v[2]];
+	}
+
+	out_ply->ADJA = FALSE;
+	out_ply->m_numadjas = 0;
+	out_ply->SHDW = FALSE;
+	out_ply->m_numshdws = 0;
+
+	out_ply->m_meshlist = new CMeshList();
+	int run_start = 0;
+	while (run_start < (int)faces.size())
+	{
+		int mesh_idx = (faces[run_start] >= 0 && faces[run_start] < (int)face_mesh_map.size()) ? face_mesh_map[faces[run_start]] : -1;
+		int run_end = run_start + 1;
+		while (run_end < (int)faces.size())
+		{
+			int next_mesh_idx = (faces[run_end] >= 0 && faces[run_end] < (int)face_mesh_map.size()) ? face_mesh_map[faces[run_end]] : -1;
+			if (next_mesh_idx != mesh_idx)
+			{
+				break;
+			}
+			run_end++;
+		}
+
+		CMesh* src_mesh = src.m_meshlist ? src.m_meshlist->GetFirst() : NULL;
+		for (int i = 0; src_mesh && i < mesh_idx; i++)
+		{
+			src_mesh = src_mesh->next;
+		}
+		char texname[4][_MAX_PATH] = { 0 };
+		int tex_count = 0;
+		DWORD mesh_flags = src.GlFlags;
+		DWORD mesh_fvf = src.GlFvf;
+		DWORD specular_rgba_color = src.specular_rgba_color;
+		BYTE subskin_count = 0;
+		BYTE subskin_bones[MAX_PATH] = { 0 };
+		if (src_mesh)
+		{
+			tex_count = src_mesh->m_texcount;
+			mesh_flags = src_mesh->m_flags;
+			mesh_fvf = src_mesh->m_fvf;
+			specular_rgba_color = src_mesh->specular_rgba_color;
+			subskin_count = src_mesh->subskin_count;
+			memcpy(subskin_bones, src_mesh->subskin_bones, sizeof(subskin_bones));
+			for (int t = 0; t < 4; t++)
+			{
+				if (src_mesh->m_texname[t])
+				{
+					strncpy(texname[t], src_mesh->m_texname[t], _MAX_PATH - 1);
+					texname[t][_MAX_PATH - 1] = '\0';
+				}
+			}
+		}
+
+		out_ply->m_meshlist->AddToTail(run_start, run_end - run_start, mesh_fvf, texname, tex_count, mesh_flags, specular_rgba_color, subskin_count, subskin_bones);
+		run_start = run_end;
+	}
+	return true;
+}
+
+void CSOEditDoc::OnBoneDemergePly()
+{
+	if (!m_Model || !m_Model->m_skeleton || !m_Model->m_skeleton->m_bonelist || !hSelTreeItem)
+	{
+		return;
+	}
+	CBone* pBone = m_Model->m_skeleton->m_bonelist->FindBoneByTreeID(hSelTreeItem);
+	if (!pBone || !pBone->m_VolumeViewName || !strlen(pBone->m_VolumeViewName))
+	{
+		return;
+	}
+
+	CPly sourcePly(pBone->m_VolumeViewName);
+	if (!sourcePly.loading_successes || sourcePly.m_numpolys <= 0 || !sourcePly.m_meshlist)
+	{
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to load source PLY for demerge.", "Demerge PLY", MB_OK | MB_ICONHAND);
+		return;
+	}
+
+	int mode_pick = MessageBox(
+		AfxGetApp()->m_pMainWnd->m_hWnd,
+		"Choose demerge mode:\nYES = by surface\nNO = by tags\nCANCEL = all connections",
+		"Demerge PLY",
+		MB_ICONQUESTION | MB_YESNOCANCEL);
+
+	DemergeMode mode = DEMERGE_BY_SURFACE;
+	if (mode_pick == IDNO)
+	{
+		mode = DEMERGE_BY_TAG;
+	}
+	else if (mode_pick == IDCANCEL)
+	{
+		mode = DEMERGE_BY_ALL;
+	}
+
+	std::vector<int> face_mesh_map;
+	BuildFaceMeshMap(sourcePly, face_mesh_map);
+	std::vector< std::vector<int> > groups;
+	CollectDemergeGroups(sourcePly, mode, face_mesh_map, groups);
+	if (groups.empty())
+	{
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "No demerge-able parts were found.", "Demerge PLY", MB_OK | MB_ICONINFORMATION);
+		return;
+	}
+
+	CString confirm;
+	confirm.Format("Found %d output PLY part(s).\nDo you want to continue?", (int)groups.size());
+	if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, confirm, "Demerge PLY", MB_OKCANCEL | MB_ICONQUESTION) != IDOK)
+	{
+		return;
+	}
+
+	char drive[_MAX_DRIVE] = { 0 }, dir[_MAX_DIR] = { 0 }, fname[_MAX_FNAME] = { 0 }, ext[_MAX_EXT] = { 0 };
+	_splitpath(pBone->m_VolumeViewName, drive, dir, fname, ext);
+
+	std::vector<CBone*> createdBones;
+	for (size_t i = 0; i < groups.size(); i++)
+	{
+		char outName[_MAX_FNAME] = { 0 };
+		_snprintf(outName, _MAX_FNAME - 1, "%s_demerge_%03d", fname, (int)i + 1);
+		outName[_MAX_FNAME - 1] = '\0';
+		ForbiddenSymbolFixer(outName);
+
+		char outPath[_MAX_PATH] = { 0 };
+		_makepath(outPath, drive, dir, outName, ".ply");
+		FixPathDelim(outPath);
+
+		CPly piecePly(pBone->m_VolumeViewName);
+		if (!piecePly.loading_successes || !BuildDemergedPlyFromFaces(sourcePly, groups[i], face_mesh_map, &piecePly) || !piecePly.WriteFile(outPath))
+		{
+			MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Failed to save demerged file:\n" + CString(outPath)), "Demerge PLY", MB_OK | MB_ICONHAND);
+			continue;
+		}
+
+		CBone* newChild = new CBone();
+		newChild->m_parent = pBone;
+		char boneName[_MAX_FNAME] = { 0 };
+		_snprintf(boneName, _MAX_FNAME - 1, "%s_part_%03d", pBone->m_Name ? pBone->m_Name : "bone", (int)i + 1);
+		boneName[_MAX_FNAME - 1] = '\0';
+		ForbiddenSymbolFixer(boneName);
+		newChild->SetName(boneName);
+		newChild->m_VolumeViewName = new char[strlen(outPath) + 1];
+		strcpy(newChild->m_VolumeViewName, outPath);
+		newChild->m_VolumeView = new CPly(outPath);
+
+		if (pBone->m_ChildLast)
+		{
+			newChild->prev = pBone->m_ChildLast;
+			pBone->m_ChildLast->next = newChild;
+			pBone->m_ChildLast = newChild;
+		}
+		else
+		{
+			pBone->m_ChildFirst = pBone->m_ChildLast = pBone->m_curr = newChild;
+		}
+		createdBones.push_back(newChild);
+	}
+
+	if (createdBones.empty())
+	{
+		return;
+	}
+
+	if (pBone->m_VolumeViewName)
+	{
+		delete[] pBone->m_VolumeViewName;
+		pBone->m_VolumeViewName = NULL;
+	}
+	if (pBone->m_VolumeView)
+	{
+		delete pBone->m_VolumeView;
+		pBone->m_VolumeView = NULL;
+	}
+
+	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
+	CTreeCtrl* pTreeCtrl = (CTreeCtrl*)pFrameWnd->m_wndToolTab.m_ModelTree.GetDlgItem(IDC_MODELTREE);
+	SaveExpandStatus(GeneralBones);
+	UINT state;
+	if ((state = pTreeCtrl->GetItemState(GeneralVolumes, TVIS_EXPANDED)) & TVIS_EXPANDED)
+	{
+		GeneralVolumesOpened = true;
+	}
+	pTreeCtrl->DeleteAllItems();
+	LoadTextures();
+	LoadExpandStatus(m_Model->m_skeleton->m_bonelist);
+	if (GeneralVolumesOpened)
+	{
+		pTreeCtrl->Expand(GeneralVolumes, TVE_EXPAND);
+	}
+	if (!createdBones.empty() && createdBones[0]->hTreeItem)
+	{
+		pTreeCtrl->SelectItem(createdBones[0]->hTreeItem);
+		hSelTreeItem = createdBones[0]->hTreeItem;
+	}
+	pTreeCtrl->SetFocus();
+	UpdateAllViews(NULL, 0, NULL);
+
+	CString done;
+	done.Format("Demerge completed.\nCreated %d PLY file(s).", (int)createdBones.size());
+	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, done, "Demerge PLY", MB_OK | MB_ICONINFORMATION);
 }
 
 void CSOEditDoc::OnBoneMergeToParent()

@@ -746,6 +746,8 @@
 #define ID_PLY_MERGE_AL                 33089
 #define ID_BONE_MERGE_PARENT            33090
 #define ID_BONE_MERGE_PARENT_AL         33091
+#define ID_BONE_DEMERGE_PLY             33092
+#define ID_BONE_DEMERGE_PLY_AL          33093
 
 // Next default values for new objects
 // 
@@ -753,7 +755,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        206
-#define _APS_NEXT_COMMAND_VALUE         33092
+#define _APS_NEXT_COMMAND_VALUE         33094
 #define _APS_NEXT_CONTROL_VALUE         1336
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

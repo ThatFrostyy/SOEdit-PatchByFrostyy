@@ -157,6 +157,7 @@ protected:
 	afx_msg void On_Bone_Add_Volume();
 	afx_msg void On_Bone_Delete_Mesh();
 	afx_msg void OnBoneMergeToParent();
+	afx_msg void OnBoneDemergePly();
 	afx_msg void On_Bone_Expand();
 	afx_msg void On_Bone_Collapse();
 	afx_msg void On_Bone_Copy();
