@@ -68,6 +68,8 @@ BEGIN_MESSAGE_MAP(CSOEditDoc, CDocument)
 	ON_COMMAND(ID_BONE_ADD_VOLUME_AL, On_Bone_Add_Volume)
 	ON_COMMAND(ID_BONE_DELETE_PLY, On_Bone_Delete_Mesh)
 	ON_COMMAND(ID_BONE_DELETE_PLY_AL, On_Bone_Delete_Mesh)
+	ON_COMMAND(ID_BONE_MERGE_PARENT, &CSOEditDoc::OnBoneMergeToParent)
+	ON_COMMAND(ID_BONE_MERGE_PARENT_AL, &CSOEditDoc::OnBoneMergeToParent)
 	ON_COMMAND(ID_BONE_EXPAND_ALL, On_Bone_Expand)
 	ON_COMMAND(ID_BONE_EXPAND_ALL_AL, On_Bone_Expand)
 	ON_COMMAND(ID_BONE_EXPAND_BRANCH, On_Bone_Expand)
@@ -2896,6 +2898,148 @@ void CSOEditDoc::On_Bone_Delete_Mesh()
 		}
 		UpdateAllViews(NULL, 0, NULL);
 	}
+}
+
+void CSOEditDoc::OnBoneMergeToParent()
+{
+	CBone* childBone = m_Model->m_skeleton->m_bonelist->FindBoneByTreeID(hSelTreeItem);
+	if (!childBone || !childBone->m_parent)
+	{
+		return;
+	}
+	CBone* parentBone = childBone->m_parent;
+	if (!childBone->m_VolumeViewName || !strlen(childBone->m_VolumeViewName))
+	{
+#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Selected child bone has no mesh (PLY) to merge.", "Bone merge", MB_OK | MB_ICONINFORMATION);
+#else
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Ó âûáðàííîé äî÷åðíåé êîñòè íåò PLY-ìýøà äëÿ îáúåäèíåíèÿ.", "Bone merge", MB_OK | MB_ICONINFORMATION);
+#endif
+		return;
+	}
+	if (childBone->m_ChildFirst)
+	{
+#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Merge requires a leaf child bone (without nested children).", "Bone merge", MB_OK | MB_ICONINFORMATION);
+#else
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Îáúåäèíåíèå äîñòóïíî òîëüêî äëÿ ëèñòîâîé äî÷åðíåé êîñòè (áåç âëîæåííûõ êîñòåé).", "Bone merge", MB_OK | MB_ICONINFORMATION);
+#endif
+		return;
+	}
+
+	char childPath[_MAX_PATH] = { 0 };
+	strncpy(childPath, childBone->m_VolumeViewName, _MAX_PATH - 1);
+	childPath[_MAX_PATH - 1] = '\0';
+	FixPathDelim(childPath);
+	CPly childPly(childPath);
+	if (!childPly.loading_successes)
+	{
+#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to load child PLY file.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#else
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü çàãðóçèòü PLY-ôàéë äî÷åðíåé êîñòè.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#endif
+		return;
+	}
+
+	if (childBone->Matrix34)
+	{
+		childPly.ApplyTransform(childBone->Matrix34);
+	}
+	childPly.RebindBoneName(childBone->m_Name, parentBone->m_Name);
+
+	CPly* basePly = NULL;
+	if (parentBone->m_VolumeViewName && strlen(parentBone->m_VolumeViewName))
+	{
+		char parentPath[_MAX_PATH] = { 0 };
+		strncpy(parentPath, parentBone->m_VolumeViewName, _MAX_PATH - 1);
+		parentPath[_MAX_PATH - 1] = '\0';
+		FixPathDelim(parentPath);
+		basePly = new CPly(parentPath);
+		if (!basePly->loading_successes)
+		{
+			delete basePly;
+			basePly = NULL;
+#ifdef ALTERNATIVE_LANG
+			MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to load parent PLY file.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#else
+			MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü çàãðóçèòü PLY-ôàéë ðîäèòåëüñêîé êîñòè.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#endif
+			return;
+		}
+	}
+	else
+	{
+		basePly = new CPly(childPath);
+		if (!basePly->loading_successes)
+		{
+			delete basePly;
+			basePly = NULL;
+			return;
+		}
+		if (childBone->Matrix34)
+		{
+			basePly->ApplyTransform(childBone->Matrix34);
+		}
+		basePly->RebindBoneName(childBone->m_Name, parentBone->m_Name);
+	}
+
+	bool ok = true;
+	if (parentBone->m_VolumeViewName && strlen(parentBone->m_VolumeViewName))
+	{
+		ok = basePly->MergeKeepSeparateTextures(&childPly);
+	}
+	if (!ok)
+	{
+		delete basePly;
+#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to merge meshes. Ensure both PLY files have compatible vertex format.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#else
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü îáúåäèíèòü ìýøè. Ïðîâåðü ñîâìåñòèìîñòü ôîðìàòîâ âåðøèí.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#endif
+		return;
+	}
+
+	char drive[_MAX_DRIVE] = { 0 }, dir[_MAX_DIR] = { 0 }, fname[_MAX_FNAME] = { 0 }, ext[_MAX_EXT] = { 0 };
+	const char* outSource = (parentBone->m_VolumeViewName && strlen(parentBone->m_VolumeViewName)) ? parentBone->m_VolumeViewName : childBone->m_VolumeViewName;
+	_splitpath(outSource, drive, dir, fname, ext);
+	char mergedName[_MAX_FNAME] = { 0 };
+	sprintf(mergedName, "%s_merged_%s", fname, childBone->m_Name ? childBone->m_Name : "child");
+	ForbiddenSymbolFixer(mergedName);
+	char mergedPath[_MAX_PATH] = { 0 };
+	_makepath(mergedPath, drive, dir, mergedName, ".ply");
+	FixPathDelim(mergedPath);
+
+	if (!basePly->WriteFile(mergedPath))
+	{
+		delete basePly;
+#ifdef ALTERNATIVE_LANG
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to save merged PLY file.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#else
+		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü ñîõðàíèòü îáúåäèíåííûé PLY-ôàéë.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
+#endif
+		return;
+	}
+	delete basePly;
+
+	if (parentBone->m_VolumeViewName)
+	{
+		delete[] parentBone->m_VolumeViewName;
+		parentBone->m_VolumeViewName = NULL;
+	}
+	parentBone->m_VolumeViewName = new char[strlen(mergedPath) + 1];
+	strcpy(parentBone->m_VolumeViewName, mergedPath);
+	parentBone->AddPly(parentBone->m_VolumeViewName);
+
+	hSelTreeItem = childBone->hTreeItem;
+	OnBoneDelete();
+
+	UpdateAllViews(NULL, 0, NULL);
+#ifdef ALTERNATIVE_LANG
+	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Merged PLY saved:\n" + CString(mergedPath)), "Done", MB_OK | MB_ICONINFORMATION);
+#else
+	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Îáúåäèíåííûé PLY ñîõðàíåí:\n" + CString(mergedPath)), "Ãîòîâî", MB_OK | MB_ICONINFORMATION);
+#endif
 }
 
 void CSOEditDoc::On_Bone_Expand()

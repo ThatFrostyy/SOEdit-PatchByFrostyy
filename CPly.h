@@ -20,6 +20,10 @@ public:
 	bool WriteFile(char *plyname);
 	// Appends mesh/vertex/index data from another PLY while keeping each source mesh material/texture assignment.
 	bool MergeKeepSeparateTextures(const CPly *append_ply);
+	// Applies affine transform to vertex positions (and rotation to normals/bump basis).
+	void ApplyTransform(const matrix34_t* matrix);
+	// Rebinds skin references from one bone name to another.
+	void RebindBoneName(const char* old_name, const char* new_name);
 
 	FILE *m_fp;
 	bool loading_successes, Bply;
