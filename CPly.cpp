@@ -809,6 +809,131 @@ static void CopyVertexData(vert_t& dst, const vert_t& src, int weights_count)
 	}
 }
 
+static void MultiplyPointByMatrix34(v3_t& out, const v3_t& in, const matrix34_t& m)
+{
+	out[0] = in[0] * m.v[0][0] + in[1] * m.v[1][0] + in[2] * m.v[2][0] + m.v[3][0];
+	out[1] = in[0] * m.v[0][1] + in[1] * m.v[1][1] + in[2] * m.v[2][1] + m.v[3][1];
+	out[2] = in[0] * m.v[0][2] + in[1] * m.v[1][2] + in[2] * m.v[2][2] + m.v[3][2];
+}
+
+static void MultiplyDirectionByMatrix34(v3_t& out, const v3_t& in, const matrix34_t& m)
+{
+	out[0] = in[0] * m.v[0][0] + in[1] * m.v[1][0] + in[2] * m.v[2][0];
+	out[1] = in[0] * m.v[0][1] + in[1] * m.v[1][1] + in[2] * m.v[2][1];
+	out[2] = in[0] * m.v[0][2] + in[1] * m.v[1][2] + in[2] * m.v[2][2];
+}
+
+void CPly::ApplyTransform(const matrix34_t* matrix)
+{
+	if (!matrix || !m_vertlist || m_numverts <= 0 || !has_pos)
+	{
+		return;
+	}
+
+	for (int i = 0; i < m_numverts; i++)
+	{
+		v3_t src_pos = { m_vertlist[i].xyz[0], m_vertlist[i].xyz[1], m_vertlist[i].xyz[2] };
+		v3_t dst_pos = { 0.0f, 0.0f, 0.0f };
+		MultiplyPointByMatrix34(dst_pos, src_pos, *matrix);
+		m_vertlist[i].xyz[0] = dst_pos[0];
+		m_vertlist[i].xyz[1] = dst_pos[1];
+		m_vertlist[i].xyz[2] = dst_pos[2];
+
+		if (has_normal)
+		{
+			v3_t src_n = { m_vertlist[i].vn[0], m_vertlist[i].vn[1], m_vertlist[i].vn[2] };
+			v3_t dst_n = { 0.0f, 0.0f, 0.0f };
+			MultiplyDirectionByMatrix34(dst_n, src_n, *matrix);
+			m_vertlist[i].vn[0] = dst_n[0];
+			m_vertlist[i].vn[1] = dst_n[1];
+			m_vertlist[i].vn[2] = dst_n[2];
+		}
+
+		if (has_mesh_bump)
+		{
+			v3_t src_b = { m_vertlist[i].bump12[0], m_vertlist[i].bump12[1], m_vertlist[i].bump12[2] };
+			v3_t dst_b = { 0.0f, 0.0f, 0.0f };
+			MultiplyDirectionByMatrix34(dst_b, src_b, *matrix);
+			m_vertlist[i].bump12[0] = dst_b[0];
+			m_vertlist[i].bump12[1] = dst_b[1];
+			m_vertlist[i].bump12[2] = dst_b[2];
+		}
+	}
+
+	if (m_numverts > 0)
+	{
+		BNDS = TRUE;
+		m_bbox[0] = m_bbox[1] = m_vertlist[0].xyz;
+		for (int i = 1; i < m_numverts; i++)
+		{
+			if (m_vertlist[i].xyz[0] < m_bbox[0][0]) m_bbox[0][0] = m_vertlist[i].xyz[0];
+			if (m_vertlist[i].xyz[1] < m_bbox[0][1]) m_bbox[0][1] = m_vertlist[i].xyz[1];
+			if (m_vertlist[i].xyz[2] < m_bbox[0][2]) m_bbox[0][2] = m_vertlist[i].xyz[2];
+			if (m_vertlist[i].xyz[0] > m_bbox[1][0]) m_bbox[1][0] = m_vertlist[i].xyz[0];
+			if (m_vertlist[i].xyz[1] > m_bbox[1][1]) m_bbox[1][1] = m_vertlist[i].xyz[1];
+			if (m_vertlist[i].xyz[2] > m_bbox[1][2]) m_bbox[1][2] = m_vertlist[i].xyz[2];
+		}
+	}
+}
+
+void CPly::RebindBoneName(const char* old_name, const char* new_name)
+{
+	if (!old_name || !new_name || !m_bonelist || m_bones <= 0 || !strlen(old_name) || !strlen(new_name))
+	{
+		return;
+	}
+
+	int target_index = -1;
+	for (int i = 0; i < m_bones; i++)
+	{
+		if (m_bonelist[i] && !stricmp(m_bonelist[i], new_name))
+		{
+			target_index = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < m_bones; i++)
+	{
+		if (m_bonelist[i] && !stricmp(m_bonelist[i], old_name))
+		{
+			if (target_index < 0)
+			{
+				delete[] m_bonelist[i];
+				m_bonelist[i] = DupStringOrNull(new_name);
+				target_index = i;
+			}
+			else if (target_index != i)
+			{
+				for (int v = 0; v < m_numverts; v++)
+				{
+					for (int b = 0; b < 4; b++)
+					{
+						if ((unsigned char)m_vertlist[v].bones[b] == (unsigned char)i)
+						{
+							m_vertlist[v].bones[b] = (char)target_index;
+						}
+					}
+				}
+				CMesh* mesh = m_meshlist ? m_meshlist->GetFirst() : NULL;
+				while (mesh)
+				{
+					for (int sb = 0; sb < mesh->subskin_count; sb++)
+					{
+						if (mesh->subskin_bones[sb] == (BYTE)i)
+						{
+							mesh->subskin_bones[sb] = (BYTE)target_index;
+						}
+					}
+					mesh = mesh->next;
+				}
+				delete[] m_bonelist[i];
+				m_bonelist[i] = DupStringOrNull(new_name);
+			}
+		}
+	}
+}
+
 bool CPly::MergeKeepSeparateTextures(const CPly* append_ply)
 {
 	if (!append_ply || !append_ply->loading_successes || !append_ply->m_meshlist)
