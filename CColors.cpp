@@ -71,7 +71,7 @@ BOOL CColors::OnInitDialog()
 		pWnd = (CWnd *)GetDlgItem(IDC_COLOR_SEL);
 		pWnd -> SetWindowText("Color selection");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_CS_2);
-		pWnd -> SetWindowText("There should have been a preview.");
+		pWnd -> SetWindowText("Preview:");
 		pWnd = (CWnd *)GetDlgItem(IDCANCEL);
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
@@ -108,6 +108,11 @@ void CColors::OnColorSel()
 void CColors::OnPaint() 
 {
 	CPaintDC dc(this); // device context for painting
+	// Let the swatch control paint itself first, otherwise it paints over our colour afterwards
+	// (this is why the preview used to stay empty).
+	CWnd *pSwatch = GetDlgItem(IDC_SWATCH);
+	if(pSwatch)
+		{pSwatch -> UpdateWindow();}
     DrawSwatch();
 	// Do not call CDialog::OnPaint() for painting messages
 }
@@ -130,6 +135,7 @@ void CColors::DrawSwatch()
 	rect.bottom -= 2;
 	rect.right -= 2;
 	pDC -> Rectangle(rect);
+	pWnd -> ReleaseDC(pDC); // was leaking a DC on every repaint
 }
 
 void CColors::BankColors()

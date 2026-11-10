@@ -28,7 +28,7 @@
 #include <cassert>
 #include <stdexcept>
 #include <afxwin.h>
-#include <afxwin.h>
+#include "Cp1251Msg.h"
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

@@ -622,9 +622,9 @@ void CSOEdit2dView::OnDraw(CDC* pDC)
 		RenderGL(pDC);
 		if(pDC)
 		{
-			pDC -> SetBkColor(0xCFCFCF);
+			pDC -> SetBkColor(0x392F2D);
 			pDC -> SetBkMode(OPAQUE);
-			pDC -> SetTextColor(0x3F3F3F);
+			pDC -> SetTextColor(0xDACDC8);
 			pDC -> TextOut(0, 0, m_szCaption);
 		}
 		pDoc -> ViewWorks[DocIndx] = 0;

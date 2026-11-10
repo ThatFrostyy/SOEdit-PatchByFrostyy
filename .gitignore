@@ -39,3 +39,21 @@
 
 # debug information files
 *.dwo
+
+# Build output
+Debug/
+Dist/
+Release/*.exe
+Release/*.obj
+Release/*.pch
+Release/*.pdb
+Release/*.res
+Release/*.ilk
+Release/*.idb
+Release/*.lib
+Release/*.exp
+Release/*.log
+
+# Bundled runtime dependency (FreeImage 3.18, FreeImage Public License)
+!third_party/FreeImage/FreeImage.lib
+!third_party/FreeImage/FreeImage.dll

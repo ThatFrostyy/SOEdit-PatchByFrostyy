@@ -66,11 +66,12 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>.\Release/SOEdit.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
@@ -86,7 +87,8 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;mpr.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)third_party\FreeImage;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;dwmapi.lib;uxtheme.lib;comctl32.lib;glu32.lib;winmm.lib;mpr.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/SOEdit.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\Release/SOEdit.pdb</ProgramDatabaseFile>
@@ -95,6 +97,9 @@
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)SOEdit.manifest</AdditionalManifestFiles>
+    </Manifest>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\Release/SOEdit.bsc</OutputFile>
@@ -102,6 +107,9 @@
     <PostBuildEvent>
       <Command>:: Create a clean Distribution folder
 if not exist "$(SolutionDir)Dist" mkdir "$(SolutionDir)Dist"
+
+:: FreeImage runtime next to the exe
+copy /Y "$(ProjectDir)third_party\FreeImage\FreeImage.dll" "$(TargetDir)" &gt;nul
 
 :: Copy only the EXE
 xcopy /Y "$(TargetPath)" "$(SolutionDir)Dist\"
@@ -126,6 +134,7 @@ xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>.\Debug/SOEdit.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
@@ -142,7 +151,8 @@ xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;winmm.lib;mpr.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)third_party\FreeImage;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;dwmapi.lib;uxtheme.lib;comctl32.lib;glu32.lib;winmm.lib;mpr.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Debug/SOEdit.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -152,10 +162,16 @@ xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(ProjectDir)SOEdit.manifest</AdditionalManifestFiles>
+    </Manifest>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>.\Debug/SOEdit.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)third_party\FreeImage\FreeImage.dll" "$(TargetDir)" &gt;nul</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="all_trash.cpp" />
@@ -198,6 +214,7 @@ xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
     <ClCompile Include="parse_mtl.cpp" />
     <ClCompile Include="PLY_Tweaker.cpp" />
     <ClCompile Include="setup_window.cpp" />
+    <ClCompile Include="ModernUI.cpp" />
     <ClCompile Include="SOEdit.cpp" />
     <ClCompile Include="SOEditDoc.cpp" />
     <ClCompile Include="SOEditView.cpp" />
@@ -293,6 +310,7 @@ makehm IDW_,HIDW_,0x50000 resource.h &gt;&gt;"hlp\$(TargetName).hm"
     <ClInclude Include="SOEdit.h" />
     <ClInclude Include="SOEditDoc.h" />
     <ClInclude Include="SOEditView.h" />
+    <ClInclude Include="ModernUI.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="VolPropDlg.h" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 // Modification by TonaTor
 
 #include "stdafx.h"
+#include "ModernUI.h"
 #include "SOEdit.h"
 
 #include "MainFrm.h"
@@ -316,7 +317,7 @@ BOOL CSOEditView::InitGL()
 		0,                      // shift bit ignored
 		0,                      // no accumulation buffer
 		0, 0, 0, 0,             // accum bits ignored
-		16,                     // 16-bit depth buffer
+		24,                     // 24-bit depth buffer
 		0,                      // No stencil buffer
 		0,                      // No auxiliary buffers
 		PFD_MAIN_PLANE,         // main layer
@@ -1262,6 +1263,10 @@ void CSOEditView::DrawScene()
 
 	// Clear the color and depth buffers.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (pFrameWnd)
+	{
+		ModernUI::DrawGradientBackground(pFrameWnd->m_Colors[C_BG3D]);
+	}
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);

@@ -10,6 +10,14 @@
 
 #include "CToolTab.h"
 
+// Flat dark splitter (implemented in ModernUI.cpp)
+class CModernSplitter : public CSplitterWnd
+{
+public:
+	CModernSplitter();
+	virtual void OnDrawSplitter(CDC* pDC, ESplitType nType, const CRect& rect);
+};
+
 class CMainFrame : public CFrameWnd
 {
 	
@@ -40,7 +48,7 @@ public:
     CToolTab      m_wndToolTab;
     //CDialogBar    m_wndToolBox;
     CDialogBar    m_wndAnimBox;
-    CSplitterWnd  m_wndSplitter;
+    CModernSplitter m_wndSplitter;
 
 
 	void SetDefaultColors();

@@ -2,6 +2,7 @@
 // Modification by TonaTor
 
 #include "stdafx.h"
+#include "ModernUI.h"
 #include "SOEdit.h"
 #include "SOEditDoc.h"
 #include "SOEDitView.h"
@@ -172,69 +173,37 @@ CMainFrame::CMainFrame()
 
 void CMainFrame::SetDefaultColors()
 {
-    m_Colors[C_BG2D][0] = 191;
-    m_Colors[C_BG2D][1] = 191;
-    m_Colors[C_BG2D][2] = 191;
-    m_Colors[C_BG3D][0] = 127;
-    m_Colors[C_BG3D][1] = 127;
-    m_Colors[C_BG3D][2] = 127;
-    m_Colors[C_GRID][0] = 127;
-    m_Colors[C_GRID][1] = 127;
-    m_Colors[C_GRID][2] = 127;
-    m_Colors[C_AXIS][0] = 0;
-    m_Colors[C_AXIS][1] = 0;
-    m_Colors[C_AXIS][2] = 0;
-    m_Colors[C_MESH][0] = 255;
-    m_Colors[C_MESH][1] = 255;
-    m_Colors[C_MESH][2] = 255;
-    m_Colors[C_MESHS][0] = 255;
-    m_Colors[C_MESHS][1] = 0;
-    m_Colors[C_MESHS][2] = 0;
-    m_Colors[C_VOLUME][0] = 255;
-    m_Colors[C_VOLUME][1] = 255;
-    m_Colors[C_VOLUME][2] = 0;
-    m_Colors[C_VOLUMES][0] = 0;
-    m_Colors[C_VOLUMES][1] = 0;
-    m_Colors[C_VOLUMES][2] = 255;
-    m_Colors[C_ENTITY][0] = 0;
-    m_Colors[C_ENTITY][1] = 255;
-    m_Colors[C_ENTITY][2] = 0;
-    m_Colors[C_ENTITYS][0] = 255;
-    m_Colors[C_ENTITYS][1] = 0;
-    m_Colors[C_ENTITYS][2] = 255;
-    m_Colors[C_OBSTACLE][0] = 0;
-    m_Colors[C_OBSTACLE][1] = 0;
-    m_Colors[C_OBSTACLE][2] = 128;
-    m_Colors[C_OBSTACLES][0] = 128;
-    m_Colors[C_OBSTACLES][1] = 128;
-    m_Colors[C_OBSTACLES][2] = 0;
-    m_Colors[C_AREA][0] = 0;
-    m_Colors[C_AREA][1] = 128;
-    m_Colors[C_AREA][2] = 0;
-    m_Colors[C_AREAS][0] = 128;
-    m_Colors[C_AREAS][1] = 0;
-    m_Colors[C_AREAS][2] = 128;
-	m_Colors[VOLUME_FRONT][0] = 255;
-	m_Colors[VOLUME_FRONT][1] = 0;
-	m_Colors[VOLUME_FRONT][2] = 0;
-	m_Colors[VOLUME_REAR][0] = 255;
-	m_Colors[VOLUME_REAR][1] = 128;
-	m_Colors[VOLUME_REAR][2] = 0;
-	m_Colors[VOLUME_LEFT][0] = 128;
-	m_Colors[VOLUME_LEFT][1] = 128;
-	m_Colors[VOLUME_LEFT][2] = 255;
-	m_Colors[VOLUME_RIGHT][0] = 30;
-	m_Colors[VOLUME_RIGHT][1] = 110;
-	m_Colors[VOLUME_RIGHT][2] = 30;
-	m_Colors[VOLUME_TOP][0] = 0;
-	m_Colors[VOLUME_TOP][1] = 255;
-	m_Colors[VOLUME_TOP][2] = 255;
-	m_Colors[VOLUME_BOTTOM][0] = 255;
-	m_Colors[VOLUME_BOTTOM][1] = 0;
-	m_Colors[VOLUME_BOTTOM][2] = 255;
-	m_Colors[C_3D_GRID][0] = 60;
-	m_Colors[C_3D_GRID][1] = 60;
-	m_Colors[C_3D_GRID][2] = 60;
+	// Modern dark viewport palette, in element_t order.
+	static const unsigned char pal[frame_colors][3] =
+	{
+		{ 27,  29,  36},  // C_BG2D
+		{ 36,  40,  52},  // C_BG3D
+		{ 58,  62,  76},  // C_GRID
+		{ 74,  80, 100},  // C_3D_GRID
+		{170, 176, 194},  // C_AXIS
+		{222, 226, 238},  // C_MESH
+		{255, 110, 110},  // C_MESHS
+		{255, 206,  86},  // C_VOLUME
+		{ 94, 142, 255},  // C_VOLUMES
+		{ 80, 220, 140},  // C_ENTITY
+		{255, 100, 220},  // C_ENTITYS
+		{ 90, 130, 235},  // C_OBSTACLE
+		{235, 205,  70},  // C_OBSTACLES
+		{ 60, 190, 120},  // C_AREA
+		{190, 110, 235},  // C_AREAS
+		{255,  90,  90},  // VOLUME_FRONT
+		{255, 160,  60},  // VOLUME_REAR
+		{ 70, 170,  90},  // VOLUME_RIGHT
+		{140, 150, 255},  // VOLUME_LEFT
+		{ 60, 230, 230},  // VOLUME_TOP
+		{240,  80, 220}   // VOLUME_BOTTOM
+	};
+	for(int i = 0; i < frame_colors; i++)
+	{
+		m_Colors[i][0] = pal[i][0];
+		m_Colors[i][1] = pal[i][1];
+		m_Colors[i][2] = pal[i][2];
+	}
 }
 
 CMainFrame::~CMainFrame()
@@ -263,6 +232,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_TOP);
 	EnableDocking(CBRS_ALIGN_TOP);
 	DockControlBar(&m_wndToolBar);
+	#ifdef ALTERNATIVE_LANG
+		ModernUI::ModernizeToolbar(m_wndToolBar.GetToolBarCtrl().m_hWnd, IDR_MAINFRAME_AL);
+	#else
+		ModernUI::ModernizeToolbar(m_wndToolBar.GetToolBarCtrl().m_hWnd, IDR_MAINFRAME);
+	#endif
     m_wndAnimBox.Create(this, IDD_ANIMBOX, CBRS_BOTTOM | CBRS_FLYBY | CBRS_TOOLTIPS | CBRS_SIZE_DYNAMIC, IDD_ANIMBOX);
     CMenu *pMenu = GetMenu();
     CMenu* pPopup = pMenu -> GetSubMenu(5);
