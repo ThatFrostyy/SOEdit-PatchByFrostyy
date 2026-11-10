@@ -166,10 +166,7 @@ BOOL CVolCylDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL3_1);
-		pWnd -> SetWindowText("Length:");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL3_2);
-		pWnd -> SetWindowText("Diameter:");
 		pWnd = (CWnd *)GetDlgItem(IDC_CYLAXIS);
-		pWnd -> SetWindowText("Axis");
  	return TRUE;
 }

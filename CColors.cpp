@@ -66,11 +66,8 @@ BOOL CColors::OnInitDialog()
 	DrawSwatch();
 		SetWindowTextA("Selection of displayed colors");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_CS_1);
-		pWnd -> SetWindowText("Parameters:");
 		pWnd = (CWnd *)GetDlgItem(IDC_COLOR_SEL);
-		pWnd -> SetWindowText("Color selection");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_CS_2);
-		pWnd -> SetWindowText("Preview:");
 		pWnd = (CWnd *)GetDlgItem(IDCANCEL);
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);

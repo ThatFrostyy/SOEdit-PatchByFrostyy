@@ -134,7 +134,6 @@ BOOL CDlgGetPath::OnInitDialog()
 	}
 		SetWindowTextA("Selecting the Game Data catalog");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_NOTE);
-		pWnd -> SetWindowText("Game data is stored in:");
 		pWnd = (CWnd *)GetDlgItem(IDCANCEL);
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);

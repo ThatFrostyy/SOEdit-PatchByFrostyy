@@ -29,6 +29,7 @@ inline double round_1000(double x)
 }
 
 extern char *Elements[];
+static int TimelineKeyProvider(int frame);
 
 HWND m_hWnd;
 
@@ -297,6 +298,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     CSliderCtrl *pSlider = (CSliderCtrl *)m_wndAnimBox.GetDlgItem(IDC_ANIM_SLIDER);
     pSlider -> SetRange(0, 0, true);
     pSlider -> SetPos(0);
+	ModernUI::SetTimelineKeyFn(TimelineKeyProvider);
     m_hWnd = this -> m_hWnd;
 	return 0;
 }
@@ -991,14 +993,42 @@ void CMainFrame::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 		pPopupMenu->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS_AL, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
 }
 
+// Timeline keyframe test: a frame is a "key" for the selected bone when its transform differs
+// from the previous frame (frame 1 is always a key when the bone is animated at all).
+static bool SameMatrix(const matrix34_t &a, const matrix34_t &b)
+{
+	return memcmp(&a, &b, sizeof(matrix34_t)) == 0;
+}
+
+static int TimelineKeyProvider(int frame)
+{
+	CSOEditDoc *pDoc = (CSOEditDoc *)(AfxGetMainWnd() ? ((CMainFrame *)AfxGetMainWnd())->GetActiveDocument() : NULL);
+	if (!pDoc || !pDoc->m_AnimBone || !pDoc->m_SelBone || !pDoc->m_AnimBone->m_Frames) {return 0;}
+	CAnimBone *anm = pDoc->m_AnimBone;
+	if (frame < 0 || frame >= anm->m_FrameCnt) {return 0;}
+	int bone = -1;
+	for (int i = 0; i < anm->m_BoneCnt; i++)
+	{
+		if (anm->m_BoneMap[i] && _stricmp(anm->m_BoneMap[i], pDoc->m_SelBone) == 0) {bone = i; break;}
+	}
+	if (bone < 0) {return 0;}
+	CAnimSub *cur = anm->m_Frames[frame].FindSub(bone);
+	if (frame == 0) {return cur != NULL;}
+	CAnimSub *prev = anm->m_Frames[frame - 1].FindSub(bone);
+	if (!cur || !prev) {return (cur != NULL) != (prev != NULL);}
+	return !SameMatrix(cur->m_Matrix34, prev->m_Matrix34);
+}
+
 // True while the keyboard focus is in a text box, so single-key shortcuts must not steal typing.
 static bool IsTypingFocus()
 {
 	HWND f = ::GetFocus();
 	if (!f) {return false;}
 	char cls[32] = {0};
-	::GetClassNameA(f, cls, 31);
-	return _stricmp(cls, "Edit") == 0 || _stricmp(cls, "ComboBox") == 0 || _strnicmp(cls, "RichEdit", 8) == 0;
+	::GetClassNameA(f, cls, 39);
+	// Single-key shortcuts only run while the viewports/timeline have focus. Text boxes, trees, lists,
+	// combo boxes and buttons keep their own keys (arrows, space, letters).
+	return !(_strnicmp(cls, "Afx", 3) == 0 || _stricmp(cls, "msctls_trackbar32") == 0);
 }
 
 // Jump the animation to a frame (clamped), updating the slider, the frame box and the views.

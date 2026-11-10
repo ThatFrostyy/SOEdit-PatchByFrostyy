@@ -17,6 +17,7 @@ class CSdl
 	char  *GetNextWord(void);
 	bool  IsOpen();
 	char  *GetBuffer(void);
+	const char *CursorPos(void) const {return m_cursor;}	// current read position inside the buffer
 	
 	bool  read_comments;
 	int   m_line;

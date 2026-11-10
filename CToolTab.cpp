@@ -57,7 +57,6 @@ LONG CToolTab::OnInitDialog(UINT wParam, LONG lParam)
 	m_MyTab = (CTabCtrl *)GetDlgItem(IDC_TOOLTAB);
 		m_MyTab -> InsertItem(0, "Model");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_TT_1);
-		pWnd -> SetWindowText("Find bone:");
 	m_ModelTree.Create(IDD_MODEL_TREE, GetParent());
 	m_ModelTree.ShowWindow(SW_HIDE);
 	m_VolPropDlg.Create(IDD_VOL_PROPS, GetParent());//забудьте про здравый смысл

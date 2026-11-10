@@ -135,9 +135,7 @@ BOOL CPrefDlg::OnInitDialog()
  	CDialog::OnInitDialog();
 		SetWindowTextA("Preferences");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_PREF_1);
-		pWnd -> SetWindowText("The path to the game");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_PREF_2);
-		pWnd -> SetWindowText("Paths to Mods");
 		pWnd = (CWnd *)GetDlgItem(IDCANCEL);
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);

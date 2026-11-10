@@ -28,6 +28,19 @@ This branch gives the classic MFC editor a complete modern make-over and fixes s
   file, repeat/reverse, insert/delete, lerp and options below. The tool panel's *Find bone* box no longer overlaps the tabs.
 - A live shortcut hint is shown in the status bar.
 
+**Animation timeline**
+- The slider is now a real timeline: frame ruler, a playhead with the frame number, click/drag/mouse-wheel scrubbing,
+  and orange keyframe diamonds that show where the *selected bone* changes (select a bone in the tree to see them).
+- Opening `SOEdit.exe model.mdl [animation.anm]` loads both straight away (also works with "Open with").
+
+**Tooltips and clearer editors**
+- Hover any non-obvious control for a plain-English explanation (works on disabled controls too): joint types,
+  limits, LOD, shadows flags, matrix rows, volume shapes, animation options and more.
+- Bone editor rebuilt with room to breathe and grouped sections: identity, position/orientation (labelled X/Y/Z axis and
+  Position rows), display options, joint (None/Revolute/Prismatic/Socket + limits), mesh colour, animation clips and events.
+- Animation data and volume dialogs use descriptive labels instead of cryptic ones (e.g. "By law" is now "Motion curve").
+- Single-key shortcuts no longer hijack arrow keys / typing in the tree, lists and text boxes.
+
 **Everything in English**
 - All dialogs, captions, status-bar hints, tooltips and About text are plain English in the resources
   (previously the resource file held `????` placeholders patched at runtime). The duplicated Russian/English
@@ -38,6 +51,8 @@ This branch gives the classic MFC editor a complete modern make-over and fixes s
   duplicate toolbar bitmaps and a 2 MB unused PNG.
 
 **Fixes**
+- Models containing the game's `extender` block failed to load ("Unidentified command: extender") and would have lost it on
+  save. Unknown top-level blocks are now preserved verbatim.
 - Opening a file from the command line (or by drag-and-drop onto the exe) crashed at start-up – fixed.
 - Russian (Windows-1251) message boxes showed as mojibake on non-Russian systems – now converted correctly.
 - *Display ▸ Colors*: the colour preview was always empty and leaked a device context on every repaint – fixed.

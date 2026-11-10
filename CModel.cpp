@@ -82,8 +82,26 @@ void CModel::ParseFile()
 			{AddVolume();}
 		else
 		{
-				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CModel::ParseFile", MB_ICONHAND);
+			// Unknown top-level block (the game's extender camera/preview data, for example).
+			// Keep it verbatim so it survives a save instead of being dropped or reported as an error.
+			const char *buf = m_sdl -> GetBuffer();
+			const char *start = m_sdl -> CursorPos();
+			while(start > buf && *start != '{')
+				{start--;}
+			int depth = 1;
+			while(depth > 0)
+			{
+				char *w = m_sdl -> GetNextWord();
+				if(!strlen(w)) {break;}
+				if(!strcmp(w, "{")) {depth++;}
+				else if(!strcmp(w, "}")) {depth--;}
+			}
+			const char *end = m_sdl -> CursorPos();
+			if(*start == '{' && end > start)
+			{
+				m_ExtraBlocks.Append(start, (int)(end - start));
+				m_ExtraBlocks += "\n";
+			}
 		}
 		word = m_sdl -> GetNextWord();
 	}
@@ -117,4 +135,6 @@ void CModel::WriteMdl(FILE *fp, int indent)
 		{m_AreaList -> WriteMdl(fp, indent);}
     if(m_VolumeList)
 		{m_VolumeList -> WriteMdl(fp, indent);}
+	if(!m_ExtraBlocks.IsEmpty())
+		{fputs(m_ExtraBlocks, fp);}
 }

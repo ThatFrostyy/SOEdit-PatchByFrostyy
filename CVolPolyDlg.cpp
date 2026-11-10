@@ -92,8 +92,6 @@ BOOL CVolPolyDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL4_1);
-		pWnd -> SetWindowText("Volume-file (VOL):");
 		pWnd = (CWnd *)GetDlgItem(IDC_VOL_CHOOSE);
-		pWnd -> SetWindowText("Choose");
  	return TRUE;
 }

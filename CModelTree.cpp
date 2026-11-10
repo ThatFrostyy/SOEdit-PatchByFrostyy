@@ -401,6 +401,5 @@ BOOL CModelTree::OnInitDialog()
 {
  	CDialog::OnInitDialog();
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_MT_1);
-		pWnd -> SetWindowText("Skeleton, Volumes, Obstacles and Areas");
  	return TRUE;
 }

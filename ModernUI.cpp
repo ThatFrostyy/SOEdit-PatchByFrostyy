@@ -13,6 +13,7 @@
 #pragma comment(lib, "uxtheme.lib")
 #pragma comment(lib, "dwmapi.lib")
 #pragma comment(lib, "comctl32.lib")
+#pragma comment(lib, "msimg32.lib")
 #if defined(_M_IX86)
 #pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #elif defined(_M_X64)
@@ -596,6 +597,203 @@ namespace
 		return DefSubclassProc(h, m, w, l);
 	}
 
+	// ------------------------------------------------------------------ animation timeline (replaces the trackbar look)
+	TimelineKeyFn g_keyFn = NULL;
+
+	struct TimelineState { int lastPos; bool dragging; unsigned sig; };
+
+	unsigned TimelineSignature(HWND h)
+	{
+		int lo = (int)SendMessage(h, TBM_GETRANGEMIN, 0, 0), hi = (int)SendMessage(h, TBM_GETRANGEMAX, 0, 0);
+		unsigned s = (unsigned)(hi - lo) * 2654435761u;
+		if (g_keyFn)
+			for (int f = lo; f <= hi && f < lo + 4096; f++)
+				s = s * 31u + (unsigned)g_keyFn(f) + 1u;
+		return s;
+	}
+
+	void PaintTimeline(HWND h, HDC dc)
+	{
+		RECT cl; GetClientRect(h, &cl);
+		Fill(dc, cl, g_pal.bg);
+		int lo = (int)SendMessage(h, TBM_GETRANGEMIN, 0, 0), hi = (int)SendMessage(h, TBM_GETRANGEMAX, 0, 0);
+		int pos = (int)SendMessage(h, TBM_GETPOS, 0, 0);
+		int n = hi - lo + 1;
+		HFONT of = (HFONT)SelectObject(dc, ControlFont(h));
+		SetBkMode(dc, TRANSPARENT);
+		const int ruler = Scale(h, 14);
+		RECT strip = { Scale(h, 4), ruler, cl.right - Scale(h, 4), cl.bottom - Scale(h, 3) };
+		HBRUSH br = CreateSolidBrush(g_pal.ctrl); HPEN pen = CreatePen(PS_SOLID, 1, g_pal.border);
+		HBRUSH ob = (HBRUSH)SelectObject(dc, br); HPEN op = (HPEN)SelectObject(dc, pen);
+		RoundRect(dc, strip.left, strip.top, strip.right, strip.bottom, Scale(h, 6), Scale(h, 6));
+		SelectObject(dc, ob); SelectObject(dc, op); DeleteObject(br); DeleteObject(pen);
+		if (n <= 1)
+		{
+			SetTextColor(dc, g_pal.dim);
+			RECT tr = strip;
+			DrawTextW(dc, L"No animation loaded - open one with [...] or use the Animation menu", -1, &tr,
+				DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_END_ELLIPSIS);
+			SelectObject(dc, of);
+			return;
+		}
+		float cw = (float)(strip.right - strip.left - 2) / (float)n;
+		int stripMid = (strip.top + strip.bottom) / 2;
+		int steps[] = { 1, 2, 5, 10, 20, 25, 50, 100, 200, 500 };
+		int step = 500;
+		for (int k = 0; k < 10; k++) if (cw * steps[k] >= Scale(h, 34)) { step = steps[k]; break; }
+		SetTextColor(dc, g_pal.dim);
+		for (int i = 0; i < n; i++)
+		{
+			float cx = strip.left + 1 + (i + 0.5f) * cw;
+			bool major = ((i + 1) % step == 0) || i == 0;
+			if (cw >= 4 || major)
+			{
+				RECT tk = { (int)cx, strip.top + 2, (int)cx + 1, strip.top + (major ? Scale(h, 6) : Scale(h, 4)) };
+				Fill(dc, tk, major ? g_pal.dim : g_pal.border);
+			}
+			if (major)
+			{
+				wchar_t num[16]; swprintf_s(num, L"%d", i + 1);
+				RECT lr = { (int)cx - Scale(h, 20), 0, (int)cx + Scale(h, 20), ruler };
+				DrawTextW(dc, num, -1, &lr, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+			}
+		}
+		int r = Scale(h, 4);
+		if (g_keyFn)
+		{
+			HBRUSH kb = CreateSolidBrush(RGB(255, 190, 70)); HPEN kp = CreatePen(PS_SOLID, 1, RGB(120, 80, 10));
+			HBRUSH ob2 = (HBRUSH)SelectObject(dc, kb); HPEN op2 = (HPEN)SelectObject(dc, kp);
+			for (int i = 0; i < n; i++)
+			{
+				if (!g_keyFn(lo + i)) continue;
+				int cx = (int)(strip.left + 1 + (i + 0.5f) * cw), cy = stripMid + Scale(h, 4);
+				POINT d[4] = { {cx, cy - r}, {cx + r, cy}, {cx, cy + r}, {cx - r, cy} };
+				Polygon(dc, d, 4);
+			}
+			SelectObject(dc, ob2); SelectObject(dc, op2); DeleteObject(kb); DeleteObject(kp);
+		}
+		int pi = pos - lo; if (pi < 0) pi = 0; if (pi >= n) pi = n - 1;
+		int px = (int)(strip.left + 1 + (pi + 0.5f) * cw);
+		RECT col = { (int)(strip.left + 1 + pi * cw), strip.top + 1, (int)(strip.left + 1 + (pi + 1) * cw), strip.bottom - 1 };
+		if (col.right - col.left < 2) col.right = col.left + 2;
+		{
+			HDC m = CreateCompatibleDC(dc);
+			RECT one = { 0, 0, 1, 1 }; HBITMAP bmp = CreateCompatibleBitmap(dc, 1, 1);
+			HBITMAP ob3 = (HBITMAP)SelectObject(m, bmp); Fill(m, one, g_pal.accent);
+			BLENDFUNCTION bf = { AC_SRC_OVER, 0, 70, 0 };
+			AlphaBlend(dc, col.left, col.top, col.right - col.left, col.bottom - col.top, m, 0, 0, 1, 1, bf);
+			SelectObject(m, ob3); DeleteObject(bmp); DeleteDC(m);
+		}
+		RECT line = { px - 1, strip.top, px + 1, strip.bottom };
+		Fill(dc, line, g_pal.accent);
+		wchar_t lab[16]; swprintf_s(lab, L"%d", pos + 1);
+		SIZE sz; GetTextExtentPoint32W(dc, lab, (int)wcslen(lab), &sz);
+		RECT pill = { px - sz.cx / 2 - Scale(h, 5), 0, px + sz.cx / 2 + Scale(h, 5), ruler };
+		if (pill.left < 0) OffsetRect(&pill, -pill.left, 0);
+		if (pill.right > cl.right) OffsetRect(&pill, cl.right - pill.right, 0);
+		br = CreateSolidBrush(g_pal.accent); pen = CreatePen(PS_SOLID, 1, g_pal.accent);
+		ob = (HBRUSH)SelectObject(dc, br); op = (HPEN)SelectObject(dc, pen);
+		RoundRect(dc, pill.left, pill.top, pill.right, pill.bottom, Scale(h, 6), Scale(h, 6));
+		SelectObject(dc, ob); SelectObject(dc, op); DeleteObject(br); DeleteObject(pen);
+		SetTextColor(dc, RGB(255, 255, 255));
+		DrawTextW(dc, lab, -1, &pill, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+		SelectObject(dc, of);
+	}
+
+	int TimelineFrameFromX(HWND h, int x)
+	{
+		RECT cl; GetClientRect(h, &cl);
+		int lo = (int)SendMessage(h, TBM_GETRANGEMIN, 0, 0), hi = (int)SendMessage(h, TBM_GETRANGEMAX, 0, 0);
+		int n = hi - lo + 1;
+		int l = Scale(h, 4) + 1, w = cl.right - Scale(h, 4) - l - 1;
+		if (n <= 0 || w <= 0) return lo;
+		int i = (int)((x - l) * (double)n / w);
+		if (i < 0) i = 0;
+		if (i >= n) i = n - 1;
+		return lo + i;
+	}
+
+	void TimelineSetFrame(HWND h, int frame)
+	{
+		int lo = (int)SendMessage(h, TBM_GETRANGEMIN, 0, 0), hi = (int)SendMessage(h, TBM_GETRANGEMAX, 0, 0);
+		if (hi <= lo) return;
+		if (frame < lo) frame = lo;
+		if (frame > hi) frame = hi;
+		if (frame == (int)SendMessage(h, TBM_GETPOS, 0, 0)) return;
+		SendMessage(h, TBM_SETPOS, TRUE, frame);
+		// The editor listens for NM_RELEASEDCAPTURE from the slider to move the animation to that frame.
+		NMHDR nh = { h, (UINT_PTR)GetDlgCtrlID(h), (UINT)NM_RELEASEDCAPTURE };
+		SendMessage(GetParent(h), WM_NOTIFY, (WPARAM)nh.idFrom, (LPARAM)&nh);
+		InvalidateRect(h, NULL, FALSE);
+	}
+
+	LRESULT CALLBACK TimelineProc(HWND h, UINT m, WPARAM w, LPARAM l, UINT_PTR id, DWORD_PTR ref)
+	{
+		TimelineState* s = (TimelineState*)ref;
+		switch (m)
+		{
+		case WM_ERASEBKGND:
+			return 1;
+		case WM_PAINT:
+		{
+			PAINTSTRUCT ps; HDC dc = BeginPaint(h, &ps);
+			RECT rc; GetClientRect(h, &rc);
+			{ Buffered b(dc, rc); PaintTimeline(h, b.mem); }
+			EndPaint(h, &ps);
+			return 0;
+		}
+		case WM_PRINTCLIENT:
+			PaintTimeline(h, (HDC)w);
+			return 0;
+		case WM_LBUTTONDOWN:
+			SetFocus(h); SetCapture(h); s->dragging = true;
+			TimelineSetFrame(h, TimelineFrameFromX(h, GET_X_LPARAM(l)));
+			return 0;
+		case WM_MOUSEMOVE:
+			if (s->dragging) TimelineSetFrame(h, TimelineFrameFromX(h, GET_X_LPARAM(l)));
+			return 0;
+		case WM_LBUTTONUP:
+			if (s->dragging) { s->dragging = false; ReleaseCapture(); }
+			return 0;
+		case WM_MOUSEWHEEL:
+			TimelineSetFrame(h, (int)SendMessage(h, TBM_GETPOS, 0, 0) + (GET_WHEEL_DELTA_WPARAM(w) > 0 ? -1 : 1));
+			return 0;
+		case WM_GETDLGCODE:
+			return DLGC_WANTARROWS;
+		case WM_KEYDOWN:
+			if (w == VK_LEFT || w == VK_RIGHT)
+			{ TimelineSetFrame(h, (int)SendMessage(h, TBM_GETPOS, 0, 0) + (w == VK_LEFT ? -1 : 1)); return 0; }
+			break;
+		case TBM_SETPOS: case TBM_SETRANGE: case TBM_SETRANGEMAX: case TBM_SETRANGEMIN:
+		{
+			LRESULT r = DefSubclassProc(h, m, w, l);
+			InvalidateRect(h, NULL, FALSE);
+			return r;
+		}
+		case WM_TIMER:
+			if (w == 1)
+			{
+				unsigned sg = TimelineSignature(h);
+				int pos = (int)SendMessage(h, TBM_GETPOS, 0, 0);
+				if (sg != s->sig || pos != s->lastPos) { s->sig = sg; s->lastPos = pos; InvalidateRect(h, NULL, FALSE); }
+				return 0;
+			}
+			break;
+		case WM_NCDESTROY:
+			KillTimer(h, 1);
+			RemoveWindowSubclass(h, TimelineProc, id);
+			delete s;
+			break;
+		}
+		return DefSubclassProc(h, m, w, l);
+	}
+
+	void SkinTimeline(HWND h)
+	{
+		SetWindowSubclass(h, TimelineProc, 0x5E07, (DWORD_PTR) new TimelineState{ -1, false, 0 });
+		SetTimer(h, 1, 200, NULL);
+	}
+
 	// ------------------------------------------------------------------ top level frames: dark caption + dark menu bar
 	struct UAHMENU { HMENU hmenu; HDC hdc; DWORD dwFlags; };
 	struct UAHMENUITEMMETRICS { DWORD v[8]; };
@@ -690,7 +888,7 @@ namespace
 		else if (!_wcsicmp(cls, L"ListBox"))              Theme(h, L"DarkMode_Explorer");
 		else if (!_wcsicmp(cls, L"ScrollBar"))            Theme(h, L"DarkMode_Explorer");
 		else if (!_wcsicmp(cls, L"msctls_updown32"))      Theme(h, L"DarkMode_Explorer");
-		else if (!_wcsicmp(cls, L"msctls_trackbar32"))    Theme(h, L"DarkMode_Explorer");
+		else if (!_wcsicmp(cls, L"msctls_trackbar32"))    SkinTimeline(h);
 		else if (!_wcsicmp(cls, L"msctls_progress32"))    Theme(h, L"DarkMode_Explorer");
 		else if (!_wcsicmp(cls, L"SysTabControl32"))      SkinTab(h);
 		else if (!_wcsicmp(cls, L"msctls_statusbar32"))   SetWindowSubclass(h, StatusProc, ID_SBAR, 0);
@@ -717,6 +915,89 @@ namespace
 			HWND hdr = ListView_GetHeader(h);
 			if (hdr) Theme(hdr, L"DarkMode_ItemsView");
 		}
+	}
+
+	// ------------------------------------------------------------------ explanatory tooltips (also work on disabled controls)
+	HHOOK     g_mouseHook = NULL;
+	HWND      g_tt = NULL, g_tipCtl = NULL;
+	UINT_PTR  g_tipTimer = 0;
+	wchar_t   g_tipText[600];
+
+	HWND ControlAt(POINT pt)
+	{
+		HWND h = WindowFromPoint(pt);
+		if (!h) return NULL;
+		for (int guard = 0; guard < 8; guard++)
+		{
+			POINT c = pt; ScreenToClient(h, &c);
+			HWND ch = ChildWindowFromPointEx(h, c, CWP_ALL);
+			if (!ch || ch == h) break;
+			h = ch;
+		}
+		return h;
+	}
+
+	void HideTip()
+	{
+		if (g_tipTimer) { KillTimer(NULL, g_tipTimer); g_tipTimer = 0; }
+		if (g_tt && IsWindow(g_tt))
+		{
+			TOOLINFOW ti = { sizeof(ti) }; ti.hwnd = g_tt; ti.uId = 1;
+			SendMessageW(g_tt, TTM_TRACKACTIVATE, FALSE, (LPARAM)&ti);
+		}
+	}
+
+	void CALLBACK TipTimer(HWND, UINT, UINT_PTR id, DWORD)
+	{
+		KillTimer(NULL, id); g_tipTimer = 0;
+		POINT pt; GetCursorPos(&pt);
+		if (!g_tipCtl || ControlAt(pt) != g_tipCtl) return;
+		if (g_tt && !IsWindow(g_tt)) g_tt = NULL;
+		if (!g_tt)
+		{
+			CWnd* mainWnd = AfxGetMainWnd();
+			g_tt = CreateWindowExW(WS_EX_TOPMOST | WS_EX_TOOLWINDOW, TOOLTIPS_CLASSW, NULL, WS_POPUP | TTS_NOPREFIX | TTS_ALWAYSTIP,
+				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, mainWnd ? mainWnd->m_hWnd : NULL, NULL, GetModuleHandleW(NULL), NULL);
+			if (!g_tt) return;
+			SetWindowTheme(g_tt, L"", L"");
+			SendMessageW(g_tt, TTM_SETTIPBKCOLOR, g_pal.ctrl, 0);
+			SendMessageW(g_tt, TTM_SETTIPTEXTCOLOR, g_pal.text, 0);
+			SendMessageW(g_tt, TTM_SETMAXTIPWIDTH, 0, 380);
+			TOOLINFOW ti = { sizeof(ti) }; ti.uFlags = TTF_TRACK | TTF_ABSOLUTE; ti.hwnd = g_tt; ti.uId = 1; ti.lpszText = g_tipText;
+			SendMessageW(g_tt, TTM_ADDTOOLW, 0, (LPARAM)&ti);
+		}
+		TOOLINFOW ti = { sizeof(ti) }; ti.hwnd = g_tt; ti.uId = 1; ti.lpszText = g_tipText;
+		SendMessageW(g_tt, TTM_UPDATETIPTEXTW, 0, (LPARAM)&ti);
+		SendMessageW(g_tt, TTM_TRACKPOSITION, 0, MAKELONG(pt.x + 16, pt.y + 20));
+		SendMessageW(g_tt, TTM_TRACKACTIVATE, TRUE, (LPARAM)&ti);
+	}
+
+	LRESULT CALLBACK MouseHook(int code, WPARAM wp, LPARAM lp)
+	{
+		if (code == HC_ACTION)
+		{
+			if (wp == WM_MOUSEMOVE || wp == WM_NCMOUSEMOVE)
+			{
+				const MOUSEHOOKSTRUCT* ms = (const MOUSEHOOKSTRUCT*)lp;
+				HWND c = ControlAt(ms->pt);
+				if (c != g_tipCtl)
+				{
+					HideTip();
+					g_tipCtl = c;
+					const wchar_t* tip = c ? TooltipFor((UINT)GetDlgCtrlID(c)) : NULL;
+					if (tip)
+					{
+						wcsncpy_s(g_tipText, tip, _TRUNCATE);
+						g_tipTimer = SetTimer(NULL, 0, 450, TipTimer);
+					}
+				}
+			}
+			else if (wp == WM_LBUTTONDOWN || wp == WM_RBUTTONDOWN || wp == WM_MOUSEWHEEL || wp == WM_NCLBUTTONDOWN)
+			{
+				HideTip(); g_tipCtl = NULL;
+			}
+		}
+		return CallNextHookEx(g_mouseHook, code, wp, lp);
 	}
 
 	bool IsCommonDialog(HWND h)
@@ -791,11 +1072,15 @@ void Init()
 	g_uiFont = CreateFontIndirectW(&ncm.lfMessageFont);
 
 	g_hook = SetWindowsHookExW(WH_CALLWNDPROCRET, RetHook, NULL, GetCurrentThreadId());
+	g_mouseHook = SetWindowsHookExW(WH_MOUSE, MouseHook, NULL, GetCurrentThreadId());
 }
+
+void SetTimelineKeyFn(TimelineKeyFn fn) { g_keyFn = fn; }
 
 void Shutdown()
 {
 	if (g_hook) { UnhookWindowsHookEx(g_hook); g_hook = NULL; }
+	if (g_mouseHook) { UnhookWindowsHookEx(g_mouseHook); g_mouseHook = NULL; }
 	if (g_brBg) DeleteObject(g_brBg);
 	if (g_brAlt) DeleteObject(g_brAlt);
 	if (g_brCtrl) DeleteObject(g_brCtrl);

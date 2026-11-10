@@ -152,10 +152,7 @@ BOOL CVolBoxDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL2_1);
-		pWnd -> SetWindowText("Length:");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL2_2);
-		pWnd -> SetWindowText("Width:");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL2_3);
-		pWnd -> SetWindowText("Height:");
  	return TRUE;
 }

@@ -32,6 +32,14 @@ namespace ModernUI
 	// scaled, alpha-keyed image list with dark-theme friendly outlines.
 	void ModernizeToolbar(HWND hToolbar, UINT bitmapResId);
 
+	// Animation timeline: the app supplies a callback telling whether a frame is a keyframe
+	// (a frame where the selected bone changes) so the timeline can mark them.
+	typedef int (*TimelineKeyFn)(int frame);
+	void SetTimelineKeyFn(TimelineKeyFn fn);
+
+	// Explanation shown as a tooltip for a dialog control id (NULL when there is none).
+	const wchar_t* TooltipFor(UINT controlId);
+
 	// Fullscreen vertical gradient for the OpenGL viewport. Call right after glClear.
 	void DrawGradientBackground(const unsigned char bottomRgb[3]);
 	// Soft vignette-free ground "horizon" glow helper colours (0..1 range).

@@ -171,11 +171,8 @@ BOOL CVolProp::OnInitDialog()
 	}
 		SetWindowTextA("Volume Editor");
 		CWnd *pWndl = (CWnd *)GetDlgItem(IDC_STATIC_VL1_1);
-		pWndl -> SetWindowText("Volume name:");
 		pWndl = (CWnd *)GetDlgItem(IDC_STATIC_VL1_2);
-		pWndl -> SetWindowText("Tied to a bone");
 		pWndl = (CWnd *)GetDlgItem(IDC_ROUND_VOLUME_BUTTON);
-		pWndl -> SetWindowText("Round");
 		pWndl = (CWnd *)GetDlgItem(IDCANCEL);
 		pWndl -> SetWindowText("Cancel");
 		pWndl = (CWnd *)GetDlgItem(IDOK);

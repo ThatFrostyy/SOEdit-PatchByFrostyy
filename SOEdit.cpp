@@ -19,6 +19,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+extern char g_PendingOpenPath[_MAX_PATH];
+extern char g_PendingAnmPath[_MAX_PATH];
 DWORD lasttime = 0, currtime = 0, lapsed = 0;
 
 // Need to get rid of these globals
@@ -192,7 +194,22 @@ BOOL CSOEditApp::InitInstance()
 	CSOEditDoc *pDoc = (CSOEditDoc *)pFrameWnd -> GetActiveDocument();
 	pDoc -> OnClearAll(false);
 	if(!startupFile.IsEmpty())
-		{OpenDocumentFile(startupFile);}
+	{
+		CString ext = startupFile.Right(4);
+		if(ext.CompareNoCase(".mdl") == 0)
+		{
+			strncpy(g_PendingOpenPath, startupFile, _MAX_PATH - 1);
+			m_pMainWnd -> PostMessage(WM_COMMAND, ID_FILE_OPEN_AL, 0);
+			// optional second argument: an animation (.anm) to load right after the model
+			if(__argc > 2)
+			{
+				strncpy(g_PendingAnmPath, __argv[2], _MAX_PATH - 1);
+				m_pMainWnd -> PostMessage(WM_COMMAND, ID_ANM_LOAD_AL, 0);
+			}
+		}
+		else
+			{OpenDocumentFile(startupFile);}
+	}
 	return TRUE;
 }
 
@@ -378,9 +395,7 @@ BOOL CAboutDlg::OnInitDialog()
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_2);
 		pWnd -> SetWindowText("Men of War Object Editor\n(formerly \"Soldiers Object Editor\")\nUnofficial community tool.");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_3);
-		pWnd -> SetWindowText("Copyright (C) 2004-2026, MoW Community");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_4);
-		pWnd -> SetWindowText("Thanks to Man232 and GhostNT");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
 	CWnd *pFlag = GetDlgItem(IDC_MY_FLAG);

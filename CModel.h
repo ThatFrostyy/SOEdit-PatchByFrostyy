@@ -28,6 +28,8 @@ class CModel
         CSdl          *m_sdl;
 
         v3_t           m_Orientation;
+
+        CString        m_ExtraBlocks;   // unknown top-level blocks (e.g. extender), kept verbatim so saving does not lose them
   
         CSkeleton     *m_skeleton;
         CVolumeList   *m_VolumeList;

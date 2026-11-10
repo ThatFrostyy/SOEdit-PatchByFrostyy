@@ -748,6 +748,9 @@ void CSOEditDoc::LoadTextures()
 	}
 }
 
+char g_PendingOpenPath[_MAX_PATH] = {0};
+char g_PendingAnmPath[_MAX_PATH] = {0};
+
 void CSOEditDoc::OnFileOpen()
 {
 	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
@@ -765,9 +768,12 @@ void CSOEditDoc::OnFileOpen()
 	}
 	CFileDialog dlg(TRUE, "*.mdl", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
 	dlg.m_ofn.lpstrTitle = szTitle;
-	if (dlg.DoModal() == IDOK)
+	// A model path can be queued (command line / "Open with"), in which case no dialog is shown.
+	bool fromCmd = g_PendingOpenPath[0] != 0;
+	if (fromCmd || dlg.DoModal() == IDOK)
 	{
-		strcpy(szFileName, dlg.m_ofn.lpstrFile);
+		strcpy(szFileName, fromCmd ? g_PendingOpenPath : dlg.m_ofn.lpstrFile);
+		g_PendingOpenPath[0] = 0;
 		FixPathDelim(szFileName);
 		if (TexOff)
 		{
@@ -899,12 +905,14 @@ void CSOEditDoc::OnAnmLoad()
 	}
 	CFileDialog dlg(TRUE, "*.anm", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
 	dlg.m_ofn.lpstrTitle = szTitle;
-	if (dlg.DoModal() == IDOK)
+	bool fromCmd = g_PendingAnmPath[0] != 0;
+	if (fromCmd || dlg.DoModal() == IDOK)
 	{
 		m_Animate = false;
 		m_Frame = 0;
 		old_frm = 0;
-		strcpy(szAnimPath, dlg.m_ofn.lpstrFile);
+		strcpy(szAnimPath, fromCmd ? g_PendingAnmPath : dlg.m_ofn.lpstrFile);
+		g_PendingAnmPath[0] = 0;
 		FixPathDelim(szAnimPath);
 		if (m_AnimBone)
 		{
