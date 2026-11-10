@@ -21,11 +21,7 @@ CMaterial::CMaterial(char *szName, int iTexNumb)
 	}
 	else
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "The name of the material is missing", "ERROR: CMaterial::CMaterial", MB_OK);
-		#else
-			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Отсутствует имя материала", "ERROR: CMaterial::CMaterial", MB_OK);
-		#endif
 	}
 	m_iTexNumb = iTexNumb;
 	m_next = NULL;
@@ -57,11 +53,7 @@ CMaterial *CMtlList::FindMaterial(char *szName)
 	CMaterial *t_mtl = m_head;
 	if(!szName)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "The name of the material is missing", "ERROR: CMtlList::FindMaterial", MB_OK);
-		#else
-			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Отсутствует имя материала", "ERROR: CMtlList::FindMaterial", MB_OK);
-		#endif
 	}
 	while(t_mtl && szName)
 	{

@@ -11,7 +11,7 @@
 #define B_VISIBLE_OFF	0x0010
 #define B_MESH			0x0020
 
-#define ALTERNATIVE_LANG
+
 
 #define Copy_files_on_saving 0
 #define ColorUPD 0

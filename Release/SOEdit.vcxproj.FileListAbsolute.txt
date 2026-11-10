@@ -1,1 +1,2 @@
 D:\SOEdit Version Next (v0.7m4)\Release\SOEdit.exe
+D:\Source\SOEdit-PatchByFrostyy\Release\SOEdit.exe

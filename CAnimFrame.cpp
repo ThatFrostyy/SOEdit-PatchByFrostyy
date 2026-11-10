@@ -218,11 +218,7 @@ bool CAnimBone::Process(FILE* fp)
 				{
 					if (true)
 					{
-#ifdef ALTERNATIVE_LANG
 						MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "The animation file contains data about the mesh.\nThis is not supported by the program ;..(", "ERROR: CAnimBone::Process", MB_ICONHAND);
-#else
-						MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "���� �������� �������� ������ � ����.\n��� �� �������������� ���������� ;..(", "ERROR: CAnimBone::Process", MB_ICONHAND);
-#endif
 						delete[] bone_vertex_size;
 						delete[] m_Frames;
 						m_Frames = NULL;
@@ -313,11 +309,7 @@ bool CAnimBone::Process(FILE* fp)
 						t_sub->chunk_flags = chunk_flags;
 						if (chunk_flags & B_MESH)
 						{
-#ifdef ALTERNATIVE_LANG
 							MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "The animation file contains data about the mesh.\nThis is not supported by the program ;..(", "ERROR: CAnimBone::Process", MB_ICONHAND);
-#else
-							MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "���� �������� �������� ������ � ����.\n��� �� �������������� ���������� ;..(", "ERROR: CAnimBone::Process", MB_ICONHAND);
-#endif
 							delete[] bone_vertex_size;
 							delete[] m_Frames;
 							m_Frames = NULL;
@@ -325,11 +317,7 @@ bool CAnimBone::Process(FILE* fp)
 						}
 						if (chunk_flags > 63)
 						{
-#ifdef ALTERNATIVE_LANG
 							MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "Unidentified flag!!!", "ERROR: CAnimBone::Process", MB_ICONHAND);
-#else
-							MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "������������ ����!!!", "ERROR: CAnimBone::Process", MB_ICONHAND);
-#endif
 							delete[] bone_vertex_size;
 							delete[] m_Frames;
 							m_Frames = NULL;

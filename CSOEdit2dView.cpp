@@ -96,11 +96,7 @@ BOOL CSOEdit2dView::InitGL()
 
 	if(nMyPixelFormatID == 0)
 	{
-		#ifdef ALTERNATIVE_LANG
 			::MessageBoxA(this -> m_hWnd, "Unable to set pixel format", "ERROR: CSOEdit2dView::InitGL", MB_ICONHAND);
-		#else
-			::MessageBoxA(this -> m_hWnd, "Невозможно установить пиксельный формат", "ERROR: CSOEdit2dView::InitGL", MB_ICONHAND);
-		#endif
 		return(FALSE);
 	}
 	// catch errors here.
@@ -306,11 +302,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 1;
 			m_invx = 1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Front view ";
-			#else
-				m_szCaption = " Вид спереди ";
-			#endif
 			m_glx = 1;
 			m_gly = 2;
 			m_glz = 0;
@@ -329,11 +321,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 1;
 			m_invx = -1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Rear view ";
-			#else
-				m_szCaption = " Вид сзади ";
-			#endif
 			m_glx = 1;
 			m_gly = 2;
 			m_glz = 0;
@@ -352,11 +340,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 2;
 			m_invx = 1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Bottom view ";
-			#else
-				m_szCaption = " Вид снизу ";
-			#endif
 			m_glx = 1;
 			m_gly = 0;
 			m_glz = 2;
@@ -375,11 +359,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 0;
 			m_invx = -1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Top view ";
-			#else
-				m_szCaption = " Вид сверху ";
-			#endif
 			m_glx = 1;
 			m_gly = 0;
 			m_glz = 2;
@@ -398,11 +378,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 1;
 			m_invx = 1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Left view ";
-			#else
-				m_szCaption = " Вид слева ";
-			#endif
 			m_glx = 0;
 			m_gly = 2;
 			m_glz = 1;
@@ -421,11 +397,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 1;
 			m_invx = -1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Right view ";
-			#else
-				m_szCaption = " Вид справа ";
-			#endif
 			m_glx = 0;
 			m_gly = 2;
 			m_glz = 1;
@@ -444,11 +416,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 1;
 			m_invx = 1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " Camera ";
-			#else
-				m_szCaption = " Камера ";
-			#endif
 		}
 		break;
         default:
@@ -457,11 +425,7 @@ void CSOEdit2dView::SetupView()
 			m_y = 1;
 			m_invx = 1;
 			m_invy = 1;
-			#ifdef ALTERNATIVE_LANG
 				m_szCaption = " By default ";
-			#else
-				m_szCaption = " По умолчанию ";
-			#endif
 			break;
 		}
 	}
@@ -858,16 +822,11 @@ void CSOEdit2dView::OnRButtonDown(UINT nFlags, CPoint point)
 {
     m_rButton = true;
     CMenu menu;
-    #ifdef ALTERNATIVE_LANG
 		VERIFY(menu.LoadMenu(IDR_VIEW_MENU_AL));
-	#else
-		VERIFY(menu.LoadMenu(IDR_VIEW_MENU));
-	#endif
     CMenu* pPopup = menu.GetSubMenu(0);
     ASSERT(pPopup != NULL);
     CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
 	CSOEditDoc* pDoc = GetDocument();
-    #ifdef ALTERNATIVE_LANG
 		if(m_BackFace)
 			{pPopup -> CheckMenuItem(ID_VIEW_BACKFACES_AL, MF_UNCHECKED);}
 		else
@@ -917,58 +876,6 @@ void CSOEdit2dView::OnRButtonDown(UINT nFlags, CPoint point)
 				{pPopup -> CheckMenuItem(ID_VIEW_BOTTOM_AL, MF_CHECKED);}
 			break;
 		};
-	#else
-		if(m_BackFace)
-			{pPopup -> CheckMenuItem(ID_VIEW_BACKFACES, MF_UNCHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW_BACKFACES, MF_CHECKED);}
-		if(pWnd -> m_Selected)
-			{pPopup -> CheckMenuItem(ID_VIEW_SELECTED, MF_CHECKED);}
-		else
-			{pPopup -> CheckMenuItem(ID_VIEW_SELECTED, MF_UNCHECKED);}
-		pPopup -> CheckMenuItem(ID_VIEW_SHADED, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_WIREFRAME, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_COLORIZE, MF_UNCHECKED);
-		if(pDoc -> Colorized_3d)
-			{pPopup -> CheckMenuItem(ID_VIEW_COLORIZE, MF_CHECKED);}
-		switch(m_DrawMode)
-		{
-			case r_texture:
-				{pPopup -> CheckMenuItem(ID_VIEW_SHADED, MF_CHECKED);}
-			break;
-			case r_wire:
-				{pPopup -> CheckMenuItem(ID_VIEW_WIREFRAME, MF_CHECKED);}
-			break;
-		};
-		pPopup -> CheckMenuItem(ID_VIEW_LEFT, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_TOP, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_RIGHT, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_BOTTOM, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_FRONT, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_VIEW_REAR, MF_UNCHECKED);
-		switch(m_View)
-		{
-			case v_front:
-				{pPopup -> CheckMenuItem(ID_VIEW_FRONT, MF_CHECKED);}
-			break;
-			case v_right:
-				{pPopup -> CheckMenuItem(ID_VIEW_RIGHT, MF_CHECKED);}
-			break;
-			case v_left:
-				{pPopup -> CheckMenuItem(ID_VIEW_LEFT, MF_CHECKED);}
-			break;
-			case v_top:
-				{pPopup -> CheckMenuItem(ID_VIEW_TOP, MF_CHECKED);}
-			break;
-			case v_rear:
-				{pPopup -> CheckMenuItem(ID_VIEW_REAR, MF_CHECKED);}
-			break;
-			case v_bottom:
-				{pPopup -> CheckMenuItem(ID_VIEW_BOTTOM, MF_CHECKED);}
-			break;
-		};
-
-	#endif
 
     GetCursorPos(&point);
     pPopup -> TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, AfxGetMainWnd());

@@ -71,13 +71,9 @@ CDlgGetPath::CDlgGetPath(CWnd* pParent /*=NULL*/)
 	TRACE( _T("CDlgGetPath::CDlgGetPath()\n") );
 	m_sTopNote = _T(" John McTainsh wrote this.(Ego)");//Remove this if you don't like me.
     // Au contraire!  John McTainsh is a GENIUS!!!
-	m_sTitle = _T("Поиск папки");
+	m_sTitle = _T("Browse for Folder");
 	//{{AFX_DATA_INIT(CDlgGetPath)
-	#ifdef ALTERNATIVE_LANG
 		m_sTopNote = _T("Select the folder where the data is extracted.");
-	#else
-		m_sTopNote = _T("Выбери папку, в которую извлечены данные.");
-	#endif
 	//}}AFX_DATA_INIT
 	m_hNetworkRoot = NULL;
 }
@@ -136,7 +132,6 @@ BOOL CDlgGetPath::OnInitDialog()
 		if( DRIVE_REMOVABLE <= nType && nType <= DRIVE_RAMDISK )
 			InsertItem( TVI_ROOT, NULL, sDrive, nType );
 	}
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Selecting the Game Data catalog");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_NOTE);
 		pWnd -> SetWindowText("Game data is stored in:");
@@ -144,7 +139,6 @@ BOOL CDlgGetPath::OnInitDialog()
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
-	#endif
 	//Network neighbour hood
 	///m_hNetworkRoot = InsertItem( TVI_ROOT, NULL, _T("Network Neighborhood"), DRIVE_RAMDISK+1 );
 	return TRUE;  // return TRUE unless you set the focus to a control

@@ -21,13 +21,11 @@ PLY_Tweaker::PLY_Tweaker(CWnd* pParent /*=nullptr*/)
 
 BOOL PLY_Tweaker::OnInitDialog()
 {
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Integrated MoW PLY Tweaker");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDCANCEL);
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("Overwrite the file");
-	#endif
 	CString PrintText;
 	CEdit *pEdit;
 	CListBox *pList;
@@ -269,7 +267,7 @@ void PLY_Tweaker::ParamUpdate()
 	PrintText.Format("Vertex size: %d", m_vsize);
 	pEdit -> SetWindowText(PrintText);
 	pEdit = (CEdit *)GetDlgItem(IDC_PT_VD_CVS);
-	PrintText.Format("Сalculated vertex size: %d", m_calculated_vsize);
+	PrintText.Format("Calculated vertex size: %d", m_calculated_vsize);
 	pEdit -> SetWindowText(PrintText);
 	pEdit = (CEdit *)GetDlgItem(IDC_PT_VD_VC);
 	PrintText.Format("Vertex count: %d", m_numverts);
@@ -487,11 +485,7 @@ void PLY_Tweaker::OnBnClickedMVFlags()
 
 void PLY_Tweaker::OnBnClickedOk()
 {
-	#ifdef ALTERNATIVE_LANG
 		if(MessageBox("Do you confirm overwriting the file?", "QUESTION: PLY_Tweaker::OnBnClickedOk", MB_YESNO | MB_ICONQUESTION) == IDYES)
-	#else
-		if(MessageBox("Вы подтверждаете перезапись файла?", "QUESTION: PLY_Tweaker::OnBnClickedOk", MB_YESNO | MB_ICONQUESTION) == IDYES)
-	#endif
 		{CDialog::OnOK();}
 }
 

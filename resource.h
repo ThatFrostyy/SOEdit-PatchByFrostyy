@@ -448,6 +448,7 @@
 #define ID_VIEW_ENTITY                  32778
 #define ID_VIEW_VOLUMES                 32779
 #define ID_VIEW_COLORS                  32780
+#define ID_HELP_SHORTCUTS               33094
 #define ID_TEX_SELECT                   32781
 #define ID_TEX_SCHEME                   32782
 #define ID_MODE_PLY                     32784
@@ -755,7 +756,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        206
-#define _APS_NEXT_COMMAND_VALUE         33094
+#define _APS_NEXT_COMMAND_VALUE         33095
 #define _APS_NEXT_CONTROL_VALUE         1336
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

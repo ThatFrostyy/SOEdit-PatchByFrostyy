@@ -255,11 +255,7 @@ void CSOEditDoc::OnClearAll(bool question)
 {
 	if (m_Model && m_Model->m_skeleton && m_Model->m_skeleton->m_bonelist && question)
 	{
-#ifdef ALTERNATIVE_LANG
 		if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "You confirm clearing the scene?", "QUESTION: CSOEditDoc::OnClearAll", MB_YESNO | MB_ICONQUESTION) != IDYES)
-#else
-		if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Âû ïîäòâåðæäàåòå î÷èñòêó ñöåíû?", "QUESTION: CSOEditDoc::OnClearAll", MB_YESNO | MB_ICONQUESTION) != IDYES)
-#endif
 		{
 			return;
 		}
@@ -303,34 +299,18 @@ void CSOEditDoc::OnClearAll(bool question)
 	CTreeCtrl* pTreeCtrl = (CTreeCtrl*)pFrameWnd->m_wndToolTab.m_ModelTree.GetDlgItem(IDC_MODELTREE);
 	HTREEITEM hTreeItem;
 	pTreeCtrl->DeleteAllItems();
-#ifdef ALTERNATIVE_LANG
 	hTreeItem = pTreeCtrl->InsertItem("Skeleton", TVI_ROOT, NULL);
-#else
-	hTreeItem = pTreeCtrl->InsertItem("Ñêåëåò", TVI_ROOT, NULL);
-#endif
 	GeneralBones = hTreeItem;
 	pTreeCtrl->SetCheck(hTreeItem, TRUE);
 	pTreeCtrl->SetItemData(hTreeItem, IT_BONETOP);
-#ifdef ALTERNATIVE_LANG
 	hTreeItem = pTreeCtrl->InsertItem("Volumes", TVI_ROOT, NULL);
-#else
-	hTreeItem = pTreeCtrl->InsertItem("Âîëþìû", TVI_ROOT, NULL);
-#endif
 	pTreeCtrl->SetCheck(hTreeItem, TRUE);
 	pTreeCtrl->SetItemData(hTreeItem, IT_VOLUMETOP);
 	GeneralVolumes = hTreeItem;
-#ifdef ALTERNATIVE_LANG
 	hTreeItem = pTreeCtrl->InsertItem("Obstacles", TVI_ROOT, NULL);
-#else
-	hTreeItem = pTreeCtrl->InsertItem("Ïðåïÿòñòâèÿ", TVI_ROOT, NULL);
-#endif
 	pTreeCtrl->SetCheck(hTreeItem, TRUE);
 	pTreeCtrl->SetItemData(hTreeItem, IT_OBSTACLETOP);
-#ifdef ALTERNATIVE_LANG
 	hTreeItem = pTreeCtrl->InsertItem("Areas", TVI_ROOT, NULL);
-#else
-	hTreeItem = pTreeCtrl->InsertItem("Îáëàñòè", TVI_ROOT, NULL);
-#endif
 	pTreeCtrl->SetCheck(hTreeItem, TRUE);
 	pTreeCtrl->SetItemData(hTreeItem, IT_AREATOP);
 	m_Model = new CModel(NULL);
@@ -357,18 +337,9 @@ void CSOEditDoc::OnClearAll(bool question)
 	CMenu* pMenu = pFrameWnd->GetMenu();
 	CMenu* pPopup = pMenu->GetSubMenu(3);
 	ASSERT(pPopup != NULL);
-#ifdef ALTERNATIVE_LANG
 	pPopup->EnableMenuItem(ID_ANM_SAVE_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	pPopup->EnableMenuItem(ID_ANM_CLOSE_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#else
-	pPopup->EnableMenuItem(ID_ANM_SAVE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	pPopup->EnableMenuItem(ID_ANM_CLOSE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#endif
-#ifdef ALTERNATIVE_LANG
 	SetTitle("Untitled");
-#else
-	SetTitle("Áåç íàçâàíèÿ");
-#endif
 	if (!BLamp_View && !trylamp)
 	{
 		trylamp = true;
@@ -509,11 +480,7 @@ void CSOEditDoc::ProcessBone(CBone* basis, HTREEITEM hParent, bool select)
 					else
 					{
 						char msgText[512];
-#ifdef ALTERNATIVE_LANG
 						sprintf(msgText, "Bone: %s\nThe mesh has no material.\nPLY: %s", basis->m_Name, basis->m_VolumeViewName);
-#else
-						sprintf(msgText, "Êîñòü: %s\nÌýø íå èìååò ìàòåðèàëà.\nPLY: %s", basis->m_Name, basis->m_VolumeViewName);
-#endif
 						MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, msgText, "ERROR: CSOEditDoc::Processbone", MB_ICONHAND);
 					}
 				}
@@ -731,11 +698,7 @@ void CSOEditDoc::LoadTextures()
 	{
 		if (m_Model->m_skeleton->m_bonelist)
 		{
-#ifdef ALTERNATIVE_LANG
 			hTreeItem = pTreeCtrl->InsertItem("Skeleton", TVI_ROOT, NULL);
-#else
-			hTreeItem = pTreeCtrl->InsertItem("Ñêåëåò", TVI_ROOT, NULL);
-#endif
 			pTreeCtrl->SetCheck(hTreeItem, TRUE);
 			GeneralBones = hTreeItem;
 			pTreeCtrl->SetItemData(hTreeItem, IT_BONETOP);
@@ -748,11 +711,7 @@ void CSOEditDoc::LoadTextures()
 	}
 	if (m_Model->m_VolumeList)
 	{
-#ifdef ALTERNATIVE_LANG
 		hTreeItem = pTreeCtrl->InsertItem("Volumes", TVI_ROOT, NULL);
-#else
-		hTreeItem = pTreeCtrl->InsertItem("Âîëþìû", TVI_ROOT, NULL);
-#endif
 		pTreeCtrl->SetCheck(hTreeItem, TRUE);
 		GeneralVolumes = hTreeItem;
 		pTreeCtrl->SetItemData(hTreeItem, IT_VOLUMETOP);
@@ -765,11 +724,7 @@ void CSOEditDoc::LoadTextures()
 	}
 	if (m_Model->m_ObstacleList)
 	{
-#ifdef ALTERNATIVE_LANG
 		hTreeItem = pTreeCtrl->InsertItem("Obstacles", TVI_ROOT, NULL);
-#else
-		hTreeItem = pTreeCtrl->InsertItem("Ïðåïÿòñòâèÿ", TVI_ROOT, NULL);
-#endif
 		pTreeCtrl->SetCheck(hTreeItem, TRUE);
 		pTreeCtrl->SetItemData(hTreeItem, IT_OBSTACLETOP);
 		CObb2* obstacle = m_Model->m_ObstacleList->m_head;
@@ -781,11 +736,7 @@ void CSOEditDoc::LoadTextures()
 	}
 	if (m_Model->m_AreaList)
 	{
-#ifdef ALTERNATIVE_LANG
 		hTreeItem = pTreeCtrl->InsertItem("Areas", TVI_ROOT, NULL);
-#else
-		hTreeItem = pTreeCtrl->InsertItem("Îáëàñòè", TVI_ROOT, NULL);
-#endif
 		pTreeCtrl->SetCheck(hTreeItem, TRUE);
 		pTreeCtrl->SetItemData(hTreeItem, IT_AREATOP);
 		CObb2* area = m_Model->m_AreaList->m_head;
@@ -800,13 +751,8 @@ void CSOEditDoc::LoadTextures()
 void CSOEditDoc::OnFileOpen()
 {
 	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
-#ifdef ALTERNATIVE_LANG
 	static char szFilter[] = "MDL-file (*.mdl)|*.mdl|";
 	static char szTitle[] = "Opening the model file";
-#else
-	static char szFilter[] = "MDL-Ôàéë (*.mdl)|*.mdl|";
-	static char szTitle[] = "Îòêðûòèå ôàéëà ìîäåëè";
-#endif
 	bool p = false;
 	char CurFolder[_MAX_PATH] = { 0 };
 	if (strlen(pFrameWnd->m_CurMdlPath))
@@ -890,13 +836,8 @@ void CSOEditDoc::OnFileOpen()
 		CMenu* pMenu = pFrameWnd->GetMenu();
 		CMenu* pPopup = pMenu->GetSubMenu(3);
 		ASSERT(pPopup != NULL);
-#ifdef ALTERNATIVE_LANG
 		pPopup->EnableMenuItem(ID_ANM_SAVE_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 		pPopup->EnableMenuItem(ID_ANM_CLOSE_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#else
-		pPopup->EnableMenuItem(ID_ANM_SAVE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-		pPopup->EnableMenuItem(ID_ANM_CLOSE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#endif
 		m_skin = false;
 		fix_mx_ori = false;
 		m_pVolume = NULL;
@@ -940,21 +881,12 @@ void CSOEditDoc::OnAnmLoad()
 	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
 	if (!strlen(pFrameWnd->m_CurMdlPath))
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "The model is not loaded!\nIf the model is made from scratch, then save and load it.", "ERROR: CSOEditDoc::OnAnmLoad", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Ìîäåëü íå çàãðóæåíà!\nÅñëè ìîäåëü äåëàåòñÿ ñ íóëÿ, òî ñîõðàíè è çàãðóçè å¸.", "ERROR: CSOEditDoc::OnAnmLoad", MB_ICONHAND);
-#endif
 		m_Animate = false;
 		return;
 	}
-#ifdef ALTERNATIVE_LANG
 	static char szFilter[] = "ANM-file (*.anm)|*.anm|";
 	static char szTitle[] = "Opening an animation file";
-#else
-	static char szFilter[] = "ANM-ôàéë (*.anm)|*.anm|";
-	static char szTitle[] = "Îòêðûòèå ôàéëà àíèìàöèè";
-#endif
 	bool p = false;
 	char CurFolder[_MAX_PATH] = { 0 };
 	if (strlen(pFrameWnd->m_CurMdlPath))
@@ -1009,13 +941,8 @@ void CSOEditDoc::OnAnmLoad()
 		CMenu* pMenu = pFrameWnd->GetMenu();
 		CMenu* pPopup = pMenu->GetSubMenu(3);
 		ASSERT(pPopup != NULL);
-#ifdef ALTERNATIVE_LANG
 		pPopup->EnableMenuItem(ID_ANM_SAVE_AL, MF_BYCOMMAND | MF_ENABLED);
 		pPopup->EnableMenuItem(ID_ANM_CLOSE_AL, MF_BYCOMMAND | MF_ENABLED);
-#else
-		pPopup->EnableMenuItem(ID_ANM_SAVE, MF_BYCOMMAND | MF_ENABLED);
-		pPopup->EnableMenuItem(ID_ANM_CLOSE, MF_BYCOMMAND | MF_ENABLED);
-#endif
 		UpdateAllViews(NULL, 0, NULL);
 	}
 }
@@ -1054,19 +981,10 @@ void CSOEditDoc::OnVolAdd()
 	strcpy(pVolume->m_Name, tmpVolName);
 	char szVolPath[_MAX_PATH];
 	int yesno = IDNO;
-#ifdef ALTERNATIVE_LANG
 	if (IDYES == (yesno = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Add a volume from a file (VOL)?", "QUESTION: CSOEditDoc::OnVolAdd", MB_YESNO | MB_ICONQUESTION)))
-#else
-	if (IDYES == (yesno = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Äîáàâèòü âîëþì èç ôàéëà (VOL)?", "QUESTION: CSOEditDoc::OnVolAdd", MB_YESNO | MB_ICONQUESTION)))
-#endif
 	{
-#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "VOL-file (*.vol)|*.vol||";
 		static char szTitle[] = "Opening a volume-file";
-#else
-		static char szFilter[] = "VOL-ôàéë (*.vol)|*.vol||";
-		static char szTitle[] = "Îòêðûòèå âîëþì-ôàéëà";
-#endif
 		bool p = false;
 		char CurFolder[_MAX_PATH] = { 0 };
 		if (strlen(pFrameWnd->m_CurMdlPath))
@@ -1159,11 +1077,7 @@ void CSOEditDoc::OnBoneAdd()
 {
 	if (!m_Model)
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "The model is not loaded.", "ERROR: CSOEditDoc::OnBoneAdd", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Ìîäåëü íå çàãðóæåíà.", "ERROR: CSOEditDoc::OnBoneAdd", MB_ICONHAND);
-#endif
 		m_Animate = false;
 		return;
 	}
@@ -1245,19 +1159,10 @@ void CSOEditDoc::OnBoneAdd()
 			pBone->prev = pFindBone;
 		}
 	int yesno = IDYES;
-#ifdef ALTERNATIVE_LANG
 	if ((yesno = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Add a mesh from a file (PLY)?", "QUESTION: CSOEditDoc::OnBoneAdd", MB_YESNO | MB_ICONQUESTION)) == IDYES)
-#else
-	if ((yesno = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Äîáàâèòü ìýø èç ôàéëà (PLY)?", "QUESTION: CSOEditDoc::OnBoneAdd", MB_YESNO | MB_ICONQUESTION)) == IDYES)
-#endif
 	{
-#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "PLY-file (*.ply)|*.ply||";
 		static char szTitle[] = "Opening a mesh-file";
-#else
-		static char szFilter[] = "PLY-ôàéë (*.ply)|*.ply||";
-		static char szTitle[] = "Îòêðûòèå ìýø-ôàéëà";
-#endif
 		bool p = false;
 		char CurFolder[_MAX_PATH] = { 0 };
 		if (strlen(pFrameWnd->m_CurMdlPath))
@@ -1364,28 +1269,16 @@ void CSOEditDoc::OnBoneDelete()
 
 	if (pBone)
 	{
-#ifdef ALTERNATIVE_LANG
 		if (CuteMode || (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Really remove this bone?", "QUESTION", MB_YESNO | MB_ICONQUESTION) == IDYES))
-#else
-		if (CuteMode || (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Точно удалить эту кость?", "QUESTION", MB_YESNO | MB_ICONQUESTION) == IDYES))
-#endif
 		{
 			// 1. ANALYSIS & NOTIFICATION UI
 			if (m_Model->m_skeleton->m_bonelist && !CuteMode)
 			{
 				CString tmpStr;
 				bool binding = false;
-#ifdef ALTERNATIVE_LANG
 				tmpStr = "This bone / branch of bones has linked volumes:\r\n";
-#else
-				tmpStr = "У этой кости / ветви костей есть волюмная привязка:\r\n";
-#endif
 				AnalysisOfBoneBranchesByVolume(pBone, tmpStr, binding, false);
-#ifdef ALTERNATIVE_LANG
 				tmpStr += "\r\nDelete linked volumes?";
-#else
-				tmpStr += "\r\nУдалить привязанные волюмы?";
-#endif
 				if (binding && MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, tmpStr, "QUESTION", MB_YESNO | MB_ICONQUESTION) == IDYES)
 				{
 					DeleteBindingVolumes(pBone, false);
@@ -1486,11 +1379,7 @@ void CSOEditDoc::OnBoneDelete()
 				while (child && child->m_LODView && child->sub)
 				{
 					child->sub = NewSubNum;
-#ifdef ALTERNATIVE_LANG
 					NewName.Format("%s (%s-%d)", pParent->m_Name, (child->m_LODView) ? "Lod" : "Sub. mesh", NewSubNum);
-#else
-					NewName.Format("%s (%s-%d)", pParent->m_Name, (child->m_LODView) ? "Лод" : "Суб. мэш", NewSubNum);
-#endif
 					if (child->m_Name) { delete[] child->m_Name; }
 					child->m_Name = new char[NewName.GetLength() + 1];
 					strcpy(child->m_Name, NewName);
@@ -1526,11 +1415,7 @@ void CSOEditDoc::AnalysisOfBoneBranchesByVolume(CBone* basis, CString& tmpStr, b
 	{
 		if (pVol->boneptr == basis)
 		{
-#ifdef ALTERNATIVE_LANG
 			tmpStr += "Volume \"" + CString(pVol->m_Name) + "\" linked to bone \"" + CString(basis->m_Name) + "\"\r\n";
-#else
-			tmpStr += "Âîëþì \"" + CString(pVol->m_Name) + "\" ïðèâÿçàí ê êîñòè \"" + CString(basis->m_Name) + "\"\r\n";
-#endif
 			binding = true;
 			//break;
 		}
@@ -1773,11 +1658,7 @@ void CSOEditDoc::OnBoneProp()
 						else
 						{
 							CString msgText;
-#ifdef ALTERNATIVE_LANG
 							msgText.Format("Bone: %s\nThe mesh has no material.\nPLY: %s", pBone->m_Name, pBone->m_VolumeViewName);
-#else
-							msgText.Format("Êîñòü: %s\nÌýø íå èìååò ìàòåðèàëà.\nPLY: %s", pBone->m_Name, pBone->m_VolumeViewName);
-#endif
 							MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, msgText, "ERROR: CSOEditDoc::OnBoneProp", MB_ICONHAND);
 						}
 					}
@@ -1957,11 +1838,7 @@ void CSOEditDoc::OnBoneProp()
 	}
 	else
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Bone: " + CString(szBoneName) + " not found.\nThe program memory is damaged!\nRestart!"), "ERROR: CSOEditDoc::OnBoneProp", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Êîñòü: " + CString(szBoneName) + " íå íàéäåíà.\nÏàìÿòü ïðîãðàììû ïîâðåæäåíà!\nÏåðåçàïóñòè!"), "ERROR: CSOEditDoc::OnBoneProp", MB_ICONHAND);
-#endif
 	}
 	pTreeCtrl->SetFocus();
 }
@@ -1970,11 +1847,7 @@ void CSOEditDoc::OnAnmEdit()
 {
 	if (!m_AnimBone)
 	{
-#ifdef ALTERNATIVE_LANG
 		if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Animation is not loaded.\nUpload?", "QUESTION: CSOEditDoc::OnAnmEdit", MB_YESNO | MB_ICONQUESTION) == IDYES)
-#else
-		if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Àíèìàöèÿ íå çàãðóæåíà.\nÇàãðóçèòü?", "QUESTION: CSOEditDoc::OnAnmEdit", MB_YESNO | MB_ICONQUESTION) == IDYES)
-#endif
 		{
 			OnAnmLoad();
 		}
@@ -2216,13 +2089,8 @@ void CSOEditDoc::OnModelSave(bool mod)
 	if (m_Model)
 	{
 		CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
-#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "MDL-file (*.mdl)|*.mdl|";
 		static char szTitle[] = "Save the model file as:";
-#else
-		static char szFilter[] = "MDL-Ôàéë (*.mdl)|*.mdl|";
-		static char szTitle[] = "Ñîõðàíèòü ôàéë ìîäåëè êàê:";
-#endif
 		FILE* fp;
 		bool p = false;
 		char CurFolder[_MAX_PATH] = { 0 };
@@ -2277,19 +2145,11 @@ void CSOEditDoc::OnModelSave(bool mod)
 				int save = 0;
 				if (mod)
 				{
-#ifdef ALTERNATIVE_LANG
 					save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("File:\n" + CString(szFileName) + "\nalready exists. Replace?"), "WARNING: CSOEditDoc::OnModelSave", MB_YESNO | MB_ICONEXCLAMATION);
-#else
-					save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Ôàéë:\n" + CString(szFileName) + "\nóæå ñóùåñòâóåò. Çàìåíèòü?"), "WARNING: CSOEditDoc::OnModelSave", MB_YESNO | MB_ICONEXCLAMATION);
-#endif
 				}
 				else
 				{
-#ifdef ALTERNATIVE_LANG
 					save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Do you confirm overwriting the file?"), "QUESTION: CSOEditDoc::OnModelSave", MB_YESNO | MB_ICONQUESTION);
-#else
-					save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Âû ïîäòâåðæäàåòå ïåðåçàïèñü ôàéëà?"), "QUESTION: CSOEditDoc::OnModelSave", MB_YESNO | MB_ICONQUESTION);
-#endif
 				}
 				if (save != IDYES)
 				{
@@ -2324,11 +2184,7 @@ void CSOEditDoc::OnModelSave(bool mod)
 				}
 				else
 				{
-#ifdef ALTERNATIVE_LANG
 					MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Mistake. Your nickname is not specified!\r\nGo to the program properties, write down your nickname and resave the file.", "ERROR: CSOEditDoc::OnFileSaveAs", MB_ICONHAND);
-#else
-					MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Îøèáêà. Òâîé íèêíåéì íå óêàçàí!\r\nÇàéäè â ñâîéñòâà ïðîãðàììû, çàïèøè ñâîé íèê è ïåðåñîõðàíè ôàéë.", "ERROR: CSOEditDoc::OnFileSaveAs", MB_ICONHAND);
-#endif
 					fprintf(fp, ";Model create/rebuild by: [Error: nickname is missing.]\n");
 				}
 				if (m_old_author_ply.GetLength() > 0)
@@ -2364,11 +2220,7 @@ void CSOEditDoc::OnFileSave()
 
 void CSOEditDoc::OnPlyMergeFiles()
 {
-#ifdef ALTERNATIVE_LANG
 	static char szFilter[] = "PLY-file (*.ply)|*.ply||";
-#else
-	static char szFilter[] = "PLY-ôàéë (*.ply)|*.ply||";
-#endif
 
 	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
 	bool p = false;
@@ -2385,25 +2237,15 @@ void CSOEditDoc::OnPlyMergeFiles()
 		InvertFixPathDelim(CurFolder);
 	}
 
-#ifdef ALTERNATIVE_LANG
 	CFileDialog dlgBase(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
 	dlgBase.m_ofn.lpstrTitle = "Select base mesh (PLY)";
-#else
-	CFileDialog dlgBase(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
-	dlgBase.m_ofn.lpstrTitle = "Âûáåðè áàçîâûé ìýø (PLY)";
-#endif
 	if (dlgBase.DoModal() != IDOK)
 	{
 		return;
 	}
 
-#ifdef ALTERNATIVE_LANG
 	CFileDialog dlgAppend(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
 	dlgAppend.m_ofn.lpstrTitle = "Select mesh to append (PLY)";
-#else
-	CFileDialog dlgAppend(TRUE, "*.ply", ((p) ? CurFolder : NULL), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
-	dlgAppend.m_ofn.lpstrTitle = "Âûáåðè äîáàâëÿåìûé ìýø (PLY)";
-#endif
 	if (dlgAppend.DoModal() != IDOK)
 	{
 		return;
@@ -2422,13 +2264,8 @@ void CSOEditDoc::OnPlyMergeFiles()
 		strcat(outPath, "_merged.ply");
 	}
 
-#ifdef ALTERNATIVE_LANG
 	CFileDialog dlgOut(FALSE, "*.ply", outPath, OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NONETWORKBUTTON, szFilter);
 	dlgOut.m_ofn.lpstrTitle = "Save merged mesh as";
-#else
-	CFileDialog dlgOut(FALSE, "*.ply", outPath, OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NONETWORKBUTTON, szFilter);
-	dlgOut.m_ofn.lpstrTitle = "Ñîõðàíèòü îáúåäèíåííûé ìýø êàê";
-#endif
 	if (dlgOut.DoModal() != IDOK)
 	{
 		return;
@@ -2446,11 +2283,7 @@ void CSOEditDoc::OnPlyMergeFiles()
 	CPly appendPly(appendPath);
 	if (!basePly.loading_successes || !appendPly.loading_successes)
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to load one of selected PLY files.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü çàãðóçèòü îäèí èç âûáðàííûõ PLY-ôàéëîâ.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#endif
 		return;
 	}
 
@@ -2461,7 +2294,6 @@ void CSOEditDoc::OnPlyMergeFiles()
 		{
 			// Build the prompt message.
 			char promptMsg[3072];
-#ifdef ALTERNATIVE_LANG
 			_snprintf(promptMsg, sizeof(promptMsg) - 1,
 				"%s\n"
 				"Do you want SOEdit to automatically fix the appended mesh's\n"
@@ -2474,20 +2306,6 @@ void CSOEditDoc::OnPlyMergeFiles()
 				promptMsg,
 				"Vertex format mismatch - fix automatically?",
 				MB_YESNO | MB_ICONWARNING);
-#else
-			_snprintf(promptMsg, sizeof(promptMsg) - 1,
-				"%s\n"
-				"Âû õîòèòå, ÷òîáû SOEdit àâòîìàòè÷åñêè ïðèâёë ôîðìàò âåðøèí\n"
-				"äîáàâëÿåìîãî ìýøà â ñîîòâåòñòâèå ñ áàçîâûì è âûïîëíèë ñëèÿíèå?\n\n"
-				"ÄÀ — àâòî-èñïðàâèòü è ñëèòü.\n"
-				"ÍÅÒ — îòìåíèòü ñëèÿíèå.",
-				mismatch.summary);
-			promptMsg[sizeof(promptMsg) - 1] = '\0';
-			int choice = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
-				promptMsg,
-				"Íåñîâìåñòèìûé ôîðìàò âåðøèí — èñïðàâèòü àâòîìàòè÷åñêè?",
-				MB_YESNO | MB_ICONWARNING);
-#endif
 			if (choice != IDYES)
 			{
 				return; // user chose to cancel
@@ -2496,15 +2314,9 @@ void CSOEditDoc::OnPlyMergeFiles()
 			// Auto-fix: rewrite append vertices to match base format.
 			if (!basePly.ReconcileVertexFormat(&appendPly))
 			{
-#ifdef ALTERNATIVE_LANG
 				MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
 					"Automatic vertex format fix failed.",
 					"ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#else
-				MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
-					"Àâòîìàòè÷åñêîå èñïðàâëåíèå ôîðìàòà âåðøèí íå óäàëîñü.",
-					"ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#endif
 				return;
 			}
 		}
@@ -2512,29 +2324,17 @@ void CSOEditDoc::OnPlyMergeFiles()
 
 	if (!basePly.MergeKeepSeparateTextures(&appendPly))
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Merge failed. Make sure both PLY files use compatible vertex format.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Îáúåäèíåíèå íå óäàëîñü. Ïðîâåðü ñîâìåñòèìîñòü ôîðìàòà âåðøèí îáîèõ PLY.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#endif
 		return;
 	}
 
 	if (!basePly.WriteFile(mergedPath))
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to save merged PLY file.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü ñîõðàíèòü îáúåäèíåííûé PLY-ôàéë.", "ERROR: CSOEditDoc::OnPlyMergeFiles", MB_ICONHAND);
-#endif
 		return;
 	}
 
-#ifdef ALTERNATIVE_LANG
 	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Merged file saved:\n" + CString(mergedPath)), "Done", MB_OK | MB_ICONINFORMATION);
-#else
-	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Îáúåäèíåííûé ôàéë ñîõðàíåí:\n" + CString(mergedPath)), "Ãîòîâî", MB_OK | MB_ICONINFORMATION);
-#endif
 }
 
 void CSOEditDoc::OnVolDelete()
@@ -2548,11 +2348,7 @@ void CSOEditDoc::OnVolDelete()
 	CVolume* pVolume = m_Model->m_VolumeList->FindByName(szVolumeName);
 	if (pVolume)
 	{
-#ifdef ALTERNATIVE_LANG
 		if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Really delete this volume?", "QUESTION: CSOEditDoc::OnVolDelete", MB_YESNO | MB_ICONQUESTION) == IDYES)
-#else
-		if (MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Òî÷íî óäàëèòü ýòîò âîëþì?", "QUESTION: CSOEditDoc::OnVolDelete", MB_YESNO | MB_ICONQUESTION) == IDYES)
-#endif
 		{
 			if (pVolume->next)
 			{
@@ -2610,11 +2406,7 @@ void CSOEditDoc::NameCountAndLinkControl(void)
 	int cou = 0, i = 0;
 	bool errors = false, fatal_vol_errors = false;
 	CString mesg, tmp_str;
-#ifdef ALTERNATIVE_LANG
 	mesg = "Errors found in the model:\n";
-#else
-	mesg = "Â ìîäåëå íàéäåíû îøèáêè:\n";
-#endif
 	m_Model->m_skeleton->m_bonelist->FindCountBone(cou);
 	NameList = new char* [cou + 1];
 	memset(NameList, 0, sizeof(char*) * (cou + 1));
@@ -2625,11 +2417,7 @@ void CSOEditDoc::NameCountAndLinkControl(void)
 		if (cou > 0)
 		{
 			errors = true;
-#ifdef ALTERNATIVE_LANG
 			tmp_str.Format("\n%d repeat(s) of the name of the bone \"%s\"", cou, NameList[i]);
-#else
-			tmp_str.Format("\n%d ïîâòîð (à, îâ) èìåíè êîñòè \"%s\"", cou, NameList[i]);
-#endif
 			mesg += tmp_str;
 		}
 	}
@@ -2653,11 +2441,7 @@ void CSOEditDoc::NameCountAndLinkControl(void)
 			if (cou > 0)
 			{
 				errors = true;
-#ifdef ALTERNATIVE_LANG
 				tmp_str.Format("\n%d repeat(s) of volume's name \"%s\"", cou, NameList[i]);
-#else
-				tmp_str.Format("\n%d ïîâòîð (à, îâ) èìåíè âîëþìà \"%s\"", cou, NameList[i]);
-#endif
 				mesg += tmp_str;
 			}
 		}
@@ -2676,22 +2460,14 @@ void CSOEditDoc::NameCountAndLinkControl(void)
 				CBone* pFB = m_Model->m_skeleton->m_bonelist->FindBone(pVol->m_Bone);
 				if (!pFB)
 				{
-#ifdef ALTERNATIVE_LANG
 					tmp_str.Format("\nVolume \"%s\" tied to a nonexistent bone \"%s\"", pVol->m_Name, pVol->m_Bone);
-#else
-					tmp_str.Format("\nÂîëþì \"%s\" ïðèâÿçàí ê íåñóùåñòâóþùåé êîñòè \"%s\"", pVol->m_Name, pVol->m_Bone);
-#endif
 					mesg += tmp_str;
 					fatal_vol_errors = true;
 				}
 			}
 			else
 			{
-#ifdef ALTERNATIVE_LANG
 				tmp_str.Format("\nVolume \"%s\" not tied to a bone.", pVol->m_Name);
-#else
-				tmp_str.Format("\nÂîëþì \"%s\" íå ïðèâÿçàí ê êîñòè.", pVol->m_Name);
-#endif
 				mesg += tmp_str;
 				fatal_vol_errors = true;
 			}
@@ -2700,19 +2476,11 @@ void CSOEditDoc::NameCountAndLinkControl(void)
 	}
 	if (errors || fatal_vol_errors)
 	{
-#ifdef ALTERNATIVE_LANG
 		tmp_str.Format("\n\nThe model is assembled incorrectly!!!");
-#else
-		tmp_str.Format("\n\nÌîäåëü ñîáðàíà íåâåðíî!!!");
-#endif
 		mesg += tmp_str;
 		if (fatal_vol_errors)
 		{
-#ifdef ALTERNATIVE_LANG
 			tmp_str.Format("\nThis model will drop the game!!!");
-#else
-			tmp_str.Format("\nÝòà ìîäåëü óðîíèò èãðó!!!");
-#endif
 			mesg += tmp_str;
 		}
 		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, CString(mesg), "WARNING: CSOEditDoc::NameCountAndLinkControl", MB_ICONEXCLAMATION);
@@ -3479,20 +3247,12 @@ void CSOEditDoc::OnBoneMergeToParent()
 	CBone* parentBone = childBone->m_parent;
 	if (!childBone->m_VolumeViewName || !strlen(childBone->m_VolumeViewName))
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Selected child bone has no mesh (PLY) to merge.", "Bone merge", MB_OK | MB_ICONINFORMATION);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Ó âûáðàííîé äî÷åðíåé êîñòè íåò PLY-ìýøà äëÿ îáúåäèíåíèÿ.", "Bone merge", MB_OK | MB_ICONINFORMATION);
-#endif
 		return;
 	}
 	if (childBone->m_ChildFirst)
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Merge requires a leaf child bone (without nested children).", "Bone merge", MB_OK | MB_ICONINFORMATION);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Îáúåäèíåíèå äîñòóïíî òîëüêî äëÿ ëèñòîâîé äî÷åðíåé êîñòè (áåç âëîæåííûõ êîñòåé).", "Bone merge", MB_OK | MB_ICONINFORMATION);
-#endif
 		return;
 	}
 
@@ -3503,11 +3263,7 @@ void CSOEditDoc::OnBoneMergeToParent()
 	CPly childPly(childPath);
 	if (!childPly.loading_successes)
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to load child PLY file.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü çàãðóçèòü PLY-ôàéë äî÷åðíåé êîñòè.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#endif
 		return;
 	}
 
@@ -3529,11 +3285,7 @@ void CSOEditDoc::OnBoneMergeToParent()
 		{
 			delete basePly;
 			basePly = NULL;
-#ifdef ALTERNATIVE_LANG
 			MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to load parent PLY file.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#else
-			MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü çàãðóçèòü PLY-ôàéë ðîäèòåëüñêîé êîñòè.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#endif
 			return;
 		}
 	}
@@ -3562,7 +3314,6 @@ void CSOEditDoc::OnBoneMergeToParent()
 			if (basePly->DetectVertexFormatMismatch(&childPly, mismatch))
 			{
 				char promptMsg[3072];
-#ifdef ALTERNATIVE_LANG
 				_snprintf(promptMsg, sizeof(promptMsg) - 1,
 					"%s\n"
 					"Do you want SOEdit to automatically fix the child bone's\n"
@@ -3575,20 +3326,6 @@ void CSOEditDoc::OnBoneMergeToParent()
 					promptMsg,
 					"Vertex format mismatch - fix automatically?",
 					MB_YESNO | MB_ICONWARNING);
-#else
-				_snprintf(promptMsg, sizeof(promptMsg) - 1,
-					"%s\n"
-					"Âû õîòèòå, ÷òîáû SOEdit àâòîìàòè÷åñêè ïðèâёë ôîðìàò âåðøèí\n"
-					"äî÷åðíåé êîñòè ê ðîäèòåëüñêîé è âûïîëíèë ñëèÿíèå?\n\n"
-					"ÄÀ — àâòî-èñïðàâèòü è ñëèòü.\n"
-					"ÍÅÒ — îòìåíèòü ñëèÿíèå.",
-					mismatch.summary);
-				promptMsg[sizeof(promptMsg) - 1] = '\0';
-				int choice = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
-					promptMsg,
-					"Íåñîâìåñòèìûé ôîðìàò âåðøèí — èñïðàâèòü àâòîìàòè÷åñêè?",
-					MB_YESNO | MB_ICONWARNING);
-#endif
 				if (choice != IDYES)
 				{
 					delete basePly;
@@ -3598,15 +3335,9 @@ void CSOEditDoc::OnBoneMergeToParent()
 				if (!basePly->ReconcileVertexFormat(&childPly))
 				{
 					delete basePly;
-#ifdef ALTERNATIVE_LANG
 					MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
 						"Automatic vertex format fix failed.",
 						"ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#else
-					MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd,
-						"Àâòîìàòè÷åñêîå èñïðàâëåíèå ôîðìàòà âåðøèí íå óäàëîñü.",
-						"ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#endif
 					return;
 				}
 			}
@@ -3617,11 +3348,7 @@ void CSOEditDoc::OnBoneMergeToParent()
 	if (!ok)
 	{
 		delete basePly;
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to merge meshes. Ensure both PLY files have compatible vertex format.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü îáúåäèíèòü ìýøè. Ïðîâåðü ñîâìåñòèìîñòü ôîðìàòîâ âåðøèí.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#endif
 		return;
 	}
 
@@ -3639,11 +3366,7 @@ void CSOEditDoc::OnBoneMergeToParent()
 	if (!basePly->WriteFile(mergedPath))
 	{
 		delete basePly;
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Failed to save merged PLY file.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "Íå óäàëîñü ñîõðàíèòü îáúåäèíåííûé PLY-ôàéë.", "ERROR: OnBoneMergeToParent", MB_ICONHAND);
-#endif
 		return;
 	}
 	delete basePly;
@@ -3661,11 +3384,7 @@ void CSOEditDoc::OnBoneMergeToParent()
 	OnBoneDelete();
 
 	UpdateAllViews(NULL, 0, NULL);
-#ifdef ALTERNATIVE_LANG
 	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Merged PLY saved:\n" + CString(mergedPath)), "Done", MB_OK | MB_ICONINFORMATION);
-#else
-	MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Îáúåäèíåííûé PLY ñîõðàíåí:\n" + CString(mergedPath)), "Ãîòîâî", MB_OK | MB_ICONINFORMATION);
-#endif
 }
 
 void CSOEditDoc::On_Bone_Expand()
@@ -4096,11 +3815,7 @@ void CSOEditDoc::ANM_Tool(bool mod)
 	if (pButton)
 		pButton->EnableWindow(mod);
 	CStatic* pStatic = (CStatic*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_ANM_EDITING_MODE);
-#ifdef ALTERNATIVE_LANG
 	pStatic->SetWindowText("Mode: Skeleton Editing");
-#else
-	pStatic->SetWindowText("Ðåæèì: Ðåäàêòèðîâàíèå ñêåëåòà");
-#endif
 	CEdit* pEdit = (CEdit*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_SPEED);;
 	pEdit->EnableWindow(mod);
 	CSpinButtonCtrl* pSpinner = (CSpinButtonCtrl*)pFrameWnd->m_wndAnimBox.GetDlgItem(IDC_SPEED_CONTROL);
@@ -4115,11 +3830,7 @@ void CSOEditDoc::OnModEditing()
 	{
 		if (!AnmEditingMod)
 		{
-#ifdef ALTERNATIVE_LANG
 			pStatic->SetWindowText("Mode: Animation Editing");
-#else
-			pStatic->SetWindowText("Ðåæèì: Ðåäàêòèðîâàíèå àíèìàöèè");
-#endif
 		}
 		AnmEditingMod = true;
 	}
@@ -4127,11 +3838,7 @@ void CSOEditDoc::OnModEditing()
 	{
 		if (AnmEditingMod)
 		{
-#ifdef ALTERNATIVE_LANG
 			pStatic->SetWindowText("Mode: Skeleton Editing");
-#else
-			pStatic->SetWindowText("Ðåæèì: Ðåäàêòèðîâàíèå ñêåëåòà");
-#endif
 		}
 		AnmEditingMod = false;
 	}
@@ -4296,13 +4003,8 @@ void CSOEditDoc::OnBoneAddLod()
 		return;
 	}
 	CString LodName;
-#ifdef ALTERNATIVE_LANG
 	static char szFilter[] = "PLY-file (*.ply)|*.ply|";
 	static char szTitle[] = "Opening a mesh-file";
-#else
-	static char szFilter[] = "PLY-ôàéë (*.ply)|*.ply|";
-	static char szTitle[] = "Îòêðûòèå ìýø-ôàéëà";
-#endif
 	bool p = false;
 	char CurFolder[_MAX_PATH] = { 0 };
 	if (strlen(pFrameWnd->m_CurMdlPath))
@@ -4656,13 +4358,8 @@ void CSOEditDoc::OnAnmSave()
 {
 	FILE* fp;
 	bool saveit = true, mod = false;
-#ifdef ALTERNATIVE_LANG
 	static char szFilter[] = "ANM-file (*.anm)|*.anm|";
 	static char szTitle[] = "Save the animation file as:";
-#else
-	static char szFilter[] = "ANM-Ôàéë (*.anm)|*.anm|";
-	static char szTitle[] = "Ñîõðàíèòü ôàéë àíèìàöèè êàê:";
-#endif
 	CMainFrame* pFrameWnd = (CMainFrame*)AfxGetMainWnd();
 	bool p = false;
 	char CurFolder[_MAX_PATH] = { 0 };
@@ -4704,19 +4401,11 @@ void CSOEditDoc::OnAnmSave()
 			int save = 0;
 			if (mod)
 			{
-#ifdef ALTERNATIVE_LANG
 				save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("File:\n" + CString(szAnimPath) + "\nalready exists. Replace?"), "WARNING: CSOEditDoc::OnAnmSave", MB_YESNO | MB_ICONEXCLAMATION);
-#else
-				save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Ôàéë:\n" + CString(szAnimPath) + "\nóæå ñóùåñòâóåò. Çàìåíèòü?"), "WARNING: CSOEditDoc::OnAnmSave", MB_YESNO | MB_ICONEXCLAMATION);
-#endif
 			}
 			else
 			{
-#ifdef ALTERNATIVE_LANG
 				save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Do you confirm overwriting the animation file?"), "QUESTION: CSOEditDoc::OnAnmSave", MB_YESNO | MB_ICONQUESTION);
-#else
-				save = MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Âû ïîäòâåðæäàåòå ïåðåçàïèñü ôàéëà àíèìàöèè?"), "QUESTION: CSOEditDoc::OnAnmSave", MB_YESNO | MB_ICONQUESTION);
-#endif
 			}
 			if (save != IDYES)
 			{
@@ -4749,11 +4438,7 @@ void CSOEditDoc::OnAnmNew()
 	// TODO:     
 	if (!m_Model || !m_Model->m_skeleton || !m_Model->m_skeleton->m_bonelist)
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "The model skeleton is not loaded!", "ERROR: CSOEditDoc::OnAnmNew", MB_ICONHAND);
-#else
-		MessageBox(AfxGetApp()->m_pMainWnd->m_hWnd, "    !", "ERROR: CSOEditDoc::OnAnmNew", MB_ICONHAND);
-#endif
 		return;
 	}
 
@@ -4793,13 +4478,8 @@ void CSOEditDoc::OnAnmNew()
 	CMenu* pMenu = pFrameWnd->GetMenu();
 	CMenu* pPopup = pMenu->GetSubMenu(3);
 	ASSERT(pPopup != NULL);
-#ifdef ALTERNATIVE_LANG
 	pPopup->EnableMenuItem(ID_ANM_SAVE_AL, MF_BYCOMMAND | MF_ENABLED);
 	pPopup->EnableMenuItem(ID_ANM_CLOSE_AL, MF_BYCOMMAND | MF_ENABLED);
-#else
-	pPopup->EnableMenuItem(ID_ANM_SAVE, MF_BYCOMMAND | MF_ENABLED);
-	pPopup->EnableMenuItem(ID_ANM_CLOSE, MF_BYCOMMAND | MF_ENABLED);
-#endif
 	UpdateAllViews(NULL, 0, NULL);
 }
 
@@ -4831,13 +4511,8 @@ void CSOEditDoc::OnAnmClose()
 	CMenu* pMenu = pFrameWnd->GetMenu();
 	CMenu* pPopup = pMenu->GetSubMenu(3);
 	ASSERT(pPopup != NULL);
-#ifdef ALTERNATIVE_LANG
 	pPopup->EnableMenuItem(ID_ANM_SAVE_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 	pPopup->EnableMenuItem(ID_ANM_CLOSE_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#else
-	pPopup->EnableMenuItem(ID_ANM_SAVE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	pPopup->EnableMenuItem(ID_ANM_CLOSE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-#endif
 	UpdateAllViews(NULL, 0, NULL);
 }
 

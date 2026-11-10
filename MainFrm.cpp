@@ -94,6 +94,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_GRID_LARGER, OnGridLarger)
 	ON_COMMAND(ID_GRID_LARGER_AL, OnGridLarger)
 	ON_COMMAND(ID_APP_EXIT_AL, &CMainFrame::OnAppExitAl)
+	ON_COMMAND(ID_HELP_SHORTCUTS, &CMainFrame::OnHelpShortcuts)
 	ON_WM_INITMENUPOPUP()
 	ON_COMMAND(ID_DISPLAY_DISPLAYALLMESHVECTORS_AL, &CMainFrame::OnDisplayDisplayallmeshvectors)
 	ON_COMMAND(ID_DISPLAY_DISPLAYALLMESHVECTORS, &CMainFrame::OnDisplayDisplayallmeshvectors)
@@ -213,11 +214,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if(CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		{return -1;}
-	#ifdef ALTERNATIVE_LANG
 		if(!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_TOOLTIPS | CBRS_SIZE_DYNAMIC) || !m_wndToolBar.LoadToolBar(IDR_MAINFRAME_AL))
-	#else
-		if(!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_TOOLTIPS | CBRS_SIZE_DYNAMIC) || !m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
-	#endif
 	{
 		TRACE0("Failed to create toolbar\n");
 		return -1;      // fail to create
@@ -232,27 +229,16 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_TOP);
 	EnableDocking(CBRS_ALIGN_TOP);
 	DockControlBar(&m_wndToolBar);
-	#ifdef ALTERNATIVE_LANG
 		ModernUI::ModernizeToolbar(m_wndToolBar.GetToolBarCtrl().m_hWnd, IDR_MAINFRAME_AL);
-	#else
-		ModernUI::ModernizeToolbar(m_wndToolBar.GetToolBarCtrl().m_hWnd, IDR_MAINFRAME);
-	#endif
     m_wndAnimBox.Create(this, IDD_ANIMBOX, CBRS_BOTTOM | CBRS_FLYBY | CBRS_TOOLTIPS | CBRS_SIZE_DYNAMIC, IDD_ANIMBOX);
     CMenu *pMenu = GetMenu();
     CMenu* pPopup = pMenu -> GetSubMenu(5);
     ASSERT(pPopup != NULL);
 	
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_MODE_SELECT_AL, MF_CHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_MOVE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_ROTATE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_SCALE_AL, MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_MODE_SELECT, MF_CHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_MOVE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_ROTATE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_SCALE, MF_UNCHECKED);
-	#endif
 
     m_wndToolTab.Create(this, IDD_TOOLTAB, CBRS_LEFT | CBRS_FLYBY | CBRS_TOOLTIPS | CBRS_SIZE_DYNAMIC, IDD_TOOLBOX);
     //m_wndToolBox.Create(this, IDD_TOOLBOX, CBRS_RIGHT | CBRS_FLYBY | CBRS_TOOLTIPS | CBRS_SIZE_DYNAMIC, IDD_TOOLBOX);
@@ -272,7 +258,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		pLerpEnd->SetWindowText("2");
 	}
-	#ifdef ALTERNATIVE_LANG
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_ANM_EDITING_MODE);
 		pWnd -> SetWindowText("Mode: Skeleton Editing");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INHERIT_MATRIX);
@@ -280,9 +265,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_LOOP);
 		pWnd -> SetWindowText("Repeat");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_ANMBOX_INSERT_FRAME);
-		pWnd -> SetWindowText("Insert a frame");
+		pWnd -> SetWindowText("Insert frame");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_ANMBOX_DELETE_FRAME);
-		pWnd -> SetWindowText("Delete a frame");
+		pWnd -> SetWindowText("Delete frame");
 		pWnd = (CWnd*)m_wndAnimBox.GetDlgItem(IDC_REVERSE_ANIM);
 		pWnd->SetWindowText("Reverse");
 		pWnd = (CWnd*)m_wndAnimBox.GetDlgItem(IDC_ANM_LERP_APPLY);
@@ -290,10 +275,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_STATIC_AB_1);
 		pWnd -> SetWindowText("Frame:");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_STATIC_AB_3);
-		pWnd -> SetWindowText("from");
+		pWnd -> SetWindowText("of");
 		pWnd = (CWnd *)m_wndAnimBox.GetDlgItem(IDC_STATIC_AB_2);
 		pWnd -> SetWindowText("Animation file:");
-	#endif
     CSOEditApp *pApp = (CSOEditApp *)AfxGetApp();
     CButton *pButton = (CButton *)m_wndAnimBox.GetDlgItem(IDC_PAUSE);
     HICON hIcon = ::LoadIcon(pApp -> m_hInstance, "IDI_PAUSE");
@@ -322,11 +306,7 @@ void CMainFrame::OnClose()
 	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
 	if(pDoc -> m_Model && pDoc -> m_Model -> m_skeleton && pDoc -> m_Model -> m_skeleton -> m_bonelist)
 	{
-		#ifdef ALTERNATIVE_LANG
 			if(MessageBox("Are you confirming the exit?", "QUESTION: CMainFrame::OnClose", MB_YESNO | MB_ICONQUESTION) == IDYES)
-		#else
-			if(MessageBox("Вы подтверждаете выход?", "QUESTION: CMainFrame::OnClose", MB_YESNO | MB_ICONQUESTION) == IDYES)
-		#endif
 				{return CFrameWnd::OnClose();}
 	}
 	else
@@ -498,20 +478,12 @@ void CMainFrame::OnLoop()
 		if(pDoc -> m_Loop)
 		{
 			pDoc -> m_Loop = false;
-			#ifdef ALTERNATIVE_LANG
 				pButton -> SetWindowText("Repeat");
-			#else
-				pButton -> SetWindowText("Повторять");
-			#endif
 		}
 		else
 		{
 			pDoc -> m_Loop = true;
-			#ifdef ALTERNATIVE_LANG
 				pButton -> SetWindowText("No repeats");
-			#else
-				pButton -> SetWindowText("Без повторов");
-			#endif
 		}
 	}
 	return;
@@ -628,17 +600,10 @@ void CMainFrame::OnModeSelect()
 	CMenu *pMenu = GetMenu();
 	CMenu* pPopup = pMenu -> GetSubMenu(5);
 	ASSERT(pPopup != NULL);
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_MODE_SELECT_AL, MF_CHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_MOVE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_ROTATE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_SCALE_AL, MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_MODE_SELECT, MF_CHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_MOVE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_ROTATE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_SCALE, MF_UNCHECKED);
-	#endif
 	m_mode = m_select;
 }
 
@@ -647,17 +612,10 @@ void CMainFrame::OnModeMove()
 	CMenu *pMenu = GetMenu();
 	CMenu* pPopup = pMenu -> GetSubMenu(5);
 	ASSERT(pPopup != NULL);
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_MODE_SELECT_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_MOVE_AL, MF_CHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_ROTATE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_SCALE_AL, MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_MODE_SELECT, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_MOVE, MF_CHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_ROTATE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_SCALE, MF_UNCHECKED);
-	#endif
 	m_mode = m_move;
 }
 
@@ -666,17 +624,10 @@ void CMainFrame::OnModeScale()
 	CMenu *pMenu = GetMenu();
 	CMenu* pPopup = pMenu -> GetSubMenu(5);
 	ASSERT(pPopup != NULL);
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_MODE_SELECT_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_MOVE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_ROTATE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_SCALE_AL, MF_CHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_MODE_SELECT, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_MOVE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_ROTATE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_SCALE, MF_CHECKED);
-	#endif
 	m_mode = m_scale;
 }
 
@@ -685,17 +636,10 @@ void CMainFrame::OnModeRotate()
 	CMenu *pMenu = GetMenu();
 	CMenu* pPopup = pMenu -> GetSubMenu(5);
 	ASSERT(pPopup != NULL);
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_MODE_SELECT_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_MOVE_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_ROTATE_AL, MF_CHECKED);
 		pPopup -> CheckMenuItem(ID_MODE_SCALE_AL, MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_MODE_SELECT, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_MOVE, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_ROTATE, MF_CHECKED);
-		pPopup -> CheckMenuItem(ID_MODE_SCALE, MF_UNCHECKED);
-	#endif
 	m_mode = m_rotate;
 }
 
@@ -768,25 +712,16 @@ void CMainFrame::LoadGameDataPath()
 		{
 			if(ProgVer > RegVer)
 			{
-				//MessageBox("Обнаружены настройки от старой версии программы.\r\nНекоторые параметры могут отсутствовать.", "INFORMATION: CMainFrame::LoadGameDataPath", MB_ICONINFORMATION);
 				old_ver = true;
 			}
 		}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				MessageBox("It is impossible to determine the number of the old version of the program.\r\nSome parameters may be missing.", "WARNING: CMainFrame::LoadGameDataPath", MB_ICONEXCLAMATION);
-			#else
-				MessageBox("Невозможно определить номер старой версии программы.\r\nНекоторые параметры могут отсутствовать.", "WARNING: CMainFrame::LoadGameDataPath", MB_ICONEXCLAMATION);
-			#endif
 		}
 		if(old_ver)
 		{
-			#ifdef ALTERNATIVE_LANG
 				MessageBox(CString("Settings from the old version of the program were detected.\r\nSome registry parameters may be missing and not readable." + CString((ColorUPD) ? "\nThe color settings will be reset to default." : "")), "INFORMATION: CMainFrame::LoadGameDataPath", MB_ICONINFORMATION);
-			#else
-				MessageBox(CString("Обнаружены настройки от старой версии программы.\r\nНекоторые реестровые параметры могут отсутствовать и не прочитаться." + CString((ColorUPD) ? "\nНастройки цветов будут сброшены по умолчанию." : "")), "INFORMATION: CMainFrame::LoadGameDataPath", MB_ICONINFORMATION);
-			#endif
 		}
 		Type = 0;
 		RegetPath = _MAX_PATH;
@@ -798,11 +733,7 @@ void CMainFrame::LoadGameDataPath()
 		res |= RegQueryValueEx(hk, TEXT("ModsDataPath5"), NULL, &Type, (LPBYTE)&m_ResPath[5], &RegetPath); RegetPath = _MAX_PATH;
 		if(res != ERROR_SUCCESS)
 		{
-			#ifdef ALTERNATIVE_LANG
 				MessageBox("Error reading the path to the game or mods.", "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
-			#else
-				MessageBox("Ошибка чтения пути к игре или модам.", "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
-			#endif
 		}
 		Type = REG_DWORD;
 		DWORD color = 0x00000000;
@@ -818,11 +749,7 @@ void CMainFrame::LoadGameDataPath()
 			else
 			{
 				char msg[256] = {0};
-				#ifdef ALTERNATIVE_LANG
 					sprintf(msg, "Parameter reading error \"%s\"!", Elements[c]);
-				#else
-					sprintf(msg, "Ошибка чтения параметра \"%s\"!", Elements[c]);
-				#endif
 				MessageBox(msg, "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
 			}
 		}
@@ -842,11 +769,7 @@ void CMainFrame::LoadGameDataPath()
 		res |= RegQueryValueEx(hk, TEXT("View_Ram_Vol"), NULL, &Type, (PBYTE)&m_ram, &RegetPath);
 		if(res != ERROR_SUCCESS)
 		{
-			#ifdef ALTERNATIVE_LANG
 				MessageBox("Error reading data for the settings window.", "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
-			#else
-				MessageBox("Ошибка чтения данных для окна настройки.", "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
-			#endif
 		}
 		RegCloseKey(hk);
 	}
@@ -868,11 +791,7 @@ void CMainFrame::SaveGameDataPath()
 		err |= RegSetValueEx(hk, TEXT("ModsDataPath5"), 0, REG_SZ, (PBYTE)m_ResPath[5], strlen(m_ResPath[5]));
 		if(err != ERROR_SUCCESS)
 		{
-			#ifdef ALTERNATIVE_LANG
 				MessageBox("Writing error Game/Mods Data Path", "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
-			#else
-				MessageBox("Ошибка записи Game/Mods Data Path", "ERROR: CMainFrame::LoadGameDataPath", MB_ICONHAND);
-			#endif
 		}
 		RegSetValueEx(hk, TEXT("Model_author"), 0, REG_SZ, (PBYTE)m_author, strlen(m_author));
 		dwType = REG_DWORD;
@@ -916,20 +835,12 @@ void CMainFrame::OnViewVolumes()
 	ASSERT(pPopup != NULL);
 	if(m_ViewVols)
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_VOLUMES_AL, MF_UNCHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_VOLUMES, MF_UNCHECKED);
-		#endif
 		m_ViewVols = false;
 	}
 	else
 	{	
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_VOLUMES_AL, MF_CHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_VOLUMES, MF_CHECKED);
-		#endif
 		m_ViewVols = true;
 	}
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
@@ -943,20 +854,12 @@ void CMainFrame::OnViewEntity()
 	ASSERT(pPopup != NULL);
 	if(m_ViewEnts)
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_ENTITY_AL, MF_UNCHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_ENTITY, MF_UNCHECKED);
-		#endif
 		m_ViewEnts = false;
 	}
 	else
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_ENTITY_AL, MF_CHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_ENTITY, MF_CHECKED);
-		#endif
 		m_ViewEnts = true;
 	}
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
@@ -988,20 +891,12 @@ void CMainFrame::OnViewObstacles()
 	ASSERT(pPopup != NULL);
 	if(m_ViewObst)
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_OBSTACLES_AL, MF_UNCHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_OBSTACLES, MF_UNCHECKED);
-		#endif
 		m_ViewObst = false;
 	}
 	else
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_OBSTACLES_AL, MF_CHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_OBSTACLES, MF_CHECKED);
-		#endif
 		m_ViewObst = true;
 	}
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
@@ -1015,20 +910,12 @@ void CMainFrame::OnViewAreas()
 	ASSERT(pPopup != NULL);
 	if(m_ViewArea)
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_AREAS_AL, MF_UNCHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_AREAS, MF_UNCHECKED);
-		#endif
 		m_ViewArea = false;
 	}
 	else
 	{
-		#ifdef ALTERNATIVE_LANG
 			pPopup -> CheckMenuItem(ID_VIEW_AREAS_AL, MF_CHECKED);
-		#else
-			pPopup -> CheckMenuItem(ID_VIEW_AREAS, MF_CHECKED);
-		#endif
 		m_ViewArea = true;
 	}
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
@@ -1055,11 +942,7 @@ void CMainFrame::OnCollisionsViewer()
 	CMenu* pPopup = pMenu -> GetSubMenu(6);
 	ASSERT(pPopup != NULL);
 	m_CollisionSide = !m_CollisionSide;
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_VIEW_COLLISIONSVIEWER_AL, (m_CollisionSide) ? MF_CHECKED : MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_VIEW_COLLISIONSVIEWER, (m_CollisionSide) ? MF_CHECKED : MF_UNCHECKED);
-	#endif
 	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
 }
@@ -1070,11 +953,7 @@ void CMainFrame::OnDisplayDisplayallmeshvectors()
 	CMenu* pPopup = pMenu -> GetSubMenu(6);
 	ASSERT(pPopup != NULL);
 	m_AllMeshVectors = !m_AllMeshVectors;
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_DISPLAY_DISPLAYALLMESHVECTORS_AL, (m_AllMeshVectors) ? MF_CHECKED : MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_DISPLAY_DISPLAYALLMESHVECTORS, (m_AllMeshVectors) ? MF_CHECKED : MF_UNCHECKED);
-	#endif
 	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
 	pDoc -> UpdateAllViews(NULL, 0, NULL);
 }
@@ -1085,11 +964,7 @@ void CMainFrame::OnDisplayTextureErrors()
 	CMenu* pPopup = pMenu->GetSubMenu(6);
 	ASSERT(pPopup != NULL);
 	m_ShowTextureErrors = !m_ShowTextureErrors;
-#ifdef ALTERNATIVE_LANG
 	pPopup->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS_AL, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
-#else
-	pPopup->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
-#endif
 }
 
 void CMainFrame::OnGEMICompatibility()
@@ -1098,11 +973,7 @@ void CMainFrame::OnGEMICompatibility()
 	CMenu* pPopup = pMenu -> GetSubMenu(0);
 	ASSERT(pPopup != NULL);
 	m_GEMI_Compatibility = !m_GEMI_Compatibility;
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(OLD_GEMI_COMPATIBILITY_AL, (m_GEMI_Compatibility) ? MF_CHECKED : MF_UNCHECKED);
-	#else
-		pPopup -> CheckMenuItem(OLD_GEMI_COMPATIBILITY, (m_GEMI_Compatibility) ? MF_CHECKED : MF_UNCHECKED);
-	#endif
 }
 
 void CMainFrame::OnColorize()
@@ -1115,15 +986,37 @@ void CMainFrame::OnColorize()
 void CMainFrame::OnInitMenuPopup(CMenu* pPopupMenu, UINT nIndex, BOOL bSysMenu)
 {
 	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
-	#ifdef ALTERNATIVE_LANG
 		pPopupMenu -> CheckMenuItem(ID_VIEW_COLORIZE_AL, (pDoc -> Colorized_3d) ? MF_CHECKED : MF_UNCHECKED);
 		pPopupMenu->CheckMenuItem(ID_DISPLAY_DISPLAYALLMESHVECTORS_AL, (m_AllMeshVectors) ? MF_CHECKED : MF_UNCHECKED);
 		pPopupMenu->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS_AL, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
-	#else
-		pPopupMenu -> CheckMenuItem(ID_VIEW_COLORIZE, (pDoc -> Colorized_3d) ? MF_CHECKED : MF_UNCHECKED);
-		pPopupMenu->CheckMenuItem(ID_DISPLAY_DISPLAYALLMESHVECTORS, (m_AllMeshVectors) ? MF_CHECKED : MF_UNCHECKED);
-		pPopupMenu->CheckMenuItem(ID_DISPLAY_TEXTURE_ERRORS, (m_ShowTextureErrors) ? MF_CHECKED : MF_UNCHECKED);
-	#endif
+}
+
+// True while the keyboard focus is in a text box, so single-key shortcuts must not steal typing.
+static bool IsTypingFocus()
+{
+	HWND f = ::GetFocus();
+	if (!f) {return false;}
+	char cls[32] = {0};
+	::GetClassNameA(f, cls, 31);
+	return _stricmp(cls, "Edit") == 0 || _stricmp(cls, "ComboBox") == 0 || _strnicmp(cls, "RichEdit", 8) == 0;
+}
+
+// Jump the animation to a frame (clamped), updating the slider, the frame box and the views.
+static void GoToFrame(CMainFrame *pFrame, int frame)
+{
+	CSOEditDoc *pDoc = (CSOEditDoc *)pFrame->GetActiveDocument();
+	if (!pDoc || !pDoc->m_AnimBone || pDoc->m_Animate) {return;}
+	int last = pDoc->m_AnimBone->m_FrameCnt - 1;
+	if (last < 0) {return;}
+	pDoc->m_Frame = max(0, min(frame, last));
+	char text[32];
+	sprintf(text, "%d", pDoc->m_Frame + 1);
+	CWnd *pWnd = pFrame->m_wndAnimBox.GetDlgItem(IDC_FRAMENO);
+	if (pWnd) {pWnd->SetWindowText(text);}
+	CSliderCtrl *pSlider = (CSliderCtrl *)pFrame->m_wndAnimBox.GetDlgItem(IDC_ANIM_SLIDER);
+	if (pSlider) {pSlider->SetPos(pDoc->m_Frame);}
+	pDoc->OnModEditing();
+	pDoc->UpdateAllViews(NULL);
 }
 
 BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
@@ -1187,25 +1080,53 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 		{
 			const bool hasModifier = ((GetKeyState(VK_CONTROL) & 0x8000) != 0) || ((GetKeyState(VK_MENU) & 0x8000) != 0);
 			CView* pActiveView = GetActiveView();
-			if (!hasModifier && pActiveView && pActiveView->IsKindOf(RUNTIME_CLASS(CSOEdit2dView)))
+			if (!hasModifier && !IsTypingFocus())
 			{
+				// Blender-style shortcuts
 				switch (pMsg->wParam)
 				{
-				case 'W':
+				case 'G':
 					OnModeMove();
 					return TRUE;
-				case 'E':
+				case 'R':
 					OnModeRotate();
 					return TRUE;
-				case 'R':
+				case 'S':
 					OnModeScale();
+					return TRUE;
+				case 'Q':
+					OnModeSelect();
+					return TRUE;
+				case VK_SPACE:
+				{
+					CSOEditDoc *pPlayDoc = (CSOEditDoc *)GetActiveDocument();
+					if (pPlayDoc && pPlayDoc->m_AnimBone)
+					{
+						if (pPlayDoc->m_Animate) {OnPause();} else {OnPlay();}
+					}
+					return TRUE;
+				}
+				case VK_LEFT:
+					OnBack();
+					return TRUE;
+				case VK_RIGHT:
+					OnStep();
+					return TRUE;
+				case VK_HOME:
+					GoToFrame(this, 0);
+					return TRUE;
+				case VK_END:
+					GoToFrame(this, 1000000);
+					return TRUE;
+				case VK_F2:
+					SendMessage(WM_COMMAND, ID_HELP_SHORTCUTS, 0);
 					return TRUE;
 				}
 			}
 		}
 		CEdit *pEdit = (CEdit *)m_wndAnimBox.GetDlgItem(IDC_SPEED);
 		CEdit *pEdit2 = (CEdit *)m_wndToolTab.GetDlgItem(IDC_FINDING_COMPONENT);
-		if (pMsg->message == WM_KEYDOWN && !(GetKeyState(VK_CONTROL) & 0x8000) && !(GetKeyState(VK_MENU) & 0x8000))
+		if (pMsg->message == WM_KEYDOWN && !IsTypingFocus() && !(GetKeyState(VK_CONTROL) & 0x8000) && !(GetKeyState(VK_MENU) & 0x8000))
 		{
 			if (pMsg->wParam == 'I')
 			{
@@ -1280,13 +1201,8 @@ void CMainFrame::OnGridOff()
 	CMenu *pMenu = GetMenu();
 	CMenu* pPopup = pMenu -> GetSubMenu(6);
 	ASSERT(pPopup != NULL);
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_GRID_ON_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_GRID_OFF_AL, MF_CHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_GRID_ON, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_GRID_OFF, MF_CHECKED);
-	#endif
     pDoc -> UpdateAllViews(NULL, 0, NULL);
 }
 
@@ -1297,13 +1213,8 @@ void CMainFrame::OnGridOn()
 	CMenu *pMenu = GetMenu();
 	CMenu* pPopup = pMenu -> GetSubMenu(6);
 	ASSERT(pPopup != NULL);
-	#ifdef ALTERNATIVE_LANG
 		pPopup -> CheckMenuItem(ID_GRID_OFF_AL, MF_UNCHECKED);
 		pPopup -> CheckMenuItem(ID_GRID_ON_AL, MF_CHECKED);
-	#else
-		pPopup -> CheckMenuItem(ID_GRID_OFF, MF_UNCHECKED);
-		pPopup -> CheckMenuItem(ID_GRID_ON, MF_CHECKED);
-	#endif
     pDoc -> UpdateAllViews(NULL, 0, NULL);
 }
 
@@ -1328,12 +1239,13 @@ void CMainFrame::OnAppExitAl()
 
 void CMainFrame::GetMessageString(UINT nID, CString & rMessage) const
 {
-	#ifdef ALTERNATIVE_LANG
 		if(nID == AFX_IDS_IDLEMESSAGE)
-			{rMessage = _T("For help, press F1");}
+			{rMessage = _T("G Move    R Rotate    S Scale    Q Select    Space Play/Pause    Left/Right Frame    I Insert frame    F2 All shortcuts");}
 		else
 			{CFrameWnd::GetMessageString(nID, rMessage);}
-	#else
-		CFrameWnd::GetMessageString(nID, rMessage);
-	#endif
+}
+
+void CMainFrame::OnHelpShortcuts()
+{
+	MessageBoxA("Viewport\n  Q  Select      G  Move      R  Rotate      S  Scale\n  Mouse wheel  Zoom      Middle drag  Pan\n\nAnimation\n  Space  Play / Pause\n  Left / Right  Previous / next frame\n  Home / End  First / last frame\n  I  Insert frame      Delete  Delete frame\n\nGeneral\n  Ctrl+N / O / S  New / Open / Save\n  F2  This list", "Keyboard shortcuts", MB_ICONINFORMATION);
 }

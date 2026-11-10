@@ -83,7 +83,6 @@ BOOL setup_window::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 BOOL setup_window::OnInitDialog()
 {
  	CDialog::OnInitDialog();
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Trash collector");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_SW_1);
 		pWnd -> SetWindowText("Original author:");
@@ -113,6 +112,5 @@ BOOL setup_window::OnInitDialog()
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
-	#endif
  	return TRUE;
 }

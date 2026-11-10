@@ -352,72 +352,6 @@
     <Image Include="res\Toolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="hlp\AppExit.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\Bullet.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\CurArw2.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\CurArw4.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\CurHelp.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\EditCopy.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\EditCut.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\EditPast.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\EditUndo.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\FileNew.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\FileOpen.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\FilePrnt.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\FileSave.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\HlpSBar.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\HlpTBar.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\RecFirst.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\RecLast.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\RecNext.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\RecPrev.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\Scmax.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\ScMenu.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
-    <Image Include="hlp\Scmin.bmp">
-      <Filter>Help Files</Filter>
-    </Image>
     <Image Include="res\bmp00008.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -425,9 +359,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\dock.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\bitmap2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\ico00006.ico">
@@ -438,19 +369,10 @@
     <None Include="res\SOEdit.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="hlp\AfxCore.rtf">
-      <Filter>Help Files</Filter>
-    </None>
-    <None Include="hlp\AfxPrint.rtf">
-      <Filter>Help Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Resource.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="hlp\SOEdit.cnt">
-      <Filter>Help Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

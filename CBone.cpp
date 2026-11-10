@@ -253,11 +253,7 @@ void CBone::ParseFile()
 			{SetGetShadows();}
         else
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			#else
-				msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::ParseFile", MB_ICONHAND);
 		}
 		word = m_sdl -> GetNextWord();
@@ -277,19 +273,11 @@ void CBone::SetName(char *name)
 	{
 		if(m_LODView)
 		{
-			#ifdef ALTERNATIVE_LANG
 				sprintf(num, " (Lod-%d)", sub);
-			#else
-				sprintf(num, " (Лод-%d)", sub);
-			#endif
 		}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				sprintf(num, " (Sub. mesh-%d)", sub);
-			#else
-				sprintf(num, " (Суб. мэш-%d)", sub);
-			#endif
 		}
 		char ply_str[_MAX_PATH] = {0};
 		strcpy(ply_str, name + ((name[0] == '"') ? 1 : 0));
@@ -329,11 +317,7 @@ void CBone::SetGround()
     char *word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"GROUND\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"GROUND\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetGround", MB_ICONHAND);
 	}
 }
@@ -351,11 +335,7 @@ void CBone::SetColor()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"COLOR\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"COLOR\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetColor", MB_ICONHAND);
 	}
 }
@@ -371,11 +351,7 @@ void CBone::SetLayer()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"LAYER\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"LAYER\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetLayer", MB_ICONHAND);
 	}
 }
@@ -385,11 +361,7 @@ void CBone::SetTrash()
     char *word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"TRASH\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"TRASH\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetTrash", MB_ICONHAND);
 	}
 }
@@ -400,11 +372,7 @@ void CBone::SetTerminator()
 	m_Terminator = true;
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"TERMINATOR\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"TERMINATOR\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetTerminator", MB_ICONHAND);
 	}
 }
@@ -415,11 +383,7 @@ void CBone::SetNoCastShadows()
 	m_NoCastShadows = true;
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"NOCASTSHADOWS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"NOCASTSHADOWS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetNoCastShadows", MB_ICONHAND);
 	}
 }
@@ -430,11 +394,7 @@ void CBone::SetOFF()
 	m_LOD_OFF = true;
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"OFF\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"OFF\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetOFF", MB_ICONHAND);
 	}
 }
@@ -445,11 +405,7 @@ void CBone::SetDecalTarget()
 	m_DecalTarget = true;
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"DECALTARGET\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"DECALTARGET\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetDecalTarget", MB_ICONHAND);
 	}
 }
@@ -460,11 +416,7 @@ void CBone::SetGroupMesh()
 	m_NoGroupMesh = true;
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"GROUPMESH\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"GROUPMESH\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetGroupMesh", MB_ICONHAND);
 	}
 }
@@ -475,11 +427,7 @@ void CBone::SetGetShadows()
 	m_NoGetShadows = true;
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"GETSHADOWS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"GETSHADOWS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetGetShadows", MB_ICONHAND);
 	}
 }
@@ -497,11 +445,7 @@ void CBone::SetParameters()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"PARAMETERS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"PARAMETERS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetParameters", MB_ICONHAND);
 	}
 }
@@ -540,11 +484,7 @@ void CBone::SetVolumeView()
 	{
 		if(stricmp("}", word))
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("The block is damaged \"VOLUMEVIEW\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-			#else
-				msg_st.Format("Повреждён блок \"VOLUMEVIEW\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetVolumeView", MB_ICONHAND);
 		}
 	}
@@ -569,11 +509,7 @@ void CBone::SetMatrix()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"MATRIX\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"MATRIX\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetMatrix", MB_ICONHAND);
 	}
 }
@@ -598,11 +534,7 @@ void CBone::SetOrientation()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"ORIENTATION\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"ORIENTATION\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetOrientation", MB_ICONHAND);
 	}
 }
@@ -615,11 +547,7 @@ void CBone::SetSpeed()//1/20 метра, радианы
 	word = m_sdl->GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"SPEED\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"SPEED\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetSpeed", MB_ICONHAND);
 	}
 }
@@ -633,11 +561,7 @@ void CBone::SetSpeed2()//метров в секунду, градусы
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"SPEED2\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"SPEED2\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetSpeed2", MB_ICONHAND);
 	}
 }
@@ -650,11 +574,7 @@ void CBone::SetVisibility()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"VISIBILITY\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"VISIBILITY\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetVisibility", MB_ICONHAND);
 	}
 }
@@ -680,11 +600,7 @@ void CBone::SetLimits()
 		m_LimitsType = true;
 		if(stricmp("}", word))
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("The block is damaged \"LIMITS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-			#else
-				msg_st.Format("Повреждён блок \"LIMITS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetLimits", MB_ICONHAND);
 		}
 	}
@@ -712,11 +628,7 @@ void CBone::SetPosition()
     word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"POSITION\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"POSITION\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CBone::SetPosition", MB_ICONHAND);
 	}
 }
@@ -1182,11 +1094,7 @@ void CBone::WriteMdl(FILE *fp, int indent)
 				if(tvolume)//то селявя
 				{
 					char msg[500] = {0};
-					#ifdef ALTERNATIVE_LANG
 						sprintf(msg, "For a PLY-file %s \"%s\" the absolute path is used\r\n%s", ((sub) ? (m_LODView) ? "lod" : "sub. mesh" : "bones"), ((sub) ? m_parent -> m_Name : m_Name), m_VolumeViewName);
-					#else
-						sprintf(msg, "Для PLY-файла %s \"%s\" используется абсолютный путь\r\n%s", ((sub) ? (m_LODView) ? "лода" : "суб. мэша" : "кости"), ((sub) ? m_parent -> m_Name : m_Name), m_VolumeViewName);
-					#endif
 					MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg, "WARNING: CBone::WriteMdl", MB_ICONEXCLAMATION | MB_OK);
 				}
 			}
@@ -1196,11 +1104,7 @@ void CBone::WriteMdl(FILE *fp, int indent)
 		{
 			tvolume = NULL;
 			char msg[512] = {0};
-			#ifdef ALTERNATIVE_LANG
 				sprintf(msg, "No access to the PLY-file %s \"%s\".\r\nThe file is blocked or has an incorrect path.\r\nUnlock/fix the location of the file and reattach it to the bone\r\n\r\n%s", ((sub) ? "sub-mesh" : "bones"), ((sub) ? m_parent -> m_Name : m_Name), m_VolumeViewName);
-			#else
-				sprintf(msg, "Нет доступа к PLY-файлу %s \"%s\".\r\nФайл заблокирован или имеет неверный путь.\r\nРазблокируйте/исправьте расположение файла и заново прикрепите его к кости\r\n\r\n%s", ((sub) ? "суб-мэша" : "кости"), ((sub) ? m_parent -> m_Name : m_Name), m_VolumeViewName);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg, "ERROR: CBone::WriteMdl", MB_ICONHAND | MB_OK);
 		}
 		if(tvolume)
@@ -1421,17 +1325,9 @@ void CBone::AddPly(char *FName)
 				{sptr++;}
 			if(sub)
 			{
-				#ifdef ALTERNATIVE_LANG
 					sprintf(num, "(Lod-%d)", sub);
-				#else
-					sprintf(num, "(Лод-%d)", sub);
-				#endif
 			}
-			#ifdef ALTERNATIVE_LANG
 				sprintf(ErrMsg, "PLY-file %s%s \"%s\" not detected:\n%s", ((sub) ? (m_LODView) ? "lod " : "sub. mesh " : "bones "), num, sptr, FName);
-			#else
-				sprintf(ErrMsg, "PLY-файл %s%s \"%s\" не обнаружен:\n%s", ((sub) ? (m_LODView) ? "лода " : "суб. мэша " : "кости "), num, sptr, FName);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, ErrMsg, "ERROR: CBone::AddPly", MB_ICONHAND);
 			return;
 		}

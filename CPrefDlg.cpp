@@ -61,11 +61,7 @@ END_MESSAGE_MAP()
 void CPrefDlg::OnGdbrowse()
 {
 	CDlgGetPath PathDlg;
-	#ifdef ALTERNATIVE_LANG
 		PathDlg.SetTitle("Choose the game catalog");
-	#else
-		PathDlg.SetTitle("Выбери каталог игры");
-	#endif
 	if(PathDlg.DoModal() == IDOK)
 	{
 		m_ResPath[0] = PathDlg.GetPath();
@@ -77,11 +73,7 @@ void CPrefDlg::OnGdbrowse()
 void CPrefDlg::OnGdbrowse2()
 {
 	CDlgGetPath PathDlg;
-	#ifdef ALTERNATIVE_LANG
 		PathDlg.SetTitle("Choose a mod catalog");
-	#else
-		PathDlg.SetTitle("Выбери каталог мода");
-	#endif
 	if(PathDlg.DoModal() == IDOK)
 	{
 		m_ResPath[1] = PathDlg.GetPath();
@@ -93,11 +85,7 @@ void CPrefDlg::OnGdbrowse2()
 void CPrefDlg::OnGdbrowse3()
 {
 	CDlgGetPath PathDlg;
-	#ifdef ALTERNATIVE_LANG
 		PathDlg.SetTitle("Choose a mod catalog");
-	#else
-		PathDlg.SetTitle("Выбери каталог мода");
-	#endif
 	if(PathDlg.DoModal() == IDOK)
 	{
 		m_ResPath[2] = PathDlg.GetPath();
@@ -109,11 +97,7 @@ void CPrefDlg::OnGdbrowse3()
 void CPrefDlg::OnGdbrowse4()
 {
 	CDlgGetPath PathDlg;
-	#ifdef ALTERNATIVE_LANG
 		PathDlg.SetTitle("Choose a mod catalog");
-	#else
-		PathDlg.SetTitle("Выбери каталог мода");
-	#endif
 	if(PathDlg.DoModal() == IDOK)
 	{
 		m_ResPath[3] = PathDlg.GetPath();
@@ -125,11 +109,7 @@ void CPrefDlg::OnGdbrowse4()
 void CPrefDlg::OnGdbrowse5()
 {
 	CDlgGetPath PathDlg;
-	#ifdef ALTERNATIVE_LANG
 		PathDlg.SetTitle("Choose a mod catalog");
-	#else
-		PathDlg.SetTitle("Выбери каталог мода");
-	#endif
 	if(PathDlg.DoModal() == IDOK)
 	{
 		m_ResPath[4] = PathDlg.GetPath();
@@ -141,11 +121,7 @@ void CPrefDlg::OnGdbrowse5()
 void CPrefDlg::OnGdbrowse6()
 {
 	CDlgGetPath PathDlg;
-	#ifdef ALTERNATIVE_LANG
 		PathDlg.SetTitle("Choose a mod catalog");
-	#else
-		PathDlg.SetTitle("Выбери каталог мода");
-	#endif
 	if(PathDlg.DoModal() == IDOK)
 	{
 		m_ResPath[5] = PathDlg.GetPath();
@@ -157,7 +133,6 @@ void CPrefDlg::OnGdbrowse6()
 BOOL CPrefDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Preferences");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_PREF_1);
 		pWnd -> SetWindowText("The path to the game");
@@ -167,6 +142,5 @@ BOOL CPrefDlg::OnInitDialog()
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
-	#endif
  	return TRUE;
 }

@@ -64,7 +64,6 @@ BOOL CColors::OnInitDialog()
 	CEdit *pEdit = (CEdit *)GetDlgItem(IDC_ELEMENT);
 	pEdit->SetWindowText(Elements[0]);
 	DrawSwatch();
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Selection of displayed colors");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_CS_1);
 		pWnd -> SetWindowText("Parameters:");
@@ -76,7 +75,6 @@ BOOL CColors::OnInitDialog()
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
-	#endif
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
 }

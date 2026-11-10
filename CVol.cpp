@@ -34,11 +34,7 @@ CVol::CVol(char *volname)
 	fread(sig, 1, 4, m_fp);
 	if(strncmp((char *)sig, "EVLM", 4))
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Invalid volume-file:\n" + CString(volname)), "ERROR: CVol::CVol", MB_ICONHAND);
-		#else
-			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Недействительный волюм-файл:\n" + CString(volname)), "ERROR: CVol::CVol", MB_ICONHAND);
-		#endif
 		fclose(m_fp);
 		m_fp = NULL;
 		return;
@@ -88,11 +84,7 @@ CVol::CVol(char *volname)
 					break;
 					default:
 					{	
-						#ifdef ALTERNATIVE_LANG
 							MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Invalid file section found.", "ERROR: CVol::CVol", MB_ICONHAND);
-						#else
-							MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Найден недопустимый раздел файла.", "ERROR: CVol::CVol", MB_ICONHAND);
-						#endif
 						fclose(m_fp);
 						return;
 					}
@@ -102,11 +94,7 @@ CVol::CVol(char *volname)
 			else
 			if(!vol_siglist[sigindx])
 			{
-				#ifdef ALTERNATIVE_LANG
 					MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Invalid file section found.", "ERROR: CVol::CVol", MB_ICONHAND);
-				#else
-					MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, "Найден недопустимый раздел файла.", "ERROR: CVol::CVol", MB_ICONHAND);
-				#endif
 				fclose(m_fp);
 				return;
 			}

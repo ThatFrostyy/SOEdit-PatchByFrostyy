@@ -82,11 +82,7 @@ CTexture::CTexture(char *texfile)
 		if(TP.error)
 		{
 			char text_buff[512] = {0};
-			#ifdef ALTERNATIVE_LANG
 				sprintf(text_buff, "File parsing error %s\nTextPoint = %d", m_TexFile, TP.TP);
-			#else
-				sprintf(text_buff, "Ошибка парсинга файла %s\nTextPoint = %d", m_TexFile, TP.TP);
-			#endif
 				if (pWnd->m_ShowTextureErrors)
 				{
 					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, text_buff, "ERROR: CTexture::CTexture", MB_ICONHAND);
@@ -95,11 +91,7 @@ CTexture::CTexture(char *texfile)
 		link_type = true;
 		if(!strlen(PM -> TDiffuse))
 		{
-			#ifdef ALTERNATIVE_LANG
 				sprintf(ErrMsg, "The materials file does not contain data about the Diffuse-texture: %s", CurFile_ptr);
-			#else
-				sprintf(ErrMsg, "Файл материалов не содержит данных о Diffuse-текстуре: %s", CurFile_ptr);
-			#endif
 				if (pWnd->m_ShowTextureErrors)
 				{
 					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, ErrMsg, "ERROR: CTexture::CTexture", MB_ICONHAND);
@@ -260,11 +252,7 @@ CTexture::CTexture(char *texfile)
 		}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				sprintf(ErrMsg, "Couldn't find texture: %s\nFrom the materials file:\n%s", m_FrameName, CurFile_ptr);
-			#else
-				sprintf(ErrMsg, "Не удалось найти текстуру: %s\nИз файла материалов:\n%s", m_FrameName, CurFile_ptr);
-			#endif
 				if (pWnd->m_ShowTextureErrors)
 				{
 					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, ErrMsg, "ERROR: CTexture::CTexture", MB_ICONHAND);
@@ -340,11 +328,7 @@ void CTexture::ParseFile()
 			{SetFrame();}
         else
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			#else
-				msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::ParseFile", MB_ICONHAND);
 		}
 		word = m_sdl -> GetNextWord();
@@ -359,11 +343,7 @@ void CTexture::SetFiltering()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"FILTERING\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"FILTERING\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::SetFiltering", MB_ICONHAND);
 	}
 }
@@ -376,11 +356,7 @@ void CTexture::SetMipMap()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"MIPMAP\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"MIPMAP\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::SetMipMap", MB_ICONHAND);
 	}
 }
@@ -399,11 +375,7 @@ void CTexture::SetBlend()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"BLEND\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"BLEND\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::SetBlend", MB_ICONHAND);
 	}
 }
@@ -416,11 +388,7 @@ void CTexture::SetAlphaChannel()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"ALPHACHANNEL\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"ALPHACHANNEL\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::SetAlphaChannel", MB_ICONHAND);
 	}
 }
@@ -433,11 +401,7 @@ void CTexture::SetTextureAnimation()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"TEXTUREANIMATION\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"TEXTUREANIMATION\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::SetTextureAnimation", MB_ICONHAND);
 	}
 }
@@ -454,11 +418,7 @@ void CTexture::SetFrame()
 	word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"FRAME\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"FRAME\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CTexture::SetFrame", MB_ICONHAND);
 	}
 }

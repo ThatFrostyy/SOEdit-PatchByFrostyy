@@ -26,11 +26,7 @@ CMesh::CMesh(char texname[4][_MAX_PATH], int tex_count, int fvf, DWORD flags)
 	{
 		if(!strlen(texname[i]))
 		{
-			#ifdef ALTERNATIVE_LANG
 				sprintf(msgText, "The name of the material is missing");
-			#else
-				sprintf(msgText, "Отсутствует имя материала");
-			#endif
 			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, msgText, "ERROR: CMesh::CMesh", MB_ICONHAND);
 		}
 		else

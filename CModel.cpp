@@ -82,11 +82,7 @@ void CModel::ParseFile()
 			{AddVolume();}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			#else
-				msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CModel::ParseFile", MB_ICONHAND);
 		}
 		word = m_sdl -> GetNextWord();

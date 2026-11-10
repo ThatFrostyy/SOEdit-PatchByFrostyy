@@ -35,11 +35,7 @@ CSdl::CSdl(char *filename)
 	if(HFile == INVALID_HANDLE_VALUE || HFile == NULL)
 	{
 		// Throw an exception here
-		#ifdef ALTERNATIVE_LANG
 			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Unable to open the file:\n" + CString(filename)), "ERROR CSdl::CSdl", MB_OK);
-		#else
-			MessageBox(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Невозможно открыть файл:\n" + CString(filename)), "ERROR CSdl::CSdl", MB_OK);
-		#endif
 	}
 	else
 	{

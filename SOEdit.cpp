@@ -165,19 +165,11 @@ BOOL CSOEditApp::InitInstance()
 	// Register the application's document templates.  Document templates
 	//  serve as the connection between documents, frame windows and views.
 	CSingleDocTemplate* pDocTemplate;
-	#ifdef ALTERNATIVE_LANG
 		pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME_AL,
 		RUNTIME_CLASS(CSOEditDoc),
 		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
 		RUNTIME_CLASS(CSOEditView));
-	#else
-		pDocTemplate = new CSingleDocTemplate(
-		IDR_MAINFRAME,
-		RUNTIME_CLASS(CSOEditDoc),
-		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
-		RUNTIME_CLASS(CSOEditView));
-	#endif
 	AddDocTemplate(pDocTemplate);
 	// Parse command line for standard shell commands, DDE, file open
 	CCommandLineInfo cmdInfo;
@@ -379,61 +371,20 @@ BOOL CAboutDlg::OnInitDialog()
  	CDialog::OnInitDialog();
 	CMainFrame *pFrameWnd = (CMainFrame *)AfxGetMainWnd();
 	CString StrVer;
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("About SOEdit");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_1);
-		StrVer.Format("SOEdit version 0.50 from Brian (+patch v0.%dm%d from TonaTor)", LOBYTE((pFrameWnd -> ProgVer) >> 8), LOBYTE(pFrameWnd -> ProgVer));
+		StrVer.Format("SOEdit v0.50 by Brian, patch v0.%dm%d by TonaTor, modern UI by Frostyy", LOBYTE((pFrameWnd -> ProgVer) >> 8), LOBYTE(pFrameWnd -> ProgVer));
 		pWnd -> SetWindowText(StrVer);
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_2);
-		pWnd -> SetWindowText("Men Of War Object Editor\n(Old name its: \"\"Soldiers Object Editor\"\")\nThis is an unofficial utility.\nThe program is still in development.");
+		pWnd -> SetWindowText("Men of War Object Editor\n(formerly \"Soldiers Object Editor\")\nUnofficial community tool.");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_3);
-		pWnd -> SetWindowText("Copyright (C) 2004-2022, MoW Community");
+		pWnd -> SetWindowText("Copyright (C) 2004-2026, MoW Community");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_4);
-		pWnd -> SetWindowText("Thanks to Man232 and GhostNT for cooperation");
+		pWnd -> SetWindowText("Thanks to Man232 and GhostNT");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
-	#else
-		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_ABO_1);
-		StrVer.Format("SOEdit версии 0.50 от Brian (+patch v0.%dm%d от TonaTor)", LOBYTE((pFrameWnd -> ProgVer) >> 8), LOBYTE(pFrameWnd -> ProgVer));
-		pWnd -> SetWindowText(StrVer);
-	#endif
-	HICON hicon = NULL;
-	int x = 10, y = 30, bpp = 4, icon_len = 0;
-	icon_len = 40 + ((x * y) * bpp);
-	BYTE *icon_bmp = new BYTE[icon_len], *bPtr = 0;
-	memset(icon_bmp, 255, icon_len);
-	BITMAPINFOHEADER BH;
-	BH.biSize = 40;
-	BH.biWidth = x;
-	BH.biHeight = y;
-	BH.biPlanes = 1;
-	BH.biBitCount = 8 * bpp;
-	BH.biCompression = BI_RGB;
-	BH.biSizeImage = (x * y) * bpp;
-	BH.biXPelsPerMeter = 0;
-	BH.biYPelsPerMeter = 0;
-	BH.biClrUsed = 0;
-	BH.biClrImportant = 0;
-	memcpy(icon_bmp, &BH, sizeof(BITMAPINFOHEADER));
-	bPtr = icon_bmp + 40;
-	DWORD color = 0xffffffff;
-	for(int iy = 0; iy < 10; iy++)
-	{
-		for(int ix = 0; ix < x; ix++)
-		{
-			memcpy(bPtr, &color, sizeof(DWORD));
-			bPtr += bpp;
-		}
-		if(iy == 0)
-			{color = 0xffff0000;}
-		if(iy == 5)
-			{color = 0xff0000ff;}
-		if(iy == 9)
-			{color = 0xffffffff;}//корректировка
-	}
-	hicon = CreateIconFromResourceEx(icon_bmp, icon_len, TRUE, 0x00030000, 80, 30, LR_DEFAULTCOLOR);
-	CStatic *pMyFlag = (CStatic *)GetDlgItem(IDC_MY_FLAG);
-	pMyFlag -> SetIcon(hicon);
-	delete icon_bmp;
+	CWnd *pFlag = GetDlgItem(IDC_MY_FLAG);
+	if(pFlag)
+		{pFlag -> ShowWindow(SW_HIDE);}
  	return TRUE;
 }

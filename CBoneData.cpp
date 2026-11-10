@@ -313,13 +313,8 @@ void CBoneData::OnNone()
 
 void CBoneData::OnBrowse()
 {
-	#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "PLY-file (*.ply)|*.ply|";
 		static char szTitle[] = "Opening a mesh file";
-	#else
-		static char szFilter[] = "PLY-файл (*.ply)|*.ply|";
-		static char szTitle[] = "Открытие мэш-файла";
-	#endif
 	CFileDialog dlg(TRUE, "*.ply", NULL, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, szFilter);
 	dlg.m_ofn.lpstrTitle = szTitle;
 	if(dlg.DoModal() == IDOK)
@@ -1130,13 +1125,8 @@ void CBoneData::OnEnChangeBoneSequenceName()
 
 void CBoneData::OnBnClickedBoneSequenceFileBrowse()
 {
-	#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "ANM-file (*.anm)|*.anm|";
 		static char szTitle[] = "Opening an animation file";
-	#else
-		static char szFilter[] = "ANM-файл (*.anm)|*.anm|";
-		static char szTitle[] = "Открытие файла анимации";
-	#endif
 	CFileDialog dlg(TRUE, "*.anm", NULL, OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
 	dlg.m_ofn.lpstrTitle = szTitle;
 	if(dlg.DoModal() == IDOK)
@@ -1176,20 +1166,12 @@ void CBoneData::OnOK()
 {
 	if(!m_VolumeView.GetLength() && m_LODView)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("The lod does not contain a mesh. Fix it!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
-		#else
-			MessageBox("Лод не содержит мэш. Исправь!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
-		#endif
 	}
 	else
 	if(!m_VolumeView.GetLength() && !m_LODView && WindowMode == CBoneData::TSubBone)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("The sub-mesh does not contain a mesh. Fix it!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
-		#else
-			MessageBox("Суб. мэш не содержит мэш. Исправь!", "ERROR: CBoneData::OnOK()", MB_ICONHAND);
-		#endif
 	}
 	else
 	{
@@ -1301,7 +1283,6 @@ void CBoneData::LayerUPD()
 BOOL CBoneData::OnInitDialog()
 {
  	CDialog::OnInitDialog();
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Bone Editor");
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_BE_1);
 		pWnd -> SetWindowText("Bone:");
@@ -1353,7 +1334,6 @@ BOOL CBoneData::OnInitDialog()
 		pWnd -> SetWindowText("Cancel");
 		pWnd = (CWnd *)GetDlgItem(IDOK);
 		pWnd -> SetWindowText("OK");
-	#endif
 	CButton *pButtonWrench = (CButton *)GetDlgItem(IDC_BONE_WRENCH);
 	CSOEditApp *pApp = (CSOEditApp *)AfxGetApp();
 	HICON hIcon = ::LoadIcon(pApp -> m_hInstance, "IDI_WRENCH");
@@ -1497,11 +1477,7 @@ void CBoneData::OnBnClickedBoneWrench()
 				tPly -> m_vflags = pDlg.m_vflags;
 				if(!tPly -> WriteFile(text_buff))
 				{
-					#ifdef ALTERNATIVE_LANG
 						MessageBox("TOverwriting the file failed. Sadness!", "ERROR: CBoneData::OnBnClickedBoneWrench()", MB_ICONHAND);
-					#else
-						MessageBox("Перезапись файла не удалась. Печалька!", "ERROR: CBoneData::OnBnClickedBoneWrench()", MB_ICONHAND);
-					#endif
 				}
 				forced_ply_upd = true;
 			}

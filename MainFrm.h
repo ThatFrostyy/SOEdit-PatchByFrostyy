@@ -148,6 +148,7 @@ protected:
 	afx_msg void OnGridSmaller();
 	afx_msg void OnGridLarger();
 	afx_msg void OnAppExitAl();
+	afx_msg void OnHelpShortcuts();
 	DECLARE_MESSAGE_MAP()
 	public:
 	afx_msg void OnDisplayDisplayallmeshvectors();

@@ -65,11 +65,7 @@ CPly::CPly(char* plyname)
 	fread(sig, 1, 4, m_fp);
 	if (strncmp((char*)sig, "BPLY", 4) && strncmp((char*)sig, "EPLY", 4))
 	{
-#ifdef ALTERNATIVE_LANG
 		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Invalid mesh file:\n" + CString(plyname)), "ERROR: CPly::CPly", MB_ICONHAND);
-#else
-		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Íåäåéñòâèòåëüíûé ìýø-ôàéë:\n" + CString(plyname)), "ERROR: CPly::CPly", MB_ICONHAND);
-#endif
 		fclose(m_fp);
 		m_fp = NULL;
 		return;
@@ -394,11 +390,7 @@ CPly::CPly(char* plyname)
 						} while (repeat_for_mdl);
 						if (!tex_test)
 						{
-#ifdef ALTERNATIVE_LANG
 							MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, CString("The material file was not found:\n" + CString(textemp)), "ERROR: CPly::CPly", MB_ICONHAND);
-#else
-							MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, CString("Ôàéë ìàòåðèàëà íå íàéäåí:\n" + CString(textemp)), "ERROR: CPly::CPly", MB_ICONHAND);
-#endif
 							memset(texname[i], 0, _MAX_PATH);
 							strcpy(texname[i], "<<checker>>");
 						}
@@ -519,7 +511,7 @@ CPly::CPly(char* plyname)
 					m_calculated_vsize += (has_tex_coords && num_tex_coords > 0) ? (num_tex_coords * sizeof(v2_t)) : 0;
 					m_calculated_vsize += (has_mesh_bump) ? 16 : 0;
 					memset(text_msg_buff, 0, 2048);
-					sprintf(text_msg_buff, "Vertex size: %d\nÑalculated vsize: %d\nVertex count: %d\nVertex flags: %X\n------------ D3D9 FVF -----------\nFVF flags: %X\nHas position: %s\nHas RHW: %s\nHas weights: %s\nNum weights: %d\n"
+					sprintf(text_msg_buff, "Vertex size: %d\nCalculated vsize: %d\nVertex count: %d\nVertex flags: %X\n------------ D3D9 FVF -----------\nFVF flags: %X\nHas position: %s\nHas RHW: %s\nHas weights: %s\nNum weights: %d\n"
 						"Has matrix indices: %s\nHas normal: %s\nHas psize: %s\nHas diffuse: %s\nHas specular: %s\nHas tex coords: %s\nNum tex coords: %d\nHas bump: %s", m_vsize, m_calculated_vsize, m_numverts, m_vflags, ply_mesh.fvf, (has_pos) ? "TRUE" : "FALSE",
 						(has_rhw) ? "TRUE" : "FALSE", (has_weights) ? "TRUE" : "FALSE", num_weights, (has_matrix_indices) ? "TRUE" : "FALSE", (has_normal) ? "TRUE" : "FALSE", (has_psize) ? "TRUE" : "FALSE",
 						(has_diffuse) ? "TRUE" : "FALSE", (has_specular) ? "TRUE" : "FALSE", (has_tex_coords) ? "TRUE" : "FALSE", num_tex_coords, (has_mesh_bump) ? "TRUE" : "FALSE");
@@ -711,11 +703,7 @@ CPly::CPly(char* plyname)
 				break;
 				default: //Other
 				{
-#ifdef ALTERNATIVE_LANG
 					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "A valid but unreadable section of the file was found.", "ERROR: CPly::CPly", MB_ICONHAND);
-#else
-					MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "Íàéäåí äîïóñòèìûé, íî íå÷èòàåìûé ðàçäåë ôàéëà.", "ERROR: CPly::CPly", MB_ICONHAND);
-#endif
 					fclose(m_fp);
 					return;
 				}
@@ -727,11 +715,7 @@ CPly::CPly(char* plyname)
 		{
 			CStringA st;
 			long failure_address = ftell(m_fp);
-#ifdef ALTERNATIVE_LANG
 			st.Format("File: %s\r\ndamaged or has an unknown format.\r\nStudy the problem in the hexadecimal editor in the address area: 0x%x", plyname, failure_address);
-#else
-			st.Format("Ôàéë: %s\r\nïîâðåæä¸í èëè èìååò íåèçâåñòíûé ôîðìàò.\r\nÈçó÷àé ïðîáëåìó â øåñòíàäöàòåðè÷íîì ðåäàêòîðå â îáëàñòè àäðåñà: 0x%x", plyname, failure_address);
-#endif
 			MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, st, "ERROR: CPly::CPly", MB_ICONHAND);
 			fclose(m_fp);
 			return;
@@ -1306,11 +1290,7 @@ bool CPly::MergeKeepSeparateTextures(const CPly* append_ply)
 		if (merged_bone_count > 255)
 		{
 			delete[] bone_remap;
-#ifdef ALTERNATIVE_LANG
 			MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "Merge aborted: combined unique bone count exceeds the format limit of 255.", "ERROR: CPly::MergeKeepSeparateTextures", MB_ICONHAND);
-#else
-			MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, "Ñëèÿíèå ïðåðâàíî: îáùåå êîëè÷åñòâî óíèêàëüíûõ êîñòåé ïðåâûøàåò ëèìèò ôîðìàòà (255).", "ERROR: CPly::MergeKeepSeparateTextures", MB_ICONHAND);
-#endif
 			return false;
 		}
 

@@ -200,21 +200,13 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 			{
 				case IT_BONE:
 				{
-					#ifdef ALTERNATIVE_LANG
 						VERIFY(menu.LoadMenu(IDR_BONE_MENU_AL));
-					#else
-						VERIFY(menu.LoadMenu(IDR_BONE_MENU));
-					#endif
 					CanLoad = TRUE;
 				}
 				break;
 				case IT_VOLUME:
 				{
-					#ifdef ALTERNATIVE_LANG
 						VERIFY(menu.LoadMenu(IDR_VOLUME_MENU_AL));
-					#else
-						VERIFY(menu.LoadMenu(IDR_VOLUME_MENU));
-					#endif
 					CanLoad = TRUE;
 				}
 				break;
@@ -224,21 +216,13 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 				break;
 				case IT_BONETOP:
 				{
-					#ifdef ALTERNATIVE_LANG
 						VERIFY(menu.LoadMenu(IDR_BONE_TOP_AL));
-					#else
-						VERIFY(menu.LoadMenu(IDR_BONE_TOP));
-					#endif
 					CanLoad = TRUE;
 				}
 				break;
 				case IT_VOLUMETOP:
 				{
-					#ifdef ALTERNATIVE_LANG
 						VERIFY(menu.LoadMenu(IDR_VOLUME_TOP_AL));
-					#else
-						VERIFY(menu.LoadMenu(IDR_VOLUME_TOP));
-					#endif
 					CanLoad = TRUE;
 				}
 				break;
@@ -258,15 +242,10 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 					if (!pFindBone || !pFindBone->m_parent || !pFindBone->m_VolumeViewName
 						|| !strlen(pFindBone->m_VolumeViewName) || pFindBone->m_ChildFirst)
 					{
-						#ifdef ALTERNATIVE_LANG
 							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-						#else
-							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-						#endif
 					}
 					if(pFindBone && pFindBone -> m_LODView && pFindBone -> sub)
 					{
-						#ifdef ALTERNATIVE_LANG
 							pPopup -> EnableMenuItem(IDM_BONE_INSERT_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_COPY_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_BONE_COPY_BRANCH_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
@@ -291,43 +270,12 @@ BOOL CModelTree::PreTranslateMessage(MSG* pMsg)
 							pPopup -> EnableMenuItem(ID_BONE_HIDE_BRANCH_AND_COLLISION_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_ADD_BONE_TO_ANM_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_DEL_BONE_FROM_ANM_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-						#else
-							pPopup -> EnableMenuItem(IDM_BONE_INSERT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_COPY, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_COPY_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(BONE_MATRIX_COPY, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(BONE_PARAMETERS_COPY, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_PASTE_AS_NEXT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_PASTE_AS_INTERNAL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(BONE_MATRIX_PASTE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(BONE_PARAMETERS_PASTE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_EDIT_CUT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_COLLAPSE_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_ADD_VOLUME, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_DELETE_PLY, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_MERGE_PARENT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_ADD_LOD, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_EXPAND_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_SHOW_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_SHOW_COLLISION, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_SHOW_BRANCH_AND_COLLISION, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_HIDE_BRANCH, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_HIDE_COLLISION, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_BONE_HIDE_BRANCH_AND_COLLISION, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_ADD_BONE_TO_ANM, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_DEL_BONE_FROM_ANM, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-						#endif
 					}
 					else
 					if(!pDoc -> m_AnimBone)
 					{
-						#ifdef ALTERNATIVE_LANG
 							pPopup -> EnableMenuItem(ID_ADD_BONE_TO_ANM_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 							pPopup -> EnableMenuItem(ID_DEL_BONE_FROM_ANM_AL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-						#else
-							pPopup -> EnableMenuItem(ID_ADD_BONE_TO_ANM, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-							pPopup -> EnableMenuItem(ID_DEL_BONE_FROM_ANM, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-						#endif
 					}
 				}
 				pPopup -> TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, AfxGetMainWnd());
@@ -452,9 +400,7 @@ void CModelTree::OnCheckStatusChange(HTREEITEM hTreeItem, CTreeCtrl *pTreeCtrl)
 BOOL CModelTree::OnInitDialog()
 {
  	CDialog::OnInitDialog();
-	#ifdef ALTERNATIVE_LANG
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_MT_1);
 		pWnd -> SetWindowText("Skeleton, Volumes, Obstacles and Areas");
-	#endif
  	return TRUE;
 }

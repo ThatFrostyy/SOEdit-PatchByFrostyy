@@ -120,15 +120,9 @@ BOOL CVolProp::OnInitDialog()
 	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
 	CSOEditDoc *pDoc = (CSOEditDoc *)pWnd -> GetActiveDocument();
 	CListBox *pList = (CListBox *)GetDlgItem(IDC_VOL_BONES);
-	#ifdef ALTERNATIVE_LANG
 		m_TabCtrl.InsertItem(0, "Polyhedron");
 		m_TabCtrl.InsertItem(1, "Box");
 		m_TabCtrl.InsertItem(2, "Cylinder");
-	#else
-		m_TabCtrl.InsertItem(0, "Многогранник");
-		m_TabCtrl.InsertItem(1, "Бокс");
-		m_TabCtrl.InsertItem(2, "Цилиндр");
-	#endif
 	switch(m_VolType)
 	{
 		case VT_PLY:      // Activate polyhedron tab
@@ -175,7 +169,6 @@ BOOL CVolProp::OnInitDialog()
 			}
 		}
 	}
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Volume Editor");
 		CWnd *pWndl = (CWnd *)GetDlgItem(IDC_STATIC_VL1_1);
 		pWndl -> SetWindowText("Volume name:");
@@ -187,7 +180,6 @@ BOOL CVolProp::OnInitDialog()
 		pWndl -> SetWindowText("Cancel");
 		pWndl = (CWnd *)GetDlgItem(IDOK);
 		pWndl -> SetWindowText("OK");
-	#endif
 	return TRUE;  // return TRUE unless you set the focus to a control
 }
 

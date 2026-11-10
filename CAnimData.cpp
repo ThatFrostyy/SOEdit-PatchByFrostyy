@@ -187,35 +187,19 @@ BOOL CAnimData::OnInitDialog()
 	{
 		pEdit->SetWindowText(st);
 	}
-	#ifdef ALTERNATIVE_LANG
 		pListBox -> AddString("Moving");
 		pListBox -> AddString("Rotation");
 		pListBox -> AddString("Show");
 		pListBox -> AddString("Hiding");
-	#else
-		pListBox -> AddString("Перемещение");
-		pListBox -> AddString("Вращение");
-		pListBox -> AddString("Отображение");
-		pListBox -> AddString("Скрытие");
-	#endif
 	pListBox -> SetCurSel(-1);
 	pListBox = (CListBox *)GetDlgItem(IDC_ANM_LAW);
 	pListBox -> AddString("-----------------------------------");
-	#ifdef ALTERNATIVE_LANG
 		pListBox -> AddString("Linear");
 		pListBox -> AddString("Boost");
 		pListBox -> AddString("Braking");
 		pListBox -> AddString("Oma");
 		pListBox -> AddString("Test");
-	#else
-		pListBox -> AddString("Линейный");
-		pListBox -> AddString("Ускорение");
-		pListBox -> AddString("Торможение");
-		pListBox -> AddString("Ома");
-		pListBox -> AddString("Тест");
-	#endif
 	pListBox -> SetCurSel(-1);
-	#ifdef ALTERNATIVE_LANG
 		SetWindowTextA("Animation Editor");
 		CWnd *pWndl = (CWnd *)GetDlgItem(IDC_STATIC_AD_1);
 		pWndl -> SetWindowText("Frame:");
@@ -270,7 +254,6 @@ BOOL CAnimData::OnInitDialog()
 		}
 		pWndl = (CWnd *)GetDlgItem(IDOK);
 		pWndl -> SetWindowText("OK");
-	#endif
 	// return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 	return TRUE;
@@ -619,11 +602,7 @@ void CAnimData::OnBnClickedDeleteFrame()//удалив кадр, нужно править задания
     CSOEditDoc *pDoc = (CSOEditDoc *)pWnd -> GetActiveDocument();
 	if(pDoc -> m_AnimBone -> m_FrameCnt == 1)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("Too few frames!", "ERROR: CAnimData::OnBnClickedDeleteFrame", MB_ICONHAND);
-		#else
-			MessageBox("Мало кадров!", "ERROR: CAnimData::OnBnClickedDeleteFrame", MB_ICONHAND);
-		#endif
 		return;
 	}
 	int indx = pDoc -> m_AnimBone -> FrameDelete(m_FrameNo);
@@ -658,20 +637,11 @@ void CAnimData::OnBnClickedDeleteAnmBoneName()//удалив кость нужно править задан
 	int BDel = m_pSub -> m_Bone;
 	if(pDoc -> m_AnimBone -> m_BoneCnt == 1)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("Too few bones!", "ERROR: CAnimData::OnBnClickedDeleteAnmBoneName", MB_ICONHAND);
-		#else
-			MessageBox("Мало костей!", "ERROR: CAnimData::OnBnClickedDeleteAnmBoneName", MB_ICONHAND);
-		#endif
 		return;
 	}
-	#ifdef ALTERNATIVE_LANG
 		if(MessageBox("Really remove this bone from the animation?", "QUESTION: CAnimData::OnBnClickedDeleteAnmBoneName", MB_YESNO | MB_ICONQUESTION) != IDYES)
 			{return;}
-	#else
-		if(MessageBox("Точно удалить эту кость из анимации?", "QUESTION: CAnimData::OnBnClickedDeleteAnmBoneName", MB_YESNO | MB_ICONQUESTION) != IDYES)
-			{return;}
-	#endif
 	pDoc -> m_AnimBone -> BoneDelete(m_pSub -> m_Bone);
 	int bonesel = 0;
 	int count = m_BoneList.GetCount();
@@ -1305,11 +1275,7 @@ void CAnimData::LawUPD()
 		break;
 		case 5:
 		{
-			#ifdef ALTERNATIVE_LANG
 				pStatic -> SetWindowText("Don't forget to fix this code");
-			#else
-				pStatic -> SetWindowText("Не забыть исправить этот код");
-			#endif
 		}
 		break;
 		default:
@@ -1423,21 +1389,12 @@ void CAnimData::OnBnClickedAnmBoneClone()
 	}
 	if(!pSub)
 		{return;}
-	#ifdef ALTERNATIVE_LANG
 		if(MessageBox("Really clone a bone?", "QUESTION: CAnimData::OnBnClickedAnmBoneClone", MB_YESNO | MB_ICONQUESTION) != IDYES)
 			{return;}
-	#else
-		if(MessageBox("Точно клонировать кость?", "QUESTION: CAnimData::OnBnClickedAnmBoneClone", MB_YESNO | MB_ICONQUESTION) != IDYES)
-			{return;}
-	#endif
 	int indx = pDoc -> m_AnimBone -> OnAddClone(pSub -> m_Bone);
 	if(indx == -1)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("The bone is not cloned!", "ERROR: CAnimData::OnBnClickedAnmBoneClone", MB_ICONHAND);
-		#else
-			MessageBox("Кость не клонирована!", "ERROR: CAnimData::OnBnClickedAnmBoneClone", MB_ICONHAND);
-		#endif
 		return;
 	}
 	m_BoneList.AddString(pDoc -> m_AnimBone -> m_BoneMap[indx]);
@@ -1490,13 +1447,8 @@ void CAnimData::OnBnClickedAnmBoneExport()
 		n++;
 	}
 	while(n < m_FrameCnt);
-	#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "ANM-file (*.anm)|*.anm|";
 		static char szTitle[] = "Save the exported animation file as:";
-	#else
-		static char szFilter[] = "ANM-Файл (*.anm)|*.anm|";
-		static char szTitle[] = "Сохранить файл экспортированной анимации как:";
-	#endif
 	strcpy(CurPath, m_FileName.GetBuffer(1));
 	InvertFixPathDelim(CurPath);
 	CString OutFile = CString(CurPath) + "_Exported_" + bonename;
@@ -1509,11 +1461,7 @@ void CAnimData::OnBnClickedAnmBoneExport()
 		{
 			fclose(fp);
 			int save = 0;
-			#ifdef ALTERNATIVE_LANG
 				save = MessageBox(CString("File:\n" + CString(dlg.m_ofn.lpstrFile) + "\nalready exists. Replace?"), "WARNING: CSOEditDoc::OnBnClickedAnmBoneExport", MB_YESNO | MB_ICONEXCLAMATION);
-			#else
-				save = MessageBox(CString("Файл:\n" + CString(dlg.m_ofn.lpstrFile) + "\nуже существует. Заменить?"), "WARNING: CSOEditDoc::OnBnClickedAnmBoneExport", MB_YESNO | MB_ICONEXCLAMATION);
-			#endif
 			if(save != IDYES)
 				{saveit = false;}
 		}
@@ -1534,13 +1482,8 @@ void CAnimData::OnBnClickedAnmBoneImport()
 	CMainFrame *pWnd = (CMainFrame *)AfxGetMainWnd();
     CSOEditDoc *pDoc = (CSOEditDoc *)pWnd -> GetActiveDocument();
 	char CurPath[_MAX_PATH] = {0};
-	#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "ANM-file (*.anm)|*.anm|";
 		static char szTitle[] = "Open an imported animation file";
-	#else
-		static char szFilter[] = "ANM-файл (*.anm)|*.anm|";
-		static char szTitle[] = "Открыть импортируемый файл анимации";
-	#endif
 	strcpy(CurPath, m_FileName.GetBuffer(1));
 	InvertFixPathDelim(CurPath);
 	CFileDialog dlg(TRUE, "*.anm", CString(CurPath), OFN_NOCHANGEDIR | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON, szFilter);
@@ -1554,11 +1497,7 @@ void CAnimData::OnBnClickedAnmBoneImport()
 		{delete ImportBone; return;}
 	if(ImportBone -> Header_ID != 0x00040000)
 	{
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("Only anm files of version 0.4.0.0 can be imported.!", "ERROR: CAnimData::OnBnClickedAnmBoneImport", MB_ICONHAND);
-		#else
-			MessageBox("Импортировать можно только anm-файлы 0.4.0.0 версии!", "ERROR: CAnimData::OnBnClickedAnmBoneImport", MB_ICONHAND);
-		#endif
 		delete ImportBone;
 		return;
 	}

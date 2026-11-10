@@ -120,11 +120,7 @@ void CObb2::ParseFile()
 			{SetTags();}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			#else
-				msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::ParseFile", MB_ICONHAND);
 		}
 		word = m_sdl -> GetNextWord();
@@ -175,11 +171,7 @@ void CObb2::SetVertex()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"VERTEX\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"VERTEX\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::SetVertex", MB_ICONHAND);
 	}
 }
@@ -204,11 +196,7 @@ void CObb2::SetRadius()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"RADIUS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"RADIUS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::SetRadius", MB_ICONHAND);
 	}
 }
@@ -224,11 +212,7 @@ void CObb2::SetCenter()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"CENTER\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"CENTER\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::SetCenter", MB_ICONHAND);
 	}
 }
@@ -244,11 +228,7 @@ void CObb2::SetExtent()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"EXTENT\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"EXTENT\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::SetExtent", MB_ICONHAND);
 	}
 }
@@ -260,11 +240,7 @@ void CObb2::SetRotate()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"ROTATE\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"ROTATE\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::SetRotate", MB_ICONHAND);
 	}
 }
@@ -285,11 +261,7 @@ void CObb2::SetAxis()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"AXIS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"AXIS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CObb2::SetAxis", MB_ICONHAND);
 	}
 }
@@ -324,11 +296,7 @@ void CObb2::SetTags()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"TAGS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"TAGS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetTags", MB_ICONHAND);
 	}
 }

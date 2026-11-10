@@ -81,11 +81,7 @@ void CVolBoxDlg::OnBoxFit()
 	{
 		CBone *pBone = pDoc -> m_Model -> m_skeleton -> m_bonelist -> FindBone(bonename);
 		v3_t sizes;
-		#ifdef ALTERNATIVE_LANG
 			MessageBox("Auto-detection of geometry dimensions is broken.", "ERROR: CVolBoxDlg::OnBoxFit", MB_ICONHAND);
-		#else
-			MessageBox("Автоопределение размеров геометрии - сломано.", "ERROR: CVolBoxDlg::OnBoxFit", MB_ICONHAND);
-		#endif
 		if(pBone -> GetBBox(&sizes))
 		{
 			m_BoxLength = sizes[0];
@@ -95,20 +91,12 @@ void CVolBoxDlg::OnBoxFit()
 		}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				MessageBox("The bone does not have a mesh.", "ERROR: CVolBoxDlg::OnBoxFit" , MB_ICONHAND);
-			#else
-				MessageBox("Кость не обладает мэшем.", "ERROR: CVolBoxDlg::OnBoxFit" , MB_ICONHAND);
-			#endif
 		}
 	}
 	else
 	{
-		#ifdef ALTERNATIVE_LANG
 		MessageBox("There is no link to the bone.", "ERROR: CVolBoxDlg::OnBoxFit", MB_ICONHAND);
-		#else
-		MessageBox("Нет линковки к кости.", "ERROR: CVolBoxDlg::OnBoxFit", MB_ICONHAND);
-		#endif
 	}
 }
 
@@ -163,13 +151,11 @@ void CVolBoxDlg::OnEditChange()
 BOOL CVolBoxDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
-	#ifdef ALTERNATIVE_LANG
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL2_1);
 		pWnd -> SetWindowText("Length:");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL2_2);
 		pWnd -> SetWindowText("Width:");
 		pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL2_3);
 		pWnd -> SetWindowText("Height:");
-	#endif
  	return TRUE;
 }

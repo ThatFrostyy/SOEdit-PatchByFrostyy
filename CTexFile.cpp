@@ -317,12 +317,8 @@ bool CTexFile::LoadDDS()//эта функция ещё со старой версии DDS_Optimizer_(v0.8m6
 	if(HFile == INVALID_HANDLE_VALUE/* || HFile == NULL*/)
 	{
 		HFile = NULL;
-		#ifdef ALTERNATIVE_LANG
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Unable to open DDS-file:\n" + CString(m_TexName)), "ERROR: CTexFile::LoadDDS", MB_ICONHAND);
-		#else
-			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("Невозможно открыть DDS-файл:\n" + CString(m_TexName)), "ERROR: CTexFile::LoadDDS", MB_ICONHAND);
-		#endif
-		/*printf("ОШИБКА: НЕВОЗМОЖНО ОТКРЫТЬ:\n%s\n\n", m_TexName);*/
+		/*printf("ERROR: CANNOT OPEN:\n%s\n\n", m_TexName);*/
 		return false;
 	}
 	else
@@ -354,16 +350,12 @@ bool CTexFile::LoadDDS()//эта функция ещё со старой версии DDS_Optimizer_(v0.8m6
 				ReadFile(HFile, FileBuff, useful_size, &BytesIO, NULL);
 				if(BytesIO != useful_size)
 				{
-					//printf("[ОШИБКА: ФАЙЛ ПОВРЕЖДЁН И/ИЛИ НЕ МОЖЕТ БЫТЬ ПРОЧИТАН!] -> \n");
-					//printf("[Прочитанно %d из %d необходимых байт!] -> \n", BytesIO, useful_size);
+					//printf("[ERROR: FILE IS CORRUPTED AND/OR CANNOT BE READ!] -> \n");
+					//printf("[Read %d of %d required bytes!] -> \n", BytesIO, useful_size);
 					CString SBytesIO, Suseful_size;
 					SBytesIO.Format("%d", BytesIO);
 					Suseful_size.Format("%d", useful_size);
-					#ifdef ALTERNATIVE_LANG
 						MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("The DDS-file is corrupted and/or cannot be read:\n" + CString(m_TexName) + "\n\n[Readed " + SBytesIO + " from " + Suseful_size + " required bytes!]"), "ERROR: CTexFile::LoadDDS", MB_ICONHAND);
-					#else
-						MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, CString("DDS-файл повреждён и/или не может быть прочитан:\n" + CString(m_TexName) + "\n\n[Прочитанно " + SBytesIO + " из " + Suseful_size + " необходимых байт!]"), "ERROR: CTexFile::LoadDDS", MB_ICONHAND);
-					#endif
 				}
 				if(Hedaer_format == DXGI_FORMAT_BC1_UNORM || Hedaer_format == DXGI_FORMAT_BC2_UNORM || Hedaer_format == DXGI_FORMAT_BC3_UNORM || Hedaer_format == DXGI_FORMAT_BC5_UNORM)
 				{
@@ -397,29 +389,16 @@ bool CTexFile::LoadDDS()//эта функция ещё со старой версии DDS_Optimizer_(v0.8m6
 			}
 			else
 			{
-				#ifdef ALTERNATIVE_LANG
 					sprintf(buffer, "Texture:\n%s\n", m_TexName);
 					if(FMD.Dx10)
 						{strcat(buffer, "Has a title Dx10;\n");}
 					if(FMD.Cube)
 						{strcat(buffer, "Is cubic;\n");}
 					/*if(FMD.DDSH.dwFlags & DDS_HEADER_FLAGS_VOLUME)
-						{strcat(buffer, "Является объёмом;\n");}*/
+						{strcat(buffer, "Is a volume;\n");}*/
 					if(!FMD.Dx10 && !FMD.Cube && !(FMD.DDSH.dwFlags & DDS_HEADER_FLAGS_VOLUME))
 						{sprintf(buffer, "%sHas the format %d;\n", buffer, Hedaer_format);}
 					strcat(buffer, "This condition(s) prevents the texture from loading.\n");
-				#else
-					sprintf(buffer, "Текстура:\n%s\n", m_TexName);
-					if(FMD.Dx10)
-						{strcat(buffer, "Имеет заголовок Dx10;\n");}
-					if(FMD.Cube)
-						{strcat(buffer, "Является кубической;\n");}
-					/*if(FMD.DDSH.dwFlags & DDS_HEADER_FLAGS_VOLUME)
-						{strcat(buffer, "Является объёмом;\n");}*/
-					if(!FMD.Dx10 && !FMD.Cube && !(FMD.DDSH.dwFlags & DDS_HEADER_FLAGS_VOLUME))
-						{sprintf(buffer, "%sИмеет формат %d;\n", buffer, Hedaer_format);}
-					strcat(buffer, "Это(и) условие(я) мешает(ют) загрузиться текстуре.\n");
-				#endif
 				MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, buffer, "ERROR: CTexFile::LoadDDS", MB_ICONHAND);
 				if(FMD.SlicesPitchs)
 					{free(FMD.SlicesPitchs); FMD.SlicesPitchs = NULL;}
@@ -430,8 +409,7 @@ bool CTexFile::LoadDDS()//эта функция ещё со старой версии DDS_Optimizer_(v0.8m6
 		}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
-				sprintf(buffer, "The pre-loading analysis module reports a texture malfunction:\n%s\nCritical error found in texture №%d\n", m_TexName, get_dds_meta);
+				sprintf(buffer, "The pre-loading analysis module reports a texture malfunction:\n%s\nCritical error found in texture #%d\n", m_TexName, get_dds_meta);
 				switch(get_dds_meta)
 				{
 					case ERR_MD_RAED_INFO:
@@ -462,39 +440,6 @@ bool CTexFile::LoadDDS()//эта функция ещё со старой версии DDS_Optimizer_(v0.8m6
 						{strcat(buffer, "Unidentified error");}
 					break;
 				};
-			#else
-				sprintf(buffer, "Модуль предзагрузочного анализа сообщает о неисправности текстуры:\n%s\nВ текстуре найдена критическая ошибка №%d\n", m_TexName, get_dds_meta);
-				switch(get_dds_meta)
-				{
-					case ERR_MD_RAED_INFO:
-						{strcat(buffer, "Невозможно прочитать информацию о файле");}
-					break;
-					case ERR_MD_FILE_TOO_SMALL:
-						{strcat(buffer, "Файл слишком маленький");}
-					break;
-					case ERR_MD_FILE_TOO_BIG:
-						{strcat(buffer, "Файл слишком большой");}
-					break;
-					case ERR_MD_READ_DATA:
-						{strcat(buffer, "Невозможно прочитать данные файла");}
-					break;
-					case ERR_MD_INVALID_DATA:
-						{strcat(buffer, "Неверные данные файла (повреждён заголовок)");}
-					break;
-					case ERR_MD_SIGNATURE:
-						{strcat(buffer, "Базовая сигнатура неверна");}
-					break;
-					case ERR_MD_HEADER_SIZE:
-						{strcat(buffer, "Недопустимый размер заголовка");}
-					break;
-					case ERR_MD_NOT_SUPPORTED:
-						{strcat(buffer, "Формат не зарегистрирован");}
-					break;
-					default:
-						{strcat(buffer, "Неопознанная ошибка");}
-					break;
-				};
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, buffer, "ERROR: CTexFile::LoadDDS", MB_ICONHAND);
 		}
 		if(FMD.SlicesPitchs)
@@ -626,13 +571,8 @@ bool CTexFile::Alpha_Analysis(DWORD *ImageBuffer, DWORD w, DWORD h, bool mod)
 void FreeImageErrorHandler(FREE_IMAGE_FORMAT fif, const char *message)
 {
 	char msg[512] = {0};
-	#ifdef ALTERNATIVE_LANG
 		sprintf(msg, "Format [%s]\r\n%s", FreeImage_GetFormatFromFIF(fif), message);
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg, "Library error FreeImage.", MB_ICONHAND);
-	#else
-		sprintf(msg, "Формат [%s]\r\n%s", FreeImage_GetFormatFromFIF(fif), message);
-		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg, "Ошибка библиотеки FreeImage.", MB_ICONHAND);
-	#endif
 }
 
 FIBITMAP* GenericLoader(const char* lpszPathName, int flag)

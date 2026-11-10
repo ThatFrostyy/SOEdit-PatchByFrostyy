@@ -134,11 +134,7 @@ void CVolume::ParseFile()
 			{SetThickness();}
 		else
 		{
-			#ifdef ALTERNATIVE_LANG
 				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl -> m_line);
-			#else
-				msg_st.Format("Неопознанная команда: %s\r\nСтрока: %d", word, m_sdl -> m_line);
-			#endif
 			MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CAnimation::ParseFile", MB_ICONHAND);
 		}
         word = m_sdl -> GetNextWord();
@@ -171,11 +167,7 @@ void CVolume::SetDensity()
 	word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"DENSITY\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"DENSITY\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetDensity", MB_ICONHAND);
 	}
 }
@@ -203,11 +195,7 @@ void CVolume::SetBone()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"BONE\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"BONE\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetBone", MB_ICONHAND);
 	}
 }
@@ -235,11 +223,7 @@ void CVolume::SetComponent()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"COMPONENT\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"COMPONENT\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetComponent", MB_ICONHAND);
 	}
 }
@@ -274,11 +258,7 @@ void CVolume::SetTags()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"TAGS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"TAGS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetTags", MB_ICONHAND);
 	}
 }
@@ -302,11 +282,7 @@ void CVolume::SetBox()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"BOX\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"BOX\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetBox", MB_ICONHAND);
 	}
 }
@@ -326,11 +302,7 @@ void CVolume::SetSphere()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"SPHERE\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"SPHERE\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetSphere", MB_ICONHAND);
 	}
 }
@@ -352,11 +324,7 @@ void CVolume::SetCylinder()
     word = m_sdl -> GetNextWord();
     if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"CYLINDER\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"CYLINDER\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetCylinder", MB_ICONHAND);
 	}
 }
@@ -379,11 +347,7 @@ void CVolume::SetMatrix34()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"MATRIX34\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"MATRIX34\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetMatrix34", MB_ICONHAND);
 	}
 }
@@ -408,11 +372,7 @@ void CVolume::SetPosition()
     word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"POSITION\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"POSITION\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetPosition", MB_ICONHAND);
 	}
 }
@@ -533,11 +493,7 @@ void CVolume::SetThicknessSide()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"THICKNESS\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"THICKNESS\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetThicknessSide", MB_ICONHAND);
 	}
 }
@@ -562,11 +518,7 @@ void CVolume::SetOrientation()
 	word = m_sdl -> GetNextWord();
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"ORIENTATION\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"ORIENTATION\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetOrientation", MB_ICONHAND);
 	}
 }
@@ -615,11 +567,7 @@ void CVolume::SetPolyhedron()
     else
 	if(stricmp("}", word))
 	{
-		#ifdef ALTERNATIVE_LANG
 			msg_st.Format("The block is damaged \"POLYHEDRON\". Incorrect end of the block.\r\nLine: %d", m_sdl -> m_line);
-		#else
-			msg_st.Format("Повреждён блок \"POLYHEDRON\". Неверный конец блока.\r\nСтрока: %d", m_sdl -> m_line);
-		#endif
 		MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg_st, "ERROR: CVolume::SetPolyhedron", MB_ICONHAND);
 	}
 	if(!m_Vol)
@@ -679,11 +627,7 @@ void CVolume::SetPolyhedron()
 				char *sptr = m_Name;
 				if(*sptr == '"')
 					{sptr++;}
-				#ifdef ALTERNATIVE_LANG
 					sprintf(ErrMsg, "VOL-volume file %s not detected:\n%s", sptr, vol_str);
-				#else
-					sprintf(ErrMsg, "VOL-файл волюма %s не обнаружен:\n%s", sptr, vol_str);
-				#endif
 				MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, ErrMsg, "ERROR: CVolume::SetPolyhedron", MB_ICONHAND);
 				return;
 			}
@@ -792,11 +736,7 @@ void CVolume::WriteMdl(FILE *fp, int indent)
 						if(tvolume)
 						{
 							char msg[512] = {0};
-							#ifdef ALTERNATIVE_LANG
 								sprintf(msg, "For VOL-file volume \"%s\" the absolute path is used\r\n%s", tname, m_PolyhedronName);
-							#else
-								sprintf(msg, "Для VOL-файла волюма \"%s\" используется абсолютный путь\r\n%s", tname, m_PolyhedronName);
-							#endif
 							MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg, "WARNING: CVolume::WriteMdl", MB_ICONEXCLAMATION);
 						}
 					}
@@ -806,11 +746,7 @@ void CVolume::WriteMdl(FILE *fp, int indent)
 				{
 					tvolume = NULL;
 					char msg[512] = {0};
-					#ifdef ALTERNATIVE_LANG
 						sprintf(msg, "There is no access to the VOL file of the volume \"%s\".\r\nThe file is blocked or has an incorrect path.\r\nUnlock/fix the file location and re-attach it to the volume\r\n\r\n%s", tname, m_PolyhedronName);
-					#else
-						sprintf(msg, "Нет доступа к VOL-файлу волюма \"%s\".\r\nФайл заблокирован или имеет неверный путь.\r\nРазблокируйте/исправьте расположение файла и заново прикрепите его к волюму\r\n\r\n%s", tname, m_PolyhedronName);
-					#endif
 					MessageBoxA(AfxGetApp() -> m_pMainWnd -> m_hWnd, msg, "ERROR: CVolume::WriteMdl", MB_ICONHAND);
 				}
 				if(tvolume)

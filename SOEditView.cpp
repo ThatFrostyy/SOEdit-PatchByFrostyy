@@ -329,11 +329,7 @@ BOOL CSOEditView::InitGL()
 
 	if (nMyPixelFormatID == 0)
 	{
-#ifdef ALTERNATIVE_LANG
 		::MessageBoxA(this->m_hWnd, "Unable to set pixel format", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
-#else
-		::MessageBoxA(this->m_hWnd, "Íåâîçìîæíî óñòàíîâèòü ïèêñåëüíûé ôîðìàò", "ERROR: CSOEditView::InitGL", MB_ICONHAND);
-#endif
 		return(FALSE);
 	}
 	// catch errors here.
@@ -1812,11 +1808,7 @@ void CSOEditView::LoadTexture(char* texfile, int texnumb, CMaterial* pMaterial)
 		CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
 		if (!pWnd || pWnd->m_ShowTextureErrors)
 		{
-#ifdef ALTERNATIVE_LANG
 			MessageBox(CString("Failed to load texture file:\\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
-#else
-			MessageBox(CString("Failed to load texture file:\\n" + CString(texfile)), "ERROR: CSOEditView::LoadTexture", MB_ICONHAND);
-#endif
 		}
 	}
 	pMaterial->m_transparency = tex->m_transparency;
@@ -2201,15 +2193,10 @@ void CSOEditView::OnRButtonUp(UINT nFlags, CPoint point)
 		m_rButton = false;
 		ReleaseCapture();
 		CMenu menu;
-#ifdef ALTERNATIVE_LANG
 		VERIFY(menu.LoadMenu(IDR_3D_VIEW_MENU_AL));
-#else
-		VERIFY(menu.LoadMenu(IDR_3D_VIEW_MENU));
-#endif
 		CMenu* pPopup = menu.GetSubMenu(0);
 		ASSERT(pPopup != NULL);
 		CMainFrame* pWnd = (CMainFrame*)AfxGetMainWnd();
-#ifdef ALTERNATIVE_LANG
 		pPopup->CheckMenuItem(ID_3D_SHADED_AL, MF_UNCHECKED);
 		pPopup->CheckMenuItem(ID_3D_TEXTURED_AL, MF_UNCHECKED);
 		pPopup->CheckMenuItem(ID_3D_WIREFRAME_AL, MF_UNCHECKED);
@@ -2328,126 +2315,6 @@ void CSOEditView::OnRButtonUp(UINT nFlags, CPoint point)
 		{
 			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH_AL, MF_UNCHECKED);
 		}
-#else
-		pPopup->CheckMenuItem(ID_3D_SHADED, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_TEXTURED, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_WIREFRAME, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_TEXTURES_OFF, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_COLLISIONSVIEWER, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_VISUAL, MF_UNCHECKED);
-		pPopup->CheckMenuItem(ID_3D_HYBRID, MF_UNCHECKED);
-		switch (m_DrawMode)
-		{
-		case rl_ambient:
-		{ pPopup->CheckMenuItem(ID_3D_SHADED, MF_CHECKED); }
-		break;
-		case rl_diffuse:
-		{ pPopup->CheckMenuItem(ID_3D_TEXTURED, MF_CHECKED); }
-		break;
-		case rl_wire:
-		{ pPopup->CheckMenuItem(ID_3D_WIREFRAME, MF_CHECKED); }
-		break;
-		case rl_tex_off:
-		{ pPopup->CheckMenuItem(ID_3D_TEXTURES_OFF, MF_CHECKED); }
-		break;
-		case rl_ambient_tex_off:
-		{ pPopup->CheckMenuItem(ID_3D_WIREFRAME_TEXTURES_OFF, MF_CHECKED); }
-		break;
-		};
-		switch (m_ViewMod)
-		{
-		case vm3_visual:
-		{ pPopup->CheckMenuItem(ID_3D_VISUAL, MF_CHECKED); }
-		break;
-		case vm3_hybrid:
-		{ pPopup->CheckMenuItem(ID_3D_HYBRID, MF_CHECKED); }
-		break;
-		case vm3_collision:
-		{ pPopup->CheckMenuItem(ID_3D_COLLISIONSVIEWER, MF_CHECKED); }
-		break;
-		};
-		if (m_vol_wireframe)
-		{
-			pPopup->CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_3D_COLLISION_AS_WIREFRAME, MF_UNCHECKED);
-		}
-		if (m_ViewEnts3dAsWireframe)
-		{
-			pPopup->CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_3D_ENTITY_AS_WIREFRAME, MF_UNCHECKED);
-		}
-		if (m_pDoc->Colorized_3d)
-		{
-			pPopup->CheckMenuItem(ID_3D_COLORIZE, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_3D_COLORIZE, MF_UNCHECKED);
-		}
-		if (pWnd->m_ViewEnts3d)
-		{
-			pPopup->CheckMenuItem(ID_VIEW3D_ENTITY, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_VIEW3D_ENTITY, MF_UNCHECKED);
-		}
-		if (pWnd->m_Selected)
-		{
-			pPopup->CheckMenuItem(ID_VIEW_SELECTED, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_VIEW_SELECTED, MF_UNCHECKED);
-		}
-		if (m_grid)
-		{
-			pPopup->CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_VIEW3D_BACKGROUND_GRID, MF_UNCHECKED);
-		}
-		if (m_ViewMeshAsWireframe)
-		{
-			pPopup->CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_3D_MESHS_AS_WIREFRAME, MF_UNCHECKED);
-		}
-		if (m_WireframeOverMesh)
-		{
-			pPopup->CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_VIEW3D_WIREFRAME_OVER_MESH, MF_UNCHECKED);
-		}
-		if (m_Paint_selected_meshes)
-		{
-			pPopup->CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_VIEWING_PAINTSELECTEDMESHES, MF_UNCHECKED);
-		}
-		if (m_ViewMeshVector)
-		{
-			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH, MF_CHECKED);
-		}
-		else
-		{
-			pPopup->CheckMenuItem(ID_VIEWING_DISPLAYTHEVECTOROFTHESELECTEDMESH, MF_UNCHECKED);
-		}
-#endif
 		GetCursorPos(&point);
 		pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y, AfxGetMainWnd());
 	}

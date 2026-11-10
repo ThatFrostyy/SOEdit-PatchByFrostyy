@@ -166,11 +166,7 @@ void CSequence::ParseFile()
 			}
 			else
 			{
-#ifdef ALTERNATIVE_LANG
 				msg_st.Format("Unidentified command: %s\r\nLine: %d", word, m_sdl->m_line);
-#else
-				msg_st.Format("\u041d\u0435\u043e\u043f\u043e\u0437\u043d\u0430\u043d\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430: %s\r\n\u0421\u0442\u0440\u043e\u043a\u0430: %d", word, m_sdl->m_line);
-#endif
 				MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CAnimation::ParseFile", MB_ICONHAND);
 			}
 		}
@@ -285,11 +281,7 @@ void CSequence::SetFile()
 	word = m_sdl->GetNextWord();
 	if (stricmp("}", word))
 	{
-#ifdef ALTERNATIVE_LANG
 		msg_st.Format("The block is damaged \"FILE\". Incorrect end of the block.\r\nLine: %d", m_sdl->m_line);
-#else
-		msg_st.Format("Повреждён блок \"FILE\". Неверный конец блока.\r\nСтрока: %d", m_sdl->m_line);
-#endif
 		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CSequence::SetFile", MB_OK);
 	}
 }
@@ -330,11 +322,7 @@ void CSequence::SetSpeed()
 	word = m_sdl->GetNextWord();
 	if (stricmp("}", word))
 	{
-#ifdef ALTERNATIVE_LANG
 		msg_st.Format("The block is damaged \"SPEED\". Incorrect end of the block.\r\nLine: %d", m_sdl->m_line);
-#else
-		msg_st.Format("Повреждён блок \"SPEED\". Неверный конец блока.\r\nСтрока: %d", m_sdl->m_line);
-#endif
 		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CSequence::SetSpeed", MB_OK);
 	}
 }
@@ -347,11 +335,7 @@ void CSequence::SetSmooth()
 	word = m_sdl->GetNextWord();
 	if (stricmp("}", word))
 	{
-#ifdef ALTERNATIVE_LANG
 		msg_st.Format("The block is damaged \"SMOOTH\". Incorrect end of the block.\r\nLine: %d", m_sdl->m_line);
-#else
-		msg_st.Format("Повреждён блок \"SMOOTH\". Неверный конец блока.\r\nСтрока: %d", m_sdl->m_line);
-#endif
 		MessageBoxA(AfxGetApp()->m_pMainWnd->m_hWnd, msg_st, "ERROR: CSequence::SetSmooth", MB_OK);
 	}
 }

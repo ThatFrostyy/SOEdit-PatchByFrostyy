@@ -64,13 +64,8 @@ void CVolPolyDlg::OnVolChoose()
 		{ptr = strrchr(modelpath, '\\');}
     if(ptr)
 		{*ptr = NULL;}
-	#ifdef ALTERNATIVE_LANG
 		static char szFilter[] = "VOL-file (*.vol)|*.vol|";
 		static char szTitle[] = "Opening a volume file";
-	#else
-		static char szFilter[] = "VOL-файл (*.vol)|*.vol|";
-		static char szTitle[] = "Открытие волюм-файла";
-	#endif
     CFileDialog dlg(TRUE, "*.vol", NULL, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR, szFilter, AfxGetMainWnd());
     dlg.m_ofn.lpstrTitle = szTitle;
     dlg.m_ofn.lpstrInitialDir = modelpath;
@@ -96,11 +91,9 @@ void CVolPolyDlg::OnM_Name()
 BOOL CVolPolyDlg::OnInitDialog()
 {
  	CDialog::OnInitDialog();
-	#ifdef ALTERNATIVE_LANG
 		CWnd *pWnd = (CWnd *)GetDlgItem(IDC_STATIC_VL4_1);
 		pWnd -> SetWindowText("Volume-file (VOL):");
 		pWnd = (CWnd *)GetDlgItem(IDC_VOL_CHOOSE);
 		pWnd -> SetWindowText("Choose");
-	#endif
  	return TRUE;
 }
