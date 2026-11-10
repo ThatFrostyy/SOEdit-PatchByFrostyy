@@ -35,6 +35,9 @@ namespace ModernUI
 	// Animation timeline: the app supplies a callback telling whether a frame is a keyframe
 	// (a frame where the selected bone changes) so the timeline can mark them.
 	typedef int (*TimelineKeyFn)(int frame);
+	// Selected frame range on the timeline (inclusive, -1/-1 = nothing selected).
+	void GetTimelineSelection(int* a, int* b);
+	void SetTimelineSelection(int a, int b);
 	void SetTimelineKeyFn(TimelineKeyFn fn);
 
 	// Explanation shown as a tooltip for a dialog control id (NULL when there is none).

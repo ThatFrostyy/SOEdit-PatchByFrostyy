@@ -54,6 +54,8 @@ class CAnimBone
 	   int FrameDelete(int indx);
 	   int OnInsertFrame(int indx);
 	   int OnAddClone(int indx);
+	   int InsertClonedFrame(int src, int dst);   // clone frame src and insert the copy at position dst
+	   void MoveFrame(int from, int to);          // move one frame to another position
        void ReverseFrames(void);
 
 

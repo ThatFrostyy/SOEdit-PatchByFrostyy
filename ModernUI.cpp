@@ -1,6 +1,10 @@
 // ModernUI - dark theme, custom controls and OpenGL viewport helpers for SOEdit.
 #include "stdafx.h"
 #include "ModernUI.h"
+#include "resource.h"
+#include <algorithm>
+#undef min
+#undef max
 
 #include <windowsx.h>
 #include <commctrl.h>
@@ -599,13 +603,15 @@ namespace
 
 	// ------------------------------------------------------------------ animation timeline (replaces the trackbar look)
 	TimelineKeyFn g_keyFn = NULL;
+	int  g_selA = -1, g_selB = -1;       // selected frame range (inclusive), -1 = none
+	HWND g_timeline = NULL;
 
-	struct TimelineState { int lastPos; bool dragging; unsigned sig; };
+	struct TimelineState { int lastPos; unsigned sig; int mode; int anchor; int moveFrame; int startFrame; DWORD lastClick; int lastClickFrame; };
 
 	unsigned TimelineSignature(HWND h)
 	{
 		int lo = (int)SendMessage(h, TBM_GETRANGEMIN, 0, 0), hi = (int)SendMessage(h, TBM_GETRANGEMAX, 0, 0);
-		unsigned s = (unsigned)(hi - lo) * 2654435761u;
+		unsigned s = (unsigned)(hi - lo) * 2654435761u + (unsigned)(g_selA * 31 + g_selB);
 		if (g_keyFn)
 			for (int f = lo; f <= hi && f < lo + 4096; f++)
 				s = s * 31u + (unsigned)g_keyFn(f) + 1u;
@@ -638,6 +644,24 @@ namespace
 		}
 		float cw = (float)(strip.right - strip.left - 2) / (float)n;
 		int stripMid = (strip.top + strip.bottom) / 2;
+
+		// selected range band
+		if (g_selA >= 0 && g_selB >= 0)
+		{
+			int a = std::min(g_selA, g_selB) - lo, b = std::max(g_selA, g_selB) - lo;
+			if (a < 0) a = 0;
+			if (b >= n) b = n - 1;
+			RECT band = { (int)(strip.left + 1 + a * cw), strip.top + 1, (int)(strip.left + 1 + (b + 1) * cw), strip.bottom - 1 };
+			HDC m = CreateCompatibleDC(dc);
+			RECT one = { 0, 0, 1, 1 }; HBITMAP bmp = CreateCompatibleBitmap(dc, 1, 1);
+			HBITMAP ob3 = (HBITMAP)SelectObject(m, bmp); Fill(m, one, RGB(255, 190, 70));
+			BLENDFUNCTION bf = { AC_SRC_OVER, 0, 55, 0 };
+			AlphaBlend(dc, band.left, band.top, band.right - band.left, band.bottom - band.top, m, 0, 0, 1, 1, bf);
+			SelectObject(m, ob3); DeleteObject(bmp); DeleteDC(m);
+			RECT t1 = { band.left, band.top, band.right, band.top + 1 }, t2 = { band.left, band.bottom - 1, band.right, band.bottom };
+			Fill(dc, t1, RGB(255, 190, 70)); Fill(dc, t2, RGB(255, 190, 70));
+		}
+
 		int steps[] = { 1, 2, 5, 10, 20, 25, 50, 100, 200, 500 };
 		int step = 500;
 		for (int k = 0; k < 10; k++) if (cw * steps[k] >= Scale(h, 34)) { step = steps[k]; break; }
@@ -697,6 +721,14 @@ namespace
 		SelectObject(dc, ob); SelectObject(dc, op); DeleteObject(br); DeleteObject(pen);
 		SetTextColor(dc, RGB(255, 255, 255));
 		DrawTextW(dc, lab, -1, &pill, DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+		if (g_selA >= 0 && g_selB >= 0)
+		{
+			wchar_t sel[64]; int cnt = std::abs(g_selB - g_selA) + 1;
+			swprintf_s(sel, L"%d frame%s selected", cnt, cnt == 1 ? L"" : L"s");
+			SetTextColor(dc, RGB(255, 190, 70));
+			RECT sr = { cl.left, 0, cl.right - Scale(h, 6), ruler };
+			DrawTextW(dc, sel, -1, &sr, DT_RIGHT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+		}
 		SelectObject(dc, of);
 	}
 
@@ -727,6 +759,36 @@ namespace
 		InvalidateRect(h, NULL, FALSE);
 	}
 
+	void TimelineCommand(HWND h, UINT id)
+	{
+		HWND root = GetAncestor(h, GA_ROOT);
+		if (root) SendMessage(root, WM_COMMAND, id, 0);
+	}
+
+	void TimelineMenu(HWND h)
+	{
+		HMENU m = CreatePopupMenu();
+		AppendMenuW(m, MF_STRING, ID_ANM_EDIT_AL, L"Edit this frame...\tDouble-click");
+		AppendMenuW(m, MF_SEPARATOR, 0, NULL);
+		AppendMenuW(m, MF_STRING, IDC_ANMBOX_INSERT_FRAME, L"Insert frame after\tI");
+		AppendMenuW(m, MF_STRING, ID_ANM_SEL_DUP, L"Duplicate selected frames\tShift+D");
+		AppendMenuW(m, MF_STRING, ID_ANM_SEL_DELETE, L"Delete selected frames\tDel");
+		AppendMenuW(m, MF_SEPARATOR, 0, NULL);
+		AppendMenuW(m, MF_STRING, ID_ANM_SEL_LEFT, L"Move selected frames earlier\t[");
+		AppendMenuW(m, MF_STRING, ID_ANM_SEL_RIGHT, L"Move selected frames later\t]");
+		AppendMenuW(m, MF_SEPARATOR, 0, NULL);
+		AppendMenuW(m, MF_STRING, ID_ANM_SEL_ALL, L"Select all frames\tCtrl+A");
+		AppendMenuW(m, MF_STRING, ID_ANM_KEY_PREV, L"Previous keyframe\tUp");
+		AppendMenuW(m, MF_STRING, ID_ANM_KEY_NEXT, L"Next keyframe\tDown");
+		AppendMenuW(m, MF_SEPARATOR, 0, NULL);
+		AppendMenuW(m, MF_STRING, ID_EDIT_UNDO_AL, L"Undo\tCtrl+Z");
+		AppendMenuW(m, MF_STRING, ID_EDIT_REDO_AL, L"Redo\tCtrl+Y");
+		POINT pt; GetCursorPos(&pt);
+		UINT cmd = (UINT)TrackPopupMenu(m, TPM_RETURNCMD | TPM_RIGHTBUTTON, pt.x, pt.y, 0, h, NULL);
+		DestroyMenu(m);
+		if (cmd) TimelineCommand(h, cmd);
+	}
+
 	LRESULT CALLBACK TimelineProc(HWND h, UINT m, WPARAM w, LPARAM l, UINT_PTR id, DWORD_PTR ref)
 	{
 		TimelineState* s = (TimelineState*)ref;
@@ -746,15 +808,65 @@ namespace
 			PaintTimeline(h, (HDC)w);
 			return 0;
 		case WM_LBUTTONDOWN:
-			SetFocus(h); SetCapture(h); s->dragging = true;
-			TimelineSetFrame(h, TimelineFrameFromX(h, GET_X_LPARAM(l)));
+		{
+			SetFocus(h); SetCapture(h);
+			int f = TimelineFrameFromX(h, GET_X_LPARAM(l));
+			bool shift = (w & MK_SHIFT) != 0;
+			int pos = (int)SendMessage(h, TBM_GETPOS, 0, 0);
+			if (shift)
+			{
+				s->anchor = (g_selA >= 0) ? g_selA : pos;
+				g_selA = s->anchor; g_selB = f; s->mode = 2;
+				TimelineSetFrame(h, f);
+			}
+			else if (g_selA >= 0 && f >= std::min(g_selA, g_selB) && f <= std::max(g_selA, g_selB))
+			{
+				s->mode = 3; s->moveFrame = f; s->startFrame = f;     // drag the selected block
+			}
+			else
+			{
+				g_selA = g_selB = -1; s->mode = 1;
+				TimelineSetFrame(h, f);
+				DWORD now = GetTickCount();
+				if (now - s->lastClick < GetDoubleClickTime() && f == s->lastClickFrame)
+					TimelineCommand(h, ID_ANM_EDIT_AL);                // double-click = edit this frame
+				s->lastClick = now; s->lastClickFrame = f;
+			}
+			InvalidateRect(h, NULL, FALSE);
 			return 0;
+		}
 		case WM_MOUSEMOVE:
-			if (s->dragging) TimelineSetFrame(h, TimelineFrameFromX(h, GET_X_LPARAM(l)));
+		{
+			if (s->mode == 0) return 0;
+			int f = TimelineFrameFromX(h, GET_X_LPARAM(l));
+			if (s->mode == 1) TimelineSetFrame(h, f);
+			else if (s->mode == 2) { g_selB = f; TimelineSetFrame(h, f); InvalidateRect(h, NULL, FALSE); }
+			else if (s->mode == 3)
+			{
+				while (f > s->moveFrame) { TimelineCommand(h, ID_ANM_SEL_RIGHT); s->moveFrame++; }
+				while (f < s->moveFrame) { TimelineCommand(h, ID_ANM_SEL_LEFT);  s->moveFrame--; }
+			}
 			return 0;
+		}
 		case WM_LBUTTONUP:
-			if (s->dragging) { s->dragging = false; ReleaseCapture(); }
+			if (s->mode != 0)
+			{
+				if (s->mode == 3 && s->moveFrame == s->startFrame)       // a plain click inside the selection
+				{ g_selA = g_selB = -1; TimelineSetFrame(h, s->startFrame); }
+				s->mode = 0; ReleaseCapture();
+				InvalidateRect(h, NULL, FALSE);
+			}
 			return 0;
+		case WM_RBUTTONDOWN:
+		{
+			int f = TimelineFrameFromX(h, GET_X_LPARAM(l));
+			if (!(g_selA >= 0 && f >= std::min(g_selA, g_selB) && f <= std::max(g_selA, g_selB)))
+			{ g_selA = g_selB = -1; }
+			TimelineSetFrame(h, f);
+			InvalidateRect(h, NULL, FALSE);
+			TimelineMenu(h);
+			return 0;
+		}
 		case WM_MOUSEWHEEL:
 			TimelineSetFrame(h, (int)SendMessage(h, TBM_GETPOS, 0, 0) + (GET_WHEEL_DELTA_WPARAM(w) > 0 ? -1 : 1));
 			return 0;
@@ -781,6 +893,7 @@ namespace
 			break;
 		case WM_NCDESTROY:
 			KillTimer(h, 1);
+			if (g_timeline == h) g_timeline = NULL;
 			RemoveWindowSubclass(h, TimelineProc, id);
 			delete s;
 			break;
@@ -790,7 +903,8 @@ namespace
 
 	void SkinTimeline(HWND h)
 	{
-		SetWindowSubclass(h, TimelineProc, 0x5E07, (DWORD_PTR) new TimelineState{ -1, false, 0 });
+		g_timeline = h;
+		SetWindowSubclass(h, TimelineProc, 0x5E07, (DWORD_PTR) new TimelineState{ -1, 0, 0, 0, 0, 0, 0, -1 });
 		SetTimer(h, 1, 200, NULL);
 	}
 
@@ -1076,6 +1190,14 @@ void Init()
 }
 
 void SetTimelineKeyFn(TimelineKeyFn fn) { g_keyFn = fn; }
+
+void GetTimelineSelection(int* a, int* b) { if (a) *a = g_selA; if (b) *b = g_selB; }
+
+void SetTimelineSelection(int a, int b)
+{
+	g_selA = a; g_selB = b;
+	if (g_timeline) InvalidateRect(g_timeline, NULL, FALSE);
+}
 
 void Shutdown()
 {

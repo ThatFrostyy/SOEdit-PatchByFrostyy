@@ -33,6 +33,23 @@ This branch gives the classic MFC editor a complete modern make-over and fixes s
   and orange keyframe diamonds that show where the *selected bone* changes (select a bone in the tree to see them).
 - Opening `SOEdit.exe model.mdl [animation.anm]` loads both straight away (also works with "Open with").
 
+**Timeline editing and undo**
+- **Undo / redo** (`Ctrl+Z` / `Ctrl+Y`, also in the Edit menu and the timeline's right-click menu) for everything you do to
+  the loaded animation. Changes are detected automatically, so it also covers edits made in dialogs and viewports.
+- **Select frames**: Shift+click or Shift+drag on the timeline. Then `Delete` removes them, `Shift+D` duplicates them,
+  `[` / `]` (or dragging the selection) moves them earlier/later, `Ctrl+A` selects everything. Double-click a frame to edit it.
+  A selected range also fills in the *Lerp* boxes for you.
+- `Up` / `Down` jump between keyframes of the selected bone; `PgUp` / `PgDn` load the previous/next `.anm` in the model's folder.
+- Right-click the timeline for all of these in a menu. They are also in the *Animation* menu.
+
+**Less annoying workflow**
+- `Ctrl+N / O / S` actually work now (they were bound to commands that had no handler), plus `Ctrl+Shift+S`.
+  `Ctrl+S` also saves a modified animation that already has a file.
+- A `.bak` copy of the previous file is made before every save of a model or animation.
+- File menu *Reopen last file*. Closing with an unsaved animation asks first.
+- No more "your nickname is not specified" nag: the model author defaults to your Windows user name.
+- Deleting the last frame no longer leaves the editor pointing past the end of the animation.
+
 **Tooltips and clearer editors**
 - Hover any non-obvious control for a plain-English explanation (works on disabled controls too): joint types,
   limits, LOD, shadows flags, matrix rows, volume shapes, animation options and more.

@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ModernUI.h"
+#include "AnimEdit.h"
 #include "SOEdit.h"
 #include "SOEditDoc.h"
 #include "SOEDitView.h"
@@ -96,6 +97,31 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_GRID_LARGER_AL, OnGridLarger)
 	ON_COMMAND(ID_APP_EXIT_AL, &CMainFrame::OnAppExitAl)
 	ON_COMMAND(ID_HELP_SHORTCUTS, &CMainFrame::OnHelpShortcuts)
+	ON_WM_TIMER()
+	ON_COMMAND(ID_EDIT_UNDO_AL, &CMainFrame::OnUndoCmd)
+	ON_COMMAND(ID_EDIT_REDO_AL, &CMainFrame::OnRedoCmd)
+	ON_COMMAND(ID_ANM_SEL_DELETE, &CMainFrame::OnSelDelete)
+	ON_COMMAND(ID_ANM_SEL_DUP, &CMainFrame::OnSelDup)
+	ON_COMMAND(ID_ANM_SEL_LEFT, &CMainFrame::OnSelLeft)
+	ON_COMMAND(ID_ANM_SEL_RIGHT, &CMainFrame::OnSelRight)
+	ON_COMMAND(ID_ANM_SEL_ALL, &CMainFrame::OnSelAll)
+	ON_COMMAND(ID_ANM_KEY_PREV, &CMainFrame::OnKeyPrev)
+	ON_COMMAND(ID_ANM_KEY_NEXT, &CMainFrame::OnKeyNext)
+	ON_COMMAND(ID_ANM_NEXT_FILE, &CMainFrame::OnNextFile)
+	ON_COMMAND(ID_ANM_PREV_FILE, &CMainFrame::OnPrevFile)
+	ON_COMMAND(ID_FILE_REOPEN, &CMainFrame::OnReopenLast)
+	ON_UPDATE_COMMAND_UI(ID_EDIT_UNDO_AL, &CMainFrame::OnUpdateUndo)
+	ON_UPDATE_COMMAND_UI(ID_EDIT_REDO_AL, &CMainFrame::OnUpdateRedo)
+	ON_UPDATE_COMMAND_UI(ID_ANM_SEL_DELETE, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_SEL_DUP, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_SEL_LEFT, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_SEL_RIGHT, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_SEL_ALL, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_KEY_PREV, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_KEY_NEXT, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_NEXT_FILE, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_ANM_PREV_FILE, &CMainFrame::OnUpdateHasAnim)
+	ON_UPDATE_COMMAND_UI(ID_FILE_REOPEN, &CMainFrame::OnUpdateReopen)
 	ON_WM_INITMENUPOPUP()
 	ON_COMMAND(ID_DISPLAY_DISPLAYALLMESHVECTORS_AL, &CMainFrame::OnDisplayDisplayallmeshvectors)
 	ON_COMMAND(ID_DISPLAY_DISPLAYALLMESHVECTORS, &CMainFrame::OnDisplayDisplayallmeshvectors)
@@ -171,6 +197,8 @@ CMainFrame::CMainFrame()
 	}
     SetDefaultColors();
     LoadGameDataPath();
+	if(!m_author[0])
+		{DWORD n = _MAX_PATH; GetUserNameA(m_author, &n);}	// default author = Windows user, so saving never nags
 }
 
 void CMainFrame::SetDefaultColors()
@@ -299,6 +327,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
     pSlider -> SetRange(0, 0, true);
     pSlider -> SetPos(0);
 	ModernUI::SetTimelineKeyFn(TimelineKeyProvider);
+	SetTimer(0xA120, 300, NULL);	// records finished animation edits for undo
     m_hWnd = this -> m_hWnd;
 	return 0;
 }
@@ -306,6 +335,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CMainFrame::OnClose()
 {
 	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
+	if(pDoc && AnimEdit::IsDirty(pDoc))
+	{
+		if(MessageBoxA("The animation has unsaved changes.\nExit and discard them?", "Unsaved animation", MB_YESNO | MB_ICONQUESTION) != IDYES)
+			{return;}
+	}
 	if(pDoc -> m_Model && pDoc -> m_Model -> m_skeleton && pDoc -> m_Model -> m_skeleton -> m_bonelist)
 	{
 			if(MessageBox("Are you confirming the exit?", "QUESTION: CMainFrame::OnClose", MB_YESNO | MB_ICONQUESTION) == IDYES)
@@ -1002,21 +1036,9 @@ static bool SameMatrix(const matrix34_t &a, const matrix34_t &b)
 
 static int TimelineKeyProvider(int frame)
 {
-	CSOEditDoc *pDoc = (CSOEditDoc *)(AfxGetMainWnd() ? ((CMainFrame *)AfxGetMainWnd())->GetActiveDocument() : NULL);
-	if (!pDoc || !pDoc->m_AnimBone || !pDoc->m_SelBone || !pDoc->m_AnimBone->m_Frames) {return 0;}
-	CAnimBone *anm = pDoc->m_AnimBone;
-	if (frame < 0 || frame >= anm->m_FrameCnt) {return 0;}
-	int bone = -1;
-	for (int i = 0; i < anm->m_BoneCnt; i++)
-	{
-		if (anm->m_BoneMap[i] && _stricmp(anm->m_BoneMap[i], pDoc->m_SelBone) == 0) {bone = i; break;}
-	}
-	if (bone < 0) {return 0;}
-	CAnimSub *cur = anm->m_Frames[frame].FindSub(bone);
-	if (frame == 0) {return cur != NULL;}
-	CAnimSub *prev = anm->m_Frames[frame - 1].FindSub(bone);
-	if (!cur || !prev) {return (cur != NULL) != (prev != NULL);}
-	return !SameMatrix(cur->m_Matrix34, prev->m_Matrix34);
+	CMainFrame *pMain = (CMainFrame *)AfxGetMainWnd();
+	CSOEditDoc *pDoc = pMain ? (CSOEditDoc *)pMain->GetActiveDocument() : NULL;
+	return AnimEdit::IsKeyFrame(pDoc, frame) ? 1 : 0;
 }
 
 // True while the keyboard focus is in a text box, so single-key shortcuts must not steal typing.
@@ -1106,6 +1128,13 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 	}
 	if(pMsg -> message == WM_KEYDOWN || pMsg -> message == WM_MOUSEWHEEL)
 	{
+		if (pMsg->message == WM_KEYDOWN && (GetKeyState(VK_CONTROL) & 0x8000) && !IsTypingFocus())
+		{
+			bool shift = (GetKeyState(VK_SHIFT) & 0x8000) != 0;
+			if (pMsg->wParam == 'Z') {SendMessage(WM_COMMAND, shift ? ID_EDIT_REDO_AL : ID_EDIT_UNDO_AL, 0); return TRUE;}
+			if (pMsg->wParam == 'Y') {SendMessage(WM_COMMAND, ID_EDIT_REDO_AL, 0); return TRUE;}
+			if (pMsg->wParam == 'A') {SendMessage(WM_COMMAND, ID_ANM_SEL_ALL, 0); return TRUE;}
+		}
 		if (pMsg->message == WM_KEYDOWN)
 		{
 			const bool hasModifier = ((GetKeyState(VK_CONTROL) & 0x8000) != 0) || ((GetKeyState(VK_MENU) & 0x8000) != 0);
@@ -1151,6 +1180,34 @@ BOOL CMainFrame::PreTranslateMessage(MSG* pMsg)
 				case VK_F2:
 					SendMessage(WM_COMMAND, ID_HELP_SHORTCUTS, 0);
 					return TRUE;
+				case VK_UP:
+					SendMessage(WM_COMMAND, ID_ANM_KEY_PREV, 0);
+					return TRUE;
+				case VK_DOWN:
+					SendMessage(WM_COMMAND, ID_ANM_KEY_NEXT, 0);
+					return TRUE;
+				case VK_PRIOR:
+					SendMessage(WM_COMMAND, ID_ANM_PREV_FILE, 0);
+					return TRUE;
+				case VK_NEXT:
+					SendMessage(WM_COMMAND, ID_ANM_NEXT_FILE, 0);
+					return TRUE;
+				case VK_OEM_4:		// [
+					SendMessage(WM_COMMAND, ID_ANM_SEL_LEFT, 0);
+					return TRUE;
+				case VK_OEM_6:		// ]
+					SendMessage(WM_COMMAND, ID_ANM_SEL_RIGHT, 0);
+					return TRUE;
+				case VK_DELETE:
+					SendMessage(WM_COMMAND, ID_ANM_SEL_DELETE, 0);
+					return TRUE;
+				case 'D':
+					if (GetKeyState(VK_SHIFT) & 0x8000)
+					{
+						SendMessage(WM_COMMAND, ID_ANM_SEL_DUP, 0);
+						return TRUE;
+					}
+					break;
 				}
 			}
 		}
@@ -1277,5 +1334,58 @@ void CMainFrame::GetMessageString(UINT nID, CString & rMessage) const
 
 void CMainFrame::OnHelpShortcuts()
 {
-	MessageBoxA("Viewport\n  Q  Select      G  Move      R  Rotate      S  Scale\n  Mouse wheel  Zoom      Middle drag  Pan\n\nAnimation\n  Space  Play / Pause\n  Left / Right  Previous / next frame\n  Home / End  First / last frame\n  I  Insert frame      Delete  Delete frame\n\nGeneral\n  Ctrl+N / O / S  New / Open / Save\n  F2  This list", "Keyboard shortcuts", MB_ICONINFORMATION);
+	MessageBoxA("Viewport\n  Q  Select      G  Move      R  Rotate      S  Scale\n  Mouse wheel  Zoom      Middle drag  Pan\n\nAnimation playback\n  Space  Play / Pause      Left / Right  Previous / next frame\n  Home / End  First / last frame\n  Up / Down  Previous / next keyframe of the selected bone\n  PgUp / PgDn  Previous / next animation file in the folder\n\nAnimation editing (timeline)\n  Click / drag  Scrub      Shift+click / drag  Select a frame range\n  Drag inside a selection  Move those frames      Double-click  Edit frame\n  I  Insert frame      Shift+D  Duplicate selection      Delete  Delete selection\n  [  /  ]  Move selection earlier / later      Ctrl+A  Select all\n  Right-click the timeline for a menu\n\nGeneral\n  Ctrl+Z / Ctrl+Y  Undo / redo animation changes\n  Ctrl+N / O / S  New / Open / Save      F2  This list", "Keyboard shortcuts", MB_ICONINFORMATION);
+}
+
+void CMainFrame::OnTimer(UINT_PTR nIDEvent)
+{
+	if (nIDEvent == 0xA120)
+	{
+		CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
+		if (pDoc) {AnimEdit::Poll(pDoc);}
+		return;
+	}
+	CFrameWnd::OnTimer(nIDEvent);
+}
+
+void CMainFrame::OnUndoCmd()  {AnimEdit::Undo((CSOEditDoc *)GetActiveDocument());}
+void CMainFrame::OnRedoCmd()  {AnimEdit::Redo((CSOEditDoc *)GetActiveDocument());}
+void CMainFrame::OnSelDelete(){AnimEdit::DeleteSelection((CSOEditDoc *)GetActiveDocument());}
+void CMainFrame::OnSelDup()   {AnimEdit::DuplicateSelection((CSOEditDoc *)GetActiveDocument());}
+void CMainFrame::OnSelLeft()  {AnimEdit::MoveSelection((CSOEditDoc *)GetActiveDocument(), -1);}
+void CMainFrame::OnSelRight() {AnimEdit::MoveSelection((CSOEditDoc *)GetActiveDocument(), 1);}
+void CMainFrame::OnSelAll()   {AnimEdit::SelectAll((CSOEditDoc *)GetActiveDocument());}
+void CMainFrame::OnKeyPrev()  {AnimEdit::JumpKey((CSOEditDoc *)GetActiveDocument(), -1);}
+void CMainFrame::OnKeyNext()  {AnimEdit::JumpKey((CSOEditDoc *)GetActiveDocument(), 1);}
+void CMainFrame::OnNextFile() {AnimEdit::CycleAnimation((CSOEditDoc *)GetActiveDocument(), 1);}
+void CMainFrame::OnPrevFile() {AnimEdit::CycleAnimation((CSOEditDoc *)GetActiveDocument(), -1);}
+
+void CMainFrame::OnUpdateUndo(CCmdUI* pCmdUI) {pCmdUI->Enable(AnimEdit::CanUndo());}
+void CMainFrame::OnUpdateRedo(CCmdUI* pCmdUI) {pCmdUI->Enable(AnimEdit::CanRedo());}
+
+void CMainFrame::OnUpdateHasAnim(CCmdUI* pCmdUI)
+{
+	CSOEditDoc *pDoc = (CSOEditDoc *)GetActiveDocument();
+	pCmdUI->Enable(pDoc && pDoc->m_AnimBone);
+}
+
+extern char g_PendingOpenPath[_MAX_PATH];
+
+void CMainFrame::OnReopenLast()
+{
+	CString last = AfxGetApp()->GetProfileString("Recent", "LastModel", "");
+	if (last.IsEmpty()) {return;}
+	strncpy(g_PendingOpenPath, last, _MAX_PATH - 1);
+	PostMessage(WM_COMMAND, ID_FILE_OPEN_AL, 0);
+}
+
+void CMainFrame::OnUpdateReopen(CCmdUI* pCmdUI)
+{
+	CString last = AfxGetApp()->GetProfileString("Recent", "LastModel", "");
+	if (last.IsEmpty()) {pCmdUI->Enable(FALSE); return;}
+	CString shown = last;
+	shown.Replace((char)92, '/');
+	int slash = shown.ReverseFind('/');
+	pCmdUI->SetText("Reopen &last: " + shown.Mid(slash + 1));
+	pCmdUI->Enable(TRUE);
 }

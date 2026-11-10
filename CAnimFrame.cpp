@@ -104,8 +104,8 @@ CAnimBone::CAnimBone(char* szFile, bool& b)
 	if (fp)
 	{
 		b = Process(fp);
+		fclose(fp);
 	}
-	fclose(fp);
 }
 
 CAnimBone::~CAnimBone()
@@ -881,4 +881,46 @@ void CAnimBone::ReverseFrames(void)
 		lo++;
 		hi--;
 	}
+}
+
+int CAnimBone::InsertClonedFrame(int src, int dst)
+{
+	if (src < 0 || src >= m_FrameCnt) {return -1;}
+	if (dst < 0) {dst = 0;}
+	if (dst > m_FrameCnt) {dst = m_FrameCnt;}
+	int NCnt = m_FrameCnt + 1;
+	CAnimFrame* New_Frames = new CAnimFrame[NCnt];
+	memset(New_Frames, 0, sizeof(CAnimFrame) * NCnt);
+	for (int i = 0, j = 0; i < NCnt; i++)
+	{
+		if (i == dst) {continue;}
+		New_Frames[i] = m_Frames[j++];
+	}
+	New_Frames[dst].m_Bone = m_Frames[src].m_Bone;
+	New_Frames[dst].m_Matrix34 = m_Frames[src].m_Matrix34;
+	for (CAnimSub* s = m_Frames[src].m_head; s; s = s->m_next)
+	{
+		CAnimSub* t = New_Frames[dst].AddSub();
+		t->m_Bone = s->m_Bone;
+		t->chunk_flags = s->chunk_flags;
+		t->m_Visible = s->m_Visible;
+		t->m_Matrix34 = s->m_Matrix34;
+	}
+	memset(m_Frames, 0, sizeof(CAnimFrame) * m_FrameCnt);
+	delete[] m_Frames;
+	m_Frames = New_Frames;
+	m_FrameCnt = NCnt;
+	return dst;
+}
+
+void CAnimBone::MoveFrame(int from, int to)
+{
+	if (from < 0 || to < 0 || from >= m_FrameCnt || to >= m_FrameCnt || from == to) {return;}
+	char tmp[sizeof(CAnimFrame)];
+	memcpy(tmp, &m_Frames[from], sizeof(CAnimFrame));
+	if (from < to)
+		{memmove(&m_Frames[from], &m_Frames[from + 1], sizeof(CAnimFrame) * (to - from));}
+	else
+		{memmove(&m_Frames[to + 1], &m_Frames[to], sizeof(CAnimFrame) * (from - to));}
+	memcpy(&m_Frames[to], tmp, sizeof(CAnimFrame));
 }

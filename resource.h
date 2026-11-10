@@ -449,6 +449,17 @@
 #define ID_VIEW_VOLUMES                 32779
 #define ID_VIEW_COLORS                  32780
 #define ID_HELP_SHORTCUTS               33094
+#define ID_ANM_SEL_DELETE               33200
+#define ID_ANM_SEL_DUP                  33201
+#define ID_ANM_SEL_LEFT                 33202
+#define ID_ANM_SEL_RIGHT                33203
+#define ID_ANM_SEL_ALL                  33204
+#define ID_ANM_KEY_PREV                 33205
+#define ID_ANM_KEY_NEXT                 33206
+#define ID_ANM_NEXT_FILE                33207
+#define ID_ANM_PREV_FILE                33208
+#define ID_EDIT_REDO_AL                 33209
+#define ID_FILE_REOPEN                  33210
 #define ID_TEX_SELECT                   32781
 #define ID_TEX_SCHEME                   32782
 #define ID_MODE_PLY                     32784

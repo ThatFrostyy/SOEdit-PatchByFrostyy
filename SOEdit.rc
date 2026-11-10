@@ -45,13 +45,14 @@ BEGIN
         MENUITEM "&Print Preview",              ID_FILE_PRINT_PREVIEW_AL, INACTIVE
         MENUITEM "&Print Settings...",          ID_FILE_PRINT_SETUP_AL, INACTIVE
         MENUITEM SEPARATOR
-        MENUITEM "&Last file",                  ID_FILE_MRU_FILE1_AL, INACTIVE
+        MENUITEM "Reopen &last file",           ID_FILE_REOPEN
         MENUITEM SEPARATOR
         MENUITEM "&Exit",                       ID_APP_EXIT_AL
     END
     POPUP "&Editing"
     BEGIN
-        MENUITEM "&Undo",                       ID_EDIT_UNDO_AL, INACTIVE
+        MENUITEM "&Undo	Ctrl+Z",                  ID_EDIT_UNDO_AL
+        MENUITEM "&Redo	Ctrl+Y",                  ID_EDIT_REDO_AL
         MENUITEM SEPARATOR
         MENUITEM "&Cut",                        ID_EDIT_CUT_AL
         MENUITEM "&Copy",                       ID_EDIT_COPY_AL
@@ -71,6 +72,18 @@ BEGIN
         MENUITEM "&Save",                       ID_ANM_SAVE_AL, INACTIVE
         MENUITEM "&Edit",                       ID_ANM_EDIT_AL
         MENUITEM "&Close",                      ID_ANM_CLOSE_AL, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Delete selected frames	Del",     ID_ANM_SEL_DELETE
+        MENUITEM "D&uplicate selected frames	Shift+D", ID_ANM_SEL_DUP
+        MENUITEM "Move frames &earlier	[",           ID_ANM_SEL_LEFT
+        MENUITEM "Move frames &later	]",             ID_ANM_SEL_RIGHT
+        MENUITEM "Select &all frames	Ctrl+A",         ID_ANM_SEL_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "&Previous keyframe	Up",            ID_ANM_KEY_PREV
+        MENUITEM "&Next keyframe	Down",              ID_ANM_KEY_NEXT
+        MENUITEM SEPARATOR
+        MENUITEM "Previous animation in folder	PgUp", ID_ANM_PREV_FILE
+        MENUITEM "Next animation in folder	PgDn",     ID_ANM_NEXT_FILE
     END
     POPUP "&Textures"
     BEGIN
@@ -1181,12 +1194,13 @@ IDR_MAINFRAME_AL ACCELERATORS
 BEGIN
     VK_RETURN,      ID_ACCELERATOR32918,    VIRTKEY, NOINVERT
     VK_F1,          ID_CONTEXT_HELP,        VIRTKEY, SHIFT, NOINVERT
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW_AL,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN_AL,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE_AL,           VIRTKEY, CONTROL, NOINVERT
     VK_F1,          ID_HELP,                VIRTKEY, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    "S",            ID_FILE_SAVE_AS_AL,     VIRTKEY, SHIFT, CONTROL, NOINVERT
 END
 
 
@@ -1614,6 +1628,17 @@ BEGIN
     ID_FILE_PRINT_SETUP_AL  "Change printer and print settings\nPrint Settings"
     ID_FILE_MRU_FILE1_AL    "Open this document"
     ID_APP_EXIT_AL          "Close the application; requests saving of documents\nExit"
+    ID_EDIT_REDO_AL          "Redo the animation change you just undid\nRedo"
+    ID_ANM_SEL_DELETE        "Delete the selected frames (Shift+click or drag on the timeline selects a range)\nDelete frames"
+    ID_ANM_SEL_DUP           "Insert copies of the selected frames right after them\nDuplicate frames"
+    ID_ANM_SEL_LEFT          "Move the selected frames one step earlier\nMove earlier"
+    ID_ANM_SEL_RIGHT         "Move the selected frames one step later\nMove later"
+    ID_ANM_SEL_ALL           "Select every frame of the animation\nSelect all"
+    ID_ANM_KEY_PREV          "Jump to the previous keyframe of the selected bone\nPrevious keyframe"
+    ID_ANM_KEY_NEXT          "Jump to the next keyframe of the selected bone\nNext keyframe"
+    ID_ANM_PREV_FILE         "Load the previous .anm file in the model's folder\nPrevious animation"
+    ID_ANM_NEXT_FILE         "Load the next .anm file in the model's folder\nNext animation"
+    ID_FILE_REOPEN           "Open the model you edited last time\nReopen last file"
     ID_EDIT_UNDO_AL         "Undo the last action\nChange"
     ID_EDIT_PASTE_AL        "Paste clipboard contents\nPaste"
     ID_PLY_ADD_AL           "Import a new PLY"

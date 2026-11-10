@@ -15,7 +15,7 @@ namespace
 		{ IDC_PAUSE,  L"Pause playback and stay on this frame  (Space)" },
 		{ IDC_STOP,   L"Stop and go back to the first frame" },
 		{ IDC_STEP,   L"Next frame  (Right arrow)" },
-		{ IDC_ANIM_SLIDER, L"Timeline. Click or drag to scrub through the animation, mouse wheel steps one frame.\nOrange diamonds mark frames where the selected bone changes - select a bone in the tree to see them." },
+		{ IDC_ANIM_SLIDER, L"Timeline.\nClick or drag: scrub. Mouse wheel: step one frame. Double-click: edit that frame.\nShift+click/drag: select a range, then Delete / Shift+D (duplicate) / [ ] (move) it. Drag a selection to move it. Right-click for a menu.\nOrange diamonds mark frames where the selected bone changes - select a bone in the tree to see them." },
 		{ IDC_SPEED, L"Playback speed multiplier (1.0 = normal). Mouse wheel or the arrows change it." },
 		{ IDC_SPEED_CONTROL, L"Playback speed multiplier" },
 		{ IDC_LOAD,  L"Load an animation file (.anm) for this model" },
@@ -25,7 +25,7 @@ namespace
 		{ IDC_ANMBOX_DELETE_FRAME, L"Delete the current frame  (Delete). Hold the button to delete many." },
 		{ IDC_LERP_START_FRAME, L"First frame of the range to smooth out" },
 		{ IDC_LERP_END_FRAME,   L"Last frame of the range to smooth out" },
-		{ IDC_ANM_LERP_APPLY, L"Fill the frames between the two chosen frames with smooth in-between poses (linear interpolation)" },
+		{ IDC_ANM_LERP_APPLY, L"Fill the frames between the two chosen frames with smooth in-between poses (linear interpolation). Selecting a range on the timeline fills in the two numbers for you." },
 		{ IDC_ANMBOX_INHERIT_MATRIX, L"When on, a change you make to a bone in this frame is also applied to all frames after it" },
 		{ IDC_ANMBOX_DROP_FIRST_FRAME, L"Leave out frame 1 when saving the .anm file (some game animations expect this)" },
 

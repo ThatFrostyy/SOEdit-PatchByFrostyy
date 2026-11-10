@@ -214,6 +214,7 @@ xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
     <ClCompile Include="parse_mtl.cpp" />
     <ClCompile Include="PLY_Tweaker.cpp" />
     <ClCompile Include="setup_window.cpp" />
+    <ClCompile Include="AnimEdit.cpp" />
     <ClCompile Include="ModernUI.cpp" />
     <ClCompile Include="Tooltips.cpp" />
     <ClCompile Include="SOEdit.cpp" />
@@ -274,6 +275,7 @@ xcopy /Y "$(TargetDir)*.dll" "$(SolutionDir)Dist\"</Command>
     <ClInclude Include="SOEdit.h" />
     <ClInclude Include="SOEditDoc.h" />
     <ClInclude Include="SOEditView.h" />
+    <ClInclude Include="AnimEdit.h" />
     <ClInclude Include="ModernUI.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="VolPropDlg.h" />

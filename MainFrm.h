@@ -149,6 +149,23 @@ protected:
 	afx_msg void OnGridLarger();
 	afx_msg void OnAppExitAl();
 	afx_msg void OnHelpShortcuts();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnUndoCmd();
+	afx_msg void OnRedoCmd();
+	afx_msg void OnSelDelete();
+	afx_msg void OnSelDup();
+	afx_msg void OnSelLeft();
+	afx_msg void OnSelRight();
+	afx_msg void OnSelAll();
+	afx_msg void OnKeyPrev();
+	afx_msg void OnKeyNext();
+	afx_msg void OnNextFile();
+	afx_msg void OnPrevFile();
+	afx_msg void OnReopenLast();
+	afx_msg void OnUpdateUndo(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateRedo(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateHasAnim(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateReopen(CCmdUI* pCmdUI);
 	DECLARE_MESSAGE_MAP()
 	public:
 	afx_msg void OnDisplayDisplayallmeshvectors();
